@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('payment_id')->nullable();
             $table->longText('url')->nullable();
             $table->decimal('amount', 10, 2);
-            $table->smallInteger('status')->default(0); // 1 - pending, 2 - paid
+            $table->smallInteger('status')->default(1); // 1 - pending, 2 - paid
             $table->timestamps();
         });
     }

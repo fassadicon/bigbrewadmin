@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('payment_id')->constrained();
             $table->smallInteger('discount_id')->nullable();
             $table->decimal('total_amount', 10, 2);
-            $table->smallInteger('status');
+            $table->smallInteger('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
