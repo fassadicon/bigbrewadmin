@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->smallInteger('type'); // ingredient, raw (plastic cups), etc
+            $table->string('measurement'); // kg, pc, tbps
             $table->decimal('stock_value', 10, 2);
             $table->smallInteger('status')->default(1); // 1 - active, 2 - warning, 3 - inactive
             $table->longText('image')->nullable();
