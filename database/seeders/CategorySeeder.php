@@ -13,27 +13,25 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::createMany(
-            [
-                'name' => 'Coffee',
-                'description' => 'test',
-            ],
-            [
-                'name' => 'Frappes',
-                'description' => 'test',
-            ],
-            [
-                'name' => 'Iced Drinks',
-                'description' => 'test',
-            ],
-            [
-                'name' => 'Hot Drinks',
-                'description' => 'test',
-            ],
-            [
-                'name' => 'Snacks',
-                'description' => 'test',
-            ],
-        );
+        Category::create([
+            'name' => 'Coffee',
+            'description' => 'test',
+        ]);
+        Category::create([
+            'name' => 'Frappes',
+            'description' => 'test',
+        ]);
+        Category::create([
+            'name' => 'Iced Drinks',
+            'description' => 'test',
+        ]);
+        Category::create([
+            'name' => 'Hot Drinks',
+            'description' => 'test',
+        ]);
+        Category::create([
+            'name' => 'Snacks',
+            'description' => 'test',
+        ]);
     }
 }
