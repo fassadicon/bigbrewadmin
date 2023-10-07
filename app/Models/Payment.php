@@ -14,10 +14,12 @@ class Payment extends Model
         'method',
         'link_id',
         'payment_id',
+        'url',
         'amount',
         'status',
     ];
 
+    // Relationships
     public function order(): HasOne
     {
         return $this->hasOne(Order::class);

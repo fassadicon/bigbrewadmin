@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->integer('target_id');
-            $table->string('target_type'); // product, inventory, account, supplier
+            $table->string('target_type'); // product, inventory, account, supplier, category
             $table->string('message');
             $table->timestamps();
         });

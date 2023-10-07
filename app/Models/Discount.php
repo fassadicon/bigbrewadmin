@@ -20,8 +20,25 @@ class Discount extends Model
         'status',
     ];
 
+    // Relationships
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    // Functions
+    public function ongoing()
+    {
+        return $this->where('status', 1);
+    }
+
+    public function expired()
+    {
+        return $this->where('status', 2);
+    }
+
+    public function scheduled()
+    {
+        return $this->where('status', 3);
     }
 }

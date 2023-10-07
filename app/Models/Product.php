@@ -21,6 +21,7 @@ class Product extends Model
         'image'
     ];
 
+    // Relationships
     public function orderItems(): BelongsTo
     {
         return $this->BelongsTo(OrderItem::class);
@@ -34,6 +35,17 @@ class Product extends Model
     public function inventories(): BelongsToMany
     {
         return $this->belongsToMany(Inventory::class, 'product_inventory');
+    }
+
+    // Functions
+    public function active()
+    {
+        return $this->where('status', 1);
+    }
+
+    public function inactive()
+    {
+        return $this->where('status', 0);
     }
 
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('order_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->string('message');
+            $table->string('remarks')->nullable();
             $table->timestamps();
         });
     }

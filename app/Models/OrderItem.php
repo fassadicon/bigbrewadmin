@@ -19,6 +19,7 @@ class OrderItem extends Model
         'price'
     ];
 
+    // Relationships
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);

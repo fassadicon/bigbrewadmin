@@ -12,11 +12,25 @@ class Category extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name'
+        'name',
+        'description',
+        'status'
     ];
 
+    // Relationships
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'product_category');
     }
+
+     // Functions
+     public function active()
+     {
+         return $this->where('status', 1);
+     }
+
+     public function inactive()
+     {
+         return $this->where('status', 2);
+     }
 }

@@ -17,7 +17,7 @@ class Order extends Model
         'user_id',
         'payment_id',
         'discount_id',
-        'total_price',
+        'total_amount',
         'status'
     ];
 
@@ -46,4 +46,8 @@ class Order extends Model
     {
         return $this->hasManyThrough(OrderItem::class, Product::class);
     }
+
+    // Functions
+    // public function paid() {}
+    // public function cancelled() {}
 }
