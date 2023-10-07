@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('logs', function (Blueprint $table) {
+        Schema::create('order_logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->smallInteger('type');
-            $table->text('message');
+            $table->string('message');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('logs');
+        Schema::dropIfExists('order_logs');
     }
 };

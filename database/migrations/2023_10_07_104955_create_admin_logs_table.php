@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventory_logs', function (Blueprint $table) {
+        Schema::create('admin_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('inventory_id')->constrained();
-            $table->foreignId('supplier_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->smallInteger('type'); // 1 - In, 2 - Out
-            $table->string('message')->nullable();
+            $table->integer('target_id');
+            $table->string('target_type'); // product, inventory, account, supplier
+            $table->string('message');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventory_logs');
+        Schema::dropIfExists('admin_logs');
     }
 };
