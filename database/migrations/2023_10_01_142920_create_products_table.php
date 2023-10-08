@@ -19,6 +19,7 @@ return new class extends Migration
             $table->smallInteger('status')->default(1); // 1 - active, 2 - inactive
             $table->longText('image')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

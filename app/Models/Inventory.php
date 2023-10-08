@@ -26,7 +26,7 @@ class Inventory extends Model
     // Relationships
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'product_inventory');
+        return $this->belongsToMany(Product::class, 'product_inventory')->withTimestamps();
     }
 
     public function InventoryLogs(): HasMany

@@ -29,12 +29,12 @@ class Product extends Model
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class, 'product_category');
+        return $this->belongsToMany(Category::class, 'product_category')->withTimestamps();
     }
 
     public function inventories(): BelongsToMany
     {
-        return $this->belongsToMany(Inventory::class, 'product_inventory');
+        return $this->belongsToMany(Inventory::class, 'product_inventory')->withTimestamps();
     }
 
     // Functions
