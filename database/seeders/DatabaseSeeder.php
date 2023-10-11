@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\ProductCategory;
+use App\Models\ProductSizeInventory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,10 +17,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             SuperAdminSeeder::class,
-            CategorySeeder::class,
-            ProductSeeder::class,
             ProductCategorySeeder::class,
-
+            ProductDetailSeeder::class,
+            SizeSeeder::class,
+            ProductSeeder::class,
+            // ProductCategorySeeder::class,
+            // ProductSizeSeeder::class,
+            // InventorySeeder::class,
+            // ProductSizeInventorySeeder::class
         ]);
     }
 }

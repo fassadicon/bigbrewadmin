@@ -29,19 +29,19 @@ class InventorySeeder extends Seeder
             'stock_value' => 200,
             'warning_value' => 100
         ]);
-        Inventory::create([
-            'name' => 'Sugar',
-            'description' => 'test',
-            'type' => 1,
-            'measuremment' => 'g',
-            'stock_value' => 200,
-            'warning_value' => 100
-        ]);
+        // Inventory::create([
+        //     'name' => 'Sugar',
+        //     'description' => 'test',
+        //     'type' => 1,
+        //     'measuremment' => 'g',
+        //     'stock_value' => 200,
+        //     'warning_value' => 100
+        // ]);
         Inventory::create([
             'name' => 'Mocha Syrup',
             'description' => 'test',
             'type' => 1,
-            'measuremment' => 'ml',
+            'measurement' => 'ml',
             'stock_value' => 200,
             'warning_value' => 100
         ]);
@@ -49,17 +49,17 @@ class InventorySeeder extends Seeder
             'name' => 'Plastic Cup',
             'description' => 'test',
             'type' => 1,
-            'measuremment' => 'ml',
+            'measurement' => 'ml',
             'stock_value' => 200,
             'warning_value' => 100
         ]);
-        Inventory::create([
-            'name' => 'Mocha Syrup',
-            'description' => 'test',
-            'type' => 1,
-            'measuremment' => 'ml',
-            'stock_value' => 200,
-            'warning_value' => 100
-        ]);
+        // Inventory::create([
+        //     'name' => 'Mocha Syrup',
+        //     'description' => 'test',
+        //     'type' => 1,
+        //     'measuremment' => 'ml',
+        //     'stock_value' => 200,
+        //     'warning_value' => 100
+        // ]);
     }
 }

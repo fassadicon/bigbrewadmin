@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Product;
+use App\Models\ProductDetail;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -13,25 +13,30 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        Product::create([
-            'name' => 'Iced Coffee Original',
-            'description' => 'test',
-            'price' => 80.00,
+        $icedCoffeeOriginal = ProductDetail::findOrFail(1);
+        $icedCoffeeOriginal->sizes()->attach([
+            1 => ['price' => 10],
+            3 => ['price' => 20],
         ]);
-        Product::create([
-            'name' => 'Hot Brewed Coffee',
-            'description' => 'test',
-            'price' => 120.00,
+
+        $hotBrewedCoffee = ProductDetail::findOrFail(2);
+        $hotBrewedCoffee->sizes()->attach([
+            1 => ['price' => 10],
+            2 => ['price' => 5],
+            4 => ['price' => 25],
         ]);
-        Product::create([
-            'name' => 'Mocha Frappe',
-            'description' => 'test',
-            'price' => 150.00,
+
+        $mochaFrappe = ProductDetail::findOrFail(3);
+        $mochaFrappe->sizes()->attach([
+            1 => ['price' => 10],
+            2 => ['price' => 5],
         ]);
-        Product::create([
-            'name' => 'Cheese Fries',
-            'description' => 'test',
-            'price' => 100.00,
+
+        $wintermelon = ProductDetail::findOrFail(4);
+        $wintermelon->sizes()->attach([
+            1 => ['price' => 10],
+            3 => ['price' => 15],
+            4 => ['price' => 25],
         ]);
     }
 }
