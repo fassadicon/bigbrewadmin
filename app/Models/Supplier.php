@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Supplier extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -16,9 +17,9 @@ class Supplier extends Model
     ];
 
     // Relationships
-    public function InventoryLogs(): HasMany
-    {
-        return $this->hasMany(InventoryLog::class);
-    }
+    // public function InventoryLogs(): HasMany
+    // {
+    //     return $this->hasMany(InventoryLog::class);
+    // }
 
 }

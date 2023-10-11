@@ -10,6 +10,7 @@ class OrderLog extends Model
 {
     use HasFactory;
 
+    protected $table = 'order_logs';
     protected $fillable = [
         'order_id',
         'user_id',
@@ -21,5 +22,10 @@ class OrderLog extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
     }
 }

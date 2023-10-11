@@ -10,38 +10,40 @@ class InventoryLog extends Model
 {
     use HasFactory;
 
+    protected $table = 'inventory_logs';
     protected $fillable = [
         'inventory_id',
         'supplier_id',
         'user_id',
-        'type',
+        'status',
         'message',
+        'remarks',
     ];
 
     // Relationships
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function user(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function supplier(): BelongsTo
-    {
-        return $this->belongsTo(Supplier::class);
-    }
+    // public function supplier(): BelongsTo
+    // {
+    //     return $this->belongsTo(Supplier::class);
+    // }
 
-    public function inventory(): BelongsTo
-    {
-        return $this->belongsTo(Inventory::class);
-    }
+    // public function inventory(): BelongsTo
+    // {
+    //     return $this->belongsTo(Inventory::class);
+    // }
 
     // Functions
     public function in()
     {
-        return $this->where('type', 1);
+        return $this->where('status', 1);
     }
 
     public function out()
     {
-        return $this->where('type', 2);
+        return $this->where('status', 2);
     }
 }

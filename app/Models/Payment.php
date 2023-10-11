@@ -10,13 +10,13 @@ class Payment extends Model
 {
     use HasFactory;
 
+    protected $table = 'payments';
     protected $fillable = [
         'method',
-        'link_id',
-        'payment_id',
-        'url',
+        'payment_received',
         'amount',
-        'status',
+        'change',
+        'details'
     ];
 
     // Relationships

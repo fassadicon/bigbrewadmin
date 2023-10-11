@@ -12,18 +12,19 @@ class OrderItem extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'order_items';
     protected $fillable = [
         'order_id',
         'product_id',
         'quantity',
-        'price'
+        'amount'
     ];
 
     // Relationships
-    public function products(): HasMany
-    {
-        return $this->hasMany(Product::class);
-    }
+    // public function products(): HasMany
+    // {
+    //     return $this->hasMany(Product::class);
+    // }
 
     public function order(): BelongsTo
     {

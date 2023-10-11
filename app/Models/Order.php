@@ -13,6 +13,7 @@ class Order extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'orders';
     protected $fillable = [
         'user_id',
         'payment_id',
@@ -42,10 +43,10 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function products(): HasManyThrough
-    {
-        return $this->hasManyThrough(OrderItem::class, Product::class);
-    }
+    // public function products(): HasManyThrough
+    // {
+    //     return $this->hasManyThrough(OrderItem::class, Product::class);
+    // }
 
     // Functions
     // public function paid() {}

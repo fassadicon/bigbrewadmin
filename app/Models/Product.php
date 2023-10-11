@@ -2,51 +2,38 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Product extends Model
+class Product extends Pivot
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'products';
     protected $fillable = [
-        'name',
-        'description',
-        'price',
-        'status',
-        'image'
+        'product_id',
+        'size_id',
+        'price'
     ];
 
     // Relationships
-    public function orderItems(): BelongsTo
+    public function productDetail(): BelongsTo
     {
-        return $this->BelongsTo(OrderItem::class);
+        return $this->belongsTo(ProductDetail::class);
     }
 
-    public function categories(): BelongsToMany
+    public function size(): BelongsTo
     {
-        return $this->belongsToMany(Category::class, 'product_category')->withTimestamps();
+        return $this->belongsTo(Size::class);
     }
 
-    public function inventories(): BelongsToMany
-    {
-        return $this->belongsToMany(Inventory::class, 'product_inventory')->withTimestamps();
-    }
-
-    // Functions
-    public function active()
-    {
-        return $this->where('status', 1);
-    }
-
-    public function inactive()
-    {
-        return $this->where('status', 0);
-    }
-
-
+    // public function inventories(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Inventory::class, 'product_size_inventory', 'product_size_id')
+    //         ->withPivot('use_value')
+    //         ->withTimestamps()
+    //         ->using(ProductSizeInventory::class);
+    // }
 }
