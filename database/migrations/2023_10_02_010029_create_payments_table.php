@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->smallInteger('method'); // 1 - cash, 2 - paymongo
-            $table->text('link_id')->nullable();
-            $table->text('payment_id')->nullable();
-            $table->longText('url')->nullable();
+            $table->smallInteger('method')->default(1); // 1 - cash, 2 - paymongo
+            $table->decimal('payment_received', 10, 2);
             $table->decimal('amount', 10, 2);
-            $table->smallInteger('status')->default(1); // 1 - pending, 2 - paid
+            $table->decimal('change', 10, 2);
+            $table->longText('details')->nullable();
             $table->timestamps();
         });
     }

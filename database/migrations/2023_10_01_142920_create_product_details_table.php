@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventories', function (Blueprint $table) {
+        Schema::create('product_details', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('category_id');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->smallInteger('type'); // ingredient, raw (plastic cups), etc
-            $table->string('measurement'); // kg, pc, tbps
-            $table->decimal('stock_value', 10, 2);
-            $table->decimal('warning_value', 10, 2);
             $table->smallInteger('status')->default(1); // 1 - active, 2 - inactive
-            $table->longText('image')->nullable();
+            $table->longText('image_path')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventories');
+        Schema::dropIfExists('product_details');
     }
 };

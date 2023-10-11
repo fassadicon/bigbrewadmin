@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('inventory_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('inventory_id')->constrained();
-            $table->foreignId('supplier_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->smallInteger('type'); // 1 - In, 2 - Out
-            $table->string('message')->nullable();
+            $table->unsignedInteger('inventory_id');
+            $table->unsignedInteger('supplier_id');
+            $table->unsignedInteger('user_id');
+            $table->smallInteger('status'); // 1 - In, 2 - Out
+            $table->string('message');
+            $table->string('remarks')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
