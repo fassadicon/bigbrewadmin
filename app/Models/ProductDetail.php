@@ -22,11 +22,19 @@ class ProductDetail extends Model
     ];
 
     // Relationships
+    // public function sizes(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Size::class, 'products', 'product_id')
+    //         ->withPivot('price')
+    //         ->as('product')
+    //         ->withTimestamps();
+    // }
+
     public function sizes(): BelongsToMany
     {
-        return $this->belongsToMany(Size::class, 'products', 'product_id')
-            ->withPivot('price')
+        return $this->belongsToMany(Size::class, 'products', 'product_id', 'size_id')
             ->as('product')
+            ->withPivot('price')
             ->withTimestamps();
     }
 
@@ -44,7 +52,6 @@ class ProductDetail extends Model
     // {
     //     return $this->BelongsTo(OrderItem::class);
     // }
-
 
 
     // // Functions

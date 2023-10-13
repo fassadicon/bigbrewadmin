@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Inventory;
+use App\Models\InventoryItem;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use App\Models\ProductSize;
@@ -29,18 +30,31 @@ Route::view('profile', 'profile')
 
 
 Route::get('test-model', function () {
-    // foreach ($productSizes as $productSize) {
-    //     $inventoriesCount = rand(1, 4);
-    //     for ($i = 1; $i <= $inventoriesCount; $i++) {
-    //         $productSize->inventories()->attach(['product_size_id' => $productSize->id, 'inventory_id' => $i, 'use_value' => rand(1, 100)]);
-    //     }
-    // }
 
     $productDetails = ProductDetail::all();
-    // dd($productSizes[0]->inventories()->get());
-    // dd($productDetails[0]->sizes());
-    // dd($productSizes[0]->inventories());
-    return view('test', compact('productDetails'));
+    // dd($inventoryItem->products());
+    // foreach($inventoryItem->products() as $product) {
+    //     dump($product->name);
+    //     // foreach ($inventoryItem->product as $item) {
+    //     //     dump($item);
+    //     // }
+    // }
+    // // dd($inventoryItems[0]->products());
+    // foreach ($products[0]->inventoryItems as $inventoryItem) {
+    //     dump($inventoryItem->pivot->consumption_value);
+    // }
+    dd(ProductDetail::with('sizes')->get());
+    $productDetails = ProductDetail::with('sizes.product.inventoryItems')->get();
+    foreach ($productDetails as $productDetail) {
+        foreach ($productDetail->sizes as $size) {
+            $price = $size->product->pivot->price;
+            foreach ($size->product->inventoryItems as $inventoryItem) {
+                $consumptionValue = $inventoryItem->pivot->consumption_value;
+                dump($consumptionValue);
+            }
+        }
+    }
+    // return view('test', compact('productDetails'));
 });
 
 require __DIR__ . '/auth.php';

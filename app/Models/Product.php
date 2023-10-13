@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Pivot
 {
@@ -21,7 +22,7 @@ class Product extends Pivot
     // Relationships
     public function productDetail(): BelongsTo
     {
-        return $this->belongsTo(ProductDetail::class);
+        return $this->belongsTo(ProductDetail::class, 'id');
     }
 
     public function size(): BelongsTo
@@ -29,6 +30,15 @@ class Product extends Pivot
         return $this->belongsTo(Size::class);
     }
 
+    public function inventoryItems(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            InventoryItem::class,
+            'inventory_item_consumption'
+        )
+            ->withPivot('consumption_value')
+            ->withTimestamps();
+    }
     // public function inventories(): BelongsToMany
     // {
     //     return $this->belongsToMany(Inventory::class, 'product_size_inventory', 'product_size_id')

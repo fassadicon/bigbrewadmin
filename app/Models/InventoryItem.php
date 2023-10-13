@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class InventoryItem extends Model
 {
@@ -22,6 +24,21 @@ class InventoryItem extends Model
         'image_path'
     ];
 
+    // Relationshiips
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Product::class,
+            'inventory_item_consumption',
+        )
+            ->withPivot('consumption_value')
+            ->withTimestamps();
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(InventoryItemCategory::class, 'category_id');
+    }
     // public function productSizes()
     // {
     //     return $this->belongsToMany(ProductSize::class, 'product_size_inventory', 'inventory_id')
