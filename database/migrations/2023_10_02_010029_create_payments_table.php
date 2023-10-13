@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_category', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->smallInteger('method')->default(1); // 1 - cash, 2 - paymongo
+            $table->decimal('payment_received', 10, 2);
+            $table->decimal('amount', 10, 2);
+            $table->decimal('change', 10, 2);
+            $table->longText('details')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_category');
+        Schema::dropIfExists('payments');
     }
 };
