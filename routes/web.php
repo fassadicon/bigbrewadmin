@@ -32,29 +32,15 @@ Route::view('profile', 'profile')
 Route::get('test-model', function () {
 
     $productDetails = ProductDetail::all();
-    // dd($inventoryItem->products());
-    // foreach($inventoryItem->products() as $product) {
-    //     dump($product->name);
-    //     // foreach ($inventoryItem->product as $item) {
-    //     //     dump($item);
-    //     // }
+    // foreach ($productDetails as $productDetail) {
+    //     foreach ($productDetail->sizes as $size) {
+    //         foreach ($size->pivot->inventoryItems as $inventoryItem) {
+    //             $consumptionValue = $inventoryItem->pivot->consumption_value;
+    //             dump($consumptionValue);
+    //         }
+    //     }
     // }
-    // // dd($inventoryItems[0]->products());
-    // foreach ($products[0]->inventoryItems as $inventoryItem) {
-    //     dump($inventoryItem->pivot->consumption_value);
-    // }
-    dd(ProductDetail::with('sizes')->get());
-    $productDetails = ProductDetail::with('sizes.product.inventoryItems')->get();
-    foreach ($productDetails as $productDetail) {
-        foreach ($productDetail->sizes as $size) {
-            $price = $size->product->pivot->price;
-            foreach ($size->product->inventoryItems as $inventoryItem) {
-                $consumptionValue = $inventoryItem->pivot->consumption_value;
-                dump($consumptionValue);
-            }
-        }
-    }
-    // return view('test', compact('productDetails'));
+    return view('test', compact('productDetails'));
 });
 
 require __DIR__ . '/auth.php';

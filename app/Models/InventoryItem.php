@@ -31,8 +31,9 @@ class InventoryItem extends Model
             Product::class,
             'inventory_item_consumption',
         )
-            ->withPivot('consumption_value')
-            ->withTimestamps();
+            ->withPivot(['id', 'consumption_value'])
+            ->withTimestamps()
+            ->using(InventoryItemConsumption::class);
     }
 
     public function category(): BelongsTo

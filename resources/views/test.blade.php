@@ -15,15 +15,13 @@
         <h4>{{ $productDetail->category->name }}</h4>
         @foreach ($productDetail->sizes as $size)
             <ul>
-                <li>{{ $size->name }} - {{ $size->product->price }}</li>
-                <li>
-                    <ul>
-                        @foreach ($size->product->inventoryItems as $inventoryItem) 
-                            {{ $inventoryItem->pivot->consumption_value }}
-                        @endforeach
-                    </ul>
-
-                </li>
+                <li>{{ $size->name }} - {{ $size->pivot->price }}</li>
+                <ul>
+                    <h5>Ingredients:</h5>
+                    @foreach ($size->pivot->inventoryItems as $inventoryItem)
+                        <li>{{ $inventoryItem->name }} {{ $inventoryItem->pivot->consumption_value }}</li>
+                    @endforeach
+                </ul>
             </ul>
         @endforeach
 @endforeach

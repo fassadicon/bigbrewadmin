@@ -34,10 +34,12 @@ class Product extends Pivot
     {
         return $this->belongsToMany(
             InventoryItem::class,
-            'inventory_item_consumption'
+            'inventory_item_consumption',
+            'product_id'
         )
-            ->withPivot('consumption_value')
-            ->withTimestamps();
+            ->withPivot(['id', 'consumption_value'])
+            ->withTimestamps()
+            ->using(InventoryItemConsumption::class);
     }
     // public function inventories(): BelongsToMany
     // {
