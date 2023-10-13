@@ -24,6 +24,10 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::view('products', 'livewire.product.index')
+    ->middleware(['auth', 'verified'])
+    ->name('products');
+
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
