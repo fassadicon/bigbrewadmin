@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use AjCastro\EagerLoadPivotRelations\EagerLoadPivotTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ProductDetail extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, EagerLoadPivotTrait;
 
     protected $table = 'product_details';
     protected $fillable = [
@@ -41,7 +42,7 @@ class ProductDetail extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(ProductCategory::class, 'id');
+        return $this->belongsTo(ProductCategory::class, 'category_id');
     }
 
     // public function inventories(): BelongsToMany
