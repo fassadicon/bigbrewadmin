@@ -14,20 +14,27 @@ class ProductCategorySeeder extends Seeder
     public function run(): void
     {
         ProductCategory::create([
-            'name' => 'Hot Coffee',
-            'description' => 'test',
+            'name' => 'milktea',
+            'description' => 'with pearl',
         ]);
         ProductCategory::create([
-            'name' => 'Iced Coffee',
-            'description' => 'test',
+            'name' => 'fruit tea',
+            'description' => 'with crystal',
         ]);
         ProductCategory::create([
-            'name' => 'Milktea',
-            'description' => 'test',
+            'name' => 'hotbrew',
+            'description' => 'with cream puff',
         ]);
         ProductCategory::create([
-            'name' => 'Frappe',
-            'description' => 'test',
+            'name' => 'iced coffee',
+            'description' => 'with cream puff',
+        ]);
+        ProductCategory::create([
+            'name' => 'praf',
+            'description' => 'with whipped cream',
+        ]);
+        ProductCategory::create([
+            'name' => 'addons',
         ]);
     }
 }
