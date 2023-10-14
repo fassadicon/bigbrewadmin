@@ -41,7 +41,6 @@ class InventoryItemSeeder extends Seeder
             'stock_value' => '100',
             'warning_value' => '20',
         ]);
-
         InventoryItem::create([
             'category_id' => 4,
             'name' => 'Big Straw',

@@ -13,24 +13,65 @@ class ProductDetailSeeder extends Seeder
      */
     public function run(): void
     {
+        // Milktea
         ProductDetail::create([
-            'category_id' => 2,
-            'name' => 'Iced Coffee Original',
+            'category_id' => 1,
+            'name' => 'okinawa',
             'description' => 'test',
         ]);
         ProductDetail::create([
             'category_id' => 1,
-            'name' => 'Hot Brewed Coffee',
+            'name' => 'wintermelon',
             'description' => 'test',
         ]);
         ProductDetail::create([
-            'category_id' => 4,
-            'name' => 'Mocha Frappe',
+            'category_id' => 1,
+            'name' => 'red velvet',
             'description' => 'test',
         ]);
         ProductDetail::create([
-            'category_id' => 3,
-            'name' => 'Wintermelon Milktea',
+            'category_id' => 1,
+            'name' => 'matcha',
+            'description' => 'test',
+        ]);
+        ProductDetail::create([
+            'category_id' => 1,
+            'name' => 'double dutch',
+            'description' => 'test',
+        ]);
+        ProductDetail::create([
+            'category_id' => 1,
+            'name' => 'cheesecake',
+            'description' => 'test',
+        ]);
+        ProductDetail::create([
+            'category_id' => 1,
+            'name' => 'dark choco',
+            'description' => 'test',
+        ]);
+        ProductDetail::create([
+            'category_id' => 1,
+            'name' => 'chocolate',
+            'description' => 'test',
+        ]);
+        ProductDetail::create([
+            'category_id' => 1,
+            'name' => 'salted caramel',
+            'description' => 'test',
+        ]);
+        ProductDetail::create([
+            'category_id' => 1,
+            'name' => 'cookies & cream',
+            'description' => 'test',
+        ]);
+        ProductDetail::create([
+            'category_id' => 1,
+            'name' => 'taro',
+            'description' => 'test',
+        ]);
+        ProductDetail::create([
+            'category_id' => 1,
+            'name' => 'strawberry',
             'description' => 'test',
         ]);
     }

@@ -14,33 +14,14 @@ class InventoryItemConsumptionSeeder extends Seeder
      */
     public function run(): void
     {
-        $icedCoffeeOriginal = Product::findOrFail(1);
-        $icedCoffeeOriginal->inventoryItems()->attach([
-            1 => ['consumption_value' => 1],
-            3 => ['consumption_value' => 1],
-            5 => ['consumption_value' => 1],
-        ]);
+        $milkteas =  Product::whereHas('productDetail', function ($query) {
+            $query->where('category_id', 1);
+        })->get();
 
-        $hotBrewedCoffee = Product::findOrFail(2);
-        $hotBrewedCoffee->inventoryItems()->attach([
-            1 => ['consumption_value' => 1],
-            2 => ['consumption_value' => 1],
-            4 => ['consumption_value' => 1],
-        ]);
-
-        $mochaFrappe = Product::findOrFail(3);
-        $mochaFrappe->inventoryItems()->attach([
-            1 => ['consumption_value' => 1],
-            2 => ['consumption_value' => 1],
-            6 => ['consumption_value' => 1],
-        ]);
-
-        $wintermelon = Product::findOrFail(4);
-        $wintermelon->inventoryItems()->attach([
-            1 => ['consumption_value' => 1],
-            3 => ['consumption_value' => 1],
-            4 => ['consumption_value' => 1],
-            6 => ['consumption_value' => 1],
-        ]);
+        foreach ($milkteas as $milktea) {
+            $milktea->inventoryItems()->attach([
+                rand(1, 6) => ['consumption_value' => rand(1, 10)]
+            ]);
+        }
     }
 }

@@ -34,17 +34,9 @@ Route::view('profile', 'profile')
 
 
 Route::get('test-model', function () {
-
-    $productDetails = ProductDetail::all();
-    // foreach ($productDetails as $productDetail) {
-    //     foreach ($productDetail->sizes as $size) {
-    //         foreach ($size->pivot->inventoryItems as $inventoryItem) {
-    //             $consumptionValue = $inventoryItem->pivot->consumption_value;
-    //             dump($consumptionValue);
-    //         }
-    //     }
-    // }
+    $productDetails = ProductDetail::with(['category', 'sizes.pivot.inventoryItems'])->get();
     return view('test', compact('productDetails'));
+    // return ProductDetail::with(['category', 'sizes.pivot.inventoryItems'])->get();
 });
 
 require __DIR__ . '/auth.php';

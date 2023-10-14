@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use AjCastro\EagerLoadPivotRelations\EagerLoadPivotTrait;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Size extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, EagerLoadPivotTrait;
 
     protected $table = 'sizes';
     protected $fillable = [
