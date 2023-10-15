@@ -41,6 +41,7 @@ class Product extends Pivot
             ->withTimestamps()
             ->using(InventoryItemConsumption::class);
     }
+
     // public function inventories(): BelongsToMany
     // {
     //     return $this->belongsToMany(Inventory::class, 'product_size_inventory', 'product_size_id')

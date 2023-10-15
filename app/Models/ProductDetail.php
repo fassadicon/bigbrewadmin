@@ -22,15 +22,6 @@ class ProductDetail extends Model
         'image_path'
     ];
 
-    // Relationships
-    // public function sizes(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(Size::class, 'products', 'product_id')
-    //         ->withPivot('price')
-    //         ->as('product')
-    //         ->withTimestamps();
-    // }
-
     public function sizes(): BelongsToMany
     {
         return $this->belongsToMany(Size::class, 'products', 'product_id', 'size_id')
@@ -43,6 +34,10 @@ class ProductDetail extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(ProductCategory::class, 'category_id');
+    }
+
+    public function scopeSearch($query, $value) {
+        $query->where('name', 'like', "%{$value}%");
     }
 
     // public function inventories(): BelongsToMany

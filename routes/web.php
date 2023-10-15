@@ -28,6 +28,10 @@ Route::view('products', 'livewire.product.index')
     ->middleware(['auth', 'verified'])
     ->name('products');
 
+Route::view('product-create', 'livewire.product.create')
+    ->middleware(['auth', 'verified'])
+    ->name('createProduct');
+
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
