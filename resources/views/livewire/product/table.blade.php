@@ -49,6 +49,7 @@
                                 <option value="">All</option>
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
+                                <option value="inactive">Outofstock</option>
                             </select>
                         </div>
                     </div>
