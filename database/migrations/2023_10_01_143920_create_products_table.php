@@ -17,7 +17,6 @@ return new class extends Migration
             $table->unsignedInteger('size_id');
             $table->decimal('price', 10, 2);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

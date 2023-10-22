@@ -14,19 +14,32 @@ class Table extends Component
     public $perPage = 5;
 
     public $search = '';
-    public $category_id = '';
+    public $category = '';
+    public $status = '';
 
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
 
+    public $categories;
+
+    public function mount() {
+        $this->categories = ProductCategory::all();
+    }
+
     public function render()
     {
-        $categories = ProductCategory::all();
 
         $productDetails = ProductDetail::withTrashed()
             ->search($this->search)
-            ->when($this->category_id !== '', function ($query) {
-                $query->where('category_id', $this->category_id);
+            ->when($this->category !== '', function ($query) {
+                $query->where('category_id', $this->category);
+            })
+            ->when($this->status !== '', function ($query) {
+                $query->when($this->status === 'active', function ($query) {
+                    $query->whereNotNull('deleted_at');
+                })->when($this->status === 'inactive', function ($query) {
+                    $query->whereNull('deleted_at');
+                });
             })
             ->with(['category', 'sizes.pivot.inventoryItems'])
             ->orderBy($this->sortBy, $this->sortDir)
@@ -35,7 +48,6 @@ class Table extends Component
         return view(
             'livewire.product.table',
             [
-                'categories' => $categories,
                 'productDetails' => $productDetails,
             ]
         );

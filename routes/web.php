@@ -1,10 +1,6 @@
 <?php
 
-use App\Models\Inventory;
-use App\Models\InventoryItem;
-use App\Models\Product;
 use App\Models\ProductDetail;
-use App\Models\ProductSize;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,21 +16,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    // Dashboard
+    Route::view('dashboard', 'dashboard')
+        ->name('dashboard');
 
-Route::view('products', 'livewire.product.index')
-    ->middleware(['auth', 'verified'])
-    ->name('products');
+    // Product
+    Route::prefix('products')->group(function () {
+        Route::get('/', App\Livewire\Product\Index::class)
+        ->name('products');
+        Route::get('create', App\Livewire\Product\Create::class)
+        ->name('products.create');
+        Route::get('edit/{productDetail}', App\Livewire\Product\Edit::class)
+        ->name('products.edit');
+    });
 
-Route::view('product-create', 'livewire.product.create')
-    ->middleware(['auth', 'verified'])
-    ->name('createProduct');
+    // Profile
+    Route::view('profile', 'profile')
+        ->name('profile');
+});
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
 
 
 Route::get('test-model', function () {

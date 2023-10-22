@@ -16,7 +16,7 @@ class ProductSeeder extends Seeder
         $milkteas = ProductDetail::where('category_id', 1)->get();
         foreach ($milkteas as $milktea) {
             $milktea->sizes()->attach([
-                1 => ['price' => rand(50, 100)]
+                rand(2, 4) => ['price' => rand(50, 100)]
             ]);
         }
     }

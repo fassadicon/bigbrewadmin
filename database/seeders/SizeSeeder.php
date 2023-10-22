@@ -14,16 +14,24 @@ class SizeSeeder extends Seeder
     public function run(): void
     {
         Size::create([
-            'name' => 'regular'
+            'name' => 'fixed',
+            'measurement' => 'fixed',
+            'description' => 'Default size for products that has only one size'
         ]);
         Size::create([
-            'name' => 'small'
+            'name' => 'small',
+            'measurement' => '12oz',
+            'description' => 'Hot coffee only'
         ]);
         Size::create([
-            'name' => 'large'
+            'name' => 'Medium',
+            'measurement' => '16oz',
+            'description' => 'Milktea, Fruit tea, Iced Coffee, Praf'
         ]);
         Size::create([
-            'name' => 'extra large'
+            'name' => 'Large',
+            'measurement' => '22oz',
+            'description' => 'Milktea, Fruit tea, Iced Coffee, Praf'
         ]);
     }
 }

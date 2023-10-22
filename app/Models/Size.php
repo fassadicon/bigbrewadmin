@@ -14,14 +14,14 @@ class Size extends Model
 
     protected $table = 'sizes';
     protected $fillable = [
-        'name'
+        'name',
+        'description'
     ];
 
     // Relationships
     public function productDetails(): BelongsToMany
     {
         return $this->belongsToMany(ProductDetail::class, 'products', 'size_id')
-            // ->as('product')
             ->withPivot(['price', 'id'])
             ->withTimestamps()
             ->using(Product::class);
