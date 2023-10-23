@@ -3,6 +3,7 @@
 namespace App\Livewire\Product;
 
 use App\Livewire\Forms\CreateProductForm;
+use App\Models\InventoryItem;
 use App\Models\Size;
 use Livewire\Component;
 use Livewire\Attributes\Rule;
@@ -41,8 +42,8 @@ class Create extends Component
         'sizes.*' => 'size',
         'prices.*' => 'price'
     ])]
-    public $sizes = [];
-    public $prices = [''];
+    public $sizes = ["1"];
+    public $prices = [""];
 
     // View Data
     public $all_sizes;
@@ -73,15 +74,26 @@ class Create extends Component
 
     public function removeSizeAndPrice($index)
     {
-        unset($this->prices[$index]);
         unset($this->sizes[$index]);
-        $this->prices = array_values($this->prices);
+        unset($this->prices[$index]);
         $this->sizes = array_values($this->sizes);
+        $this->prices = array_values($this->prices);
     }
 
     public function addSizeAndPrice()
     {
+        if (count($this->sizes) >= $this->all_sizes->count()) {
+            dd('No more available sizes!');
+        }
+
+        $this->sizes = array_values($this->sizes);
         $this->prices[] = '';
+    }
+
+    public function changeSize($event)
+    {
+        $this->sizes = array_values($this->sizes);
+        $this->dispatch('change-sizes', sizes: $this->sizes);
     }
 
     public function render()
