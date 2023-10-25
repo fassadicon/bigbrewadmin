@@ -8,7 +8,7 @@
     <meta name="csrf-token"
         content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Big Brew') }}</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect"

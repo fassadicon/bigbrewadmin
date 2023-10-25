@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Product;
 use App\Models\ProductDetail;
 use Illuminate\Support\Facades\Route;
 
@@ -39,9 +40,14 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::get('test-model', function () {
-    $productDetails = ProductDetail::with(['category', 'sizes.pivot.inventoryItems'])->get();
-    return view('test', compact('productDetails'));
-    // return ProductDetail::with(['category', 'sizes.pivot.inventoryItems'])->get();
+    // $productDetails = ProductDetail::with(['category', 'sizes.pivot.inventoryItems'])->get();
+    // return view('test', compact('productDetails'));
+
+    $test = Product::where('id', 1)->first();
+    dd($test->inventoryItems);
+    foreach($test->sizes as $size) {
+        dump($size);
+    }
 });
 
 require __DIR__ . '/auth.php';

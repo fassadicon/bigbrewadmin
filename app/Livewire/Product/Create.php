@@ -3,97 +3,75 @@
 namespace App\Livewire\Product;
 
 use App\Livewire\Forms\CreateProductForm;
-use App\Models\InventoryItem;
 use App\Models\Size;
 use Livewire\Component;
-use Livewire\Attributes\Rule;
-use App\Models\ProductCategory;
+use App\Models\InventoryItem;
 use App\Models\ProductDetail;
+use App\Models\ProductCategory;
 
 class Create extends Component
 {
-    // Product Detail
-    #[Rule('required|string|max:255')]
-    public $name;
+    public CreateProductForm $form;
 
-    #[Rule('nullable|string')]
-    public $description;
-
-    #[Rule('image')]
-    public $image;
-
-    #[Rule('required|numeric', as: 'category')]
-    public $category_id;
-
-    // Products
-    #[Rule([
-        'sizes' => 'required|array',
-        'sizes.*' => [
-            'required',
-            'numeric',
-            'exists:sizes,id',
-        ],
-        'prices' => 'required|array',
-        'prices.*' => [
-            'required',
-            'numeric',
-        ]
-    ], [], [
-        'sizes.*' => 'size',
-        'prices.*' => 'price'
-    ])]
-    public $sizes = ["1"];
-    public $prices = [""];
-
-    // View Data
     public $all_sizes;
     public $all_categories;
+    public $all_inventory_items;
 
     public function mount()
     {
         $this->all_sizes = Size::select('id', 'name')->get();
         $this->all_categories = ProductCategory::select('id', 'name')->get();
-    }
+        $this->all_inventory_items = InventoryItem::select('id', 'name', 'measurement')->get();
 
-    public function save()
-    {
-        $this->validate();
-        $productDetail = ProductDetail::create([
-            'category_id' => $this->category_id,
-            'name' => $this->name,
-            'description' => $this->description,
-            'image' => $this->image,
+        $this->form->fill([
+            'productData' => collect([
+                [
+                    'size_id' => '',
+                    'price' => 0.00,
+                    'inventory_consumption' => collect([
+                        [
+                            'inventory_item_id' => '',
+                            'consumption_value' => 0.00
+                        ]
+                    ])
+                ],
+            ]),
         ]);
-
-        foreach ($this->sizes as $key => $size) {
-            $productDetail->sizes()->attach([
-                $size => ['price' => $this->prices[$key]]
-            ]);
-        }
     }
 
     public function removeSizeAndPrice($index)
     {
-        unset($this->sizes[$index]);
-        unset($this->prices[$index]);
-        $this->sizes = array_values($this->sizes);
-        $this->prices = array_values($this->prices);
+        $this->form->removeSizeAndPriceData($index);
     }
 
     public function addSizeAndPrice()
     {
-        if (count($this->sizes) >= $this->all_sizes->count()) {
-            dd('No more available sizes!');
+        if (count($this->form->productData) >= $this->all_sizes->count()) {
+            // Trigger modal/toast here
+            dd('No more available sizes! Please select the available options.');
         }
 
-        $this->sizes = array_values($this->sizes);
-        $this->prices[] = '';
+        $this->form->addSizeAndPriceData();
     }
 
-    public function changeSize($event)
+    public function removeInventoryItem($index, $key)
     {
-        $this->sizes = array_values($this->sizes);
-        $this->dispatch('change-sizes', sizes: $this->sizes);
+        $this->form->removeInventoryItemData($index, $key);
+    }
+
+    public function addInventoryItem($index)
+    {
+        $this->form->addInventoryItemData($index);
+    }
+
+    public function changeSizeOrInventoryItem()
+    {
+        $this->form->changeSizeOrInventoryItemData();
+    }
+
+    public function save()
+    {
+        $this->form->store();
     }
 
     public function render()
