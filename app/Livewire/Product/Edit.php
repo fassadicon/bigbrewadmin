@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Product;
 
+use App\Livewire\Forms\EditProductForm;
 use App\Models\Size;
 use Livewire\Component;
 use App\Models\ProductDetail;
@@ -11,6 +12,7 @@ use Exception;
 
 class Edit extends Component
 {
+    public EditProductForm $form;
     // Model
     public ProductDetail $productDetail;
     public $currentSizes;

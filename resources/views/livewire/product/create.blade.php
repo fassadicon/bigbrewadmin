@@ -86,11 +86,11 @@
                     </h3>
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="grid md:grid-cols-3 md:gap-6">
-                            @foreach ($form->productData as $key => $data)
+                            @foreach ($form->product as $key => $data)
                                 <div class="relative z-0 w-full mb-5 group">
                                     <label for="size_{{ $key }}"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Size</label>
-                                    <select wire:model="form.productData.{{ $key }}.size_id"
+                                    <select wire:model="form.product.{{ $key }}.size_id"
                                         wire:change="changeSizeOrInventoryItem()"
                                         id="size_{{ $key }}"
                                         class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
@@ -100,26 +100,35 @@
                                                 {{ ucwords($size->name) }}</option>
                                         @endforeach
                                     </select>
-                                    <x-input-error :messages="$errors->get("form.productData.{{ $key }}.size_id")"
-                                        class="mt-2" />
+                                    @error("form.product.$key.size_id")
+                                        <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
+                                    @error('initialBlank')
+                                        <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="relative z-0 w-full mb-5 group">
                                     <label for="price_{{ $key }}"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                                    <input wire:model="form.productData.{{ $key }}.price"
+                                    <input wire:model="form.product.{{ $key }}.price"
                                         id="price_{{ $key }}"
                                         type="text"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <x-input-error :messages="$errors->get("form.productData.{{ $key }}.size_id")"
-                                        class="mt-2" />
+                                    @error("form.product.$key.price")
+                                        <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="relative z-0 w-full mb-2 group">
-                                    @if ($key > 0)
-                                        <button wire:click.prevent="removeSizeAndPrice({{ $key }})"
-                                            type="button"
-                                            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-                                            - </button>
-                                    @endif
+                                    <button wire:click.prevent="removeSizeAndPrice({{ $key }})"
+                                        type="button"
+                                        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                        - </button>
                                 </div>
                             @endforeach
                             {{-- @error('prices')
@@ -142,13 +151,19 @@
                     <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
                         {{ __('Inventory Consumption') }}
                     </h3>
+                    @dump($errors)
+                    @foreach ($errors->all() as $error)
+                        <small class="text-danger">
+                            <li>{{ $error }}</li>
+                        </small>
+                    @endforeach
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 text-gray-900 dark:text-gray-100">
                             @csrf
-                            @if (empty($form->productData) || $form->productData[0]['size_id'] === '')
+                            @if (empty($form->product) || $form->product[0]['size_id'] === '')
                                 <p>Please select sizes to list inventory item consumption</p>
                             @else
-                                @foreach ($form->productData as $index => $data)
+                                @foreach ($form->product as $index => $data)
                                     @unless ($data['size_id'] === '')
                                         <div class="mb-2">
                                             <h4 for=""
@@ -165,7 +180,7 @@
                                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Inventory
                                                         Item</label>
                                                     <select
-                                                        wire:model="form.productData.{{ $index }}.inventory_consumption.{{ $key }}.inventory_item_id"
+                                                        wire:model="form.product.{{ $index }}.inventory_consumption.{{ $key }}.inventory_item_id"
                                                         wire:change="changeSizeOrInventoryItem()"
                                                         id="inventory_item_{{ $index }}_{{ $key }}"
                                                         class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
@@ -186,7 +201,9 @@
                                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                                         Consumption
                                                     </label>
-                                                    <input type="text"
+                                                    <input
+                                                        wire:model="form.product.{{ $index }}.inventory_consumption.{{ $key }}.consumption_value"
+                                                        type="text"
                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                 </div>
                                                 <div class="col-span-2 relative z-0 w-full mb-5 group">

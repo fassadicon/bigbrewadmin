@@ -13,45 +13,28 @@ use Illuminate\Support\Collection;
 class CreateProductForm extends Form
 {
     // Product Detail
-    #[Rule('required|string|max:255')]
     public $name;
-
-    #[Rule('nullable|string')]
     public $description;
-
-    #[Rule('nullable|image')]
     public $image;
-
-    #[Rule('required|exists:product_categories,id|numeric', as: 'category')]
     public $category_id;
+    // Product
+    public $product = [];
 
-    // Products
-    // #[Rule([
-    //     'form.sizes' => 'required|array',
-    //     'form.sizes.*' => [
-    //         'required',
-    //         'numeric',
-    //         'exists:sizes,id',
-    //     ],
-    //     'form.prices' => 'required|array',
-    //     'form.prices.*' => [
-    //         'required',
-    //         'numeric',
-    //         'min:1',
-    //     ]
-    // ], [], [
-    //     'form.sizes.*' => 'size',
-    //     'form.prices.*' => 'price'
-    // ])]
-    // public $sizes = [""];
-    // public $prices = [0.00];
-
-    public Collection $productData;
-    // public $inventoryItems = [[""]];
-    // public Collection $inventory_consumptions;
-    // public $consumptionvalues = [[""]];
-
-    public $selected_size_names;
+    public function rules()
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|string',
+            'category_id' => 'required|exists:product_categories,id|numeric',
+            'product' => 'required|array|min:1',
+            'product.*.size_id' => 'required|numeric|exists:sizes,id',
+            'product.*.price' => 'required|numeric|min:1',
+            'product.*.inventory_consumption' => 'required|array|min:1',
+            'product.*.inventory_consumption.*.inventory_item_id' => 'required|exists:inventory_items,id|numeric',
+            'product.*.inventory_consumption.*.consumption_value' => 'required|numeric|min:1',
+        ];
+    }
 
     public function store()
     {
@@ -64,15 +47,15 @@ class CreateProductForm extends Form
             'image' => $this->image,
         ]);
 
-        foreach ($this->productData as $sizeKey => $data) {
+        foreach ($this->product as $productSize) {
             $productDetail->sizes()->attach([
-                $data['size_id'] => ['price' => $data['price']]
+                $productSize['size_id'] => ['price' => $productSize['price']]
             ]);
 
-            $inventory_consumption = $data['inventory_consumption'];
+            $inventory_consumption = $productSize['inventory_consumption'];
             foreach ($inventory_consumption as $itemKey => $item) {
                 $product = Product::where('product_id', $productDetail->id)
-                    ->where('size_id', $data['size_id'])->first();
+                    ->where('size_id', $productSize['size_id'])->first();
 
                 $product->inventoryItems()->attach([
                     $item['inventory_item_id'] => ['consumption_value' => $item['consumption_value']]
@@ -83,63 +66,63 @@ class CreateProductForm extends Form
 
     public function removeSizeAndPriceData($index)
     {
-        if (count($this->productData) <= 1) {
+        if (count($this->product) <= 1) {
             // Trigger modal/toast here
             dd('Product must have at least one size. For products with only one size, please select "Fixed".');
         }
 
-        $this->productData->pull($index);
+        unset($this->product[$index]);
         $this->changeSizeOrInventoryItemData();
     }
 
     public function addSizeAndPriceData()
     {
-        if ($this->productData->contains('size_id', '===', "")) {
+        if ($this->product[count($this->product) - 1]['size_id'] === "") {
             // Trigger modal/toast here
             dd('Please select a size before adding another one.');
         }
 
-        $this->productData->push([
+        $this->product[] = [
             'size_id' => '',
             'price' => 0.00,
-            'inventory_consumption' => collect([
+            'inventory_consumption' => [
                 [
                     'inventory_item_id' => '',
                     'consumption_value' => 0.00,
                 ]
-            ])
-        ]);
+            ]
+        ];
     }
 
     public function removeInventoryItemData($index, $key)
     {
-        $inventoryConsumption = $this->productData[$index]['inventory_consumption'];
+        $inventoryConsumption = $this->product[$index]['inventory_consumption'];
         if (count($inventoryConsumption) <= 1) {
             // Trigger modal/toast here
             dd('This product instance must have at least one inventory item consumption. Please select an item.');
         }
 
-        $this->productData[$index]['inventory_consumption']->pull($key);
+        unset($this->product[$index]['inventory_consumption'][$key]);
         $this->changeSizeOrInventoryItemData();
     }
 
     public function addInventoryItemData($index)
     {
-        if ($this->productData[$index]['inventory_consumption']->contains('inventory_item_id', '===', "")) {
+        $lastInventoryItem = count($this->product[$index]['inventory_consumption']) - 1;
+        if ($this->product[$index]['inventory_consumption'][$lastInventoryItem]['inventory_item_id'] === "") {
             // Trigger modal/toast here
             dd('Please select an item before adding another one.');
         }
 
-        $this->productData[$index]['inventory_consumption']->push(
+        $this->product[$index]['inventory_consumption'][] =
             [
                 'inventory_item_id' => '',
                 'consumption_value' => 0.00,
-            ]
-        );
+            ];
     }
 
     public function changeSizeOrInventoryItemData()
     {
-        $this->productData = $this->productData->values();
+        $this->product = array_values($this->product);
     }
 }

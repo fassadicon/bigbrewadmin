@@ -23,20 +23,17 @@ class Create extends Component
         $this->all_categories = ProductCategory::select('id', 'name')->get();
         $this->all_inventory_items = InventoryItem::select('id', 'name', 'measurement')->get();
 
-        $this->form->fill([
-            'productData' => collect([
-                [
-                    'size_id' => '',
-                    'price' => 0.00,
-                    'inventory_consumption' => collect([
-                        [
-                            'inventory_item_id' => '',
-                            'consumption_value' => 0.00
-                        ]
-                    ])
-                ],
-            ]),
-        ]);
+        $this->form->product[] =
+            [
+                'size_id' => '',
+                'price' => 0.00,
+                'inventory_consumption' => [
+                    [
+                        'inventory_item_id' => '',
+                        'consumption_value' => 0.00
+                    ]
+                ]
+            ];
     }
 
     public function removeSizeAndPrice($index)
@@ -46,7 +43,7 @@ class Create extends Component
 
     public function addSizeAndPrice()
     {
-        if (count($this->form->productData) >= $this->all_sizes->count()) {
+        if (count($this->form->product) >= $this->all_sizes->count()) {
             // Trigger modal/toast here
             dd('No more available sizes! Please select the available options.');
         }
