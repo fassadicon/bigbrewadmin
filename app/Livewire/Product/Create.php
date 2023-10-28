@@ -6,11 +6,13 @@ use App\Livewire\Forms\CreateProductForm;
 use App\Models\Size;
 use Livewire\Component;
 use App\Models\InventoryItem;
-use App\Models\ProductDetail;
 use App\Models\ProductCategory;
+use Livewire\WithFileUploads;
 
 class Create extends Component
 {
+    use WithFileUploads;
+
     public CreateProductForm $form;
 
     public $all_sizes;

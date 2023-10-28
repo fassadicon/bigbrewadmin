@@ -3,12 +3,8 @@
 namespace App\Livewire\Forms;
 
 use Livewire\Form;
-use App\Models\Size;
 use App\Models\Product;
 use App\Models\ProductDetail;
-use Livewire\Attributes\Rule;
-use Livewire\Attributes\Reactive;
-use Illuminate\Support\Collection;
 
 class CreateProductForm extends Form
 {
@@ -25,7 +21,7 @@ class CreateProductForm extends Form
         return [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|string',
+            'image' => 'nullable|image|max:1024',
             'category_id' => 'required|exists:product_categories,id|numeric',
             'product' => 'required|array|min:1',
             'product.*.size_id' => 'required|numeric|exists:sizes,id',
@@ -36,16 +32,36 @@ class CreateProductForm extends Form
         ];
     }
 
+    public function validationAttributes()
+    {
+        return [
+            'name' => 'name',
+            'description' => 'description',
+            'image' => 'image',
+            'category_id' => 'category',
+            'product.*.size_id' => 'size',
+            'product.*.price' => 'price',
+            'product.*.inventory_consumption.*.inventory_item_id' => 'inventory item',
+            'product.*.inventory_consumption.*.consumption_value' => 'consumption',
+        ];
+    }
+
     public function store()
     {
         $this->validate();
+
+        $image_path = null;
+        if ($this->image) {
+            $image_path = $this->image->store('products', 'public');
+        }
 
         $productDetail = ProductDetail::create([
             'category_id' => $this->category_id,
             'name' => $this->name,
             'description' => $this->description,
-            'image' => $this->image,
+            'image_path' => $image_path,
         ]);
+
 
         foreach ($this->product as $productSize) {
             $productDetail->sizes()->attach([
