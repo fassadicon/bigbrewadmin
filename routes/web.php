@@ -30,6 +30,8 @@ Route::middleware(['auth'])->group(function () {
         ->name('products.create');
         Route::get('edit/{productDetail}', App\Livewire\Product\Edit::class)
         ->name('products.edit');
+        Route::get('{productDetailId}', App\Livewire\Product\Show::class)
+        ->name('products.show');
     });
 
     // Profile

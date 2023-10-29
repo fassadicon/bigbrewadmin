@@ -35,11 +35,14 @@ class InventoryItemConsumption extends Pivot
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logFillable()
+            ->logOnly([
+                'product_id',
+                'inventory_item.name',
+                'consumption_value',
+            ])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs()
             ->useLogName('Products')
             ->setDescriptionForEvent(fn (string $eventName) => "Product inventory consumption has been {$eventName}");
     }
-
 }

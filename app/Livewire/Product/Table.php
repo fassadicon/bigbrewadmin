@@ -15,7 +15,7 @@ class Table extends Component
 
     public $search = '';
     public $category = '';
-    public $status = '';
+    public $status = 'active';
 
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
@@ -36,9 +36,9 @@ class Table extends Component
             })
             ->when($this->status !== '', function ($query) {
                 $query->when($this->status === 'active', function ($query) {
-                    $query->whereNotNull('deleted_at');
-                })->when($this->status === 'inactive', function ($query) {
                     $query->whereNull('deleted_at');
+                })->when($this->status === 'inactive', function ($query) {
+                    $query->whereNotNull('deleted_at');
                 });
             })
             ->with(['category', 'sizes.pivot.inventoryItems'])
