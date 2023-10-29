@@ -64,8 +64,14 @@
                                     type="file">
                                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                     id="file_input_help">SVG, PNG, JPG or GIF (MAX: 1MB)</p>
-                                <img src="{{ is_string($form->image) ? asset('storage\\' . $form->image) : $form->image->temporaryUrl() }}"
-                                    alt="">
+                                @if ($form->image && is_string($form->image))
+                                    <img src="{{ asset('storage\\' . $form->image) }}"
+                                        alt="">
+                                @elseif ($form->image)
+                                    <img src="{{ $form->image->temporaryUrl() }}"
+                                        alt="">
+                                @endif
+
                                 <div wire:loading
                                     wire:target='form.image'>
                                     Uploading
@@ -105,11 +111,6 @@
                                         @endforeach
                                     </select>
                                     @error("form.product.$key.size_id")
-                                        <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
-                                            {{ $message }}
-                                        </span>
-                                    @enderror
-                                    @error('initialBlank')
                                         <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
                                             {{ $message }}
                                         </span>

@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 class Product extends Pivot
 {
     use HasFactory;
+    use LogsActivity;
+    public $incrementing = true;
 
     protected $table = 'products';
     protected $fillable = [
@@ -41,11 +44,13 @@ class Product extends Pivot
             ->using(InventoryItemConsumption::class);
     }
 
-    // public function inventories(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(Inventory::class, 'product_size_inventory', 'product_size_id')
-    //         ->withPivot('use_value')
-    //         ->withTimestamps()
-    //         ->using(ProductSizeInventory::class);
-    // }
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->useLogName('Products')
+            ->setDescriptionForEvent(fn (string $eventName) => "Product price/size has been {$eventName}");
+    }
 }

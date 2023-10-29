@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Product;
 
-use App\Livewire\Forms\CreateProductForm;
 use App\Models\Size;
 use Livewire\Component;
 use App\Models\InventoryItem;
-use App\Models\ProductCategory;
 use Livewire\WithFileUploads;
+use App\Models\ProductCategory;
+use Spatie\Activitylog\Models\Activity;
+use App\Livewire\Forms\CreateProductForm;
 
 class Create extends Component
 {
@@ -21,6 +22,7 @@ class Create extends Component
 
     public function mount()
     {
+        // dd(Activity::all()->last());
         $this->all_sizes = Size::select('id', 'name')->get();
         $this->all_categories = ProductCategory::select('id', 'name')->get();
         $this->all_inventory_items = InventoryItem::select('id', 'name', 'measurement')->get();

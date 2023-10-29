@@ -8,17 +8,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AjCastro\EagerLoadPivotRelations\EagerLoadPivotTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class ProductDetail extends Model
 {
     use HasFactory, SoftDeletes, EagerLoadPivotTrait;
+    use LogsActivity;
 
     protected $table = 'product_details';
     protected $fillable = [
         'category_id',
         'name',
         'description',
-        'status',
         'image_path'
     ];
 
@@ -35,29 +37,24 @@ class ProductDetail extends Model
         return $this->belongsTo(ProductCategory::class, 'category_id');
     }
 
-    public function scopeSearch($query, $value) {
-        $query->where('name', 'like', "%{$value}%");
+    public function scopeSearch($query, $value)
+    {
+        $query->where('name', 'like', "%{$value}%")
+            ->orWhere('description', 'like', "%{$value}%");
     }
 
-    // public function inventories(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(ProductSize::class, 'product_size_inventory')->withPivot('use_value')->withTimestamps();
-    // }
-
-    // public function orderItems(): BelongsTo
-    // {
-    //     return $this->BelongsTo(OrderItem::class);
-    // }
-
-
-    // // Functions
-    // public function active()
-    // {
-    //     return $this->where('status', 1);
-    // }
-
-    // public function inactive()
-    // {
-    //     return $this->where('status', 0);
-    // }
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'name',
+                'description',
+                'image_path',
+                'category.name',
+            ])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->useLogName('Products')
+            ->setDescriptionForEvent(fn (string $eventName) => "Product details has been {$eventName}");
+    }
 }

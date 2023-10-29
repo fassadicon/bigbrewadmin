@@ -74,70 +74,77 @@
                 </th>
             </thead>
             <tbody wire:loading.class="invisible">
-                @foreach ($productDetails as $productDetail)
-                    <tr wire:key="{{ $productDetail->id }}"
-                        class="border-b dark:border-gray-700">
-                        <th scope="row"
-                            class="px-4 py-3 font-medium whitespace-nowrap text-gray-900">
-                            {{ ucwords($productDetail->name) }}
-                        </th>
-                        <td class="px-4 py-3">
-                            {{ ucwords($productDetail->category->name) }}
-                        </td>
-                        <td class="px-4 py-3">
-                            {{ ucwords($productDetail->sizes->pluck('name')->implode(', ')) }}
-                        </td>
-                        <td class="px-4 py-3">{{ ucfirst($productDetail->description) }}</td>
-                        <td>
-                            @include('includes.table.deleted_at-td', [
-                                'deleted_at' => $productDetail->deleted_at,
-                            ])
-                        </td>
-                        <td class="px-4 py-3 flex items-center justify-center">
-                            {{-- <x-nav-link :href="route('createProduct')"
-                                :active="request()->routeIs('product-create')"
-                                wire:navigate>
-                                {{ __('Create Product') }}
-                            </x-nav-link> --}}
-                            <a href="{{ route('products.edit', ['productDetail' => $productDetail]) }}"
-                                wire:navigate
-                                class="px-3 py-1 bg-green-500 text-white rounded">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="w-6 h-6">
-                                    <path stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                </svg>
-                            </a>
-                            {{-- <button x-data @click="$dispatch('open-modal',{name:'contactus'})"
-                                            class="px-3 py-1 bg-cyan-500 text-white rounded">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                            </svg>
-                                        </button> --}}
-                            <button x-data
-                                x-on:click.prevent="$dispatch('open-modal', 'View Product')"
-                                class="px-3 py-1 bg-cyan-500 text-white rounded">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="w-6 h-6">
-                                    <path stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                </svg>
-                            </button>
-                        </td>
+                @if (count($productDetails) < 1)
+                    <tr class="border-b dark:border-gray-700">
+                        <td colspan="6"
+                            class="px-4 py-3 text-center">No results available</td>
                     </tr>
-                @endforeach
+                @else
+                    @foreach ($productDetails as $productDetail)
+                        <tr wire:key="{{ $productDetail->id }}"
+                            class="border-b dark:border-gray-700">
+                            <th scope="row"
+                                class="px-4 py-3 font-medium whitespace-nowrap text-gray-900">
+                                {{ ucwords($productDetail->name) }}
+                            </th>
+                            <td class="px-4 py-3">
+                                {{ ucwords($productDetail->category->name) }}
+                            </td>
+                            <td class="px-4 py-3">
+                                {{ ucwords($productDetail->sizes->pluck('name')->implode(', ')) }}
+                            </td>
+                            <td class="px-4 py-3">{{ ucfirst($productDetail->description) }}</td>
+                            <td>
+                                @include('includes.table.deleted_at-td', [
+                                    'deleted_at' => $productDetail->deleted_at,
+                                ])
+                            </td>
+                            <td class="px-4 py-3 flex items-center justify-center">
+                                {{-- <x-nav-link :href="route('createProduct')"
+                            :active="request()->routeIs('product-create')"
+                            wire:navigate>
+                            {{ __('Create Product') }}
+                        </x-nav-link> --}}
+                                <a href="{{ route('products.edit', ['productDetail' => $productDetail]) }}"
+                                    wire:navigate
+                                    class="px-3 py-1 bg-green-500 text-white rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        class="w-6 h-6">
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                    </svg>
+                                </a>
+                                {{-- <button x-data @click="$dispatch('open-modal',{name:'contactus'})"
+                                        class="px-3 py-1 bg-cyan-500 text-white rounded">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                                        </svg>
+                                    </button> --}}
+                                <button x-data
+                                    x-on:click.prevent="$dispatch('open-modal', 'View Product')"
+                                    class="px-3 py-1 bg-cyan-500 text-white rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        class="w-6 h-6">
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>

@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use Livewire\Form;
 use App\Models\Product;
+use App\Models\ProductDetail;
 use Livewire\Attributes\Rule;
 
 class EditProductForm extends Form
@@ -50,13 +51,6 @@ class EditProductForm extends Form
     {
         $this->validate();
 
-        $productDetail->update([
-            'category_id' => $this->category_id,
-            'name' => $this->name,
-            'description' => $this->description,
-            'image' => $this->image,
-        ]);
-
         $sizesAndPrices = [];
         foreach ($this->product as $productSize) {
             $sizesAndPrices[$productSize['size_id']]['price'] = $productSize['price'];
@@ -72,6 +66,13 @@ class EditProductForm extends Form
             }
             $product->inventoryItems()->sync($inventoryConsumption);
         }
+
+        $productDetail->update([
+            'category_id' => $this->category_id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'image' => $this->image,
+        ]);
     }
 
     public function removeSizeAndPriceData($index)
