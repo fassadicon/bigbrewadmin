@@ -34,6 +34,12 @@ Route::middleware(['auth'])->group(function () {
         ->name('products.show');
     });
 
+    // Product Category
+    Route::prefix('product-categories')->group(function () {
+        Route::get('/', App\Livewire\ProductCategory\Index::class)
+        ->name('product-categories');
+    });
+
     // Profile
     Route::view('profile', 'profile')
         ->name('profile');
