@@ -20,7 +20,6 @@ class Show extends Component
             ->orWhere('properties->attributes->product_id', $this->productDetail->id)
             ->orderByDesc('created_at')
             ->get();
-        // dd($this->logs);
     }
 
     public function render()
