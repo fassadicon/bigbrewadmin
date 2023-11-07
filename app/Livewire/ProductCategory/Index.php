@@ -2,6 +2,7 @@
 
 namespace App\Livewire\ProductCategory;
 
+use App\Livewire\Forms\CreateProductCategory;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
@@ -17,6 +18,15 @@ class Index extends Component
 
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
+
+    public CreateProductCategory $form;
+
+    public function store()
+    {
+        $this->form->store();
+        $this->dispatch('product-category-changed');
+
+    }
 
     public function showCategory(int $id)
     {
