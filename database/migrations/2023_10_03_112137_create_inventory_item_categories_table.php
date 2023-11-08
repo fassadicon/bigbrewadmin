@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventory_item_categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        // Schema::create('inventory_item_categories', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('name');
+        //     $table->string('description')->nullable();
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        // });
     }
 
     /**
