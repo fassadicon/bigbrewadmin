@@ -36,10 +36,10 @@ class InventoryItem extends Model
             ->using(InventoryItemConsumption::class);
     }
 
-    public function category(): BelongsTo
-    {
-        return $this->belongsTo(InventoryItemCategory::class, 'category_id');
-    }
+    // public function category(): BelongsTo
+    // {
+    //     return $this->belongsTo(InventoryItemCategory::class, 'category_id');
+    // }
     // public function productSizes()
     // {
     //     return $this->belongsToMany(ProductSize::class, 'product_size_inventory', 'inventory_id')
