@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Product;
+use App\Models\ProductDetail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,12 +17,45 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    // Dashboard
+    Route::view('dashboard', 'dashboard')
+        ->name('dashboard');
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+    // Product
+    Route::prefix('products')->group(function () {
+        Route::get('/', App\Livewire\Product\Index::class)
+        ->name('products');
+        Route::get('create', App\Livewire\Product\Create::class)
+        ->name('products.create');
+        Route::get('edit/{productDetail}', App\Livewire\Product\Edit::class)
+        ->name('products.edit');
+        Route::get('{productDetailId}', App\Livewire\Product\Show::class)
+        ->name('products.show');
+    });
 
-require __DIR__.'/auth.php';
+    // Product Category
+    Route::prefix('product-categories')->group(function () {
+        Route::get('/', App\Livewire\ProductCategory\Index::class)
+        ->name('product-categories');
+    });
+
+    // Profile
+    Route::view('profile', 'profile')
+        ->name('profile');
+});
+
+
+
+Route::get('test-model', function () {
+    // $productDetails = ProductDetail::with(['category', 'sizes.pivot.inventoryItems'])->get();
+    // return view('test', compact('productDetails'));
+
+    $test = Product::where('id', 1)->first();
+    dd($test->inventoryItems);
+    foreach($test->sizes as $size) {
+        dump($size);
+    }
+});
+
+require __DIR__ . '/auth.php';
