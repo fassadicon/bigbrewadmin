@@ -35,14 +35,16 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // Product Category
-    Route::prefix('product-categories')->group(function () {
-        Route::get('/', App\Livewire\ProductCategory\Index::class)
-            ->name('product-categories');
-    });
+    Route::get('product-categories', App\Livewire\ProductCategory\Index::class)
+    ->name('product-categories');
 
     // Size
     Route::get('sizes', App\Livewire\Size\Index::class)
         ->name('sizes');
+
+    // Inventory Items
+    Route::get('inventory-items', App\Livewire\InventoryItem\Index::class)
+        ->name('inventory-items');
 
     // Profile
     Route::view('profile', 'profile')
