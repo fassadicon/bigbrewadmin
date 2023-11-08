@@ -15,6 +15,7 @@ class Show extends Component
     {
 
         $this->productDetail = ProductDetail::where('id', $this->productDetailId)->with(['category', 'sizes.pivot.inventoryItems'])->first();
+
         $this->logs = Activity::where('log_name', 'Products')
             ->where('subject_id', $this->productDetail->id)
             ->orWhere('properties->attributes->product_id', $this->productDetail->id)

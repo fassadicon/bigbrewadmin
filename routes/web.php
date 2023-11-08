@@ -25,20 +25,24 @@ Route::middleware(['auth'])->group(function () {
     // Product
     Route::prefix('products')->group(function () {
         Route::get('/', App\Livewire\Product\Index::class)
-        ->name('products');
+            ->name('products');
         Route::get('create', App\Livewire\Product\Create::class)
-        ->name('products.create');
+            ->name('products.create');
         Route::get('edit/{productDetail}', App\Livewire\Product\Edit::class)
-        ->name('products.edit');
+            ->name('products.edit');
         Route::get('{productDetailId}', App\Livewire\Product\Show::class)
-        ->name('products.show');
+            ->name('products.show');
     });
 
     // Product Category
     Route::prefix('product-categories')->group(function () {
         Route::get('/', App\Livewire\ProductCategory\Index::class)
-        ->name('product-categories');
+            ->name('product-categories');
     });
+
+    // Size
+    Route::get('sizes', App\Livewire\Size\Index::class)
+        ->name('sizes');
 
     // Profile
     Route::view('profile', 'profile')
@@ -53,7 +57,7 @@ Route::get('test-model', function () {
 
     $test = Product::where('id', 1)->first();
     dd($test->inventoryItems);
-    foreach($test->sizes as $size) {
+    foreach ($test->sizes as $size) {
         dump($size);
     }
 });
