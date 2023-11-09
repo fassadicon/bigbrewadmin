@@ -14,45 +14,39 @@ class InventoryItemSeeder extends Seeder
     public function run(): void
     {
         InventoryItem::create([
-            'category_id' => 3,
             'name' => 'Plastic Cup - Regular',
             'measurement' => 'piece',
-            'stock_value' => '100',
+            'remaining_stocks' => '100',
             'warning_value' => '20',
         ]);
         InventoryItem::create([
-            'category_id' => 3,
             'name' => 'Plastic Cup - Small',
             'measurement' => 'piece',
-            'stock_value' => '100',
+            'remaining_stocks' => '100',
             'warning_value' => '20',
         ]);
         InventoryItem::create([
-            'category_id' => 3,
             'name' => 'Plastic Cup - Large',
             'measurement' => 'piece',
-            'stock_value' => '100',
+            'remaining_stocks' => '100',
             'warning_value' => '20',
         ]);
         InventoryItem::create([
-            'category_id' => 3,
             'name' => 'Plastic Cup - XL',
             'measurement' => 'piece',
-            'stock_value' => '100',
+            'remaining_stocks' => '100',
             'warning_value' => '20',
         ]);
         InventoryItem::create([
-            'category_id' => 4,
             'name' => 'Big Straw',
             'measurement' => 'piece',
-            'stock_value' => '200',
+            'remaining_stocks' => '200',
             'warning_value' => '40',
         ]);
         InventoryItem::create([
-            'category_id' => 4,
             'name' => 'Small Straw',
             'measurement' => 'piece',
-            'stock_value' => '200',
+            'remaining_stocks' => '200',
             'warning_value' => '40',
         ]);
     }

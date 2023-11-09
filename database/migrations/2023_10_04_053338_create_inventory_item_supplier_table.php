@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventory_item_supplier', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('inventory_id');
-            $table->unsignedInteger('supplier_id');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        // Schema::create('inventory_item_supplier', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->unsignedInteger('inventory_id');
+        //     $table->unsignedInteger('supplier_id');
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        // });
     }
 
     /**

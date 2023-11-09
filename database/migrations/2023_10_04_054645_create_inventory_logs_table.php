@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('inventory_logs', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('inventory_id');
-            $table->unsignedInteger('supplier_id');
+            // $table->unsignedInteger('supplier_id');
+            $table->string('supplier')->default('Big Brew');
             $table->unsignedInteger('user_id');
             $table->smallInteger('status'); // 1 - In, 2 - Out
             $table->string('message');

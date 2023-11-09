@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('inventory_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('category_id');
+            // $table->unsignedInteger('category_id');
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('measurement'); // kg, pc, tbps
-            $table->decimal('stock_value', 10, 2);
+            $table->decimal('remaining_stocks', 10, 2);
             $table->decimal('warning_value', 10, 2);
-            $table->longText('image_path')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
