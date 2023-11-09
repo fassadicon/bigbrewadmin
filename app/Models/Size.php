@@ -43,7 +43,7 @@ class Size extends Model
         return LogOptions::defaults()
             ->logOnly([
                 'name',
-                'description',
+                'measurement',
                 'description',
             ])
             ->logOnlyDirty()

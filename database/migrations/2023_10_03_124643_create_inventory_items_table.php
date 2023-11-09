@@ -17,9 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('measurement'); // kg, pc, tbps
-            $table->decimal('stock_value', 10, 2);
+            $table->decimal('remaining_stocks', 10, 2);
             $table->decimal('warning_value', 10, 2);
-            $table->longText('image_path')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

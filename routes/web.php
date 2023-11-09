@@ -44,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Inventory Items
     Route::get('inventory-items', App\Livewire\InventoryItem\Index::class)
-        ->name('inventory-items');
+    ->name('inventory-items');
 
     // Profile
     Route::view('profile', 'profile')
