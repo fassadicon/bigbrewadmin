@@ -12,38 +12,35 @@ class InventoryLog extends Model
 
     protected $table = 'inventory_logs';
     protected $fillable = [
-        'inventory_id',
+        'inventory_item_id',
         'supplier',
         'user_id',
-        'status',
-        'message',
+        'type',
+        'amount',
         'remarks',
     ];
 
     // Relationships
-    // public function user(): BelongsTo
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
-
-    // public function supplier(): BelongsTo
-    // {
-    //     return $this->belongsTo(Supplier::class);
-    // }
-
-    // public function inventory(): BelongsTo
-    // {
-    //     return $this->belongsTo(Inventory::class);
-    // }
-
-    // Functions
-    public function in()
+    public function user(): BelongsTo
     {
-        return $this->where('status', 1);
+        return $this->belongsTo(User::class);
     }
 
-    public function out()
+    public function inventoryItem(): BelongsTo
     {
-        return $this->where('status', 2);
+        return $this->belongsTo(InventoryItem::class);
+    }
+
+    // Functions
+    public function scopeSearch($query, $value)
+    {
+        $query->whereHas('user', function ($query) use ($value) {
+            $query->where('name', 'like', "%{$value}%");
+        })
+            ->orWhereHas('inventoryItem', function ($query) use ($value) {
+                $query->where('name', 'like', "%{$value}%");
+            })
+            ->orWhere('supplier', 'like', "%{$value}%")
+            ->orWhere('remarks', 'like', "%{$value}%");
     }
 }
