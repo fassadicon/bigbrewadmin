@@ -58,6 +58,8 @@ class InventoryItemSeeder extends Seeder
                 'user_id' => 1,
                 'type' => 'in',
                 'amount' => $inventoryItem->remaining_stocks,
+                'old_stock' => 0,
+                'new_stock' => $inventoryItem->remaining_stocks,
                 'remarks' => 'Initial stock for ' . $inventoryItem->name
             ]);
         }

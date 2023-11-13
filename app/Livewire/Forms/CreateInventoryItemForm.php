@@ -59,6 +59,8 @@ class CreateInventoryItemForm extends Form
             'user_id' => auth()->id(),
             'status' => 'in',
             'amount' => $inventoryItem->remaining_stocks,
+            'old_stock' => 0,
+            'new_stock' => $inventoryItem->remaining_stocks,
             'remarks' => 'Initial stock for ' . $inventoryItem->name
         ]);
 

@@ -2,11 +2,12 @@
 
 namespace App\Livewire\InventoryMovement;
 
-use App\Livewire\Forms\CreateInventoryLogForm;
 use Livewire\Component;
 use App\Models\InventoryLog;
 use Livewire\WithPagination;
 use App\Models\InventoryItem;
+use Illuminate\Support\Carbon;
+use App\Livewire\Forms\CreateInventoryLogForm;
 
 class Index extends Component
 {
@@ -16,7 +17,8 @@ class Index extends Component
     public $search = '';
     public $inventoryItem = '';
     public $type = '';
-
+    public $start;
+    public $end;
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
 
@@ -28,6 +30,8 @@ class Index extends Component
     {
         $this->inventoryItems = InventoryItem::withTrashed()
             ->get(['id', 'name']);
+        $this->start = Carbon::today()->format('m/d/Y');
+        $this->end = Carbon::today()->format('m/d/Y');
     }
 
     public function store()
@@ -48,6 +52,7 @@ class Index extends Component
 
     public function render()
     {
+        // dd([Carbon::parse($this->start), Carbon::parse($this->end), InventoryLog::pluck('created_at')->first()]);
         $inventoryLogs = InventoryLog::with('inventoryItem', 'user')
             ->search($this->search)
             ->when($this->type !== '', function ($query) {
@@ -57,6 +62,9 @@ class Index extends Component
                 $query->whereHas('inventoryItem', function ($query) {
                     $query->where('id', $this->inventoryItem);
                 });
+            })
+            ->when($this->start && $this->end, function($query) {
+                $query->whereBetween('created_at', [Carbon::parse($this->start), Carbon::parse($this->end)]);
             })
             ->orderBy($this->sortBy, $this->sortDir)
             ->paginate($this->perPage);
