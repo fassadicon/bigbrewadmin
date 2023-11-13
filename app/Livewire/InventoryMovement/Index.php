@@ -30,8 +30,8 @@ class Index extends Component
     {
         $this->inventoryItems = InventoryItem::withTrashed()
             ->get(['id', 'name']);
-        $this->start = Carbon::today()->format('m/d/Y');
-        $this->end = Carbon::today()->format('m/d/Y');
+        // $this->start = Carbon::today()->format('m/d/Y');
+        // $this->end = Carbon::today()->format('m/d/Y');
     }
 
     public function store()
@@ -63,9 +63,9 @@ class Index extends Component
                     $query->where('id', $this->inventoryItem);
                 });
             })
-            ->when($this->start && $this->end, function($query) {
-                $query->whereBetween('created_at', [Carbon::parse($this->start), Carbon::parse($this->end)]);
-            })
+            // ->when($this->start && $this->end, function($query) {
+            //     $query->whereBetween('created_at', [Carbon::parse($this->start), Carbon::parse($this->end)]);
+            // })
             ->orderBy($this->sortBy, $this->sortDir)
             ->paginate($this->perPage);
 

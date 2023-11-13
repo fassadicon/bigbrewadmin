@@ -15,8 +15,20 @@ class SuperAdminSeeder extends Seeder
     {
         User::create([
             'name' => 'superadmin',
-            'email' => 'fa.sadicon@gmail.com',
-            'password' => bcrypt('qweqwe123'),
+            'email' => 'superadmin@bigbrew.com',
+            'password' => bcrypt('password'),
+            'created_by' => 1
+        ]);
+        User::create([
+            'name' => 'super admin 2 (co owner)',
+            'email' => 'coowner@bigbrew.com',
+            'password' => bcrypt('password'),
+            'created_by' => 1
+        ]);
+        User::create([
+            'name' => 'Gary Bitong',
+            'email' => 'gbitong@bigbrew.com',
+            'password' => bcrypt('password'),
             'created_by' => 1
         ]);
     }
