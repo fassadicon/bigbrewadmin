@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('inventory_logs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('inventory_id');
-            // $table->unsignedInteger('supplier_id');
+            $table->unsignedInteger('inventory_item_id');
             $table->string('supplier')->default('Big Brew');
             $table->unsignedInteger('user_id');
-            $table->smallInteger('status'); // 1 - In, 2 - Out
-            $table->string('message');
+            $table->enum('type', ['in', 'out']); // 1 - In, 2 - Out
+            $table->decimal('amount', 10, 2);
+            $table->decimal('old_stock', 10, 2);
+            $table->decimal('new_stock', 10, 2);
             $table->string('remarks')->nullable();
             $table->timestamps();
             $table->softDeletes();
