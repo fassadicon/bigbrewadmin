@@ -92,7 +92,7 @@
                                             {{ $user->name }}
                                         </th>
                                         <td>{{ $user->email }}</td>
-                                        <td>Admin</td>
+                                        <td>@dump($user->role)</td>
                                         <td>
                                             @include('includes.table.deleted_at-td', [
                                                 'deleted_at' => $user->deleted_at,

@@ -43,6 +43,7 @@ class Index extends Component
     public function render()
     {
         $users = User::withTrashed()
+            ->with('roles.permissions')
             ->whereNotIn('id', [auth()->id()])
             ->search($this->search)
             ->when($this->status !== '', function ($query) {
@@ -53,7 +54,10 @@ class Index extends Component
                 });
             })
             ->orderBy($this->sortBy, $this->sortDir)
+            // ->get();
             ->paginate($this->perPage);
+        // dd($users);
+
         return view('livewire.user.index', ['users' => $users]);
     }
 }

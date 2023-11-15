@@ -72,13 +72,15 @@ new class extends Component {
                         {{ __('Inventory Movements') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('users')"
-                        :active="request()->routeIs('users')"
-                        wire:navigate>
-                        {{ __('Users') }}
-                    </x-nav-link>
-                </div>
+                @can('view-user')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('users')"
+                            :active="request()->routeIs('users')"
+                            wire:navigate>
+                            {{ __('Users') }}
+                        </x-nav-link>
+                    </div>
+                @endcan
             </div>
 
             <!-- Settings Dropdown -->
