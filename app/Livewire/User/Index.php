@@ -44,7 +44,7 @@ class Index extends Component
     {
         $users = User::withTrashed()
             ->with('roles.permissions')
-            ->whereNotIn('id', [auth()->id()])
+            ->whereNot('id', [auth()->id()])
             ->search($this->search)
             ->when($this->status !== '', function ($query) {
                 $query->when($this->status === 'active', function ($query) {
