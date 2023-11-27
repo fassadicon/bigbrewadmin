@@ -25,37 +25,52 @@ Route::middleware(['auth'])->group(function () {
     // Product
     Route::prefix('products')->group(function () {
         Route::get('/', App\Livewire\Product\Index::class)
-        ->name('products');
+            ->name('products');
         Route::get('create', App\Livewire\Product\Create::class)
-        ->name('products.create');
+            ->name('products.create');
         Route::get('edit/{productDetail}', App\Livewire\Product\Edit::class)
-        ->name('products.edit');
+            ->name('products.edit');
         Route::get('{productDetailId}', App\Livewire\Product\Show::class)
-        ->name('products.show');
+            ->name('products.show');
     });
 
     // Product Category
-    Route::prefix('product-categories')->group(function () {
-        Route::get('/', App\Livewire\ProductCategory\Index::class)
+    Route::get('product-categories', App\Livewire\ProductCategory\Index::class)
         ->name('product-categories');
+
+    // Size
+    Route::get('sizes', App\Livewire\Size\Index::class)
+        ->name('sizes');
+
+    // Inventory Items
+    Route::get('inventory-items', App\Livewire\InventoryItem\Index::class)
+        ->name('inventory-items');
+
+    // Inventory Movement
+    Route::get('inventory-movements', App\Livewire\InventoryMovement\Index::class)
+        ->name('inventory-movements');
+
+    // Product
+    Route::prefix('users')->group(function () {
+        Route::get('/', App\Livewire\User\Index::class)
+            ->name('users');
+        Route::get('create', App\Livewire\User\Create::class)
+            ->name('users.create');
     });
+
+    // Orders
+    Route::prefix('orders')->group(function () {
+        Route::get('/', App\Livewire\Order\Index::class)
+            ->name('orders');
+    });
+
+    // Size
+    Route::get('sugar-levels', App\Livewire\SugarLevel\Index::class)
+        ->name('sugar-levels');
 
     // Profile
     Route::view('profile', 'profile')
         ->name('profile');
-});
-
-
-
-Route::get('test-model', function () {
-    // $productDetails = ProductDetail::with(['category', 'sizes.pivot.inventoryItems'])->get();
-    // return view('test', compact('productDetails'));
-
-    $test = Product::where('id', 1)->first();
-    dd($test->inventoryItems);
-    foreach($test->sizes as $size) {
-        dump($size);
-    }
 });
 
 require __DIR__ . '/auth.php';

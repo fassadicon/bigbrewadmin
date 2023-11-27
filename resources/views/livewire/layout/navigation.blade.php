@@ -38,6 +38,13 @@ new class extends Component {
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('orders')"
+                        :active="request()->routeIs('orders')"
+                        wire:navigate>
+                        {{ __('Orders') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('products')"
                         :active="request()->routeIs('products')"
                         wire:navigate>
@@ -51,6 +58,43 @@ new class extends Component {
                         {{ __('Product Category') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('sizes')"
+                        :active="request()->routeIs('sizes')"
+                        wire:navigate>
+                        {{ __('Sizes') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('sugar-levels')"
+                        :active="request()->routeIs('sugar-levels')"
+                        wire:navigate>
+                        {{ __('Sugar Levels') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('inventory-items')"
+                        :active="request()->routeIs('inventory-items')"
+                        wire:navigate>
+                        {{ __('Inventory Items') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('inventory-movements')"
+                        :active="request()->routeIs('inventory-movements')"
+                        wire:navigate>
+                        {{ __('Inventory Movements') }}
+                    </x-nav-link>
+                </div>
+                @can('view-user')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('users')"
+                            :active="request()->routeIs('users')"
+                            wire:navigate>
+                            {{ __('Users') }}
+                        </x-nav-link>
+                    </div>
+                @endcan
             </div>
 
             <!-- Settings Dropdown -->

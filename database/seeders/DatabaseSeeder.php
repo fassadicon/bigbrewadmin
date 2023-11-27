@@ -9,6 +9,7 @@ use App\Models\InventoryItemCategory;
 use App\Models\InventoryItemConsumption;
 use App\Models\ProductCategory;
 use App\Models\ProductSizeInventory;
+use App\Models\SugarLevel;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,14 +20,27 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            // Roles, Permissions, and Users
+            PermissionSeeder::class,
+            RoleSeeder::class,
             SuperAdminSeeder::class,
+            AdminSeeder::class,
+
+            // Products
             ProductCategorySeeder::class,
             ProductDetailSeeder::class,
             SizeSeeder::class,
             ProductSeeder::class,
-            InventoryItemCategorySeeder::class,
+
+            // Inventory
+            // InventoryItemCategorySeeder::class,
             InventoryItemSeeder::class,
-            InventoryItemConsumptionSeeder::class
+            InventoryItemConsumptionSeeder::class,
+
+            // Orders
+            SugarLevelSeeder::class,
+            SizeSugarLevelSeeder::class,
+            OrderSeeder::class
         ]);
     }
 }

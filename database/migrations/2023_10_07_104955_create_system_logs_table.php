@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('system_logs', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('loggable_id');
-            $table->unsignedInteger('loggable_type');
-            $table->string('message');
-            $table->string('remarks')->nullable();
-            $table->timestamps();
-        });
+        // Schema::create('system_logs', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->unsignedInteger('user_id');
+        //     $table->unsignedInteger('loggable_id');
+        //     $table->unsignedInteger('loggable_type');
+        //     $table->string('message');
+        //     $table->string('remarks')->nullable();
+        //     $table->timestamps();
+        // });
     }
 
     /**

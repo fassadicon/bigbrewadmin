@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->smallInteger('method')->default(1); // 1 - cash, 2 - paymongo
+            $table->smallInteger('method')->default(1); // 1 - cash, 2 - online payment
             $table->decimal('payment_received', 10, 2);
             $table->decimal('amount', 10, 2);
             $table->decimal('change', 10, 2);
