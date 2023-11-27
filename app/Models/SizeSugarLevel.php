@@ -18,9 +18,9 @@ class SizeSugarLevel extends Pivot
 
     protected $table = 'size_sugar_level';
     protected $fillable = [
-        'product_id',
+        'sugar_level_id',
         'size_id',
-        'price'
+        'consumption_value'
     ];
 
     // Relationships
@@ -39,9 +39,9 @@ class SizeSugarLevel extends Pivot
     {
         return LogOptions::defaults()
             ->logOnly([
-                'product_id',
-                'size',
-                'sugar_level',
+                'size_id',
+                'consumption_value',
+                'sugar_level_id',
             ])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs()

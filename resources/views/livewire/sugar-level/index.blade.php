@@ -8,43 +8,52 @@
     {{-- <livewire:size.show />
     <livewire:size.edit /> --}}
 
-    {{-- <div class="py-12">
+    <div class="py-12">
         <form wire:submit="store">
             @csrf
             <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Create Product Size') }}
+                {{ __('Create Sugar Level') }}
             </h3>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"
                 wire:loading.class="invisible">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="mb-6">
-                        <label for="name"
+                        <label for="size_id"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                        <input wire:model="form.name"
-                            type="text"
-                            id="name"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <x-input-error :messages="$errors->get('form.name')"
+                        <select wire:model="form.size_id"
+                            id="size_id"
+                            class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                            <option value="">-- Select Size --</option>
+                            @foreach ($sizes as $size)
+                                <option value="{{ $size->id }}">{{ ucwords($size->name) }}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('form.size')"
                             class="mt-2" />
                     </div>
                     <div class="mb-6">
-                        <label for="measurement"
+                        <label for="sugar_level_id"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Measurement</label>
-                        <input wire:model="form.measurement"
-                            type="text"
-                            id="measurement"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <x-input-error :messages="$errors->get('form.measurement')"
+                        <select wire:model="form.sugar_level_id"
+                            id="sugar_level_id"
+                            class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                            <option value="">-- Select Sugar Level --</option>
+                            @foreach ($sugarLevels as $sugarLevel)
+                                <option value="{{ $sugarLevel->id }}">{{ ucwords($sugarLevel->percentage) }}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('form.sugar_level_id')"
                             class="mt-2" />
                     </div>
                     <div class="mb-6">
-                        <label for="description"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                        <input wire:model="form.description"
+                        <label for="consumption_value"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Consumption
+                            Value</label>
+                        <input wire:model="form.consumption_value"
                             type="text"
-                            id="description"
-                            class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <x-input-error :messages="$errors->get('form.description')"
+                            id="consumption_value"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <x-input-error :messages="$errors->get('form.consumption_value')"
                             class="mt-2" />
                     </div>
                     <div class="mb-6">
@@ -54,7 +63,7 @@
                 </div>
             </div>
         </form>
-    </div> --}}
+    </div>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

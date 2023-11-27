@@ -2,21 +2,23 @@
 
 namespace App\Livewire\Forms;
 
+use Livewire\Form;
+use App\Models\Size;
+use App\Models\SizeSugarLevel;
 use App\Models\SugarLevel;
 use Livewire\Attributes\Rule;
-use Livewire\Form;
 
 class CreateSugarLevelForm extends Form
 {
     public $size_id;
-    public $percentage;
+    public $sugar_level_id;
     public $consumption_value;
 
     public function rules()
     {
         return [
-            'size_id' => 'required|string|max:255|exists:sizes,id',
-            'percentage' => 'required',
+            'size_id' => 'required|numeric|exists:sizes,id',
+            'sugar_level_id' => 'required|numeric|exists:sugar_levels,id',
             'consumption_value' => 'required|numeric'
         ];
     }
@@ -25,7 +27,7 @@ class CreateSugarLevelForm extends Form
     {
         return [
             'size_id' => 'size',
-            'percentage' => 'percentage',
+            'sugar_level_id' => 'percentage',
             'consumption_value' => 'consumption value'
         ];
     }
@@ -34,15 +36,15 @@ class CreateSugarLevelForm extends Form
     {
         $this->validate();
 
-        // Raw Query
-        //    INSERT INTO sizes (name, measurement, description, created_at, updated_at, delete_at)
-        //     VALUES (Extra Large, 26oz, test, today(), today(), NULL);
+        $size = Size::where('id', $this->size_id)->first();
+        // dd($size->sugarLevels);
+        foreach($size->sugarLevels as $sugarLevel) {
+            if ($sugarLevel->id == $this->sugar_level_id) {
+                dd('Sugar Level in this size already exists. Are you sure you want to update?');
+            }
+        }
 
-        // Eloquent
-        SugarLevel::create([
-            'size_id' => $this->size_id,
-            'percentage' => $this->percentage,
-            'consumption_value' => $this->consumption_value
-        ]);
+        $size->sugarLevels()->attach($this->sugar_level_id, ['consumption_value' => $this->consumption_value]);
+
     }
 }
