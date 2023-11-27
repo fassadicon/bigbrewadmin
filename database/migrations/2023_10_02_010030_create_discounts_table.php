@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('value', 10, 2);
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
+            $table->smallInteger('status'); // 1 - ongoing, 2 - expired, 3 - scheduled (to start pa lang)
             $table->timestamps();
             $table->softDeletes();
         });

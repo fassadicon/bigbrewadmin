@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('payment_id')->constrained();
-            $table->smallInteger('discount_id')->nullable();
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('payment_id');
+            $table->unsignedInteger('discount_id')->nullable();
             $table->decimal('total_amount', 10, 2);
-            $table->smallInteger('status');
+            $table->smallInteger('status')->default(1); // 1 - Completed, 2 - Cancelled
             $table->timestamps();
             $table->softDeletes();
         });

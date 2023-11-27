@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventories', function (Blueprint $table) {
+        Schema::create('inventory_item_consumption', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->decimal('stock_value', 10, 2);
-            $table->smallInteger('status')->default(1); // 1 - active, 2 - warning, 3 - inactive
-            $table->longText('image')->nullable();
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('inventory_item_id');
+            $table->decimal('consumption_value', 10, 2);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventories');
+        Schema::dropIfExists('inventory_item_consumption');
     }
 };

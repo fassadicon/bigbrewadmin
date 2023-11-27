@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Product;
+use App\Models\ProductDetail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,12 +17,60 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    // Dashboard
+    Route::view('dashboard', 'dashboard')
+        ->name('dashboard');
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+    // Product
+    Route::prefix('products')->group(function () {
+        Route::get('/', App\Livewire\Product\Index::class)
+            ->name('products');
+        Route::get('create', App\Livewire\Product\Create::class)
+            ->name('products.create');
+        Route::get('edit/{productDetail}', App\Livewire\Product\Edit::class)
+            ->name('products.edit');
+        Route::get('{productDetailId}', App\Livewire\Product\Show::class)
+            ->name('products.show');
+    });
 
-require __DIR__.'/auth.php';
+    // Product Category
+    Route::get('product-categories', App\Livewire\ProductCategory\Index::class)
+        ->name('product-categories');
+
+    // Size
+    Route::get('sizes', App\Livewire\Size\Index::class)
+        ->name('sizes');
+
+    // Inventory Items
+    Route::get('inventory-items', App\Livewire\InventoryItem\Index::class)
+        ->name('inventory-items');
+
+    // Inventory Movement
+    Route::get('inventory-movements', App\Livewire\InventoryMovement\Index::class)
+        ->name('inventory-movements');
+
+    // Product
+    Route::prefix('users')->group(function () {
+        Route::get('/', App\Livewire\User\Index::class)
+            ->name('users');
+        Route::get('create', App\Livewire\User\Create::class)
+            ->name('users.create');
+    });
+
+    // Orders
+    Route::prefix('orders')->group(function () {
+        Route::get('/', App\Livewire\Order\Index::class)
+            ->name('orders');
+    });
+
+    // Size
+    Route::get('sugar-levels', App\Livewire\SugarLevel\Index::class)
+        ->name('sugar-levels');
+
+    // Profile
+    Route::view('profile', 'profile')
+        ->name('profile');
+});
+
+require __DIR__ . '/auth.php';
