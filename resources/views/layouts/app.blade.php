@@ -16,21 +16,34 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <livewire:layout.navigation />
+            <div class="fixed top-0 w-full z-50 bg-white shadow-md">
+                <livewire:layout.navigation />
+            </div>
 
             <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+            <div class="flex bg-gray-300 h-auto" x-data="{ isSidebarExpanded: false }">
+                {{-- Collapsible Sidebar --}}
+                @livewire('layout.sidebar')
+            
+                <div x-bind:class="{ 'ml-64': isSidebarExpanded, 'ml-24': !isSidebarExpanded }" class="flex-1 flex flex-col transition-all duration-300 ease-in-out">
+            
+                    <div class="flex-1 flex flex-col p-4 mt-16">
+                        @livewire('layout.sidebar-collapse')
+                    </div>
+            
+                    <main class="flex-1 flex flex-row">
+                        <div class="flex-1 p-4">
+                            {{ $slot }}
+                        </div>
+            
+                        @livewire('pos.order-summary', [], ['order' => 2]) 
+                    </main>
+                </div>
+            </div>
+            
+            
+            
         </div>
     </body>
 </html>
