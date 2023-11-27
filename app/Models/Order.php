@@ -22,6 +22,14 @@ class Order extends Model
         'status'
     ];
 
+    // public function scopeSearch($query, $value)
+    // {
+    //     $query->where('name', 'like', "%{$value}%")
+    //         ->orWhere('description', 'like', "%{$value}%")
+    //         ->orWhere('measurement', 'like', "%{$value}%");
+    // }
+
+
     // RELATIONSHIPS
     public function orderItems(): HasMany
     {
