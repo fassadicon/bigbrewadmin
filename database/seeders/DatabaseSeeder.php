@@ -9,6 +9,7 @@ use App\Models\InventoryItemCategory;
 use App\Models\InventoryItemConsumption;
 use App\Models\ProductCategory;
 use App\Models\ProductSizeInventory;
+use App\Models\SugarLevel;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -34,7 +35,12 @@ class DatabaseSeeder extends Seeder
             // Inventory
             // InventoryItemCategorySeeder::class,
             InventoryItemSeeder::class,
-            InventoryItemConsumptionSeeder::class
+            InventoryItemConsumptionSeeder::class,
+
+            // Orders
+            SugarLevelSeeder::class,
+            SizeSugarLevelSeeder::class,
+            OrderSeeder::class
         ]);
     }
 }

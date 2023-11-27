@@ -34,11 +34,6 @@ class CreateSizeForm extends Form
     {
         $this->validate();
 
-        // Raw Query
-        //    INSERT INTO sizes (name, measurement, description, created_at, updated_at, delete_at)
-        //     VALUES (Extra Large, 26oz, test, today(), today(), NULL);
-
-        // Eloquent
         Size::create([
             'name' => $this->name,
             'measurement' => $this->measurement,

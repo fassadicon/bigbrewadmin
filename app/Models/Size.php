@@ -8,6 +8,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AjCastro\EagerLoadPivotRelations\EagerLoadPivotTrait;
+use Database\Seeders\SizeSugarLevelSeeder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Size extends Model
@@ -36,6 +37,14 @@ class Size extends Model
             ->withPivot(['price', 'id'])
             ->withTimestamps()
             ->using(Product::class);
+    }
+
+    public function sugarLevels(): BelongsToMany
+    {
+        return $this->belongsToMany(SugarLevel::class, 'size_sugar_level', 'size_id', 'sugar_level_id')
+            ->withPivot(['consumption_value', 'id'])
+            ->withTimestamps()
+            ->using(SizeSugarLevel::class);
     }
 
     public function getActivitylogOptions(): LogOptions

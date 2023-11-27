@@ -58,22 +58,19 @@ Route::middleware(['auth'])->group(function () {
             ->name('users.create');
     });
 
+    // Orders
+    Route::prefix('orders')->group(function () {
+        Route::get('/', App\Livewire\Order\Index::class)
+            ->name('orders');
+    });
+
+    // Size
+    Route::get('sugar-levels', App\Livewire\SugarLevel\Index::class)
+        ->name('sugar-levels');
+
     // Profile
     Route::view('profile', 'profile')
         ->name('profile');
-});
-
-
-
-Route::get('test-model', function () {
-    // $productDetails = ProductDetail::with(['category', 'sizes.pivot.inventoryItems'])->get();
-    // return view('test', compact('productDetails'));
-
-    $test = Product::where('id', 1)->first();
-    dd($test->inventoryItems);
-    foreach ($test->sizes as $size) {
-        dump($size);
-    }
 });
 
 require __DIR__ . '/auth.php';

@@ -38,6 +38,13 @@ new class extends Component {
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('orders')"
+                        :active="request()->routeIs('orders')"
+                        wire:navigate>
+                        {{ __('Orders') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('products')"
                         :active="request()->routeIs('products')"
                         wire:navigate>
@@ -56,6 +63,13 @@ new class extends Component {
                         :active="request()->routeIs('sizes')"
                         wire:navigate>
                         {{ __('Sizes') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('sugar-levels')"
+                        :active="request()->routeIs('sugar-levels')"
+                        wire:navigate>
+                        {{ __('Sugar Levels') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">

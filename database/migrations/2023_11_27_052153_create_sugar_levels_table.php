@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_items', function (Blueprint $table) {
+        Schema::create('sugar_levels', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('order_id')->nullable();
-            $table->unsignedInteger('product_id');
-            $table->unsignedInteger('sugar_level_id')->nullable();
-            $table->smallInteger('quantity')->default(1);
-            $table->decimal('amount', 10, 2);
+            $table->string('percentage');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_items');
+        Schema::dropIfExists('sugar_levels');
     }
 };

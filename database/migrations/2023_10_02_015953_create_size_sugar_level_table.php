@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('size_sugar_level', function (Blueprint $table) {
             $table->id();
-            $table->smallInteger('method')->default(1); // 1 - cash, 2 - online payment
-            $table->decimal('payment_received', 10, 2);
-            $table->decimal('amount', 10, 2);
-            $table->decimal('change', 10, 2);
-            $table->longText('details')->nullable();
+            $table->unsignedInteger('size_id');
+            $table->unsignedInteger('sugar_level_id');
+            $table->decimal('consumption_value', 10, 2);
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('size_sugar_level');
     }
 };
