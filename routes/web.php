@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Product Category
     Route::get('product-categories', App\Livewire\ProductCategory\Index::class)
-    ->name('product-categories');
+        ->name('product-categories');
 
     // Size
     Route::get('sizes', App\Livewire\Size\Index::class)
@@ -44,11 +44,19 @@ Route::middleware(['auth'])->group(function () {
 
     // Inventory Items
     Route::get('inventory-items', App\Livewire\InventoryItem\Index::class)
-    ->name('inventory-items');
+        ->name('inventory-items');
 
     // Inventory Movement
     Route::get('inventory-movements', App\Livewire\InventoryMovement\Index::class)
-    ->name('inventory-movements');
+        ->name('inventory-movements');
+
+    // Product
+    Route::prefix('users')->group(function () {
+        Route::get('/', App\Livewire\User\Index::class)
+            ->name('users');
+        Route::get('create', App\Livewire\User\Create::class)
+            ->name('users.create');
+    });
 
     // Profile
     Route::view('profile', 'profile')
