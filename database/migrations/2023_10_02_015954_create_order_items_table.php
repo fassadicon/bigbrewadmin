@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('order_id');
             $table->unsignedInteger('product_id');
+            $table->unsignedInteger('sugar_level_id')->nullable();
             $table->smallInteger('quantity')->default(1);
             $table->decimal('amount', 10, 2);
             $table->timestamps();

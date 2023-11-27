@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('sugar_levels', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->unsignedSmallInteger('size_id');
             $table->string('percentage');
+            $table->decimal('consumption_value', 10, 2);
             $table->timestamps();
             $table->softDeletes();
         });
