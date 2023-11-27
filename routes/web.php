@@ -64,6 +64,10 @@ Route::middleware(['auth'])->group(function () {
             ->name('orders');
     });
 
+    // Size
+    Route::get('sugar-levels', App\Livewire\SugarLevel\Index::class)
+        ->name('sugar-levels');
+
     // Profile
     Route::view('profile', 'profile')
         ->name('profile');
