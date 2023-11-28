@@ -20,6 +20,9 @@ class Create extends Component
     public $all_categories;
     public $all_inventory_items;
 
+    public $selectedSizeIds;
+    public $selectedInventoryItemIds;
+
     public function mount()
     {
         // dd(Activity::all()->last());
@@ -67,6 +70,11 @@ class Create extends Component
 
     public function changeSizeOrInventoryItem()
     {
+        $products = $this->form->product;
+        $this->selectedSizeIds = array_column($products, 'size_id');
+        $this->selectedInventoryItemIds = array_map(function($product) {
+            return array_column($product['inventory_consumption'], 'inventory_item_id');
+        }, $products);
         $this->form->changeSizeOrInventoryItemData();
     }
 

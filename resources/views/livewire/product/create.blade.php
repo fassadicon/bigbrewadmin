@@ -92,7 +92,8 @@
                                         class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                                         <option value="">-- Select Size --</option>
                                         @foreach ($all_sizes as $size)
-                                            <option value="{{ $size->id }}">
+                                            <option value="{{ $size->id }}"
+                                                @if ($selectedSizeIds) @disabled(in_array($size->id, $selectedSizeIds)) @endif>
                                                 {{ ucwords($size->name) }}</option>
                                         @endforeach
                                     </select>
@@ -173,7 +174,8 @@
                                                         class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                                                         <option value="">-- Select Inventory Item --</option>
                                                         @foreach ($all_inventory_items as $inventory_item)
-                                                            <option value="{{ $inventory_item->id }}">
+                                                            <option value="{{ $inventory_item->id }}"
+                                                                @if ($selectedInventoryItemIds[$index]) @disabled(in_array($inventory_item->id, $selectedInventoryItemIds[$index])) @endif>
                                                                 {{ ucwords($inventory_item->name) . ' (' . ucfirst($inventory_item->measurement) . ')' }}
                                                             </option>
                                                         @endforeach
