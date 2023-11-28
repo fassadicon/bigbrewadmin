@@ -7,13 +7,13 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SizeSugarLevel extends Pivot
 {
     use HasFactory;
-
-    use HasFactory;
     use LogsActivity;
+
     public $incrementing = true;
 
     protected $table = 'size_sugar_level';
