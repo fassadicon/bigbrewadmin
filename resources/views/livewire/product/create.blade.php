@@ -151,6 +151,9 @@
                             @if (empty($form->product) || $form->product[0]['size_id'] === '')
                                 <p>Please select sizes to list inventory item consumption</p>
                             @else
+                                {{-- <pre>
+                                {{ var_dump($form->product) }}
+                                </pre> --}}
                                 @foreach ($form->product as $index => $data)
                                     @unless ($data['size_id'] === '')
                                         <div class="mb-2">

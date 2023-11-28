@@ -46,6 +46,7 @@ class Create extends Component
     public function removeSizeAndPrice($index)
     {
         $this->form->removeSizeAndPriceData($index);
+        $this->changeSizeOrInventoryItem();
     }
 
     public function addSizeAndPrice()
@@ -61,6 +62,7 @@ class Create extends Component
     public function removeInventoryItem($index, $key)
     {
         $this->form->removeInventoryItemData($index, $key);
+        $this->changeSizeOrInventoryItem();
     }
 
     public function addInventoryItem($index)
@@ -75,6 +77,7 @@ class Create extends Component
         $this->selectedInventoryItemIds = array_map(function($product) {
             return array_column($product['inventory_consumption'], 'inventory_item_id');
         }, $products);
+
         $this->form->changeSizeOrInventoryItemData();
     }
 
