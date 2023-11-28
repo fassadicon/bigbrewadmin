@@ -9,6 +9,7 @@ use Livewire\WithFileUploads;
 use App\Models\ProductCategory;
 use Spatie\Activitylog\Models\Activity;
 use App\Livewire\Forms\CreateProductForm;
+use Livewire\Attributes\On;
 
 class Create extends Component
 {
@@ -84,6 +85,12 @@ class Create extends Component
     public function save()
     {
         $this->form->store();
+    }
+
+    #[On('product-category-added')]
+    public function loadCategories()
+    {
+        $this->all_categories = ProductCategory::select('id', 'name')->get();
     }
 
     public function render()
