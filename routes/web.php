@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Product;
+use App\Models\OrderItem;
 use App\Models\ProductDetail;
 use Illuminate\Support\Facades\Route;
 
@@ -71,6 +72,29 @@ Route::middleware(['auth'])->group(function () {
     // Profile
     Route::view('profile', 'profile')
         ->name('profile');
+
+    Route::get('test', function() {
+        $orderItemsCreated = OrderItem::all();
+        foreach ($orderItemsCreated as $orderItem) {
+            $productInventoryItems = $orderItem->product->inventoryItems;
+            foreach ($productInventoryItems as $productInventoryItem) {
+                $consumptionValue = $productInventoryItem->pivot->consumption_value * $orderItem->quantity;
+                $remainingStocks = $productInventoryItem->remaining_stocks;
+                dump([
+                    "Order ID: $orderItem->id",
+                    "Product Id: $productInventoryItem->id",
+                    "InventoryItem Id: $productInventoryItem->id",
+                    "InventoryItem Remaining Stocks: $remainingStocks",
+                    "Consumption Value: $consumptionValue",
+                    "InventoryItem Remaining Stocks After Consumption: $remainingStocks - $consumptionValue",
+                ]);
+                // dump();
+                // $productInventoryItem->update([
+                //     'remaining_stocks' => $remainingStocks - $consumptionValue
+                // ]);
+            }
+        }
+    });
 });
 
 require __DIR__ . '/auth.php';

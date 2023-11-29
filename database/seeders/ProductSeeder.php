@@ -13,11 +13,13 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        $milkteas = ProductDetail::where('category_id', 1)->get();
-        foreach ($milkteas as $milktea) {
-            $milktea->sizes()->attach([
-                rand(2, 4) => ['price' => rand(50, 100)]
-            ]);
+        $products = ProductDetail::all();
+        foreach ($products as $product) {
+            foreach(range(1, 3) as $sizeId) {
+                $product->sizes()->attach([
+                    $sizeId => ['price' => rand(50, 100)]
+                ]);
+            }
         }
     }
 }
