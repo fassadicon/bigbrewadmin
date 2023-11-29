@@ -85,7 +85,8 @@
                                         </th>
                                         <td>
                                             @foreach ($order->orderItems as $orderItem)
-                                                <div>{{ $orderItem->product->name }}</div>
+                                                <div>{{ $orderItem->product->productDetail->name }} x
+                                                    {{ $orderItem->quantity }}</div>
                                             @endforeach
                                         </td>
                                         <td>{{ $order->total_amount }}</td>
