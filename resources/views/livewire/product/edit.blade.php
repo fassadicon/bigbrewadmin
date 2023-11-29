@@ -7,8 +7,7 @@
 
     <div class="flex mx-auto">
         {{-- EditProduct Form --}}
-        <form wire:submit="save"
-            class="w-full">
+        <form wire:submit="save" class="w-full">
             <div class="flex mx-auto">
                 {{-- Product Details and Sizes --}}
                 <div class="w-4/12">
@@ -22,36 +21,28 @@
                             <div class="mb-6">
                                 <label for="name"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                <input wire:model="form.name"
-                                    type="text"
-                                    id="name"
+                                <input wire:model="form.name" type="text" id="name"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <x-input-error :messages="$errors->get('form.name')"
-                                    class="mt-2" />
+                                <x-input-error :messages="$errors->get('form.name')" class="mt-2" />
                             </div>
                             <div class="mb-6">
                                 <label for="category_id"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                                <select wire:model="form.category_id"
-                                    id="category_id"
+                                <select wire:model="form.category_id" id="category_id"
                                     class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                                     <option value="">-- Select Category --</option>
                                     @foreach ($all_categories as $category)
                                         <option value="{{ $category->id }}">{{ ucwords($category->name) }}</option>
                                     @endforeach
                                 </select>
-                                <x-input-error :messages="$errors->get('form.category_id')"
-                                    class="mt-2" />
+                                <x-input-error :messages="$errors->get('form.category_id')" class="mt-2" />
                             </div>
                             <div class="mb-6">
                                 <label for="description"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                                <input wire:model="form.description"
-                                    type="text"
-                                    id="description"
+                                <input wire:model="form.description" type="text" id="description"
                                     class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <x-input-error :messages="$errors->get('form.description')"
-                                    class="mt-2" />
+                                <x-input-error :messages="$errors->get('form.description')" class="mt-2" />
                             </div>
                             <div class="mb-6">
                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -59,25 +50,19 @@
                                 <input wire:model="form.image"
                                     accept="image/png, image/jpg, image/jpeg, image/svg, image/gif"
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                    aria-describedby="file_input_help"
-                                    id="file_input"
-                                    type="file">
-                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                    id="file_input_help">SVG, PNG, JPG or GIF (MAX: 1MB)</p>
+                                    aria-describedby="file_input_help" id="file_input" type="file">
+                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG,
+                                    JPG or GIF (MAX: 1MB)</p>
                                 @if ($form->image && is_string($form->image))
-                                    <img src="{{ asset('storage\\' . $form->image) }}"
-                                        alt="">
+                                    <img src="{{ asset('storage\\' . $form->image) }}" alt="">
                                 @elseif ($form->image)
-                                    <img src="{{ $form->image->temporaryUrl() }}"
-                                        alt="">
+                                    <img src="{{ $form->image->temporaryUrl() }}" alt="">
                                 @endif
 
-                                <div wire:loading
-                                    wire:target='form.image'>
+                                <div wire:loading wire:target='form.image'>
                                     Uploading
                                 </div>
-                                <x-input-error :messages="$errors->get('form.image')"
-                                    class="mt-2" />
+                                <x-input-error :messages="$errors->get('form.image')" class="mt-2" />
                             </div>
 
 
@@ -101,12 +86,12 @@
                                     <label for="size_{{ $key }}"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Size</label>
                                     <select wire:model="form.product.{{ $key }}.size_id"
-                                        wire:change="changeSizeOrInventoryItem()"
-                                        id="size_{{ $key }}"
+                                        wire:change="changeSizeOrInventoryItem()" id="size_{{ $key }}"
                                         class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                                         <option value="">-- Select Size --</option>
                                         @foreach ($all_sizes as $size)
-                                            <option value="{{ $size->id }}">
+                                            <option value="{{ $size->id }}"
+                                                @if ($selectedSizeIds) @disabled(in_array($size->id, $selectedSizeIds)) @endif>
                                                 {{ ucwords($size->name) }}</option>
                                         @endforeach
                                     </select>
@@ -120,8 +105,7 @@
                                     <label for="price_{{ $key }}"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
                                     <input wire:model="form.product.{{ $key }}.price"
-                                        id="price_{{ $key }}"
-                                        type="text"
+                                        id="price_{{ $key }}" type="text"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     @error("form.product.$key.price")
                                         <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
@@ -130,16 +114,14 @@
                                     @enderror
                                 </div>
                                 <div class="relative z-0 w-full mb-2 group">
-                                    <button wire:click.prevent="removeSizeAndPrice({{ $key }})"
-                                        type="button"
+                                    <button wire:click.prevent="removeSizeAndPrice({{ $key }})" type="button"
                                         class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                                         - </button>
                                 </div>
                             @endforeach
                         </div>
                         <div class="mb-6">
-                            <button wire:click="addSizeAndPrice"
-                                type="button"
+                            <button wire:click="addSizeAndPrice" type="button"
                                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                 Add Size
                             </button>
@@ -180,7 +162,8 @@
                                                         class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                                                         <option value="">-- Select Inventory Item --</option>
                                                         @foreach ($all_inventory_items as $inventory_item)
-                                                            <option value="{{ $inventory_item->id }}">
+                                                            <option value="{{ $inventory_item->id }}"
+                                                                @if ($selectedInventoryItemIds[$index]) @disabled(in_array($inventory_item->id, $selectedInventoryItemIds[$index])) @endif>
                                                                 {{ ucwords($inventory_item->name) . ' (' . ucfirst($inventory_item->measurement) . ')' }}
                                                             </option>
                                                         @endforeach

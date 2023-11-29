@@ -23,6 +23,9 @@ class Edit extends Component
     public $all_categories;
     public $all_inventory_items;
 
+    public $selectedSizeIds;
+    public $selectedInventoryItemIds;
+
     public function mount(ProductDetail $productDetail)
     {
         $productDetail->load('category', 'sizes.pivot.inventoryItems');
@@ -40,8 +43,10 @@ class Edit extends Component
                 'size_id' => $size->id,
                 'price' => $size->pivot->price
             ];
+            $this->selectedSizeIds[] = $size->id;
 
-            foreach ($size->pivot->inventoryItems as $inventoryItem) {
+            foreach ($size->pivot->inventoryItems as $key => $inventoryItem) {
+                $this->selectedInventoryItemIds[$key][] = $inventoryItem->id;
                 $data['inventory_consumption'][] = [
                     'inventory_item_id' => $inventoryItem->id,
                     'consumption_value' => $inventoryItem->pivot->consumption_value
@@ -55,6 +60,7 @@ class Edit extends Component
     public function removeSizeAndPrice($index)
     {
         $this->form->removeSizeAndPriceData($index);
+        $this->changeSizeOrInventoryItem();
     }
 
     public function addSizeAndPrice()
@@ -70,6 +76,7 @@ class Edit extends Component
     public function removeInventoryItem($index, $key)
     {
         $this->form->removeInventoryItemData($index, $key);
+        $this->changeSizeOrInventoryItem();
     }
 
     public function addInventoryItem($index)
@@ -79,6 +86,11 @@ class Edit extends Component
 
     public function changeSizeOrInventoryItem()
     {
+        $products = $this->form->product;
+        $this->selectedSizeIds = array_column($products, 'size_id');
+        $this->selectedInventoryItemIds = array_map(function($product) {
+            return array_column($product['inventory_consumption'], 'inventory_item_id');
+        }, $products);
         $this->form->changeSizeOrInventoryItemData();
     }
 
