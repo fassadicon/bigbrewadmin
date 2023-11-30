@@ -2,11 +2,13 @@
 
 namespace App\Livewire\InventoryMovement;
 
+use App\Exports\InventoryMovementExport;
 use Livewire\Component;
 use App\Models\InventoryLog;
 use Livewire\WithPagination;
 use App\Models\InventoryItem;
 use Illuminate\Support\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Livewire\Forms\CreateInventoryLogForm;
 
 class Index extends Component
@@ -48,6 +50,10 @@ class Index extends Component
 
         $this->sortBy = $column;
         $this->sortDir = 'DESC';
+    }
+
+    public function export() {
+        return Excel::download(new InventoryMovementExport, 'inventory_movement.xlsx');
     }
 
     public function render()
