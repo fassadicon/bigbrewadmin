@@ -9,6 +9,5 @@
         </svg>
       </button>
       <span class="font-medium">BigBrew Menu</span>
-      @livewire('pos.category')
     </header>
   

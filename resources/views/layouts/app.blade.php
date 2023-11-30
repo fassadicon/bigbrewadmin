@@ -31,25 +31,27 @@
 
             <!-- Page Heading -->
 
-            <div class="flex bg-gray-300 h-auto" x-data="{ isSidebarExpanded: false }">
+            <main class="flex-1 flex flex-row">
+
+            <div class="flex bg-gray-50 h-auto" x-data="{ isSidebarExpanded: true }">
                 {{-- Collapsible Sidebar --}}
                 @livewire('layout.sidebar')
-            
+
                 <div x-bind:class="{ 'ml-64': isSidebarExpanded, 'ml-24': !isSidebarExpanded }" class="flex-1 flex flex-col transition-all duration-300 ease-in-out">
-            
                     <div class="flex-1 flex flex-col p-4 mt-16">
                         @livewire('layout.sidebar-collapse')
                     </div>
+
+                    {{ $slot }}
+                </div>
+                
+                
+                      
             
-                    <main class="flex-1 flex flex-row">
-                        <div class="flex-1 p-4">
-                            {{ $slot }}
-                        </div>
-            
-                        @livewire('pos.order-summary', [], ['order' => 2]) 
-                    </main>
                 </div>
             </div>
+
+            </main>
             
             
             
