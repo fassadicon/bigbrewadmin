@@ -18,7 +18,7 @@ class OrderSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (range(1, 20) as $orderCount) {
+        foreach (range(1, 50) as $orderCount) {
             $orderItemsCount = rand(0, 2);
             $totalAmount = 0;
             $orderItems = [];
@@ -74,7 +74,7 @@ class OrderSeeder extends Seeder
                         'amount' => $consumptionValue,
                         'old_stock' => $remainingStocks,
                         'new_stock' => $newStocks,
-                        'remarks' => 'Order for ' . $productInventoryItem->name
+                        'remarks' => 'Order for ' . $orderItem->product->productDetail->name
                     ]);
                 }
             }

@@ -4,7 +4,8 @@
             {{ __('Inventory Movement') }}
         </h2>
     </x-slot>
-    <button wire:click='export'>Export</button>
+    <button wire:click='export'
+        class="px-3 py-1 bg-blue-500 text-white rounded">Export</button>
     <div class="py-12">
         <form wire:submit="store">
             @csrf

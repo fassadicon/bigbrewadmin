@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\OrderItem;
 use App\Models\ProductDetail;
+use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -73,27 +76,33 @@ Route::middleware(['auth'])->group(function () {
     Route::view('profile', 'profile')
         ->name('profile');
 
-    Route::get('test', function() {
-        $orderItemsCreated = OrderItem::all();
-        foreach ($orderItemsCreated as $orderItem) {
-            $productInventoryItems = $orderItem->product->inventoryItems;
-            foreach ($productInventoryItems as $productInventoryItem) {
-                $consumptionValue = $productInventoryItem->pivot->consumption_value * $orderItem->quantity;
-                $remainingStocks = $productInventoryItem->remaining_stocks;
-                dump([
-                    "Order ID: $orderItem->id",
-                    "Product Id: $productInventoryItem->id",
-                    "InventoryItem Id: $productInventoryItem->id",
-                    "InventoryItem Remaining Stocks: $remainingStocks",
-                    "Consumption Value: $consumptionValue",
-                    "InventoryItem Remaining Stocks After Consumption: $remainingStocks - $consumptionValue",
-                ]);
-                // dump();
-                // $productInventoryItem->update([
-                //     'remaining_stocks' => $remainingStocks - $consumptionValue
-                // ]);
-            }
-        }
+    Route::get('test', function () {
+        $orders = Order::withTrashed()
+            ->with('payment', 'orderItems', 'user')
+            ->get();
+
+        $totalSales = $orders->where('status', 1)->sum('total_amount');
+        $completedOrders = $orders->where('status', 1)->count();
+        $cancelledOrders = $orders->where('status', 2)->count();
+
+        $totalCashPayments = $orders->where('status', 1)
+            ->where('payment.method', 1)
+            ->sum('total_amount');
+        $totalOnlinePayments = $orders->where('status', 1)
+            ->where('payment.method', 2)
+            ->sum('total_amount');
+
+        $pdf = Pdf::loadView('exports.sales', [
+            'orders' => $orders,
+            'totalSales' => $totalSales,
+            'totalCashPayments' => $totalCashPayments,
+            'totalOnlinePayments' => $totalOnlinePayments,
+            'completedOrders' => $completedOrders,
+            'cancelledOrders' => $cancelledOrders,
+            'date' => Carbon::today()->format('F j, Y')
+        ]);
+
+        return $pdf->download('sales.pdf');
     });
 });
 
