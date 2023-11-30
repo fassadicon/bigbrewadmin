@@ -5,8 +5,8 @@
         </h2>
     </x-slot>
 
-    {{-- <livewire:size.show />
-    <livewire:size.edit /> --}}
+    {{-- <livewire:sugar-level.show /> --}}
+    <livewire:sugar-level.edit />
 
     <div class="py-12">
         <form wire:submit="store">
@@ -71,7 +71,7 @@
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                     {{-- Search Filters --}}
                     <div class="flex items-center justify-between d p-4">
-                        {{-- <div class="flex">
+                        <div class="flex">
                             <div class="relative w-full">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                     <svg aria-hidden="true"
@@ -91,7 +91,7 @@
                                     required="">
                             </div>
                         </div>
-                        <div class="flex space-x-3">
+                        {{-- <div class="flex space-x-3">
                             <div class="flex space-x-3 items-center">
                                 <label class="w-40 text-sm font-medium text-gray-900">Status:</label>
                                 <select wire:model.live="status"
@@ -122,8 +122,6 @@
                                 <th scope="col"
                                     class="px-4 py-3">Consumption Value</th>
                                 <th scope="col"
-                                    class="px-4 py-3">Status</th>
-                                <th scope="col"
                                     class="px-4 py-3">
                                     Actions
                                     {{-- <span class="sr-only">Actions</span> --}}
@@ -141,7 +139,7 @@
                                         <td>{{ $sizeSugarLevel->sugarLevel->percentage }}</td>
                                         <td>{{ $sizeSugarLevel->consumption_value }}</td>
                                         <td class="px-4 py-3 flex items-center justify-center">
-                                            <button wire:click.prevent="show({{ $sizeSugarLevel->id }})"
+                                            {{-- <button wire:click.prevent="show({{ $sizeSugarLevel->id }})"
                                                 class="px-3 py-1 bg-blue-500 text-white rounded">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                     fill="none"
@@ -153,7 +151,7 @@
                                                         stroke-linejoin="round"
                                                         d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                                                 </svg>
-                                            </button>
+                                            </button> --}}
                                             {{-- @unless ($sugarLevel->trashed()) --}}
                                             <button wire:click.prevent="edit({{ $sizeSugarLevel }})"
                                                 class="px-3 py-1 bg-green-500 text-white rounded">
@@ -169,10 +167,10 @@
                                                 </svg>
                                             </button>
                                             <button wire:click='delete({{ $sizeSugarLevel }})'
-                                                class="px-3 py-1 bg-orange-500 text-white rounded">Archive</button>
+                                                class="px-3 py-1 bg-orange-500 text-white rounded">Delete</button>
                                             {{-- @else --}}
-                                            <button wire:click='restore({{ $sizeSugarLevel->id }})'
-                                                class="px-3 py-1 bg-green-500 text-white rounded">Restore</button>
+                                            {{-- <button wire:click='restore({{ $sizeSugarLevel->id }})'
+                                                class="px-3 py-1 bg-green-500 text-white rounded">Restore</button> --}}
                                             {{-- @endunless --}}
                                         </td>
                                     </tr>

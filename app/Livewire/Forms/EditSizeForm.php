@@ -16,7 +16,7 @@ class EditSizeForm extends Form
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255|unique:product_categories,name,' . $this->size->id,
+            'name' => 'required|string|max:255|unique:sizes,name,' . $this->size->id,
             'measurement' => 'required',
             'description' => 'nullable|string'
         ];

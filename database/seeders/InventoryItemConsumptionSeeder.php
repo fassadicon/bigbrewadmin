@@ -14,14 +14,14 @@ class InventoryItemConsumptionSeeder extends Seeder
      */
     public function run(): void
     {
-        $milkteas =  Product::whereHas('productDetail', function ($query) {
-            $query->where('category_id', 1);
-        })->get();
+        $products = Product::all();
 
-        foreach ($milkteas as $milktea) {
-            $milktea->inventoryItems()->attach([
-                rand(1, 6) => ['consumption_value' => rand(1, 10)]
-            ]);
+        foreach ($products as $product) {
+            foreach(range(1, 2) as $inventoryItemAttached) {
+                $product->inventoryItems()->attach([
+                    rand(1, 51) => ['consumption_value' => 1]
+                ]);
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ use Livewire\WithFileUploads;
 use App\Models\ProductCategory;
 use Spatie\Activitylog\Models\Activity;
 use App\Livewire\Forms\CreateProductForm;
+use Livewire\Attributes\On;
 
 class Create extends Component
 {
@@ -19,6 +20,9 @@ class Create extends Component
     public $all_sizes;
     public $all_categories;
     public $all_inventory_items;
+
+    public $selectedSizeIds;
+    public $selectedInventoryItemIds;
 
     public function mount()
     {
@@ -43,6 +47,7 @@ class Create extends Component
     public function removeSizeAndPrice($index)
     {
         $this->form->removeSizeAndPriceData($index);
+        $this->changeSizeOrInventoryItem();
     }
 
     public function addSizeAndPrice()
@@ -58,6 +63,7 @@ class Create extends Component
     public function removeInventoryItem($index, $key)
     {
         $this->form->removeInventoryItemData($index, $key);
+        $this->changeSizeOrInventoryItem();
     }
 
     public function addInventoryItem($index)
@@ -67,12 +73,24 @@ class Create extends Component
 
     public function changeSizeOrInventoryItem()
     {
+        $products = $this->form->product;
+        $this->selectedSizeIds = array_column($products, 'size_id');
+        $this->selectedInventoryItemIds = array_map(function($product) {
+            return array_column($product['inventory_consumption'], 'inventory_item_id');
+        }, $products);
+
         $this->form->changeSizeOrInventoryItemData();
     }
 
     public function save()
     {
         $this->form->store();
+    }
+
+    #[On('product-category-added')]
+    public function loadCategories()
+    {
+        $this->all_categories = ProductCategory::select('id', 'name')->get();
     }
 
     public function render()

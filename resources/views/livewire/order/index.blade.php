@@ -4,7 +4,8 @@
             {{ __('Orders') }}
         </h2>
     </x-slot>
-
+    <button wire:click='export'
+        class="px-3 py-1 bg-blue-500 text-white rounded">Export</button>
     <livewire:order.show />
 
     {{-- <a href="{{ route('users.create') }}"
@@ -85,7 +86,8 @@
                                         </th>
                                         <td>
                                             @foreach ($order->orderItems as $orderItem)
-                                                <div>{{ $orderItem->product->name }}</div>
+                                                <div>{{ $orderItem->product->productDetail->name }} x
+                                                    {{ $orderItem->quantity }}</div>
                                             @endforeach
                                         </td>
                                         <td>{{ $order->total_amount }}</td>

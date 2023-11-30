@@ -25,7 +25,7 @@ class Product extends Pivot
     // Relationships
     public function productDetail(): BelongsTo
     {
-        return $this->belongsTo(ProductDetail::class, 'id');
+        return $this->belongsTo(ProductDetail::class, 'product_id', 'id');
     }
 
     public function size(): BelongsTo
