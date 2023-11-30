@@ -17,7 +17,7 @@ class ProductCard extends Component
     public $selectedSizes = [];
     public $status;
     public $selectedSugarLevels = [];
-    public $sugarLevels; 
+    public $sugarLevels;
     public $sizeAlias;
 
 

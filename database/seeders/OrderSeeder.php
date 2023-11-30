@@ -54,8 +54,6 @@ class OrderSeeder extends Seeder
             }
 
             // Inventory Consumption
-            $orderItem = OrderItem::where('order_id', 1)->first();
-            $product = $orderItem->product->inventoryItems;
             $orderItemsCreated = OrderItem::all();
             foreach ($orderItemsCreated as $orderItem) {
                 $productInventoryItems = $orderItem->product->inventoryItems;

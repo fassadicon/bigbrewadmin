@@ -17,6 +17,8 @@ class InventoryLog extends Model
         'user_id',
         'type',
         'amount',
+        'old_stock',
+        'new_stock',
         'remarks',
     ];
 
