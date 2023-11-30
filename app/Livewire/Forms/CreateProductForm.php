@@ -127,22 +127,26 @@ class CreateProductForm extends Form
         }
 
         unset($this->product[$index]['inventory_consumption'][$key]);
+        // $this->product = array_values($this->product[$index]['inventory_consumption']);
         $this->changeSizeOrInventoryItemData();
     }
 
     public function addInventoryItemData($index)
     {
-        $lastInventoryItem = count($this->product[$index]['inventory_consumption']) - 1;
-        if ($this->product[$index]['inventory_consumption'][$lastInventoryItem]['inventory_item_id'] === "") {
-            // Trigger modal/toast here
-            dd('Please select an item before adding another one.');
+        if ($index !== 0) {
+            $lastInventoryItem = count($this->product[$index]['inventory_consumption']) - 1;
+            // dd([$lastInventoryItem, $index]);
+            if ($this->product[$index]['inventory_consumption'][$lastInventoryItem]['inventory_item_id'] === "") {
+                // Trigger modal/toast here
+                dd('Please select an item before adding another one.');
+            }
         }
-
         $this->product[$index]['inventory_consumption'][] =
             [
                 'inventory_item_id' => '',
                 'consumption_value' => 0.00,
             ];
+        // dump($lastInventoryItem);
     }
 
     public function changeSizeOrInventoryItemData()

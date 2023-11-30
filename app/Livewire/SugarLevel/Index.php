@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\SugarLevel;
 use Livewire\WithPagination;
 use App\Models\SizeSugarLevel;
+use Livewire\Attributes\On;
 use App\Livewire\Forms\CreateSugarLevelForm;
 
 class Index extends Component
@@ -15,7 +16,6 @@ class Index extends Component
     public $perPage = 5;
 
     public $search = '';
-    public $status = 'active';
 
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
@@ -33,6 +33,22 @@ class Index extends Component
     public function store()
     {
         $this->form->store();
+    }
+
+    public function edit(SizeSugarLevel $sizeSugarLevel)
+    {
+        $this->dispatch('editing-sugar-level', sizeSugarLevel: $sizeSugarLevel);
+        $this->dispatch('open-modal', 'edit-sugar-level');
+    }
+
+    public function delete(SizeSugarLevel $sizeSugarLevel)
+    {
+        $sizeSugarLevel->delete();
+    }
+
+    #[On('sugar-level-changed')]
+    public function refresh()
+    {
     }
 
     public function render()

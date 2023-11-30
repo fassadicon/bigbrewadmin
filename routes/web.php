@@ -1,7 +1,11 @@
 <?php
 
+use App\Models\Order;
 use App\Models\Product;
+use App\Models\OrderItem;
 use App\Models\ProductDetail;
+use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -71,6 +75,35 @@ Route::middleware(['auth'])->group(function () {
     // Profile
     Route::view('profile', 'profile')
         ->name('profile');
+
+    Route::get('test', function () {
+        $orders = Order::withTrashed()
+            ->with('payment', 'orderItems', 'user')
+            ->get();
+
+        $totalSales = $orders->where('status', 1)->sum('total_amount');
+        $completedOrders = $orders->where('status', 1)->count();
+        $cancelledOrders = $orders->where('status', 2)->count();
+
+        $totalCashPayments = $orders->where('status', 1)
+            ->where('payment.method', 1)
+            ->sum('total_amount');
+        $totalOnlinePayments = $orders->where('status', 1)
+            ->where('payment.method', 2)
+            ->sum('total_amount');
+
+        $pdf = Pdf::loadView('exports.sales', [
+            'orders' => $orders,
+            'totalSales' => $totalSales,
+            'totalCashPayments' => $totalCashPayments,
+            'totalOnlinePayments' => $totalOnlinePayments,
+            'completedOrders' => $completedOrders,
+            'cancelledOrders' => $cancelledOrders,
+            'date' => Carbon::today()->format('F j, Y')
+        ]);
+
+        return $pdf->download('sales.pdf');
+    });
 });
 
 require __DIR__ . '/auth.php';

@@ -5,6 +5,8 @@ namespace App\Livewire\Order;
 use App\Models\Order;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Index extends Component
 {
@@ -22,6 +24,39 @@ class Index extends Component
     {
         $this->dispatch('showing-order', id: $id);
         $this->dispatch('open-modal', 'show-order');
+    }
+
+    public function export()
+    {
+        $orders = Order::withTrashed()
+            ->with('payment', 'orderItems', 'user')
+            ->get();
+
+        $totalSales = $orders->where('status', 1)->sum('total_amount');
+        $completedOrders = $orders->where('status', 1)->count();
+        $cancelledOrders = $orders->where('status', 2)->count();
+
+        $totalCashPayments = $orders->where('status', 1)
+            ->where('payment.method', 1)
+            ->sum('total_amount');
+        $totalOnlinePayments = $orders->where('status', 1)
+            ->where('payment.method', 2)
+            ->sum('total_amount');
+
+        $pdf = Pdf::loadView('exports.sales', [
+            'orders' => $orders,
+            'totalSales' => $totalSales,
+            'totalCashPayments' => $totalCashPayments,
+            'totalOnlinePayments' => $totalOnlinePayments,
+            'completedOrders' => $completedOrders,
+            'cancelledOrders' => $cancelledOrders,
+            'date' => Carbon::today()->format('F j, Y')
+        ])->output();
+
+        return response()->streamDownload(
+            fn () => print($pdf),
+            "sales.pdf"
+        );
     }
 
     public function render()

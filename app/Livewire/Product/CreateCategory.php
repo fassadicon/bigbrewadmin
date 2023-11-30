@@ -13,6 +13,6 @@ class CreateCategory extends Component
         $this->form->store();
 
         $this->dispatch('close', 'create-product-category');
-        $this->dispatch('inventory-items-changed');
+        $this->dispatch('product-category-added');
     }
 }
