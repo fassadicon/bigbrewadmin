@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     <button wire:click='export'
-        class="px-3 py-1 bg-blue-500 text-white rounded">Export</button>
+        class="px-3 py-1 bg-red-500 text-white rounded ml-8">Export</button>
     <livewire:order.show />
 
     {{-- <a href="{{ route('users.create') }}"

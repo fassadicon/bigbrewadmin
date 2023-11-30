@@ -5,7 +5,7 @@
         </h2>
         <button x-data=""
             x-on:click.prevent="$dispatch('open-modal', 'create-inventory-item')"
-            class="px-3 py-1 bg-green-500 text-white rounded">Create</button>
+            class="px-3 py-1 bg-red-500 text-white rounded ml-8">Create</button>
     </x-slot>
 
     <livewire:inventory-item.create />

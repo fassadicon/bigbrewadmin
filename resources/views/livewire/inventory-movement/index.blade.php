@@ -5,11 +5,11 @@
         </h2>
     </x-slot>
     <button wire:click='export'
-        class="px-3 py-1 bg-blue-500 text-white rounded">Export</button>
+        class="px-3 py-1 bg-red-500 text-white rounded ml-8">Export</button>
     <div class="py-12">
         <form wire:submit="store">
             @csrf
-            <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
+            <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight ml-6">
                 {{ __('Add Entry') }}
             </h3>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"
@@ -76,7 +76,7 @@
                     </div>
                     <div class="flex">
                         <button type="submit"
-                            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Add</button>
+                            class="focus:outline-none text-white bg-red-500 hover:bg-red-200 focus:ring-4 focus:ring-red-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Add</button>
                     </div>
                 </div>
             </div>
