@@ -11,21 +11,13 @@ use Livewire\Component;
 
 class ProductCard extends Component
 {
-    public $products;
     public $productDetails;
     public $selectedProducts = [];
-    public $selectedSizes = [];
-    public $status;
-    public $selectedSugarLevels = [];
-    public $sugarLevels;
-    public $sizeAlias;
 
-
-    public function mount($status = 1)
+    public function mount()
     {
-        $this->productDetails = ProductDetail::where('status', $status)->get();
-        $this->products = Product::all();
-        $this->sugarLevels = SugarLevel::all();
+        $this->productDetails = ProductDetail::with(['category', 'sizes.pivot.inventoryItems'])
+        ->get();
     }
 
     public function render()
@@ -33,13 +25,13 @@ class ProductCard extends Component
         return view('livewire.pos.product-card');
     }
 
-    public function addToCart($productDetailId, $size = null, $sugarLevel = null)
+    public function addToCart($productId)
     {
-        $key = $productDetailId . '-' . $size;
-
-        if (!in_array($key, $this->selectedProducts)) {
-            $this->selectedProducts[] = $key;
-            $this->dispatch('productAdded', $productDetailId, $size, $sugarLevel);
+        if (in_array($productId, $this->selectedProducts)) {
+            dd('Product Already in Cart');
         }
+
+        $this->selectedProducts[] = $productId;
+        $this->dispatch('productAdded', $productId);
     }
 }
