@@ -16,7 +16,8 @@ new class extends Component {
     }
 }; ?>
 
-<nav x-data="{ open: false }" class="fixed h-16 w-screen bg-red-500 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }"
+    class="fixed h-16 w-screen bg-red-500 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -26,7 +27,8 @@ new class extends Component {
                     <a href="{{ route('dashboard') }}"
                         wire:navigate>
 
-                        <img src="{{ asset('storage/img/bigbrew-logo.png') }}" class="block h-9 w-auto fill-current text-gray-200 dark:text-gray-200" />
+                        <img src="{{ asset('storage/img/bigbrew-logo.png') }}"
+                            class="block h-9 w-auto fill-current text-gray-200 dark:text-gray-200" />
                     </a>
                 </div>
                 <!-- Navigation Links -->
@@ -102,8 +104,11 @@ new class extends Component {
                 <x-dropdown align="right"
                     width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white dark:text-white bg-red-500 dark:bg-red-950 hover:text-red-200 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div x-data="{ name: '{{ auth()->user()->name }}' }" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
+                        <button
+                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white dark:text-white bg-red-500 dark:bg-red-950 hover:text-red-200 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                            <div x-data="{ name: '{{ auth()->user()->name }}' }"
+                                x-text="name"
+                                x-on:profile-updated.window="name = $event.detail.name"></div>
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4"

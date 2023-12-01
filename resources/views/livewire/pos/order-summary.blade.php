@@ -1,4 +1,7 @@
 <div class="mx-auto px-4 sm:px-6 lg:px-8">
+
+    <livewire:pos.confirm-order />
+
     <div class="mx-auto w-80 md:mt-12">
         <div class="rounded-3xl bg-white shadow-lg">
             <div class="px-4 py-6 sm:px-8 sm:py-10">

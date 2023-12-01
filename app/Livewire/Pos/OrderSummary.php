@@ -13,7 +13,7 @@ use App\Models\InventoryLog;
 class OrderSummary extends Component
 {
     public $selectedProducts = [];
-
+    public $currentTotalAmount = 0;
     // protected $listeners = ['productAdded'];
 
     #[On('productAdded')]
@@ -59,49 +59,52 @@ class OrderSummary extends Component
             array_push($orderItems, $orderItem);
         }
 
-        $payment = Payment::create([
-            'payment_received' => $totalAmount, // Update
-            'amount' => $totalAmount,
-            'change' => 0 // Update
-        ]);
+        $this->dispatch('confirming-order', currentTotalAmount: $totalAmount);
+        $this->dispatch('open-modal', 'confirm-order');
 
-        $order = Order::create([
-            'user_id' => auth()->id(),
-            'payment_id' => $payment->id,
-            'total_amount' => $payment->amount,
-        ]);
+        // $payment = Payment::create([
+        //     'payment_received' => $totalAmount, // Update
+        //     'amount' => $totalAmount,
+        //     'change' => 0 // Update
+        // ]);
 
-        foreach ($orderItems as $orderItem) {
-            $orderItem['order_id'] = $order->id;
-            OrderItem::create($orderItem);
-        }
+        // $order = Order::create([
+        //     'user_id' => auth()->id(),
+        //     'payment_id' => $payment->id,
+        //     'total_amount' => $payment->amount,
+        // ]);
+
+        // foreach ($orderItems as $orderItem) {
+        //     $orderItem['order_id'] = $order->id;
+        //     OrderItem::create($orderItem);
+        // }
 
 
-        $orderItemsCreated = OrderItem::where('order_id', $order->id)->get();
-        foreach ($orderItemsCreated as $orderItem) {
-            $productInventoryItems = $orderItem->product->inventoryItems;
-            foreach ($productInventoryItems as $productInventoryItem) {
-                $consumptionValue = $productInventoryItem->pivot->consumption_value * $orderItem->quantity;
-                $remainingStocks = $productInventoryItem->remaining_stocks;
-                $newStocks = $remainingStocks - $consumptionValue;
-                $productInventoryItem->update([
-                    'remaining_stocks' => $newStocks
-                ]);
+        // $orderItemsCreated = OrderItem::where('order_id', $order->id)->get();
+        // foreach ($orderItemsCreated as $orderItem) {
+        //     $productInventoryItems = $orderItem->product->inventoryItems;
+        //     foreach ($productInventoryItems as $productInventoryItem) {
+        //         $consumptionValue = $productInventoryItem->pivot->consumption_value * $orderItem->quantity;
+        //         $remainingStocks = $productInventoryItem->remaining_stocks;
+        //         $newStocks = $remainingStocks - $consumptionValue;
+        //         $productInventoryItem->update([
+        //             'remaining_stocks' => $newStocks
+        //         ]);
 
-                InventoryLog::create([
-                    'inventory_item_id' => $productInventoryItem->id,
-                    'user_id' => 1,
-                    'type' => 'out',
-                    'amount' => $consumptionValue,
-                    'old_stock' => $remainingStocks,
-                    'new_stock' => $newStocks,
-                    'remarks' => 'Order for ' . $orderItem->product->productDetail->name
-                ]);
-            }
-        }
+        //         InventoryLog::create([
+        //             'inventory_item_id' => $productInventoryItem->id,
+        //             'user_id' => 1,
+        //             'type' => 'out',
+        //             'amount' => $consumptionValue,
+        //             'old_stock' => $remainingStocks,
+        //             'new_stock' => $newStocks,
+        //             'remarks' => 'Order for ' . $orderItem->product->productDetail->name
+        //         ]);
+        //     }
+        // }
 
-        $this->selectedProducts = [];
-        dd('Order completed!');
+        // $this->selectedProducts = [];
+        // dd('Order completed!');
     }
 
     public function render()

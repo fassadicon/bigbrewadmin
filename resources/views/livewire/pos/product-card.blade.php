@@ -28,32 +28,11 @@
 
                             <div class="flex space-x-2">
                                 @foreach ($sizes as $size)
-                                    @php
-                                        $sizeAlias = '';
-                                        switch ($size->name) {
-                                            case 'small':
-                                                $sizeAlias = 'S';
-                                                break;
-                                            case 'medium':
-                                                $sizeAlias = 'M';
-                                                break;
-                                            case 'large':
-                                                $sizeAlias = 'L';
-                                                break;
-                                            case 'fixed':
-                                                $sizeAlias = 'F';
-                                                break;
-                                            // Add more cases as needed for other sizes
-                                            default:
-                                                $sizeAlias = $size->name; // Use the actual size name if no alias is defined
-                                                break;
-                                        }
-                                    @endphp
                                     <button
                                         wire:click="addToCart({{ $productDetail->id }}, '{{ $size->id }}', '{{ $size->name }}')"
                                         class="rounded-full bg-red-50 text-red-500 hover:bg-red-200 hover:text-white hover:shadow-xl focus:outline-none w-10 h-10 flex ml-auto transition duration-300">
                                         <div class="m-auto">
-                                            {{ $sizeAlias }}
+                                            {{ $size->alias }}
                                         </div>
                                     </button>
                                 @endforeach
