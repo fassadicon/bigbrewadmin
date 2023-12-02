@@ -42,7 +42,11 @@ class DatabaseSeeder extends Seeder
             // Orders
             SugarLevelSeeder::class,
             SizeSugarLevelSeeder::class,
-            OrderSeeder::class
+            OrderSeeder::class,
+
+            //Purchase order seeder
+            PurchaseOrderSeeder::class
+
         ]);
     }
 }
