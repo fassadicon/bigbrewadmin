@@ -72,6 +72,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('sugar-levels', App\Livewire\SugarLevel\Index::class)
         ->name('sugar-levels');
 
+    // Purchase Orders
+    Route::prefix('purchase-orders')->group(function () {
+        Route::get('/', App\Livewire\PurchaseOrder\Index::class)
+            ->name('purchase-orders');
+        Route::get('create', App\Livewire\PurchaseOrder\Create::class)
+            ->name('purchase-orders.create');
+    });
+
+    // Delivery Receives
+    Route::prefix('delivery-receives')->group(function () {
+        Route::get('/', App\Livewire\DeliveryReceive\Index::class)
+            ->name('delivery-receives');
+    });
+
     // Profile
     Route::view('profile', 'profile')
         ->name('profile');
