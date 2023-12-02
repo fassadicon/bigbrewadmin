@@ -78,6 +78,8 @@ Route::middleware(['auth'])->group(function () {
             ->name('purchase-orders');
         Route::get('create', App\Livewire\PurchaseOrder\Create::class)
             ->name('purchase-orders.create');
+        Route::get('edit/{purchaseOrder}', App\Livewire\PurchaseOrder\Edit::class)
+            ->name('purchase-orders.edit');
     });
 
     // Delivery Receives

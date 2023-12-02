@@ -9,9 +9,10 @@ use Livewire\WithPagination;
 class Index extends Component
 {
     use WithPagination;
+
     public function render()
     {
-        $purchaseOrders = PurchaseOrder::with('purchaseOrderItems')->paginate(10);
+        $purchaseOrders = PurchaseOrder::paginate(10);
         return view('livewire.purchase-order.index', ['purchaseOrders' => $purchaseOrders]);
     }
 }

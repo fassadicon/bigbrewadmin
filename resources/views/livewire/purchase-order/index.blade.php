@@ -47,6 +47,8 @@
                                 <th scope="col"
                                     class="px-4 py-3">Supplier</th>
                                 <th scope="col"
+                                    class="px-4 py-3">Created by</th>
+                                <th scope="col"
                                     class="px-4 py-3">Total Amount</th>
                                 <th scope="col"
                                     class="px-4 py-3">Remarks</th>
@@ -65,15 +67,13 @@
                                             class="px-4 py-3 font-medium whitespace-nowrap text-gray-900">
                                             {{ $purchaseOrder->id }}
                                         </th>
-                                        <th scope="row"
-                                            class="px-4 py-3 font-medium whitespace-nowrap text-gray-900">
-                                            {{ ucwords($purchaseOrder->supplier->name) }}
-                                        </th>
+                                        <td>{{ $purchaseOrder->supplier->name }}</td>
+                                        <td>{{ $purchaseOrder->user->name }}</td>
                                         <td>{{ $purchaseOrder->total_amount }}</td>
                                         <td>{{ $purchaseOrder->remarks }}</td>
                                         <td>{{ $purchaseOrder->description }}</td>
-                                        {{-- <td class="px-4 py-3 flex items-center justify-center">
-                                            <button wire:click.prevent="show({{ $inventoryItem->id }})"
+                                        <td class="px-4 py-3 flex items-center justify-center">
+                                            {{-- <button wire:click.prevent="show({{ $inventoryItem->id }})"
                                                 class="px-3 py-1 bg-blue-500 text-white rounded">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                     fill="none"
@@ -85,9 +85,10 @@
                                                         stroke-linejoin="round"
                                                         d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                                                 </svg>
-                                            </button>
-                                            @unless ($inventoryItem->trashed())
-                                                <button wire:click.prevent="edit({{ $inventoryItem }})"
+                                            </button> --}}
+                                            @unless ($purchaseOrder->trashed())
+                                                <a href="{{ route('purchase-orders.edit', ['purchaseOrder' => $purchaseOrder]) }}"
+                                                    wire:navigate
                                                     class="px-3 py-1 bg-green-500 text-white rounded">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                         fill="none"
@@ -99,14 +100,14 @@
                                                             stroke-linejoin="round"
                                                             d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                                                     </svg>
-                                                </button>
-                                                <button wire:click='delete({{ $inventoryItem }})'
+                                                </a>
+                                                <button wire:click='delete({{ $purchaseOrder }})'
                                                     class="px-3 py-1 bg-orange-500 text-white rounded">Archive</button>
                                             @else
-                                                <button wire:click='restore({{ $inventoryItem->id }})'
+                                                <button wire:click='restore({{ $purchaseOrder->id }})'
                                                     class="px-3 py-1 bg-green-500 text-white rounded">Restore</button>
                                             @endunless
-                                        </td> --}}
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr class="border-b dark:border-gray-700">

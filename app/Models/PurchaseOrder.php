@@ -16,7 +16,8 @@ class PurchaseOrder extends Model
         'user_id',
         'supplier_id',
         'total_amount',
-        'status'
+        'status',
+        'remarks'
     ];
 
     public function purchaseOrderItems() : HasMany {
