@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('measurement'); // kg, pc, tbps
             $table->decimal('remaining_stocks', 10, 2);
             $table->decimal('warning_value', 10, 2);
+            $table->decimal('unit_price', 10, 2);
             $table->timestamps();
             $table->softDeletes();
         });

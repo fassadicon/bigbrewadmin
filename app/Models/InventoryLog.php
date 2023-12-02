@@ -13,7 +13,7 @@ class InventoryLog extends Model
     protected $table = 'inventory_logs';
     protected $fillable = [
         'inventory_item_id',
-        'supplier',
+        'supplier_id',
         'user_id',
         'type',
         'amount',
@@ -26,6 +26,11 @@ class InventoryLog extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function supplier(): BelongsTo
+    {
+        return $this->belongsTo(Supplier::class);
     }
 
     public function inventoryItem(): BelongsTo
@@ -42,7 +47,6 @@ class InventoryLog extends Model
             ->orWhereHas('inventoryItem', function ($query) use ($value) {
                 $query->where('name', 'like', "%{$value}%");
             })
-            ->orWhere('supplier', 'like', "%{$value}%")
             ->orWhere('remarks', 'like', "%{$value}%");
     }
 }

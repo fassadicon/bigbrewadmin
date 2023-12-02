@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventory_logs', function (Blueprint $table) {
+        Schema::create('purchase_orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('inventory_item_id');
-            $table->string('supplier_id')->default(1);
             $table->unsignedInteger('user_id');
-            $table->enum('type', ['in', 'out']); // 1 - In, 2 - Out
-            $table->decimal('amount', 10, 2);
-            $table->decimal('old_stock', 10, 2);
-            $table->decimal('new_stock', 10, 2);
-            $table->string('remarks')->nullable();
+            $table->decimal('total_amount', 10, 2);
+            $table->unsignedSmallInteger('status')->default(1); // 1 - Pending, 2 - Incomplete, 3 - Completed
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventory_logs');
+        Schema::dropIfExists('purchase_orders');
     }
 };
