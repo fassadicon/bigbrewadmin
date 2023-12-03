@@ -14,10 +14,14 @@ class Edit extends Component
     public $purchaseOrderItems;
     public $suppliers;
     public $inventoryItems;
+    public $supplier_id;
 
-    public function mount(PurchaseOrder $purchaseOrder) {
+    public function mount()
+    {
         $this->purchaseOrder->load('purchaseOrderItems');
-        foreach($purchaseOrder->purchaseOrderItems as $purchaseOrderitem) {
+
+        $this->supplier_id = $this->purchaseOrder->supplier_id;
+        foreach ($this->purchaseOrder->purchaseOrderItems as $purchaseOrderitem) {
             $this->purchaseOrderItems[] =  [
                 'inventory_item_id' => $purchaseOrderitem->inventory_item_id,
                 'quantity' => $purchaseOrderitem->quantity,
@@ -30,6 +34,11 @@ class Edit extends Component
 
         $this->suppliers = Supplier::all();
         $this->inventoryItems = InventoryItem::all();
+    }
+
+    public function updated()
+    {
+        dd($this->purchaseOrderItems);
     }
 
     public function render()

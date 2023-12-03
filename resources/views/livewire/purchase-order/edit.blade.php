@@ -10,27 +10,31 @@
                 <div class="mb-6">
                     <label for="supplier_id"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Supplier</label>
-                    <select wire:model.live='purchaseOrder.supplier_id'
+                    <select wire:model='supplier_id'
                         name="supplier_id"
                         id="supplier_id">
                         <option value="">-- Please select supplier --</option>
                         @foreach ($suppliers as $supplier)
-                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                            <option value="{{ $supplier->id }}"
+                                @selected($supplier_id == $supplier->id)>
+                                {{ $supplier->name }}
+                            </option>
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('supplier_id')"
                         class="mt-2" />
                 </div>
                 <div>
+                    @dump($purchaseOrderItems)
                     @foreach ($purchaseOrderItems as $key => $purchaseOrderItem)
                         <div class="relative z-0 w-full mb-5 group">
                             <label for="inventory_item_id"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Inventory
                                 Item</label>
                             <select wire:model='purchaseOrderItems.{{ $key }}.inventory_item_id'
-                                wire:change='inventoryItemSelected({{ $key }}, $event.target.value)'
+                                {{-- wire:change='inventoryItemSelected({{ $key }}, $event.target.value)' --}}
                                 name="inventory_item_id"
-                                id="inventory_item_id{{ $key }}">
+                                id="inventory_item_id_{{ $key }}">
                                 <option value=""
                                     selected>-- Please select an Inventory Item --</option>
                                 @foreach ($inventoryItems as $inventoryItem)
