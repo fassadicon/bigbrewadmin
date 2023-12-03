@@ -22,7 +22,7 @@ class InventoryMovementExport implements FromCollection, WithMapping, WithHeadin
 
     public function collection()
     {
-        $inventoryLogs = InventoryLog::all();
+        $inventoryLogs = InventoryLog::limit(100)->get();
         $this->count = $inventoryLogs->count();
         return $inventoryLogs;
     }
