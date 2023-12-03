@@ -1,24 +1,23 @@
 <div>
     <x-slot name="header">
-        <h2 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Create a Product') }}
-        </h2>
+        
+    </x-slot>
+
+    <livewire:product.create-category />
+    <div class="flex mx-auto px-4">
         <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-product-category')"
             type="button"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
             Create Category
         </button>
-    </x-slot>
-
-    <livewire:product.create-category />
-
-    <div class="flex mx-auto">
+    </div>
+    <div class="flex mx-auto mt-6">
         {{-- Create Product Form --}}
         <form wire:submit="save" class="w-full">
             <div class="flex mx-auto">
                 {{-- Product Details and Sizes --}}
                 <div class="w-4/12">
-                    <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
+                    <h3 class="font-semibold text-m text-gray-800 ml-6 dark:text-gray-200 leading-tight">
                         {{ __('Details') }}
                     </h3>
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">

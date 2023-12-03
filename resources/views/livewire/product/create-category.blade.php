@@ -1,7 +1,7 @@
 <x-modal name="create-product-category">
     <form wire:submit="store">
         @csrf
-        <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
+        <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight p-6">
             {{ __('Create Product Category') }}
         </h3>
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"
@@ -27,7 +27,7 @@
                     <x-input-error :messages="$errors->get('form.description')"
                         class="mt-2" />
                 </div>
-                <div class="mb-6">
+                <div class="">
                     <button type="submit"
                         class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Create</button>
                 </div>

@@ -20,6 +20,9 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"
     rel="stylesheet" />
 
+    {{-- Fontawesome --}}
+    <script src="https://kit.fontawesome.com/3266042309.js" crossorigin="anonymous"></script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
