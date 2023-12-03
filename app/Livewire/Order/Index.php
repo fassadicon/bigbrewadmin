@@ -30,6 +30,7 @@ class Index extends Component
     {
         $orders = Order::withTrashed()
             ->with('payment', 'orderItems', 'user')
+            ->limit(15)
             ->get();
 
         $totalSales = $orders->where('status', 1)->sum('total_amount');
