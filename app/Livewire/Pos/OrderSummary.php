@@ -86,7 +86,6 @@ class OrderSummary extends Component
 
     public function placeOrder()
     {
-        dd($this->selectedProducts);
         $this->computeCurrentTotalAmount();
         $this->payment['amount'] = $this->currentTotalAmount;
         $this->dispatch('open-modal', 'confirm-order');

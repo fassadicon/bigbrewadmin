@@ -103,43 +103,51 @@
                                                     {{ $selectedProduct['product']->productDetail->name }}
                                                 </p>
                                                 <p class="mx-0 mt-1 mb-0 text-xs text-gray-400">
-                                                    {{ $selectedProduct['product']->productDetail->description }}</p>
+                                                    {{ $selectedProduct['product']->productDetail->description }}
+                                                </p>
                                                 <p class="text-xs font-semibold text-gray-900">Size:
                                                     {{ $selectedProduct['product']->size->name }}
+                                                </p>
                                             </div>
-
-                                            <div
-                                                class="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
-                                                <p
-                                                    class="shrink-0 w-20 text-xs font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
-                                                    PHP{{ $selectedProduct['product']->price }}</p>
+                                
+                                            <div class="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
+                                                <p class="shrink-0 w-20 text-xs font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
+                                                    PHP{{ $selectedProduct['product']->price }}
+                                                </p>
                                             </div>
-
-                                            <button wire:click='subtractQuantity({{ $key }})'
-                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">-</button>
-                                            <p>{{ $selectedProduct['quantity'] }}</p>
-                                            <button wire:click='addQuantity({{ $key }})'
-                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">+</button>
-
-
                                         </div>
-                                        @php
-                                            $sizeSugarLevels = \App\Models\SizeSugarLevel::where('size_id', $selectedProduct['product']->size->id)
-                                                ->orderByDesc('id')
-                                                ->get();
-                                        @endphp
-                                        <select wire:model.live="selectedProducts.{{ $key }}.sugarLevelId"
-                                            name="sugarLevelId"
-                                            id="sugarLevelId_{{ $key }}">
-                                            @foreach ($sizeSugarLevels as $key => $sizeSugarLevel)
-                                                <option value="{{ $sizeSugarLevel->id }}"
-                                                    @selected($sizeSugarLevel->id == $selectedProduct['sugarLevelId'])>
-                                                    {{ $sizeSugarLevel->sugarlevel->percentage }}</option>
-                                            @endforeach
-                                        </select>
-
+                                
+                                        <div class="mt-4 grid grid-cols-3 gap-4">
+                                            <div>
+                                                <button wire:click='subtractQuantity({{ $key }})'
+                                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-6 w-6 rounded">-</button>
+                                            </div>
+                                            <p class="text-base">{{ $selectedProduct['quantity'] }}</p>
+                                            <div>
+                                                <button wire:click='addQuantity({{ $key }})'
+                                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-6 w-6 rounded">+</button>
+                                            </div>
+                                        </div>
+                                
+                                        <div class="mt-4">
+                                            @php
+                                                $sizeSugarLevels = \App\Models\SizeSugarLevel::where('size_id', $selectedProduct['product']->size->id)
+                                                    ->orderByDesc('id')
+                                                    ->get();
+                                            @endphp
+                                            <select wire:model.live="selectedProducts.{{ $key }}.sugarLevelId" name="sugarLevelId"
+                                                id="sugarLevelId_{{ $key }}">
+                                                @foreach ($sizeSugarLevels as $sizeSugarLevel)
+                                                    <option value="{{ $sizeSugarLevel->id }}"
+                                                        @selected($sizeSugarLevel->id == $selectedProduct['sugarLevelId'])>
+                                                        {{ $sizeSugarLevel->sugarlevel->percentage }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
+                                
+                                
                                 <div class="ml-auto">
                                     <button wire:click="removeItem({{ $loop->index }})"
                                         type="button"
@@ -191,7 +199,7 @@
                 <div class="mt-6 text-center">
                     <button wire:click='placeOrder'
                         type="button"
-                        class="group inline-flex w-full items-center justify-center rounded-md bg-red-500 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-red-50 hover:text-red-500"
+                        class="group inline-flex w-full items-center justify-center rounded-md bg-amber-800 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-amber-50 hover:text-amber-950"
                         @disabled(empty($selectedProducts))>
                         Place Order
                         <svg xmlns="http://www.w3.org/2000/svg"

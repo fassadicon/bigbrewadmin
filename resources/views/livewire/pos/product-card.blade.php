@@ -1,10 +1,11 @@
-<div class="flex flex-wrap -mx-2">
-    <div class="hidden md:flex space-x-3 flex-1 lg:ml-8">
+<div>
+    <div class="md:flex space-x-3 flex-1 lg:ml-8">
         @foreach ($allCategories as $category)
             <button wire:click="selectCategory({{ $category->id }})"
-                class="px-2 py-2 hover:bg-gray-100 rounded-lg text-gray-700 hover:text-red-500">{{ ucfirst($category->name) }}</button>
+                class="px-2 py-2 hover:bg-gray-100 rounded-lg text-gray-700 hover:text-red-500">{{ strtoupper($category->name) }}</button>
         @endforeach
     </div>
+    <div class="flex flex-wrap -mx-2">
     @foreach ($productDetails as $productDetail)
         <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 px-2 py-2 mb-4 lg:mb-0 flex">
             <div
@@ -113,4 +114,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
