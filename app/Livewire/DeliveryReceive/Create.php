@@ -24,7 +24,7 @@ class Create extends Component
 
     public function updateReceived($key, $value)
     {
-        $pending = $this->deliveryReceiveItems[$key]['expected_quantity'] - $value;
+        $pending = floatval($this->deliveryReceiveItems[$key]['expected_quantity']) - floatval($value);
         $this->deliveryReceiveItems[$key]['pending'] = $pending;
         $this->deliveryReceiveItems[$key]['quantity'] = $value;
     }
