@@ -78,7 +78,7 @@ class CreateProductForm extends Form
                 ]);
             }
         }
-
+        return redirect()->to('/products');
         // $attributes = ProductDetail::where('id', $productDetail->id)->with(['category', 'sizes.pivot.inventoryItems'])->first();
         // activity()
         //     ->performedOn($productDetail)
