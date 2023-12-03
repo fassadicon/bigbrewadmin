@@ -57,7 +57,8 @@
                     </div>
                     <div class="mb-6">
                         <label for="payment.details"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Remarks</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Details/Reference
+                            Number (if any)</label>
                         <input wire:model="payment.details"
                             type="text"
                             id="name"

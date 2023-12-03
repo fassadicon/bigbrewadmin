@@ -21,8 +21,22 @@
 
                             <div class="flex space-x-2">
                                 @foreach ($productDetail->sizes as $size)
+                                    @php
+                                        $disabled = false;
+                                        $warningValue = false;
+                                        foreach ($size->pivot->inventoryItems as $inventoryItem) {
+                                            if ($inventoryItem->remaining_stocks <= $inventoryItem->warning_value) {
+                                                $warningValue = true;
+                                            }
+                                            if ($inventoryItem->remaining_stocks <= 0) {
+                                                $disabled = true;
+                                            }
+                                        }
+                                    @endphp
+                                    {{-- Palagyan conditional styles for warning value and disabled, prio disabled styles if true. Use $warningValue --}}
                                     <button wire:click="addToCart({{ $size->pivot->id }})"
-                                        class="rounded-full bg-red-50 text-red-500 hover:bg-red-200 hover:text-white hover:shadow-xl focus:outline-none w-10 h-10 flex ml-auto transition duration-300">
+                                        class="rounded-full bg-red-50 text-red-500 hover:bg-red-200 hover:text-white hover:shadow-xl focus:outline-none w-10 h-10 flex ml-auto transition duration-300"
+                                        @disabled($disabled)>
                                         <div class="m-auto">
                                             {{ $size->alias }}
                                         </div>
