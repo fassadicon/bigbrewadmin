@@ -20,7 +20,7 @@ class DeliveryReceive extends Model
     ];
 
 
-    public function orderReceiveItems(): HasMany
+    public function deliveryReceiveItems(): HasMany
     {
         return $this->hasMany(DeliveryReceiveItem::class);
     }

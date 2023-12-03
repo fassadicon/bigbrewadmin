@@ -4,8 +4,12 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\OrderItem;
 use App\Models\ProductDetail;
+use App\Models\PurchaseOrder;
 use Illuminate\Support\Carbon;
+use App\Models\DeliveryReceive;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\PurchaseOrderItem;
+use App\Models\DeliveryReceiveItem;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -93,32 +97,12 @@ Route::middleware(['auth'])->group(function () {
         ->name('profile');
 
     Route::get('test', function () {
-        $orders = Order::withTrashed()
-            ->with('payment', 'orderItems', 'user')
-            ->get();
-
-        $totalSales = $orders->where('status', 1)->sum('total_amount');
-        $completedOrders = $orders->where('status', 1)->count();
-        $cancelledOrders = $orders->where('status', 2)->count();
-
-        $totalCashPayments = $orders->where('status', 1)
-            ->where('payment.method', 1)
-            ->sum('total_amount');
-        $totalOnlinePayments = $orders->where('status', 1)
-            ->where('payment.method', 2)
-            ->sum('total_amount');
-
-        $pdf = Pdf::loadView('exports.sales', [
-            'orders' => $orders,
-            'totalSales' => $totalSales,
-            'totalCashPayments' => $totalCashPayments,
-            'totalOnlinePayments' => $totalOnlinePayments,
-            'completedOrders' => $completedOrders,
-            'cancelledOrders' => $cancelledOrders,
-            'date' => Carbon::today()->format('F j, Y')
+        $purchaseOrdersTotal = PurchaseOrder::sum('total_amount');
+        $deliveryReceiveTotal = DeliveryReceive::sum('total_amount');
+        dd([
+            $purchaseOrdersTotal,
+            $deliveryReceiveTotal
         ]);
-
-        return $pdf->download('sales.pdf');
     });
 });
 

@@ -44,8 +44,9 @@ class DatabaseSeeder extends Seeder
             SizeSugarLevelSeeder::class,
             OrderSeeder::class,
 
-            //Purchase order seeder
-            PurchaseOrderSeeder::class
+            // Purchase Orders and Delivery Receives
+            PurchaseOrderSeeder::class,
+            DeliveryReceiveSeeder::class
 
         ]);
     }

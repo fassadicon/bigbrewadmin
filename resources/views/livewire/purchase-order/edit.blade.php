@@ -25,7 +25,6 @@
                         class="mt-2" />
                 </div>
                 <div>
-                    @dump($purchaseOrderItems)
                     @foreach ($purchaseOrderItems as $key => $purchaseOrderItem)
                         <div class="relative z-0 w-full mb-5 group">
                             <label for="inventory_item_id"
