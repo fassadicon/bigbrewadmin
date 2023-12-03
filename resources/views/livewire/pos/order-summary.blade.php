@@ -27,7 +27,7 @@
                             id="">
                             <option value="1"
                                 selected>Cash</option>
-                            <option value="2">Online Payment</option>
+                            <option value="2">GCash</option>
                         </select>
                         <x-input-error :messages="$errors->get('payment.method')"
                             class="mt-2" />
@@ -131,11 +131,10 @@
                                         <select wire:model.live="selectedProducts.{{ $key }}.sugarLevelId"
                                             name="sugarLevelId"
                                             id="sugarLevelId_{{ $key }}">
-                                            <option value="">---</option>
                                             @foreach ($sizeSugarLevels as $key => $sizeSugarLevel)
-                                                <option value="{{ $sizeSugarLevel->id }}">
-                                                    {{ $sizeSugarLevel->sugarlevel->percentage }} -
-                                                    {{ $sizeSugarLevel->consumption_value }}</option>
+                                                <option value="{{ $sizeSugarLevel->id }}"
+                                                    @selected($sizeSugarLevel->id == $selectedProduct['sugarLevelId'])>
+                                                    {{ $sizeSugarLevel->sugarlevel->percentage }}</option>
                                             @endforeach
                                         </select>
 
@@ -165,7 +164,7 @@
 
                 <!-- <hr class="mx-0 mt-6 mb-0 h-0 border-r-0 border-b-0 border-l-0 border-t border-solid border-gray-300" /> -->
 
-                <div class="mt-6 space-y-3 border-t border-b py-8">
+                {{-- <div class="mt-6 space-y-3 border-t border-b py-8">
 
                     <div class="flex items-center justify-between">
                         <p class="text-gray-400">Subtotal</p>
@@ -175,7 +174,7 @@
                         <p class="text-gray-400">Discount</p>
                         <p class="text-lg font-semibold text-gray-900"></p>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="mt-6 flex items-center justify-between">
                     <p class="text-sm font-medium text-gray-900">Total</p>
@@ -188,10 +187,12 @@
                         readonly> --}}
                 </div>
 
+                {{-- Pa blur if walang laman cart --}}
                 <div class="mt-6 text-center">
                     <button wire:click='placeOrder'
                         type="button"
-                        class="group inline-flex w-full items-center justify-center rounded-md bg-red-500 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-red-50 hover:text-red-500">
+                        class="group inline-flex w-full items-center justify-center rounded-md bg-red-500 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-red-50 hover:text-red-500"
+                        @disabled(empty($selectedProducts))>
                         Place Order
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="group-hover:ml-8 ml-4 h-6 w-6 transition-all"

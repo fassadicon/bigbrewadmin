@@ -32,9 +32,9 @@ class ProductCard extends Component
                 dd("$inventoryItem->name has $inventoryItem->remaining_stocks stocks left and cannot proceed ordering. Please refill the inventory immediately.");
             }
         }
-        if (in_array($productId, $this->selectedProducts)) {
-            dd('Product Already in Cart');
-        }
+        // if (in_array($productId, $this->selectedProducts)) {
+        //     dd('Product Already in Cart');
+        // }
 
         $this->selectedProducts[] = $productId;
         $this->dispatch('productAdded', $productId);

@@ -24,7 +24,8 @@ class OrderSummary extends Component
         'details' => ''
     ];
 
-    protected function rules() {
+    protected function rules()
+    {
         $rules = [
             'payment.payment_received' => 'required|numeric|min:' . $this->currentTotalAmount
         ];
@@ -34,10 +35,16 @@ class OrderSummary extends Component
     #[On('productAdded')]
     public function productAdded($productId)
     {
+        $product = Product::with('productDetail', 'size')->where('id', $productId)->first();
+        $defaultSugarLevelId = SizeSugarLevel::where('size_id', $product->size->id)
+            ->orderByDesc('id')
+            ->pluck('id')
+            ->first();
+
         $this->selectedProducts[] = [
-            'product' => Product::with('productDetail', 'size')->where('id', $productId)->first(),
+            'product' => $product,
             'quantity' => 1,
-            'sugarLevelId' => ''
+            'sugarLevelId' => $defaultSugarLevelId
         ];
     }
 
@@ -69,7 +76,8 @@ class OrderSummary extends Component
         $this->computeCurrentTotalAmount();
     }
 
-    public function updateChange() {
+    public function updateChange()
+    {
         $this->validate();
 
         $this->payment['change'] = floatval($this->payment['payment_received']) - $this->currentTotalAmount;
@@ -77,6 +85,7 @@ class OrderSummary extends Component
 
     public function placeOrder()
     {
+        dd($this->selectedProducts);
         $this->computeCurrentTotalAmount();
         $this->payment['amount'] = $this->currentTotalAmount;
         $this->dispatch('open-modal', 'confirm-order');
