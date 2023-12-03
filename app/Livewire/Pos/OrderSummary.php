@@ -10,6 +10,7 @@ use Livewire\Component;
 use App\Models\OrderItem;
 use Livewire\Attributes\On;
 use App\Models\InventoryLog;
+use App\Models\ProductCategory;
 use App\Models\SizeSugarLevel;
 
 class OrderSummary extends Component
