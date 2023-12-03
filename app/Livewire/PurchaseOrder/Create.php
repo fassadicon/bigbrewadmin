@@ -80,6 +80,7 @@ class Create extends Component
 
         foreach ($this->purchaseOrderItems as $purchaseOrderItem) {
             $purchaseOrderItem['purchase_order_id'] = $purchaseOrder->id;
+            $purchaseOrderItem['user_id'] = auth()->id();
             PurchaseOrderItem::create($purchaseOrderItem);
         }
     }

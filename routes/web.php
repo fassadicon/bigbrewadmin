@@ -90,6 +90,8 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('delivery-receives')->group(function () {
         Route::get('/', App\Livewire\DeliveryReceive\Index::class)
             ->name('delivery-receives');
+            Route::get('create', App\Livewire\DeliveryReceive\Create::class)
+            ->name('delivery-receives.create');
     });
 
     // Profile
