@@ -218,7 +218,7 @@
                                         <td>{{ $inventoryLog->amount }}</td>
                                         <td>{{ $inventoryLog->old_stock }}</td>
                                         <td>{{ $inventoryLog->new_stock }}</td>
-                                        <td>{{ $inventoryLog->supplier }}</td>
+                                        <td>{{ $inventoryLog->supplier->name }}</td>
                                         <td>{{ $inventoryLog->user->name }}</td>
                                         <td>{{ $inventoryLog->created_at }}</td>
 
