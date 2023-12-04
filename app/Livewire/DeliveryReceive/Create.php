@@ -24,7 +24,7 @@ class Create extends Component
 
     public function updateReceived($key, $value)
     {
-        $pending = $this->deliveryReceiveItems[$key]['expected_quantity'] - $value;
+        $pending = floatval($this->deliveryReceiveItems[$key]['expected_quantity']) - floatval($value);
         $this->deliveryReceiveItems[$key]['pending'] = $pending;
         $this->deliveryReceiveItems[$key]['quantity'] = $value;
     }
@@ -57,11 +57,11 @@ class Create extends Component
                     'pending' => $deliveryReceiveItem['pending'],
                     'unit_measurement' => $deliveryReceiveItem['unit_measurement'],
                     'unit_price' => $deliveryReceiveItem['unit_price'],
-                    'amount' => $deliveryReceiveItem['quantity'] * $deliveryReceiveItem['unit_price'],
+                    'amount' => floatval($deliveryReceiveItem['quantity']) * floatval($deliveryReceiveItem['unit_price']),
                     'description' => $deliveryReceiveItem['description'],
                     'status' => $status // 1 - Pending, 2 - Incomplete, 3 - Completed
                 ];
-            $totalAmount += $deliveryReceiveItem['quantity'] * $deliveryReceiveItem['unit_price'];
+            $totalAmount += floatval($deliveryReceiveItem['quantity']) * floatval($deliveryReceiveItem['unit_price']);
         }
 
         $deliveryReceive = DeliveryReceive::create([

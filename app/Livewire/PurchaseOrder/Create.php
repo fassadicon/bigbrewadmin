@@ -51,7 +51,7 @@ class Create extends Component
 
     public function updateAmount($key, $value)
     {
-        $this->purchaseOrderItems[$key]['amount'] = $value * $this->purchaseOrderItems[$key]['unit_price'];
+        $this->purchaseOrderItems[$key]['amount'] = floatval($value) * floatval($this->purchaseOrderItems[$key]['unit_price']);
     }
 
     public function inventoryItemSelected($key, $value)
@@ -62,7 +62,7 @@ class Create extends Component
             ->first();
         $this->purchaseOrderItems[$key]['unit_measurement'] = $inventoryItem->measurement;
         $this->purchaseOrderItems[$key]['unit_price'] = $inventoryItem->unit_price;
-        $this->purchaseOrderItems[$key]['amount'] = $this->purchaseOrderItems[$key]['quantity'] * $inventoryItem->unit_price;
+        $this->purchaseOrderItems[$key]['amount'] = floatval($this->purchaseOrderItems[$key]['quantity']) * floatval($inventoryItem->unit_price);
     }
 
     public function store()
