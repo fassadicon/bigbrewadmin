@@ -23,6 +23,10 @@
     {{-- Fontawesome --}}
     <script src="https://kit.fontawesome.com/3266042309.js" crossorigin="anonymous"></script>
 
+    {{-- SweetAlert --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>

@@ -1,10 +1,9 @@
 <div class="mx-auto px-4 sm:px-6 lg:px-8">
-
     {{-- Confirm Order Modal --}}
     <x-modal name="confirm-order">
         <form wire:submit="completeOrder">
             @csrf
-            <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
+            <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight p-6">
                 {{ __('Complete Purchase') }}
             </h3>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -51,6 +50,7 @@
                         <input wire:model.live="payment.change"
                             type="text"
                             id="name"
+                            disabled
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <x-input-error :messages="$errors->get('payment.change')"
                             class="mt-2" />
@@ -69,7 +69,7 @@
                     <div class="mb-6">
                         <button type="submit"
                             wire:loading.attr="disabled"
-                            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Complete
+                            class="focus:outline-none text-white bg-amber-800 hover:bg-amber-950 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Complete
                             Order</button>
                     </div>
                 </div>
@@ -108,41 +108,42 @@
                                                 <p class="text-xs font-semibold text-gray-900">Size:
                                                     {{ $selectedProduct['product']->size->name }}
                                                 </p>
-                                            </div>
-                                
-                                            <div class="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
-                                                <p class="shrink-0 w-20 text-xs font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
-                                                    PHP{{ $selectedProduct['product']->price }}
+                                                <p class="text-xs font-semibold text-gray-900">
+                                                    ₱{{ $selectedProduct['product']->price }}
                                                 </p>
                                             </div>
                                         </div>
                                 
                                         <div class="mt-4 grid grid-cols-3 gap-4">
-                                            <div>
+                                            <div class="flex items-center">
                                                 <button wire:click='subtractQuantity({{ $key }})'
-                                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-6 w-6 rounded">-</button>
-                                            </div>
-                                            <p class="text-base">{{ $selectedProduct['quantity'] }}</p>
-                                            <div>
+                                                    class="bg-amber-600 hover:bg-amber-800 text-white text-sm font-bold py-2 px-4 h-6 w-6 rounded">-</button>
+                                            
+                                                <p class="text-base px-6">{{ $selectedProduct['quantity'] }}</p>
+                                            
                                                 <button wire:click='addQuantity({{ $key }})'
-                                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-6 w-6 rounded">+</button>
+                                                    class="bg-amber-600 hover:bg-amber-800 text-white text-sm font-bold py-2 px-4 h-6 w-6 rounded">+</button>
                                             </div>
+                                            
                                         </div>
                                 
                                         <div class="mt-4">
+                                         <div class="mt-6 flex items-center justify-between">
+                                            <p class="text-sm font-medium text-gray-900">Sugar Level</p>
                                             @php
                                                 $sizeSugarLevels = \App\Models\SizeSugarLevel::where('size_id', $selectedProduct['product']->size->id)
                                                     ->orderByDesc('id')
                                                     ->get();
                                             @endphp
-                                            <select wire:model.live="selectedProducts.{{ $key }}.sugarLevelId" name="sugarLevelId"
-                                                id="sugarLevelId_{{ $key }}">
+                                            <select wire:model.live="selectedProducts.{{ $key }}.sugarLevelId" name="sugarLevelId" id="sugarLevelId_{{ $key }}" class="block w-32 p-2 border rounded-md">
                                                 @foreach ($sizeSugarLevels as $sizeSugarLevel)
-                                                    <option value="{{ $sizeSugarLevel->id }}"
-                                                        @selected($sizeSugarLevel->id == $selectedProduct['sugarLevelId'])>
-                                                        {{ $sizeSugarLevel->sugarlevel->percentage }}</option>
+                                                    <option value="{{ $sizeSugarLevel->id }}" @selected($sizeSugarLevel->id == $selectedProduct['sugarLevelId'])>
+                                                        {{ $sizeSugarLevel->sugarlevel->percentage }}
+                                                    </option>
                                                 @endforeach
                                             </select>
+                                            
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
