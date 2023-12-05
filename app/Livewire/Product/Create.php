@@ -4,12 +4,13 @@ namespace App\Livewire\Product;
 
 use App\Models\Size;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use App\Models\InventoryItem;
 use Livewire\WithFileUploads;
+use Masmerise\Toaster\Toaster;
 use App\Models\ProductCategory;
 use Spatie\Activitylog\Models\Activity;
 use App\Livewire\Forms\CreateProductForm;
-use Livewire\Attributes\On;
 
 class Create extends Component
 {
@@ -58,6 +59,7 @@ class Create extends Component
         }
 
         $this->form->addSizeAndPriceData();
+        Toaster::success('User created!');
     }
 
     public function removeInventoryItem($index, $key)
