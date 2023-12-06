@@ -10,6 +10,7 @@ use App\Models\InventoryItem;
 use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Livewire\Forms\CreateInventoryLogForm;
+use App\Models\Supplier;
 
 class Index extends Component
 {
@@ -17,7 +18,6 @@ class Index extends Component
     public $perPage = 5;
 
     public $search = '';
-    public $inventoryItem = '';
     public $type = '';
     public $start;
     public $end;
@@ -26,14 +26,13 @@ class Index extends Component
 
     public $inventoryItems = [];
 
+    public $suppliers;
+
     public CreateInventoryLogForm $form;
 
     public function mount()
     {
-        $this->inventoryItems = InventoryItem::withTrashed()
-            ->get(['id', 'name']);
-        // $this->start = Carbon::today()->format('m/d/Y');
-        // $this->end = Carbon::today()->format('m/d/Y');
+        $this->suppliers = Supplier::all();
     }
 
     public function store()
@@ -52,29 +51,45 @@ class Index extends Component
         $this->sortDir = 'DESC';
     }
 
-    public function export() {
-        return Excel::download(new InventoryMovementExport, 'inventory_movement.xlsx');
+    public function export()
+    {
+        return Excel::download(new InventoryMovementExport(
+            $this->search,
+            $this->type,
+            $this->start,
+            $this->end,
+            $this->sortBy,
+            $this->sortDir
+        ), 'inventory_movement.xlsx');
     }
 
     public function render()
     {
-        // dd([Carbon::parse($this->start), Carbon::parse($this->end), InventoryLog::pluck('created_at')->first()]);
+        if ($this->start == "") {
+            $this->start = null;
+        }
+
+        if ($this->end == "") {
+            $this->end = null;
+        }
+
         $inventoryLogs = InventoryLog::with('inventoryItem', 'user')
             ->search($this->search)
             ->when($this->type !== '', function ($query) {
                 $query->where('type', $this->type);
             })
-            ->when($this->inventoryItem !== '', function ($query) {
-                $query->whereHas('inventoryItem', function ($query) {
-                    $query->where('id', $this->inventoryItem);
+            ->when($this->start && $this->end, function ($query) {
+                $query->when($this->start == $this->end, function ($query) {
+                    return $query->whereDate('created_at', Carbon::parse($this->end)->endOfDay()->format('Y-m-d'));
+                })->when($this->start != $this->end, function ($query) {
+                    $query->whereBetween('created_at', [
+                        Carbon::parse($this->start)->subDay()->startOfDay()->format('Y-m-d'),
+                        Carbon::parse($this->end)->addDay()->endOfDay()->format('Y-m-d')
+                    ]);
                 });
             })
-            // ->when($this->start && $this->end, function($query) {
-            //     $query->whereBetween('created_at', [Carbon::parse($this->start), Carbon::parse($this->end)]);
-            // })
             ->orderBy($this->sortBy, $this->sortDir)
             ->paginate($this->perPage);
-
         return view('livewire.inventory-movement.index', [
             'inventoryLogs' => $inventoryLogs,
             'inventoryItems' => $this->inventoryItems

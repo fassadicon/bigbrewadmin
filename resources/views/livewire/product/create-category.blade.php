@@ -30,6 +30,12 @@
                 <div class="">
                     <button type="submit"
                         class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Create</button>
+                    <a href="{{ route('product-categories') }}"
+                        class="flex items-center h-10 px-3 hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25 rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline">
+                        <i class="fa-solid fa-list flex-shrink-0 w-6"></i>
+                        <span class="ml-2 duration-300 ease-in-out"
+                            :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Go to Product Categories</span>
+                    </a>
                 </div>
             </div>
         </div>

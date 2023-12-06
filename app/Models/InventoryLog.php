@@ -41,12 +41,9 @@ class InventoryLog extends Model
     // Functions
     public function scopeSearch($query, $value)
     {
-        $query->whereHas('user', function ($query) use ($value) {
-            $query->where('name', 'like', "%{$value}%");
-        })
-            ->orWhereHas('inventoryItem', function ($query) use ($value) {
+        $query->whereHas('inventoryItem', function ($query) use ($value) {
                 $query->where('name', 'like', "%{$value}%");
-            })
-            ->orWhere('remarks', 'like', "%{$value}%");
+            });
+            // ->orWhere('remarks', 'like', "%{$value}%");
     }
 }

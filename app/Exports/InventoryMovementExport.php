@@ -20,10 +20,52 @@ class InventoryMovementExport implements FromCollection, WithMapping, WithHeadin
 
     public $count;
 
+    public $search = '';
+    public $type = '';
+    public $start;
+    public $end;
+    public $sortBy = 'created_at';
+    public $sortDir = 'DESC';
+
+    public function __construct(
+        $search,
+        $type,
+        $start,
+        $end,
+        $sortBy,
+        $sortDir
+    ) {
+        $this->search = $search;
+        $this->type = $type;
+        $this->start = $start;
+        $this->end = $end;
+        $this->sortBy = $sortBy;
+        $this->sortDir = $sortDir;
+    }
+
     public function collection()
     {
-        $inventoryLogs = InventoryLog::limit(100)->get();
+        // $inventoryLogs = InventoryLog::limit(100)->get();
+        $inventoryLogs = InventoryLog::with('inventoryItem', 'user', 'supplier')
+            ->search($this->search)
+            ->when($this->type !== '', function ($query) {
+                $query->where('type', $this->type);
+            })
+            ->when($this->start && $this->end, function ($query) {
+                $query->when($this->start == $this->end, function ($query) {
+                    return $query->whereDate('created_at', Carbon::parse($this->end)->endOfDay()->format('Y-m-d'));
+                })->when($this->start != $this->end, function ($query) {
+                    $query->whereBetween('created_at', [
+                        Carbon::parse($this->start)->subDay()->startOfDay()->format('Y-m-d'),
+                        Carbon::parse($this->end)->addDay()->endOfDay()->format('Y-m-d')
+                    ]);
+                });
+            })
+            ->orderBy($this->sortBy, $this->sortDir)
+            ->get();
+
         $this->count = $inventoryLogs->count();
+
         return $inventoryLogs;
     }
 
@@ -39,8 +81,9 @@ class InventoryMovementExport implements FromCollection, WithMapping, WithHeadin
             $inventoryLog->old_stock,
             $inventoryLog->new_stock,
             $inventoryLog->remarks,
-            $inventoryLog->supplier,
-            Carbon::parse($inventoryLog->created_at)->format('M n, Y h:i A')
+            $inventoryLog->supplier->name,
+            Carbon::parse($inventoryLog->created_at)
+            // ->format('M n, Y h:i A')
         ];
     }
 
