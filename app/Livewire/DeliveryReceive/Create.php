@@ -33,15 +33,16 @@ class Create extends Component
     {
         $deliveryReceiveItemsCreated = [];
         $totalAmount = 0;
-        $incomplete = false;
+        // $incomplete = false;
+
         foreach ($this->deliveryReceiveItems as $deliveryReceiveItem) {
             $status = 1;
-            if ($deliveryReceiveItem['quantity'] == 0) {
+            if ($deliveryReceiveItem['quantity'] == 0 || $deliveryReceiveItem['quantity'] == '') {
                 $status = 1;
             } else {
                 if ($deliveryReceiveItem['quantity'] < $deliveryReceiveItem['expected_quantity']) {
                     $status = 2;
-                    $incomplete = true;
+                    // $incomplete = true;
                 } else if ($deliveryReceiveItem['quantity'] >= $deliveryReceiveItem['expected_quantity']) {
                     $status = 3;
                 }
@@ -68,7 +69,7 @@ class Create extends Component
             'user_id' => 1,
             'purchase_order_id' => $this->selectedPurchaseOrder->id,
             'total_amount' => $totalAmount,
-            'status' => $incomplete ? 2 : 3 // 1 - Pending, 2 - Incomplete, 3 - Completed
+            'status' => $status // 1 - Pending, 2 - Incomplete, 3 - Completed
         ]);
 
         foreach ($deliveryReceiveItemsCreated as $deliveryReceiveItem) {
@@ -81,8 +82,9 @@ class Create extends Component
                 'status' => $deliveryReceiveItemsCreated[$key]['status']
             ]);
         }
+
         $this->selectedPurchaseOrder->update([
-            'status' => $incomplete ? 2 : 3
+            'status' => $status
         ]);
 
         foreach ($deliveryReceive->deliveryReceiveItems as $deliveryReceiveItem) {
