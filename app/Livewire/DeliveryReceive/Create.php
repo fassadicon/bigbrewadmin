@@ -16,9 +16,14 @@ class Create extends Component
     public $deliveryReceiveItems;
     public $inventoryItems;
 
+    public function rules()
+    {
+        return ['deliveryReceiveItems.*.quantity' => 'required'];
+    }
+
     public function mount()
     {
-        $this->purchaseOrders = PurchaseOrder::whereIn('status', [1, 2])->get();
+        $this->purchaseOrders = PurchaseOrder::where('status', 1)->get();
         $this->inventoryItems = InventoryItem::all();
     }
 
@@ -35,20 +40,12 @@ class Create extends Component
         $totalAmount = 0;
         // $incomplete = false;
 
-        foreach ($this->deliveryReceiveItems as $deliveryReceiveItem) {
-            $status = 1;
-            if ($deliveryReceiveItem['quantity'] == 0 || $deliveryReceiveItem['quantity'] == '') {
-                $status = 1;
-            } else {
-                if ($deliveryReceiveItem['quantity'] < $deliveryReceiveItem['expected_quantity']) {
-                    $status = 2;
-                    // $incomplete = true;
-                } else if ($deliveryReceiveItem['quantity'] >= $deliveryReceiveItem['expected_quantity']) {
-                    $status = 3;
-                }
+        foreach($this->deliveryReceiveItems as $deliveryReceiveItem) {
+            if ($deliveryReceiveItem['quantity'] < $deliveryReceiveItem['expected_quantity']) {
+                dd('Incomplete receive count');
             }
-
-
+        }
+        foreach ($this->deliveryReceiveItems as $deliveryReceiveItem) {
             $deliveryReceiveItemsCreated[] =
                 [
                     'purchase_order_item_id' => $deliveryReceiveItem['purchase_order_item_id'],
@@ -59,8 +56,7 @@ class Create extends Component
                     'unit_measurement' => $deliveryReceiveItem['unit_measurement'],
                     'unit_price' => $deliveryReceiveItem['unit_price'],
                     'amount' => floatval($deliveryReceiveItem['quantity']) * floatval($deliveryReceiveItem['unit_price']),
-                    'description' => $deliveryReceiveItem['description'],
-                    'status' => $status // 1 - Pending, 2 - Incomplete, 3 - Completed
+                    'description' => $deliveryReceiveItem['description']
                 ];
             $totalAmount += floatval($deliveryReceiveItem['quantity']) * floatval($deliveryReceiveItem['unit_price']);
         }
@@ -68,8 +64,7 @@ class Create extends Component
         $deliveryReceive = DeliveryReceive::create([
             'user_id' => 1,
             'purchase_order_id' => $this->selectedPurchaseOrder->id,
-            'total_amount' => $totalAmount,
-            'status' => $status // 1 - Pending, 2 - Incomplete, 3 - Completed
+            'total_amount' => $totalAmount
         ]);
 
         foreach ($deliveryReceiveItemsCreated as $deliveryReceiveItem) {
@@ -77,14 +72,14 @@ class Create extends Component
             DeliveryReceiveItem::create($deliveryReceiveItem);
         }
 
-        foreach ($this->selectedPurchaseOrder->purchaseOrderItems as $key => $purchaseOrderItem) {
-            $purchaseOrderItem->update([
-                'status' => $deliveryReceiveItemsCreated[$key]['status']
-            ]);
-        }
+        // foreach ($this->selectedPurchaseOrder->purchaseOrderItems as $key => $purchaseOrderItem) {
+        //     $purchaseOrderItem->update([
+        //         'status' => $deliveryReceiveItemsCreated[$key]['status']
+        //     ]);
+        // }
 
         $this->selectedPurchaseOrder->update([
-            'status' => $status
+            'status' => 2
         ]);
 
         foreach ($deliveryReceive->deliveryReceiveItems as $deliveryReceiveItem) {

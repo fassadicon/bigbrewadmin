@@ -73,7 +73,7 @@
                             @endforeach
                         </td>
                         <td>{{ $order->total_amount }}</td>
-                        <td>{{ $order->payment->method === 1 ? 'Cash' : 'Online' }}</td>
+                        <td>{{ $order->payment->method }}</td>
                         <td>{{ $order->status === 1 ? 'Completed' : 'Cancelled' }}</td>
                         <td>{{ $order->user->name }}</td>
                     </tr>

@@ -45,7 +45,7 @@ class CreateInventoryLogForm extends Form
         $inventoryItem = InventoryItem::where('id', $this->inventory_item_id)->first();
         $remainingStock = $inventoryItem->remaining_stocks;
         $newStock = 0;
-        if ($this->type === 2 || $this->type === 3) {
+        if ($this->type == 2 || $this->type == 3) {
             $newStock = $remainingStock - $this->amount;
         } else {
             $newStock = $remainingStock + $this->amount;

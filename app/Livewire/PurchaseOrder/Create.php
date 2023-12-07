@@ -17,6 +17,13 @@ class Create extends Component
     public $selectedInventoryItems = [];
     public $supplier_id;
 
+    public function rules() {
+        return [
+            'purchaseOrderItems.*.quantity' => 'required|min:1',
+            'purchaseOrderItems.*.inventory_item_id' => 'required|exists:inventory_items,id'
+        ];
+    }
+
     public function mount()
     {
         $this->suppliers = Supplier::select('id', 'name')->get();

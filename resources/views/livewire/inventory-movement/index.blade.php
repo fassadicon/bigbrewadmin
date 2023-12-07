@@ -4,8 +4,22 @@
             {{ __('Inventory Movement') }}
         </h2>
     </x-slot>
+
+    <livewire:supplier.create />
+
+    <button x-data=""
+        x-on:click.prevent="$dispatch('open-modal', 'create-supplier')"
+        type="button"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+        Create Supplier
+    </button>
+
+    <button wire:click='generateWastage'
+        class="px-3 py-1 bg-red-500 text-white rounded ml-8">Export Wastage</button>
+
     <button wire:click='export'
         class="px-3 py-1 bg-red-500 text-white rounded ml-8">Export</button>
+
     <div class="py-12">
         <form wire:submit="store">
             @csrf
@@ -163,8 +177,9 @@
                                 <select wire:model.live="type"
                                     class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                                     <option value="">All</option>
-                                    <option value="in">In</option>
-                                    <option value="out">Out</option>
+                                    <option value="In">In</option>
+                                    <option value="Out">Out</option>
+                                    <option value="Waste">Waste</option>
                                 </select>
                             </div>
                         </div>
