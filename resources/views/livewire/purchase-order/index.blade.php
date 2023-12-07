@@ -57,6 +57,8 @@
                                 <th scope="col"
                                     class="px-4 py-3">Total Amount</th>
                                 <th scope="col"
+                                    class="px-4 py-3">Status</th>
+                                <th scope="col"
                                     class="px-4 py-3">Remarks</th>
                                 <th scope="col"
                                     class="px-4 py-3">
@@ -76,6 +78,7 @@
                                         <td>{{ $purchaseOrder->supplier->name }}</td>
                                         <td>{{ $purchaseOrder->user->name }}</td>
                                         <td>{{ $purchaseOrder->total_amount }}</td>
+                                        <td>{{ $purchaseOrder->status }}</td>
                                         <td>{{ $purchaseOrder->remarks }}</td>
                                         <td>{{ $purchaseOrder->description }}</td>
                                         <td class="px-4 py-3 flex items-center justify-center">

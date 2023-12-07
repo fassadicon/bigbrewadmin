@@ -1,8 +1,8 @@
-<x-modal name="create-product-category">
-    <form wire:submit="store">
+<x-modal name="create-supplier">
+    <form wire:submit="storeSupplier">
         @csrf
         <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight p-6">
-            {{ __('Create Product Category') }}
+            {{ __('Create Supplier') }}
         </h3>
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"
             wire:loading.class="invisible">
@@ -34,7 +34,7 @@
                         class="flex items-center h-10 px-3 hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25 rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline">
                         <i class="fa-solid fa-list flex-shrink-0 w-6"></i>
                         <span class="ml-2 duration-300 ease-in-out"
-                            :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Go to Product Categories</span>
+                            :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Go to Suppliers</span>
                     </a>
                 </div>
             </div>

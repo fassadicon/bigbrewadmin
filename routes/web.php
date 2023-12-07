@@ -30,6 +30,8 @@ Route::middleware(['auth'])->group(function () {
     Route::view('dashboard', 'dashboard')
         ->name('dashboard');
 
+    Route::get('pos', App\Livewire\Pos\Index::class)->name('pos');
+
     // Product
     Route::prefix('products')->group(function () {
         Route::get('/', App\Livewire\Product\Index::class)

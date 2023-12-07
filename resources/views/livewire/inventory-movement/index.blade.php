@@ -21,9 +21,10 @@
                         <select wire:model.live="form.type"
                             id="form_type"
                             class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                            <option value=""></option>
-                            <option value="in">In</option>
-                            <option value="out">Out</option>
+                            <option value="">-- Select type --</option>
+                            <option value="1">In</option>
+                            <option value="2">Out</option>
+                            <option value="3">Waste</option>
                         </select>
                         <x-input-error :messages="$errors->get('form.type')"
                             class="mt-2" />
@@ -56,12 +57,15 @@
                         <label for="form_supplier"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Supplier</label>
-                        <input wire:model="form.supplier"
-                            type="text"
-                            id="form_supplier"
-                            {{-- placeholder="Big Brew" --}}
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <x-input-error :messages="$errors->get('form.supplier')"
+                        <select wire:model='form.supplier_id'
+                            name="supplier_id"
+                            id="supplier_id">
+                            <option value="">--Select Supplier--</option>
+                            @foreach ($suppliers as $supplier)
+                                <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('form.supplier_id')"
                             class="mt-2" />
                     </div>
                     <div class="flex">
@@ -103,66 +107,55 @@
                                             clip-rule="evenodd" />
                                     </svg>
                                 </div>
-                                <input wire:model.live.debounce.300ms='search'
+                                <input wire:model.live.debounce.500ms='search'
                                     type="text"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 "
                                     placeholder="Search product, admin, supplier, message, or remarks"
                                     required="">
                             </div>
                         </div>
-                        <div class="flex space-x-3">
-                            <div class="flex space-x-3 items-center">
-                                <label class="w-40 text-sm font-medium text-gray-900">Inventory Item:</label>
-                                <select wire:model.live="inventoryItem"
-                                    class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                                    <option value="">All</option>
-                                    @foreach ($inventoryItems as $inventoryItem)
-                                        <option value="{{ $inventoryItem->id }}">{{ $inventoryItem->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div date-rangepicker
-                                datepicker-buttons
-                                class="flex items-center">
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="currentColor"
-                                            viewBox="0 0 20 20">
-                                            <path
-                                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                        </svg>
-                                    </div>
-                                    <input wire:model='start'
-                                        name="start"
-                                        type="text"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Select date start">
+                        <div class="flex items-center">
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path
+                                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                    </svg>
                                 </div>
-                                <span class="mx-4 text-gray-500">to</span>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="currentColor"
-                                            viewBox="0 0 20 20">
-                                            <path
-                                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                        </svg>
-                                    </div>
-                                    <input wire:model='end'
-                                        name="end"
-                                        type="text"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Select date end">
-                                </div>
+                                <input id="date_start"
+                                    datepicker
+                                    datepicker-autohide
+                                    datepicker-buttons
+                                    name="start"
+                                    type="text"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Select date start">
                             </div>
-
+                            <span class="mx-4 text-gray-500">to</span>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path
+                                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                    </svg>
+                                </div>
+                                <input id="date_end"
+                                    datepicker
+                                    datepicker-autohide
+                                    datepicker-buttons
+                                    name="end"
+                                    type="text"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Select date end">
+                            </div>
                         </div>
                         <div class="flex space-x-3">
                             <div class="flex space-x-3 items-center">
@@ -295,3 +288,28 @@
     </div>
 
 </div>
+<script>
+    window.addEventListener("load", function() {
+        const elStart = document.getElementById("date_start");
+        elStart.addEventListener("change", (event) => {
+            @this.set('start', event.target.value);
+        });
+        elStart.addEventListener("click", (event) => {
+            @this.set('start', event.target.value);
+        });
+        elStart.addEventListener("blur", (event) => {
+            @this.set('start', event.target.value);
+        });
+
+        const elEnd = document.getElementById("date_end");
+        elEnd.addEventListener("change", (event) => {
+            @this.set('end', event.target.value);
+        });
+        elEnd.addEventListener("click", (event) => {
+            @this.set('end', event.target.value);
+        });
+        elEnd.addEventListener("blur", (event) => {
+            @this.set('end', event.target.value);
+        });
+    });
+</script>

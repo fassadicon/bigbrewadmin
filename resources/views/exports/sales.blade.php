@@ -24,7 +24,8 @@
 
 <body>
     <h1>Big Brew Bayan-Bayanan: Sales Report</h1>
-    <p>{{ $date }}</p>
+    <p>From: {{ $start_date }}</p>
+    <p>End: {{ $end_date }}</p>
     <div class="row">
         <div class="col-6">
             <h3>Total Cash Payment: {{ $totalCashPayments }}</h3>

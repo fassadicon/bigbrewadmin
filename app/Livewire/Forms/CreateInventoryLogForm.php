@@ -12,17 +12,17 @@ class CreateInventoryLogForm extends Form
     public $type;
     public $inventory_item_id;
     public $amount;
-    public $supplier;
+    public $supplier_id;
     public $remarks;
     public $user_id;
 
     public function rules()
     {
         return [
-            'type' => 'required|string',
+            'type' => 'required|numeric',
             'inventory_item_id' => 'required|numeric|exists:inventory_items,id',
             'amount' => 'required|numeric|gt:0',
-            'supplier' => 'nullable',
+            'supplier_id' => 'required',
             'remarks' => 'nullable',
         ];
     }
@@ -33,7 +33,7 @@ class CreateInventoryLogForm extends Form
             'type' => 'type',
             'inventory_item_id' => 'inventory item',
             'amount' => 'amount',
-            'supplier' => 'supplier',
+            'supplier_id' => 'supplier',
             'remarks' => 'remarks',
         ];
     }
@@ -42,23 +42,28 @@ class CreateInventoryLogForm extends Form
     {
         $this->validate();
 
-        $this->user_id = auth()->id();
-        $this->supplier = $this->supplier === null ? 'Big Brew' : $this->supplier;
-
-        InventoryLog::create($this->all());
-
         $inventoryItem = InventoryItem::where('id', $this->inventory_item_id)->first();
-        $newStock = $inventoryItem->remaining_stocks;
-
-        if ($this->type === 'out') {
-            $newStock -= $this->amount;
+        $remainingStock = $inventoryItem->remaining_stocks;
+        $newStock = 0;
+        if ($this->type === 2 || $this->type === 3) {
+            $newStock = $remainingStock - $this->amount;
         } else {
-            $newStock += $this->amount;
+            $newStock = $remainingStock + $this->amount;
         }
-
         $inventoryItem->update([
             'remaining_stocks' => $newStock
         ]);
+
+        InventoryLog::create([
+            'inventory_item_id' => $inventoryItem->id,
+            'user_id' => auth()->id(),
+            'type' => $this->type,
+            'amount' => $this->amount,
+            'old_stock' => $remainingStock,
+            'new_stock' => $newStock,
+            'remarks' => $this->remarks
+        ]);
+
 
         $this->reset();
     }

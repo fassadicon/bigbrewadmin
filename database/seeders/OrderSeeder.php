@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\OrderItem;
 use App\Models\InventoryLog;
 use App\Models\InventoryItem;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -46,6 +47,7 @@ class OrderSeeder extends Seeder
                 'user_id' => 1,
                 'payment_id' => $payment->id,
                 'total_amount' => $payment->amount,
+                'created_at' => Carbon::now()->subDays(rand(1, 7))
             ]);
 
             foreach ($orderItems as $orderItem) {
@@ -72,7 +74,8 @@ class OrderSeeder extends Seeder
                         'amount' => $consumptionValue,
                         'old_stock' => $remainingStocks,
                         'new_stock' => $newStocks,
-                        'remarks' => 'Order for ' . $orderItem->product->productDetail->name
+                        'remarks' => 'Order for ' . $orderItem->product->productDetail->name,
+                        'created_at' => Carbon::now()->subDays(rand(1, 7))
                     ]);
                 }
             }

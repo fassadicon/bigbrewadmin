@@ -4,6 +4,7 @@ namespace App\Livewire\PurchaseOrder;
 
 use Livewire\Component;
 use App\Models\Supplier;
+use Livewire\Attributes\On;
 use App\Models\InventoryItem;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderItem;
@@ -18,7 +19,7 @@ class Create extends Component
 
     public function mount()
     {
-        $this->suppliers = Supplier::all();
+        $this->suppliers = Supplier::select('id', 'name')->get();
         $this->inventoryItems = InventoryItem::all();
         $this->purchaseOrderItems = [
             [
@@ -83,6 +84,12 @@ class Create extends Component
             $purchaseOrderItem['user_id'] = auth()->id();
             PurchaseOrderItem::create($purchaseOrderItem);
         }
+    }
+
+    #[On('supplier-created')]
+    public function loadSuppliers()
+    {
+        $this->suppliers = Supplier::select('id', 'name')->get();
     }
 
     public function render()
