@@ -2,15 +2,17 @@
 
 namespace App\Livewire\InventoryMovement;
 
-use App\Exports\InventoryMovementExport;
 use Livewire\Component;
+use App\Models\Supplier;
+use Livewire\Attributes\On;
 use App\Models\InventoryLog;
 use Livewire\WithPagination;
 use App\Models\InventoryItem;
 use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\InventoryMovementExport;
 use App\Livewire\Forms\CreateInventoryLogForm;
-use App\Models\Supplier;
 
 class Index extends Component
 {
@@ -33,12 +35,18 @@ class Index extends Component
     public function mount()
     {
         $this->inventoryItems = InventoryItem::select('id', 'name')->get();
-        $this->suppliers = Supplier::all();
+        $this->suppliers = Supplier::select('id', 'name')->get();
     }
 
     public function store()
     {
         $this->form->store();
+    }
+
+    #[On('supplier-created')]
+    public function loadSuppliers()
+    {
+        $this->suppliers = Supplier::select('id', 'name')->get();
     }
 
     public function setSortBy($column)
@@ -62,6 +70,41 @@ class Index extends Component
             $this->sortBy,
             $this->sortDir
         ), 'inventory_movement.xlsx');
+    }
+
+    public function generateWastage()
+    {
+        $inventoryLogs = InventoryLog::with('inventoryItem', 'user')
+        ->search($this->search)
+        ->where('type', 3)
+        ->when($this->start && $this->end, function ($query) {
+            $query->when($this->start == $this->end, function ($query) {
+                return $query->whereDate('created_at', Carbon::parse($this->end)->endOfDay()->format('Y-m-d'));
+            })->when($this->start != $this->end, function ($query) {
+                $query->whereBetween('created_at', [
+                    Carbon::parse($this->start)->subDay()->startOfDay()->format('Y-m-d'),
+                    Carbon::parse($this->end)->addDay()->endOfDay()->format('Y-m-d')
+                ]);
+            });
+        })
+        ->orderBy($this->sortBy, $this->sortDir)
+        ->get();
+
+        $totalAmount = 0;
+        $wasteInventoryItemsCount = 0;
+
+        $pdf = Pdf::loadView('exports.wastage', [
+            'inventoryLogs' => $inventoryLogs,
+            'start_date' => Carbon::parse($this->start)->format('F j, Y'),
+            'end_date' => Carbon::parse($this->end)->format('F j, Y'),
+            'totalAmount' => $totalAmount,
+            'wasteInventoryItemsCount' => $wasteInventoryItemsCount
+        ])->output();
+
+        return response()->streamDownload(
+            fn () => print($pdf),
+            "wastage.pdf"
+        );
     }
 
     public function render()

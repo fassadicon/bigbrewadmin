@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('unit_measurement');
             $table->decimal('unit_price', 10, 2);
             $table->decimal('amount', 10, 2);
-            $table->unsignedSmallInteger('status')->default(1); // 1 - Pending, 2 - Incomplete, 3 - Completed
+            // $table->unsignedSmallInteger('status')->default(1); // 1 - Pending, 2 - Incomplete, 3 - Completed
             $table->string('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

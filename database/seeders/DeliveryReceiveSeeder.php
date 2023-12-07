@@ -31,8 +31,7 @@ class DeliveryReceiveSeeder extends Seeder
                         'unit_measurement' => $purchaseOrderItem->unit_measurement,
                         'unit_price' => $purchaseOrderItem->unit_price,
                         'amount' => $purchaseOrderItem->quantity * $purchaseOrderItem->unit_price,
-                        'description' => $purchaseOrderItem->description,
-                        'status' => 3 // 1 - Pending, 2 - Incomplete, 3 - Completed
+                        'description' => $purchaseOrderItem->description
                     ];
                 $totalAmount += $purchaseOrderItem->quantity * $purchaseOrderItem->unit_price;
             }
@@ -40,8 +39,7 @@ class DeliveryReceiveSeeder extends Seeder
             $deliveryReceive = DeliveryReceive::create([
                 'user_id' => 1,
                 'purchase_order_id' => $purchaseOrder->id,
-                'total_amount' => $totalAmount,
-                'status' => 3 // 1 - Pending, 2 - Incomplete, 3 - Completed
+                'total_amount' => $totalAmount
             ]);
 
             foreach ($deliveryReceiveItems as $deliveryReceiveItem) {
@@ -81,14 +79,8 @@ class DeliveryReceiveSeeder extends Seeder
         }
 
         foreach ($purchaseOrders as $purchaseOrder) {
-            foreach ($purchaseOrder->purchaseOrderItems as $purchaseOrderItem) {
-                $purchaseOrderItem->update([
-                    'status' => 3
-                ]);
-            }
-
             $purchaseOrder->update([
-                'status' => 3
+                'status' => 2
             ]);
         }
     }

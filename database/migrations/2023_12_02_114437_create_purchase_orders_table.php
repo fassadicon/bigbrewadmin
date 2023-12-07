@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('total_amount', 10, 2);
             $table->string('remarks')->nullable();
             // $table->unsignedSmallInteger('status')->default(1); // 1 - Pending, 2 - Incomplete, 3 - Completed
-            $table->enum('status', ['Pending', 'Incomplete', 'Completed']); // 1 - Pending, 2 - Incomplete, 3 - Completed
+            $table->enum('status', ['Pending', 'Completed']); // 1 - Pending, 2 - Completed
             $table->timestamps();
             $table->softDeletes();
         });

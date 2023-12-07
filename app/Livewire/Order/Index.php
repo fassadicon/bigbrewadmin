@@ -38,22 +38,14 @@ class Index extends Component
                 $query->where('status', $this->status);
             })
             ->when($this->start && $this->end, function ($query) {
-                $query->where(function ($query) {
+                $query->when($this->start == $this->end, function ($query) {
+                    return $query->whereDate('created_at', Carbon::parse($this->end)->endOfDay()->format('Y-m-d'));
+                })->when($this->start != $this->end, function ($query) {
                     $query->whereBetween('created_at', [
-                        Carbon::parse($this->start)->format('Y-m-d'),
-                        Carbon::parse($this->end)->format('Y-m-d')
-                    ])
-                        ->orWhere(function ($query) {
-                            $query->where('created_at', '<=', Carbon::parse($this->start)->format('Y-m-d'))
-                                ->where('created_at', '>=', Carbon::parse($this->end)->format('Y-m-d'));
-                        });
+                        Carbon::parse($this->start)->subDay()->startOfDay()->format('Y-m-d'),
+                        Carbon::parse($this->end)->addDay()->endOfDay()->format('Y-m-d')
+                    ]);
                 });
-            })
-            ->when($this->start && !$this->end, function ($query) {
-                $query->whereDate("created_at", ">=", Carbon::parse($this->start)->format('Y-m-d'));
-            })
-            ->when(!$this->start && $this->end, function ($query) {
-                $query->where("created_at", "<=", Carbon::parse($this->end)->format('Y-m-d'));
             })
             ->orderBy($this->sortBy, $this->sortDir)
             ->get();
@@ -63,10 +55,10 @@ class Index extends Component
         $cancelledOrders = $orders->where('status', 2)->count();
 
         $totalCashPayments = $orders->where('status', 1)
-            ->where('payment.method', 1)
+            ->where('payment.method', 'cash')
             ->sum('total_amount');
         $totalOnlinePayments = $orders->where('status', 1)
-            ->where('payment.method', 2)
+            ->where('payment.method', 'gcash')
             ->sum('total_amount');
 
         $pdf = Pdf::loadView('exports.sales', [
@@ -96,22 +88,14 @@ class Index extends Component
                 $query->where('status', $this->status);
             })
             ->when($this->start && $this->end, function ($query) {
-                $query->where(function ($query) {
+                $query->when($this->start == $this->end, function ($query) {
+                    return $query->whereDate('created_at', Carbon::parse($this->end)->endOfDay()->format('Y-m-d'));
+                })->when($this->start != $this->end, function ($query) {
                     $query->whereBetween('created_at', [
-                        Carbon::parse($this->start)->format('Y-m-d'),
-                        Carbon::parse($this->end)->format('Y-m-d')
-                    ])
-                        ->orWhere(function ($query) {
-                            $query->where('created_at', '<=', Carbon::parse($this->start)->format('Y-m-d'))
-                                ->where('created_at', '>=', Carbon::parse($this->end)->format('Y-m-d'));
-                        });
+                        Carbon::parse($this->start)->subDay()->startOfDay()->format('Y-m-d'),
+                        Carbon::parse($this->end)->addDay()->endOfDay()->format('Y-m-d')
+                    ]);
                 });
-            })
-            ->when($this->start && !$this->end, function ($query) {
-                $query->whereDate("created_at", ">=", Carbon::parse($this->start)->format('Y-m-d'));
-            })
-            ->when(!$this->start && $this->end, function ($query) {
-                $query->where("created_at", "<=", Carbon::parse($this->end)->format('Y-m-d'));
             })
             ->orderBy($this->sortBy, $this->sortDir)
             // ->get();

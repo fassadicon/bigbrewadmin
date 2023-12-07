@@ -26,8 +26,7 @@ class PurchaseOrderSeeder extends Seeder
                 'unit_measurement' => $Plasticcupregular->measurement,
                 'unit_price' => $Plasticcupregular->unit_price,
                 'amount' => 1000 * $Plasticcupregular->unit_price,
-                'description' => '',
-                'status' => 1 // 1 - Pending, 2 - Incomplete, 3 - Completed
+                'description' => ''
             ],
             [
                 'user_id' => 1,
@@ -36,8 +35,7 @@ class PurchaseOrderSeeder extends Seeder
                 'unit_measurement' => $PlasticCupSmall->measurement,
                 'unit_price' => $PlasticCupSmall->unit_price,
                 'amount' => 1000 * $PlasticCupSmall->unit_price,
-                'description' => '',
-                'status' => 1 // 1 - Pending, 2 - Incomplete, 3 - Completed
+                'description' => ''
             ]
         ];
 
@@ -72,8 +70,7 @@ class PurchaseOrderSeeder extends Seeder
                  'unit_measurement' => $okinawapowder->measurement,
                  'unit_price' => $okinawapowder->unit_price,
                  'amount' => 10000 * $okinawapowder->unit_price,
-                 'description' => '',
-                 'status' => 1 // 1 - Pending, 2 - Incomplete, 3 - Completed
+                 'description' => ''
              ],
              [
                  'user_id' => 1,
@@ -82,8 +79,7 @@ class PurchaseOrderSeeder extends Seeder
                  'unit_measurement' => $wintermelonpowder->measurement,
                  'unit_price' => $wintermelonpowder->unit_price,
                  'amount' => 1000 * $wintermelonpowder->unit_price,
-                 'description' => '',
-                 'status' => 1 // 1 - Pending, 2 - Incomplete, 3 - Completed
+                 'description' => ''
              ]
          ];
 
@@ -118,8 +114,7 @@ class PurchaseOrderSeeder extends Seeder
                  'unit_measurement' => $water->measurement,
                  'unit_price' => $water->unit_price,
                  'amount' => 11358 * $water->unit_price,
-                 'description' => '',
-                 'status' => 1 // 1 - Pending, 2 - Incomplete, 3 - Completed
+                 'description' => ''
              ],
              [
                  'user_id' => 1,
@@ -128,8 +123,7 @@ class PurchaseOrderSeeder extends Seeder
                  'unit_measurement' => $coffeecreamer->measurement,
                  'unit_price' => $coffeecreamer->unit_price,
                  'amount' => 1000 * $coffeecreamer->unit_price,
-                 'description' => '',
-                 'status' => 1 // 1 - Pending, 2 - Incomplete, 3 - Completed
+                 'description' => ''
              ]
          ];
 
@@ -163,8 +157,7 @@ class PurchaseOrderSeeder extends Seeder
                  'unit_measurement' => $sugar->measurement,
                  'unit_price' =>  $sugar->unit_price,
                  'amount' => 10000 *  $sugar->unit_price,
-                 'description' => '',
-                 'status' => 1 // 1 - Pending, 2 - Incomplete, 3 - Completed
+                 'description' => ''
              ],
              [
                  'user_id' => 1,
@@ -173,8 +166,7 @@ class PurchaseOrderSeeder extends Seeder
                  'unit_measurement' =>  $pearl->measurement,
                  'unit_price' => $pearl->unit_price,
                  'amount' => 10000 * $pearl->unit_price,
-                 'description' => '',
-                 'status' => 1 // 1 - Pending, 2 - Incomplete, 3 - Completed
+                 'description' => ''
              ]
          ];
 
@@ -209,8 +201,7 @@ class PurchaseOrderSeeder extends Seeder
                  'unit_measurement' => $crystal->measurement,
                  'unit_price' => $crystal->unit_price,
                  'amount' => 10000 * $crystal->unit_price,
-                 'description' => '',
-                 'status' => 1 // 1 - Pending, 2 - Incomplete, 3 - Completed
+                 'description' => ''
              ],
              [
                  'user_id' => 1,
@@ -219,8 +210,7 @@ class PurchaseOrderSeeder extends Seeder
                  'unit_measurement' =>  $vacuumsealedplasticcover->measurement,
                  'unit_price' =>  $vacuumsealedplasticcover->unit_price,
                  'amount' => 10000 *  $vacuumsealedplasticcover->unit_price,
-                 'description' => '',
-                 'status' => 1 // 1 - Pending, 2 - Incomplete, 3 - Completed
+                 'description' => ''
              ]
          ];
 
