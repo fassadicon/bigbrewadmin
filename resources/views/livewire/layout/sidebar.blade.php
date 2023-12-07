@@ -13,6 +13,13 @@
                 wire:navigate>
                 <i class="fa-solid fa-house flex-shrink-0 w-6"></i>
                 <span class="ml-2 duration-300 ease-in-out"
+                    :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Dashboard</span>
+            </a>
+            <a href="{{ route('pos') }}"
+                class="flex items-center h-10 px-3 text-white bg-amber-800 rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
+                wire:navigate>
+                <i class="fa-solid fa-house flex-shrink-0 w-6"></i>
+                <span class="ml-2 duration-300 ease-in-out"
                     :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">POS</span>
             </a>
             <a href="{{ route('orders') }}"
