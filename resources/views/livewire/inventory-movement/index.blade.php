@@ -21,9 +21,10 @@
                         <select wire:model.live="form.type"
                             id="form_type"
                             class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                            <option value=""></option>
-                            <option value="in">In</option>
-                            <option value="out">Out</option>
+                            <option value="">-- Select type --</option>
+                            <option value="1">In</option>
+                            <option value="2">Out</option>
+                            <option value="3">Waste</option>
                         </select>
                         <x-input-error :messages="$errors->get('form.type')"
                             class="mt-2" />

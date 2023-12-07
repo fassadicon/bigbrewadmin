@@ -24,7 +24,7 @@ class Index extends Component
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
 
-    public $inventoryItems = [];
+    public $inventoryItems;
 
     public $suppliers;
 
@@ -32,6 +32,7 @@ class Index extends Component
 
     public function mount()
     {
+        $this->inventoryItems = InventoryItem::select('id', 'name')->get();
         $this->suppliers = Supplier::all();
     }
 
