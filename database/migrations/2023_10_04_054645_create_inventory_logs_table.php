@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('inventory_item_id');
             $table->string('supplier_id')->default(1);
             $table->unsignedInteger('user_id');
-            $table->enum('type', ['in', 'out', 'waste']); // 1 - In, 2 - Out
+            $table->enum('type', ['In', 'Out', 'Waste']); // 1 - In, 2 - Out, 3 - Waste
             $table->decimal('amount', 10, 2);
             $table->decimal('old_stock', 10, 2);
             $table->decimal('new_stock', 10, 2);
