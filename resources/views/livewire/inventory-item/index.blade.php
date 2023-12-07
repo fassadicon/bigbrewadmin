@@ -13,6 +13,9 @@
     <livewire:inventory-item.edit />
 
     {{-- Table --}}
+    <button x-data=""
+        x-on:click.prevent="$dispatch('open-modal', 'create-inventory-item')"
+        class="px-3 py-1 bg-red-500 text-white rounded ml-8">Create</button>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
