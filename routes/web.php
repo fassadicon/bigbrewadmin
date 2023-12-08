@@ -27,9 +27,9 @@ Route::view('/', 'welcome');
 
 Route::middleware(['auth'])->group(function () {
     // Dashboard
-    Route::view('dashboard', 'dashboard')
-        ->name('dashboard');
-
+    // Route::view('dashboard', 'dashboard')
+    //     ->name('dashboard');
+    Route::get('dashboard', App\Livewire\Dashboard\Index::class)->name('dashboard');
     Route::get('pos', App\Livewire\Pos\Index::class)->name('pos');
 
     // Product
@@ -92,7 +92,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('delivery-receives')->group(function () {
         Route::get('/', App\Livewire\DeliveryReceive\Index::class)
             ->name('delivery-receives');
-            Route::get('create', App\Livewire\DeliveryReceive\Create::class)
+        Route::get('create', App\Livewire\DeliveryReceive\Create::class)
             ->name('delivery-receives.create');
     });
 
