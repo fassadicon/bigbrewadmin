@@ -57,14 +57,16 @@
                     {{ $slot }}
                 </div>
             </div>
+    </div>
 
         </main>
     </div>
 
 
 
-    </div>
 
+    </div>
+    <x-toaster-hub />
     @livewireChartsScripts
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/datepicker.min.js"></script>
