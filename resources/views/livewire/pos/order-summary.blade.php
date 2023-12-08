@@ -113,42 +113,47 @@
                                                 </p>
                                             </div>
                                         </div>
-                                
+
                                         <div class="mt-4 grid grid-cols-3 gap-4">
                                             <div class="flex items-center">
                                                 <button wire:click='subtractQuantity({{ $key }})'
                                                     class="bg-amber-600 hover:bg-amber-800 text-white text-sm font-bold py-2 px-4 h-6 w-6 rounded">-</button>
-                                            
+
                                                 <p class="text-base px-6">{{ $selectedProduct['quantity'] }}</p>
-                                            
+
                                                 <button wire:click='addQuantity({{ $key }})'
                                                     class="bg-amber-600 hover:bg-amber-800 text-white text-sm font-bold py-2 px-4 h-6 w-6 rounded">+</button>
                                             </div>
-                                            
+
                                         </div>
-                                
+
                                         <div class="mt-4">
-                                         <div class="mt-6 flex items-center justify-between">
-                                            <p class="text-sm font-medium text-gray-900">Sugar Level</p>
-                                            @php
-                                                $sizeSugarLevels = \App\Models\SizeSugarLevel::where('size_id', $selectedProduct['product']->size->id)
-                                                    ->orderByDesc('id')
-                                                    ->get();
-                                            @endphp
-                                            <select wire:model.live="selectedProducts.{{ $key }}.sugarLevelId" name="sugarLevelId" id="sugarLevelId_{{ $key }}" class="block w-32 p-2 border rounded-md">
-                                                @foreach ($sizeSugarLevels as $sizeSugarLevel)
-                                                    <option value="{{ $sizeSugarLevel->id }}" @selected($sizeSugarLevel->id == $selectedProduct['sugarLevelId'])>
-                                                        {{ $sizeSugarLevel->sugarlevel->percentage }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            
-                                        </div>
+                                            <div class="mt-6 flex items-center justify-between">
+                                                <p class="text-sm font-medium text-gray-900">Sugar Level</p>
+                                                @php
+                                                    $sizeSugarLevels = \App\Models\SizeSugarLevel::where('size_id', $selectedProduct['product']->size->id)
+                                                        ->orderByDesc('id')
+                                                        ->get();
+                                                @endphp
+                                                <select
+                                                    wire:model.live="selectedProducts.{{ $key }}.sugarLevelId"
+                                                    name="sugarLevelId"
+                                                    id="sugarLevelId_{{ $key }}"
+                                                    class="block w-32 p-2 border rounded-md">
+                                                    @foreach ($sizeSugarLevels as $sizeSugarLevel)
+                                                        <option value="{{ $sizeSugarLevel->id }}"
+                                                            @selected($sizeSugarLevel->id == $selectedProduct['sugarLevelId'])>
+                                                            {{ $sizeSugarLevel->sugarlevel->percentage }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                
+
+
                                 <div class="ml-auto">
                                     <button wire:click="removeItem({{ $loop->index }})"
                                         type="button"

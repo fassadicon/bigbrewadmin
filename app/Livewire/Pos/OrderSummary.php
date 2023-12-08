@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Pos;
 
-use App\Models\InventoryItem;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
@@ -10,8 +9,10 @@ use Livewire\Component;
 use App\Models\OrderItem;
 use Livewire\Attributes\On;
 use App\Models\InventoryLog;
-use App\Models\ProductCategory;
+use App\Models\InventoryItem;
 use App\Models\SizeSugarLevel;
+use Masmerise\Toaster\Toaster;
+use App\Models\ProductCategory;
 
 class OrderSummary extends Component
 {
@@ -47,6 +48,8 @@ class OrderSummary extends Component
             'quantity' => 1,
             'sugarLevelId' => $defaultSugarLevelId
         ];
+
+        Toaster::info($product->productDetail->name . ' has been added to order!');
     }
 
     public function editSugarLevel($key, $sugarLevelId)
@@ -56,6 +59,7 @@ class OrderSummary extends Component
 
     public function removeItem($index)
     {
+        Toaster::warning($this->selectedProducts[$index]['product']->productDetail->name . ' removed from order');
         unset($this->selectedProducts[$index]);
         $this->selectedProducts = array_values($this->selectedProducts);
     }
@@ -71,8 +75,12 @@ class OrderSummary extends Component
     {
         $currentQuantity = $this->selectedProducts[$key]['quantity'];
         if ($currentQuantity <= 1) {
-            dd('Product must be equal or more than 1');
+            Toaster::warning($this->selectedProducts[$key]['product']->productDetail->name . ' removed from order');
+            unset($this->selectedProducts[$key]);
+            $this->selectedProducts = array_values($this->selectedProducts);
+            return;
         }
+
         $this->selectedProducts[$key]['quantity'] = $currentQuantity - 1;
         $this->computeCurrentTotalAmount();
     }
@@ -94,8 +102,10 @@ class OrderSummary extends Component
     private function computeCurrentTotalAmount()
     {
         $totalAmount = 0;
-        foreach ($this->selectedProducts as $selectedProduct) {
-            $totalAmount += $selectedProduct['product']->price * $selectedProduct['quantity'];
+        if (!empty($this->selectedProducts)) {
+            foreach ($this->selectedProducts as $selectedProduct) {
+                $totalAmount += $selectedProduct['product']->price * $selectedProduct['quantity'];
+            }
         }
         $this->currentTotalAmount = $totalAmount;
     }
@@ -165,10 +175,11 @@ class OrderSummary extends Component
             }
         }
 
-
+        $this->dispatch('close', 'confirm-order');
 
         $this->selectedProducts = [];
-        dd('Order completed!');
+
+        Toaster::success('Order completed!');
     }
 
     public function render()
