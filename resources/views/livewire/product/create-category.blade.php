@@ -4,7 +4,7 @@
         <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight p-6">
             {{ __('Create Product Category') }}
         </h3>
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"
+        <div class="bg-white dark:bg-gray-800 overflow-hidden sm:rounded-lg rounded-lg p-4 shadow-sm m-4 flex flex-col flex-1"
             wire:loading.class="invisible">
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 <div class="mb-6">

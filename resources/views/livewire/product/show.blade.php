@@ -1,4 +1,5 @@
 <div>
+    <div class="bg-white rounded-lg px-4">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ $productDetail->name }}
@@ -8,20 +9,21 @@
     <a href="{{ route('products') }}"
         wire:navigate
         type="button"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mx-4">
         {{ __('Back to Products List') }}
     </a>
     <a href="{{ route('products.edit', ['productDetail' => $productDetail]) }}"
         wire:navigate
         type="button"
-        class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
+        class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800 ml-6">
         {{ __('Edit this product') }}
     </a>
+</div>
 
-    <div class="flex mx-auto">
+    <div class="bg-white rounded-lg p-4 flex flex-col flex-1">
         <div class="flex mx-auto w-full">
             {{-- Product Details and Sizes --}}
-            <div class="w-4/12">
+            <div class="w-4/12 bg-white rounded-lg p-4 hover:shadow-xl shadow-xl m-4 flex flex-col flex-1">
                 <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
                     {{ __('Details') }}
                 </h3>
@@ -70,7 +72,7 @@
                 </div>
             </div>
             {{-- Sizes --}}
-            <div class="w-3/12">
+            <div class="w-3/12 bg-white rounded-lg p-4 hover:shadow-xl shadow-xl m-4 flex flex-col flex-1">
                 <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
                     {{ __('Size and Price') }}
                 </h3>
@@ -100,7 +102,7 @@
                 </div>
             </div>
             {{-- Inventory Item --}}
-            <div class="w-5/12">
+            <div class="w-5/12 bg-white rounded-lg p-4 hover:shadow-xl shadow-xl m-4 flex flex-col flex-1">
                 <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
                     {{ __('Inventory Consumption') }}
                 </h3>
@@ -157,7 +159,7 @@
 
     </div>
 
-    <div class="">
+    <div class="bg-white rounded-lg p-4 hover:shadow-xl shadow-xl m-4 flex flex-col flex-1">
         <table>
             <thead>
                 <th>Log</th>

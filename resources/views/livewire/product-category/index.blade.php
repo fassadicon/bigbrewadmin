@@ -8,7 +8,7 @@
     <livewire:product-category.edit />
     <livewire:product-category.show />
 
-    <div class="py-12">
+    <div class="flex-1 py-12 bg-white rounded-lg p-4 hover:shadow-xl shadow-xl m-4">
         <form wire:submit="store">
             @csrf
             <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
@@ -46,7 +46,7 @@
         </form>
     </div>
 
-    <div class="py-12">
+    <div class="flex-1 py-12 bg-white rounded-lg p-4 hover:shadow-xl shadow-xl m-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">

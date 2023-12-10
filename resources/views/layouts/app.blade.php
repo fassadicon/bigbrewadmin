@@ -34,7 +34,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
         <div class="fixed top-0 w-full z-50 bg-white shadow-md">
             <livewire:layout.navigation />
         </div>
@@ -43,7 +43,7 @@
 
         <main class="flex-1 flex flex-row">
 
-            <div class="flex bg-gray-50 h-auto"
+            <div class="flex bg-gray-50 h-auto w-full"
                 x-data="{ isSidebarExpanded: true }">
                 {{-- Collapsible Sidebar --}}
                 @livewire('layout.sidebar')

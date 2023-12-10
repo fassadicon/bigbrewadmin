@@ -80,7 +80,7 @@
         </form>
     </x-modal>
 
-    <div class="mx-auto w-80 md:mt-12">
+    <div class="mx-auto w-96 md:mt-12">
         <div class="rounded-3xl bg-white shadow-lg">
             <div class="px-4 py-6 sm:px-8 sm:py-10">
                 <div class="flow-root">
@@ -105,10 +105,10 @@
                                                 <p class="mx-0 mt-1 mb-0 text-xs text-gray-400">
                                                     {{ $selectedProduct['product']->productDetail->description }}
                                                 </p>
-                                                <p class="text-xs font-semibold text-gray-900">Size:
+                                                <p class="text-xs font-semibold text-gray-400">Size:
                                                     {{ $selectedProduct['product']->size->name }}
                                                 </p>
-                                                <p class="text-xs font-semibold text-gray-900">
+                                                <p class="text-xs font-semibold text-gray-400">
                                                     ₱{{ $selectedProduct['product']->price }}
                                                 </p>
                                             </div>

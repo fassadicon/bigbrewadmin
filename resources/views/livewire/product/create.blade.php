@@ -16,7 +16,7 @@
         <form wire:submit="save" class="w-full">
             <div class="flex mx-auto">
                 {{-- Product Details and Sizes --}}
-                <div class="w-4/12">
+                <div class="w-4/12 bg-white rounded-lg p-4 hover:shadow-xl shadow-xl m-4 flex flex-col flex-1" >
                     <h3 class="font-semibold text-m text-gray-800 ml-6 dark:text-gray-200 leading-tight">
                         {{ __('Details') }}
                     </h3>
@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 {{-- Sizes --}}
-                <div class="w-3/12">
+                <div class="w-3/12 bg-white rounded-lg p-4 hover:shadow-xl shadow-xl m-4 flex flex-col flex-1">
                     <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
                         {{ __('Size and Price') }}
                     </h3>
@@ -140,7 +140,7 @@
                     </div>
                 </div>
                 {{-- Inventory Item --}}
-                <div class="w-5/12">
+                <div class="w-5/12 bg-white rounded-lg p-4 hover:shadow-xl shadow-xl m-4 flex flex-col flex-1">
                     <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
                         {{ __('Inventory Consumption') }}
                     </h3>
