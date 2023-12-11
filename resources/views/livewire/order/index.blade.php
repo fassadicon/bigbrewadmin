@@ -172,13 +172,15 @@
                                                     Print Receipt
                                                 </svg>
                                             </button>
-                                            @unless ($order->trashed())
-                                                <button wire:click='delete({{ $order }})'
-                                                    class="px-3 py-1 bg-orange-500 text-white rounded">Archive</button>
-                                            @else
-                                                <button wire:click='restore({{ $order->id }})'
-                                                    class="px-3 py-1 bg-green-500 text-white rounded">Restore</button>
-                                            @endunless
+                                            @role('Super Admin')
+                                                @unless ($order->trashed())
+                                                    <button wire:click='delete({{ $order }})'
+                                                        class="px-3 py-1 bg-orange-500 text-white rounded">Archive</button>
+                                                @else
+                                                    <button wire:click='restore({{ $order->id }})'
+                                                        class="px-3 py-1 bg-green-500 text-white rounded">Restore</button>
+                                                @endunless
+                                            @endrole
                                         </td>
                                     </tr>
                                 @empty
