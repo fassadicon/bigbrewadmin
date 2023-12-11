@@ -39,13 +39,14 @@ class OrderSummary extends Component
     public function productAdded($productId)
     {
         $newProductInCart = false;
-        foreach ($this->selectedProducts as $selectedProduct) {
+        foreach ($this->selectedProducts as $key => $selectedProduct) {
             if ($selectedProduct['product']->id == $productId) {
                 $newProductInCart = true;
-                $selectedProduct['quantity'] += 1;
-                $this->selectedProducts = array_values($this->selectedProducts);
+                $this->addQuantity($key);
+                // $this->selectedProducts = array_values($this->selectedProducts);
             }
         }
+        // dump($this->selectedProducts);
 
         if (!$newProductInCart) {
             $product = Product::with('productDetail', 'size')->where('id', $productId)->first();

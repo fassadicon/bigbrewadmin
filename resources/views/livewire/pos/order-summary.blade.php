@@ -127,7 +127,10 @@
                                                 <button wire:click='subtractQuantity({{ $key }})'
                                                     class="bg-amber-600 hover:bg-amber-800 text-white text-sm font-bold py-2 px-4 h-6 w-6 rounded">-</button>
 
-                                                <p class="text-base px-6">{{ $selectedProduct['quantity'] }}</p>
+                                                <input wire:model='selectedProducts.{{ $key }}.quantity'
+                                                    type="text"
+                                                    readonly>
+                                                {{-- <p class="text-base px-6">{{ $selectedProduct['quantity'] }}</p> --}}
 
                                                 <button wire:click='addQuantity({{ $key }})'
                                                     class="bg-amber-600 hover:bg-amber-800 text-white text-sm font-bold py-2 px-4 h-6 w-6 rounded">+</button>
