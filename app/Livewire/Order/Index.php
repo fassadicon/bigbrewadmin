@@ -78,6 +78,28 @@ class Index extends Component
         );
     }
 
+    public function downloadReceipt($orderId)
+    {
+        $order = Order::with('orderItems', 'payment')->where('id', $orderId)->first();
+
+        $pdf = Pdf::setPaper(array(0, 0, 200, 500))
+            ->loadView('exports.receipt', [
+                'order' => $order,
+            ]);
+
+        $page_count = $pdf->get_canvas()->get_page_number();
+
+        $printPDF =  Pdf::setPaper(array(0, 0, 200, 500 * $page_count))
+            ->loadView('exports.receipt', [
+                'order' => $order,
+            ])
+            ->output();
+
+        return response()->streamDownload(
+            fn () => print($printPDF),
+            "receipt.pdf"
+        );
+    }
     public function render()
     {
         // dd($this->status);

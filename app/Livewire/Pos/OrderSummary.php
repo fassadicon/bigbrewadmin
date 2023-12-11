@@ -43,10 +43,8 @@ class OrderSummary extends Component
             if ($selectedProduct['product']->id == $productId) {
                 $newProductInCart = true;
                 $this->addQuantity($key);
-                // $this->selectedProducts = array_values($this->selectedProducts);
             }
         }
-        // dump($this->selectedProducts);
 
         if (!$newProductInCart) {
             $product = Product::with('productDetail', 'size')->where('id', $productId)->first();
@@ -193,13 +191,10 @@ class OrderSummary extends Component
         $this->selectedProducts = [];
 
         if ($this->printReceipt) {
-            // $printOrder = Order::with('orderItems', 'payment')->where('id', $order->id)->first();
-
             $pdf = Pdf::setPaper(array(0, 0, 200, 500))
                 ->loadView('exports.receipt', [
                     'order' => $order,
                 ]);
-            // ->output();
 
             $page_count = $pdf->get_canvas()->get_page_number();
 
@@ -218,29 +213,28 @@ class OrderSummary extends Component
         Toaster::success('Order completed!');
     }
 
-    private function printReceipt($orderId)
-    {
-        $order = Order::with('orderItems', 'payment')->where('id', $orderId)->first();
+    // private function downloadReceipt($orderId)
+    // {
+    //     $order = Order::with('orderItems', 'payment')->where('id', $orderId)->first();
 
-        $pdf = Pdf::setPaper(array(0, 0, 200, 500))
-            ->loadView('exports.receipt', [
-                'order' => $order,
-            ]);
-        // ->output();
+    //     $pdf = Pdf::setPaper(array(0, 0, 200, 500))
+    //         ->loadView('exports.receipt', [
+    //             'order' => $order,
+    //         ]);
 
-        $page_count = $pdf->get_canvas()->get_page_number();
+    //     $page_count = $pdf->get_canvas()->get_page_number();
 
-        $printPDF =  Pdf::setPaper(array(0, 0, 200, 500 * $page_count))
-            ->loadView('exports.receipt', [
-                'order' => $order,
-            ])
-            ->output();
+    //     $printPDF =  Pdf::setPaper(array(0, 0, 200, 500 * $page_count))
+    //         ->loadView('exports.receipt', [
+    //             'order' => $order,
+    //         ])
+    //         ->output();
 
-        return response()->streamDownload(
-            fn () => print($printPDF),
-            "receipt.pdf"
-        );
-    }
+    //     return response()->streamDownload(
+    //         fn () => print($printPDF),
+    //         "receipt.pdf"
+    //     );
+    // }
 
     public function render()
     {
