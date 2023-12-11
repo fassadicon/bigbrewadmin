@@ -21,8 +21,26 @@ class Create extends Component
         return ['deliveryReceiveItems.*.quantity' => 'required'];
     }
 
-    public function mount()
+    public function mount(PurchaseOrder $purchaseOrder)
     {
+        $this->selectedPurchaseOrder = $purchaseOrder->load('purchaseOrderItems', 'supplier', 'user');
+
+        // $this->selectedPurchaseOrder = PurchaseOrder::with('purchaseOrderItems', 'supplier', 'user')
+        // ->where('id', $purchaseOrderId)
+        // ->first();
+        foreach ($this->selectedPurchaseOrder->purchaseOrderItems as $purchaseOrderItem) {
+            $this->deliveryReceiveItems[] =  [
+                'purchase_order_item_id' => $purchaseOrderItem->id,
+                'inventory_item_id' => $purchaseOrderItem->inventory_item_id,
+                'expected_quantity' => $purchaseOrderItem->quantity,
+                'quantity' => 0,
+                'pending' => $purchaseOrderItem->quantity,
+                'unit_measurement' => $purchaseOrderItem->unit_measurement,
+                'unit_price' => $purchaseOrderItem->unit_price,
+                'amount' => $purchaseOrderItem->amount,
+                'description' => $purchaseOrderItem->description
+            ];
+        }
         $this->purchaseOrders = PurchaseOrder::where('status', 1)->get();
         $this->inventoryItems = InventoryItem::all();
     }
@@ -40,7 +58,7 @@ class Create extends Component
         $totalAmount = 0;
         // $incomplete = false;
 
-        foreach($this->deliveryReceiveItems as $deliveryReceiveItem) {
+        foreach ($this->deliveryReceiveItems as $deliveryReceiveItem) {
             if ($deliveryReceiveItem['quantity'] < $deliveryReceiveItem['expected_quantity']) {
                 dd('Incomplete receive count');
             }
@@ -110,28 +128,28 @@ class Create extends Component
         }
     }
 
-    public function selectPurchaseOrder($purchaseOrderId)
-    {
-        $this->selectedPurchaseOrder = PurchaseOrder::with('purchaseOrderItems', 'supplier', 'user')
-            ->where('id', $purchaseOrderId)
-            ->first();
-        foreach ($this->selectedPurchaseOrder->purchaseOrderItems as $purchaseOrderItem) {
-            $this->deliveryReceiveItems[] =  [
-                'purchase_order_item_id' => $purchaseOrderItem->id,
-                'inventory_item_id' => $purchaseOrderItem->inventory_item_id,
-                'expected_quantity' => $purchaseOrderItem->quantity,
-                'quantity' => 0,
-                'pending' => $purchaseOrderItem->quantity,
-                'unit_measurement' => $purchaseOrderItem->unit_measurement,
-                'unit_price' => $purchaseOrderItem->unit_price,
-                'amount' => $purchaseOrderItem->amount,
-                'description' => $purchaseOrderItem->description
-            ];
-        }
+    // public function selectPurchaseOrder($purchaseOrderId)
+    // {
+    //     $this->selectedPurchaseOrder = PurchaseOrder::with('purchaseOrderItems', 'supplier', 'user')
+    //         ->where('id', $purchaseOrderId)
+    //         ->first();
+    //     foreach ($this->selectedPurchaseOrder->purchaseOrderItems as $purchaseOrderItem) {
+    //         $this->deliveryReceiveItems[] =  [
+    //             'purchase_order_item_id' => $purchaseOrderItem->id,
+    //             'inventory_item_id' => $purchaseOrderItem->inventory_item_id,
+    //             'expected_quantity' => $purchaseOrderItem->quantity,
+    //             'quantity' => 0,
+    //             'pending' => $purchaseOrderItem->quantity,
+    //             'unit_measurement' => $purchaseOrderItem->unit_measurement,
+    //             'unit_price' => $purchaseOrderItem->unit_price,
+    //             'amount' => $purchaseOrderItem->amount,
+    //             'description' => $purchaseOrderItem->description
+    //         ];
+    //     }
 
-        // dd($this->deliveryReceiveItems);
+    //     // dd($this->deliveryReceiveItems);
 
-    }
+    // }
 
     public function render()
     {
