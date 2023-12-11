@@ -12,10 +12,11 @@ use App\Models\InventoryLog;
 use App\Models\InventoryItem;
 use App\Models\SizeSugarLevel;
 use Masmerise\Toaster\Toaster;
-use App\Models\ProductCategory;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderSummary extends Component
 {
+    public $printReceipt;
     public $selectedProducts = [];
     public $currentTotalAmount = 0;
     public $payment = [
@@ -37,19 +38,30 @@ class OrderSummary extends Component
     #[On('productAdded')]
     public function productAdded($productId)
     {
-        $product = Product::with('productDetail', 'size')->where('id', $productId)->first();
-        $defaultSugarLevelId = SizeSugarLevel::where('size_id', $product->size->id)
-            ->orderByDesc('id')
-            ->pluck('id')
-            ->first();
+        $newProductInCart = false;
+        foreach ($this->selectedProducts as $selectedProduct) {
+            if ($selectedProduct['product']->id == $productId) {
+                $newProductInCart = true;
+                $selectedProduct['quantity'] += 1;
+                $this->selectedProducts = array_values($this->selectedProducts);
+            }
+        }
 
-        $this->selectedProducts[] = [
-            'product' => $product,
-            'quantity' => 1,
-            'sugarLevelId' => $defaultSugarLevelId
-        ];
+        if (!$newProductInCart) {
+            $product = Product::with('productDetail', 'size')->where('id', $productId)->first();
+            $defaultSugarLevelId = SizeSugarLevel::where('size_id', $product->size->id)
+                ->orderByDesc('id')
+                ->pluck('id')
+                ->first();
 
-        Toaster::info($product->productDetail->name . ' has been added to order!');
+            $this->selectedProducts[] = [
+                'product' => $product,
+                'quantity' => 1,
+                'sugarLevelId' => $defaultSugarLevelId
+            ];
+
+            Toaster::info($product->productDetail->name . ' has been added to order!');
+        }
     }
 
     public function editSugarLevel($key, $sugarLevelId)
@@ -179,7 +191,54 @@ class OrderSummary extends Component
 
         $this->selectedProducts = [];
 
+        if ($this->printReceipt) {
+            // $printOrder = Order::with('orderItems', 'payment')->where('id', $order->id)->first();
+
+            $pdf = Pdf::setPaper(array(0, 0, 200, 500))
+                ->loadView('exports.receipt', [
+                    'order' => $order,
+                ]);
+            // ->output();
+
+            $page_count = $pdf->get_canvas()->get_page_number();
+
+            $printPDF =  Pdf::setPaper(array(0, 0, 200, 500 * $page_count))
+                ->loadView('exports.receipt', [
+                    'order' => $order,
+                ])
+                ->output();
+
+            return response()->streamDownload(
+                fn () => print($printPDF),
+                "receipt.pdf"
+            );
+        }
+
         Toaster::success('Order completed!');
+    }
+
+    private function printReceipt($orderId)
+    {
+        $order = Order::with('orderItems', 'payment')->where('id', $orderId)->first();
+
+        $pdf = Pdf::setPaper(array(0, 0, 200, 500))
+            ->loadView('exports.receipt', [
+                'order' => $order,
+            ]);
+        // ->output();
+
+        $page_count = $pdf->get_canvas()->get_page_number();
+
+        $printPDF =  Pdf::setPaper(array(0, 0, 200, 500 * $page_count))
+            ->loadView('exports.receipt', [
+                'order' => $order,
+            ])
+            ->output();
+
+        return response()->streamDownload(
+            fn () => print($printPDF),
+            "receipt.pdf"
+        );
     }
 
     public function render()
