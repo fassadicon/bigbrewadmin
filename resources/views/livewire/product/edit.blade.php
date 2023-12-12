@@ -144,9 +144,9 @@
                             @endforeach
                         </div>
                         <div class="mb-6">
-                            @dump(count($form->product) > 1)
+                            {{-- @dump(count($form->product) > 1)
                             @dump(count($form->product))
-                            @dump($form->product)
+                            @dump($form->product) --}}
                             @if (count($form->product) > 1)
                                 <button wire:click="addSizeAndPrice"
                                     type="button"

@@ -90,15 +90,20 @@ class Index extends Component
         ->orderBy($this->sortBy, $this->sortDir)
         ->get();
 
-        $totalAmount = 0;
-        $wasteInventoryItemsCount = 0;
+        $totalAmount = $inventoryLogs->sum('amount');
+
+        $wasteItems = [];
+        foreach($inventoryLogs as $inventoryLog) {
+            $wasteItems[] = $inventoryLog->inventoryItem->name;
+        }
+        $wasteItems = array_unique($wasteItems);
 
         $pdf = Pdf::loadView('exports.wastage', [
             'inventoryLogs' => $inventoryLogs,
             'start_date' => Carbon::parse($this->start)->format('F j, Y'),
             'end_date' => Carbon::parse($this->end)->format('F j, Y'),
             'totalAmount' => $totalAmount,
-            'wasteInventoryItemsCount' => $wasteInventoryItemsCount
+            'wasteInventoryItemsCount' => count($wasteItems)
         ])->output();
 
         return response()->streamDownload(

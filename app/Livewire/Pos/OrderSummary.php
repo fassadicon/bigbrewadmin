@@ -24,7 +24,8 @@ class OrderSummary extends Component
         'payment_received' => 0,
         'amount' => 0,
         'change' => 0,
-        'details' => ''
+        'details' => '',
+        'name' => ''
     ];
 
     protected function rules()
