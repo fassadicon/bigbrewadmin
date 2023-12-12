@@ -93,6 +93,11 @@ class EditProductForm extends Form
             dd('Please select a size before adding another one.');
         }
 
+        if ($this->product[count($this->product) - 1]['price'] <= 0) {
+            // Trigger modal/toast here
+            dd('Please put a valid price');
+        }
+
         $this->product[] = [
             'size_id' => '',
             'price' => 0.00,
