@@ -11,7 +11,7 @@ use App\Models\DeliveryReceiveItem;
 
 class Create extends Component
 {
-    public $selectedPurchaseOrder;
+    public PurchaseOrder $selectedPurchaseOrder;
     public $purchaseOrders;
     public $deliveryReceiveItems;
     public $inventoryItems;

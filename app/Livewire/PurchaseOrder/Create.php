@@ -19,6 +19,7 @@ class Create extends Component
 
     public function rules() {
         return [
+            'supplier_id' => 'required',
             'purchaseOrderItems.*.quantity' => 'required|min:1',
             'purchaseOrderItems.*.inventory_item_id' => 'required|exists:inventory_items,id'
         ];
