@@ -148,8 +148,13 @@
                                     </svg>
                                 </a>
                                 @role('Super Admin')
-                                    <button wire:click='delete({{ $productDetail }})'
-                                        class="px-3 py-1 bg-orange-500 text-white rounded">Archive</button>
+                                    @unless ($productDetail->trashed())
+                                        <button wire:click='delete({{ $productDetail }})'
+                                            class="px-3 py-1 bg-orange-500 text-white rounded">Archive</button>
+                                    @else
+                                        <button wire:click='restore({{ $productDetail->id }})'
+                                            class="px-3 py-1 bg-green-500 text-white rounded">Restore</button>
+                                    @endunless
                                 @endrole
                             </td>
                         </tr>

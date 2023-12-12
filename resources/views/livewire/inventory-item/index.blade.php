@@ -115,8 +115,8 @@
                                                         d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                                                 </svg>
                                             </button>
-                                            @unless ($inventoryItem->trashed())
-                                                @role('Super Admin')
+                                            @role('Super Admin')
+                                                @unless ($inventoryItem->trashed())
                                                     <button wire:click.prevent="edit({{ $inventoryItem }})"
                                                         class="px-3 py-1 bg-green-500 text-white rounded">
                                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -132,13 +132,11 @@
                                                     </button>
                                                     <button wire:click='delete({{ $inventoryItem }})'
                                                         class="px-3 py-1 bg-orange-500 text-white rounded">Archive</button>
-                                                @endrole
-                                            @else
-                                                @role('Super Admin')
+                                                @else
                                                     <button wire:click='restore({{ $inventoryItem->id }})'
                                                         class="px-3 py-1 bg-green-500 text-white rounded">Restore</button>
-                                                @endrole
-                                            @endunless
+                                                @endunless
+                                            @endrole
                                         </td>
                                     </tr>
                                 @empty

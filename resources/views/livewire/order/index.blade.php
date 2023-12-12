@@ -132,9 +132,12 @@
                                             {{ $order->id }}
                                         </th>
                                         <td>
+                                            {{-- @dump($order->orderItems) --}}
                                             @foreach ($order->orderItems as $orderItem)
-                                                <div>{{ $orderItem->product->productDetail->name }} x
-                                                    {{ $orderItem->quantity }}</div>
+                                                <div>
+                                                    {{ $orderItem->product->productDetail->name }} x
+                                                    {{ $orderItem->quantity }}
+                                                </div>
                                             @endforeach
                                         </td>
                                         <td>{{ $order->total_amount }}</td>
@@ -163,14 +166,7 @@
                                             </button>
                                             <button wire:click.prevent="downloadReceipt({{ $order->id }})"
                                                 class="px-3 py-1 bg-blue-500 text-white rounded">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
-                                                    stroke="currentColor"
-                                                    class="w-6 h-6">
-                                                    Print Receipt
-                                                </svg>
+                                                Download Receipt
                                             </button>
                                             @role('Super Admin')
                                                 @unless ($order->trashed())

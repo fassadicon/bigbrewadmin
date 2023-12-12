@@ -6,6 +6,7 @@ use App\Models\Order;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Carbon;
+use Masmerise\Toaster\Toaster;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class Index extends Component
@@ -27,6 +28,18 @@ class Index extends Component
     {
         $this->dispatch('showing-order', id: $id);
         $this->dispatch('open-modal', 'show-order');
+    }
+
+    public function delete(Order $size)
+    {
+        $size->delete();
+        Toaster::warning('Order archived!');
+    }
+
+    public function restore(int $id)
+    {
+        Order::withTrashed()->where('id', $id)->first()->restore();
+        Toaster::success('Order restored!');
     }
 
     public function export()
@@ -104,7 +117,7 @@ class Index extends Component
     {
         // dd($this->status);
         $orders = Order::withTrashed()
-            ->with('payment', 'orderItems', 'user')
+            ->with('payment', 'user', 'orderItems.product.productDetail')
             ->search($this->search)
             ->when($this->status !== '', function ($query) {
                 $query->where('status', $this->status);

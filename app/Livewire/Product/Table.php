@@ -7,6 +7,7 @@ use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\ProductDetail;
+use Masmerise\Toaster\Toaster;
 use App\Models\ProductCategory;
 
 class Table extends Component
@@ -17,7 +18,7 @@ class Table extends Component
     public $search = '';
     public $category = '';
     public $size = '';
-    public $status = 'active';
+    public $status = '';
 
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
@@ -75,10 +76,12 @@ class Table extends Component
     public function delete(ProductDetail $productDetail)
     {
         $productDetail->delete();
+        Toaster::warning('Order archived!');
     }
 
-    public function restore($productDetailId)
+    public function restore(int $id)
     {
-        ProductDetail::withTrashed()->find($productDetailId)->restore();
+        ProductDetail::withTrashed()->where('id', $id)->first()->restore();
+        Toaster::success('Order restored!');
     }
 }
