@@ -144,6 +144,9 @@
                             @endforeach
                         </div>
                         <div class="mb-6">
+                            @dump(count($form->product) > 1)
+                            @dump(count($form->product))
+                            @dump($form->product)
                             @if (count($form->product) > 1)
                                 <button wire:click="addSizeAndPrice"
                                     type="button"
@@ -181,6 +184,7 @@
                                                     <label for="inventory_item_{{ $index }}_{{ $key }}"
                                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Inventory
                                                         Item</label>
+
                                                     <select
                                                         wire:model="form.product.{{ $index }}.inventory_consumption.{{ $key }}.inventory_item_id"
                                                         wire:change="changeSizeOrInventoryItem()"

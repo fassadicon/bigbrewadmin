@@ -6,6 +6,7 @@ use Livewire\Form;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use Livewire\Attributes\Rule;
+use Masmerise\Toaster\Toaster;
 
 class EditProductForm extends Form
 {
@@ -50,7 +51,7 @@ class EditProductForm extends Form
     public function update($productDetail)
     {
         $this->validate();
-
+        // dd($this->product);
         $sizesAndPrices = [];
         foreach ($this->product as $productSize) {
             $sizesAndPrices[$productSize['size_id']]['price'] = $productSize['price'];
@@ -61,9 +62,12 @@ class EditProductForm extends Form
             $product = Product::where('product_id', $productDetail->id)
                 ->where('size_id', $productSize['size_id'])->first();
             $inventoryConsumption = [];
+
+            $product->inventoryItems()->detach();
             foreach ($productSize['inventory_consumption'] as $item) {
                 $inventoryConsumption[$item['inventory_item_id']]['consumption_value'] = $item['consumption_value'];
             }
+
             $product->inventoryItems()->sync($inventoryConsumption);
         }
 
@@ -73,6 +77,8 @@ class EditProductForm extends Form
             'description' => $this->description,
             'image' => $this->image,
         ]);
+
+        Toaster::success('Product updated successfully!');
     }
 
     public function removeSizeAndPriceData($index)
@@ -119,6 +125,7 @@ class EditProductForm extends Form
         }
 
         unset($this->product[$index]['inventory_consumption'][$key]);
+
         $this->changeSizeOrInventoryItemData();
     }
 
