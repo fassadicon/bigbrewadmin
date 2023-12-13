@@ -20,13 +20,13 @@ class OrderSummary extends Component
     public $printReceipt;
     public $selectedProducts = [];
     public $currentTotalAmount = 0;
+    public $name;
     public $payment = [
         'method' => 1,
         'payment_received' => 0,
         'amount' => 0,
         'change' => 0,
-        'details' => '',
-        'name' => ''
+        'details' => ''
     ];
 
     protected function rules()
@@ -147,7 +147,9 @@ class OrderSummary extends Component
             'user_id' => auth()->id(),
             'payment_id' => $payment->id,
             'total_amount' => $payment->amount,
+            'customer_name' => $this->name
         ]);
+
         foreach ($orderItems as $key => $orderItem) {
             $orderItem['order_id'] = $order->id;
             OrderItem::create($orderItem);
@@ -219,6 +221,7 @@ class OrderSummary extends Component
             );
         }
 
+        $this->name = null;
         Toaster::success('Order completed!');
     }
 

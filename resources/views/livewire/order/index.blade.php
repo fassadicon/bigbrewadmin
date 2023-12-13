@@ -115,6 +115,8 @@
                                 <th scope="col"
                                     class="px-4 py-3">Date</th>
                                 <th scope="col"
+                                    class="px-4 py-3">Customer</th>
+                                <th scope="col"
                                     class="px-4 py-3">Catered By</th>
                                 <th scope="col"
                                     class="px-4 py-3">
@@ -144,6 +146,7 @@
                                         <td>{{ $order->payment->method }}</td>
                                         <td>{{ $order->status === 1 ? 'Completed' : 'Cancelled' }}</td>
                                         <td>{{ $order->created_at }}</td>
+                                        <td>{{ $order->customer_name }}</td>
                                         <td>{{ $order->user->name }}</td>
                                         {{-- <td>
                                             @include('includes.table.deleted_at-td', [

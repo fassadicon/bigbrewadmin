@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('payment_id');
             $table->unsignedInteger('discount_id')->nullable();
+            $table->string('customer_name')->nullable();
             $table->decimal('total_amount', 10, 2);
             $table->smallInteger('status')->default(1); // 1 - Completed, 2 - Cancelled
             $table->timestamps();
