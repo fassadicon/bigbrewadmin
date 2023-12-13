@@ -141,8 +141,7 @@
                                                     class="bg-amber-600 hover:bg-amber-800 text-white text-sm font-bold py-2 px-4 h-6 w-6 rounded">-</button>
 
                                                 <input wire:model='selectedProducts.{{ $key }}.quantity'
-                                                    type="text"
-                                                    readonly>
+                                                    type="text">
                                                 {{-- <p class="text-base px-6">{{ $selectedProduct['quantity'] }}</p> --}}
 
                                                 <button wire:click='addQuantity({{ $key }})'
