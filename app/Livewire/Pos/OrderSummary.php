@@ -11,6 +11,7 @@ use Livewire\Attributes\On;
 use App\Models\InventoryLog;
 use App\Models\InventoryItem;
 use App\Models\SizeSugarLevel;
+use Illuminate\Support\Carbon;
 use Masmerise\Toaster\Toaster;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -125,6 +126,11 @@ class OrderSummary extends Component
 
     public function completeOrder()
     {
+        if ($this->payment['payment_received'] < $this->payment['amount']) {
+            Toaster::warning('Payment received is less than total amount!');
+            return;
+        }
+
         $orderItems = [];
         foreach ($this->selectedProducts as $selectedProduct) {
             $orderItems[] = [
@@ -195,6 +201,7 @@ class OrderSummary extends Component
             $pdf = Pdf::setPaper(array(0, 0, 200, 500))
                 ->loadView('exports.receipt', [
                     'order' => $order,
+                    'date' => Carbon::now()->format('Y-m-d H:i:s')
                 ]);
 
             $page_count = $pdf->get_canvas()->get_page_number();
@@ -202,6 +209,7 @@ class OrderSummary extends Component
             $printPDF =  Pdf::setPaper(array(0, 0, 200, 500 * $page_count))
                 ->loadView('exports.receipt', [
                     'order' => $order,
+                    'date' => Carbon::now()->format('Y-m-d H:i:s')
                 ])
                 ->output();
 

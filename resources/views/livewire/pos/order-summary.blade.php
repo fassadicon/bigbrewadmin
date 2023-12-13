@@ -21,7 +21,7 @@
                     <div class="mb-6">
                         <label for="payment.method"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Remarks</label>
-                        <select wire:model='payment.method'
+                        <select wire:model.live='payment.method'
                             name=""
                             id="method">
                             <option value="1"
@@ -65,17 +65,20 @@
                         <x-input-error :messages="$errors->get('payment.name')"
                             class="mt-2" />
                     </div>
-                    <div class="mb-6">
-                        <label for="payment.details"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Details/Reference
-                            Number (if any)</label>
-                        <input wire:model="payment.details"
-                            type="text"
-                            id="name"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <x-input-error :messages="$errors->get('payment.details')"
-                            class="mt-2" />
-                    </div>
+                    @if ($payment['method'] == 2)
+                        <div class="mb-6">
+                            <label for="payment.details"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Details/Reference
+                                Number (if any)</label>
+                            <input wire:model="payment.details"
+                                type="text"
+                                id="name"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <x-input-error :messages="$errors->get('payment.details')"
+                                class="mt-2" />
+                        </div>
+                    @endif
+
                     <div class="mb-6">
                         <label for="printReceipt"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Print Receipt</label>

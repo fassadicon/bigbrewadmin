@@ -98,6 +98,7 @@ class Index extends Component
         $pdf = Pdf::setPaper(array(0, 0, 200, 500))
             ->loadView('exports.receipt', [
                 'order' => $order,
+                'date' => $order->created_at
             ]);
 
         $page_count = $pdf->get_canvas()->get_page_number();
@@ -105,6 +106,7 @@ class Index extends Component
         $printPDF =  Pdf::setPaper(array(0, 0, 200, 500 * $page_count))
             ->loadView('exports.receipt', [
                 'order' => $order,
+                'date' => $order->created_at
             ])
             ->output();
 
