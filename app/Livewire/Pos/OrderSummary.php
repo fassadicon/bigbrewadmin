@@ -98,6 +98,10 @@ class OrderSummary extends Component
         $this->computeCurrentTotalAmount();
     }
 
+    public function updateQuantity() {
+        $this->computeCurrentTotalAmount();
+    }
+
     public function updateChange()
     {
         $this->validate();
