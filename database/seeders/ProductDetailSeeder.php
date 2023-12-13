@@ -25,7 +25,7 @@ class ProductDetailSeeder extends Seeder
             'category_id' => 1,
             'name' => 'wintermelon',
             'description' => 'test',
-            'image_path' => 'products/WINTERMELON.jpg'
+            'image_path' => 'products/WINTERMELON.jpeg'
         ]);
         ProductDetail::create([
             'category_id' => 1,
@@ -291,7 +291,7 @@ class ProductDetailSeeder extends Seeder
             'category_id' => 6,
             'name' => 'Coffee jelly',
             'description' => 'test',
-            'image_path' => 'products/COFFFEEJELLYADDON.jpg'
+            'image_path' => 'products/COFFEEJELLYADDON.jpg'
         ]);
         ProductDetail::create([
             'category_id' => 6,
