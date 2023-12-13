@@ -40,7 +40,7 @@ class InventoryItemSeeder extends Seeder
             'created_at' => Carbon::now()->subDays(rand(1, 7))
         ]);
         InventoryItem::create([
-            'name' => 'Plastic Cup - XL',
+            'name' => 'Plastic Cup - extra large',
             'measurement' => 'piece',
             'remaining_stocks' => '10000',
             'warning_value' => '200',
@@ -423,7 +423,30 @@ class InventoryItemSeeder extends Seeder
             'unit_price' => 1,
             'created_at' => Carbon::now()->subDays(rand(1, 7))
         ]);
-
+    InventoryItem::create([
+        'name' => 'Ice cube',
+        'measurement' => 'grams',
+        'remaining_stocks' => '10000',
+        'warning_value' => '200',
+        'unit_price' => 2,
+        'created_at' => Carbon::now()->subDays(rand(1, 7))
+    ]);
+    InventoryItem::create([
+        'name' => 'coffee cup ',
+        'measurement' => 'piece',
+        'remaining_stocks' => '10000',
+        'warning_value' => '200',
+        'unit_price' => 2,
+        'created_at' => Carbon::now()->subDays(rand(1, 7))
+    ]);
+    InventoryItem::create([
+        'name' => 'coffee lead ',
+        'measurement' => 'piece',
+        'remaining_stocks' => '10000',
+        'warning_value' => '200',
+        'unit_price' => 2,
+        'created_at' => Carbon::now()->subDays(rand(1, 7))
+    ]);
 
         $inventoryItems = InventoryItem::all();
         foreach ($inventoryItems as $inventoryItem) {
