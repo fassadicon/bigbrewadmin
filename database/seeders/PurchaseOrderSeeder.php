@@ -16,8 +16,8 @@ class PurchaseOrderSeeder extends Seeder
     public function run(): void
     {
         //po1start
-        $Plasticcupregular = InventoryItem::where('name', 'Plastic Cup - Regular')->first();
-        $PlasticCupSmall = InventoryItem::where('name', 'Plastic Cup - Small')->first();
+        $Plasticcupregular = InventoryItem::where('name', 'Plastic Cup - Medium')->first();
+        $PlasticCupSmall = InventoryItem::where('name', 'Plastic Cup - Large')->first();
         $purchaseOrderItems = [
             [
                 'user_id' => 1,
@@ -192,7 +192,7 @@ class PurchaseOrderSeeder extends Seeder
 
          //po5start
          $crystal = InventoryItem::where('name', 'crystal')->first();
-         $vacuumsealedplasticcover = InventoryItem::where('name', 'vacuum sealed plastic cover')->first();
+         $vacuumsealedplasticcover = InventoryItem::where('name', 'vacuum sealed plastic cover medium')->first();
          $purchaseOrderItems = [
              [
                  'user_id' => 1,
