@@ -13,7 +13,7 @@
                 <div
                     class="bg-white rounded-lg p-2 transform hover:translate-y-1 hover:shadow-xl transition duration-300 shadow-xl flex flex-col flex-1">
                     <figure class="mb-2">
-                        <img src="{{ $productDetail->image }}"
+                        <img src="{{ asset('storage\\' . $productDetail->image_path) }}"
                             alt=""
                             class="h-16 md:h-24 lg:h-32 ml-auto mr-auto object-cover" />
                     </figure>
