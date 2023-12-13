@@ -15,6 +15,7 @@ class CreateInventoryItemForm extends Form
     public $remaining_stocks;
     public $warning_value;
     public $initial_supplier;
+    public $unit_price;
 
     public function rules()
     {
@@ -22,9 +23,10 @@ class CreateInventoryItemForm extends Form
             'name' => 'required|string|max:255|unique:product_categories,name',
             'measurement' => 'required|string',
             'description' => 'nullable|string',
-            'remaining_stocks' => 'required|numeric',
-            'warning_value' => 'required|numeric',
-            'initial_supplier' => 'nullable',
+            'remaining_stocks' => 'nullable|numeric',
+            'warning_value' => 'nullable|numeric',
+            'initial_supplier' => 'required|exists:suppliers,id',
+            'unit_price' => 'numeric|min:0'
         ];
     }
 
@@ -33,10 +35,11 @@ class CreateInventoryItemForm extends Form
         return [
             'name' => 'name',
             'description' => 'description',
-            'measurement' => 'description',
+            'measurement' => 'measurement',
             'remaining_stocks' => 'remaining stocks',
             'warning_value' => 'warning value',
             'initial_supplier' => 'supplier',
+            'unit_price' => 'price'
         ];
     }
 
@@ -48,11 +51,11 @@ class CreateInventoryItemForm extends Form
             'name' => $this->name,
             'description' => $this->description,
             'measurement' => $this->measurement,
-            'remaining_stocks' => $this->remaining_stocks,
-            'warning_value' => $this->warning_value,
+            'remaining_stocks' => $this->remaining_stocks ? $this->remaining_stocks : 0,
+            'warning_value' => $this->warning_value ? $this->warning_value : 0,
+            'unit_price' => $this->unit_price
         ]);
 
-        $this->initial_supplier = $this->initial_supplier === null ? 'Big Brew' : $this->initial_supplier;
         InventoryLog::create([
             'inventory_item_id' => $inventoryItem->id,
             'supplier' => $this->initial_supplier,
@@ -61,7 +64,7 @@ class CreateInventoryItemForm extends Form
             'amount' => $inventoryItem->remaining_stocks,
             'old_stock' => 0,
             'new_stock' => $inventoryItem->remaining_stocks,
-            'remarks' => 'Initial stock for ' . $inventoryItem->name
+            'remarks' => 'Created ' . $inventoryItem->name . ' with an initial stock of ' . $this->remaining_stocks
         ]);
 
         $this->reset();

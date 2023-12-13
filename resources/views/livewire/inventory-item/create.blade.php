@@ -1,5 +1,7 @@
     {{-- Create Modal --}}
     <x-modal name="create-inventory-item">
+        <livewire:supplier.create />
+
         <form wire:submit="store">
             @csrf
             <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
@@ -43,11 +45,22 @@
                         <label for="initial_supplier"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Initial
                             Supplier</label>
-                        <input wire:model="createForm.initial_supplier"
-                            value="BigBrew"
-                            type="text"
-                            id="initial_supplier"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <select wire:model="createForm.initial_supplier"
+                            name="supplier_id"
+                            id="supplier_id">
+                            <option value="">-- Please select supplier --</option>
+                            @foreach ($suppliers as $supplier)
+                                <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                            @endforeach
+                        </select>
+                        <div class="flex mx-auto px-4">
+                            <button x-data=""
+                                x-on:click.prevent="$dispatch('open-modal', 'create-supplier')"
+                                type="button"
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                Create Supplier
+                            </button>
+                        </div>
                         <x-input-error :messages="$errors->get('createForm.initial_supplier')"
                             class="mt-2" />
                     </div>
@@ -59,6 +72,16 @@
                             id="warning_value"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <x-input-error :messages="$errors->get('createForm.warning_value')"
+                            class="mt-2" />
+                    </div>
+                    <div class="mb-6">
+                        <label for="unit_price"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+                        <input wire:model="createForm.unit_price"
+                            type="text"
+                            id="unit_price"
+                            class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <x-input-error :messages="$errors->get('createForm.unit_price')"
                             class="mt-2" />
                     </div>
                     <div class="mb-6">

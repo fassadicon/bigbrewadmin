@@ -42,7 +42,15 @@
                                     @foreach ($log->properties as $key => $value)
                                         @if ($key === 'old')
                                             @foreach ($value as $key => $data)
-                                                {{ "$key: $data" }}<br>
+                                                @unless (is_array($data))
+                                                    {{ "$key: $data" }}<br>
+                                                @else
+                                                    @foreach ($value as $key => $data)
+                                                        @unless (is_array($data))
+                                                            {{ "$key: $data" }}<br>
+                                                        @endunless
+                                                    @endforeach
+                                                @endunless
                                             @endforeach
                                         @endif
                                     @endforeach

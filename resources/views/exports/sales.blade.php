@@ -24,7 +24,8 @@
 
 <body>
     <h1>Big Brew Bayan-Bayanan: Sales Report</h1>
-    <p>{{ $date }}</p>
+    <p>From: {{ $start_date }}</p>
+    <p>End: {{ $end_date }}</p>
     <div class="row">
         <div class="col-6">
             <h3>Total Cash Payment: {{ $totalCashPayments }}</h3>
@@ -32,7 +33,7 @@
         </div>
         <div class="col-6">
             <h3>Number of Completed Orders: {{ $completedOrders }}</h3>
-            <h3>Number of Cancelled ORders: {{ $cancelledOrders }}</h3>
+            <h3>Number of Cancelled Orders: {{ $cancelledOrders }}</h3>
         </div>
         <div class="col-12">
             <h2>Total Sales: {{ $totalSales }}</h2>
@@ -72,7 +73,7 @@
                             @endforeach
                         </td>
                         <td>{{ $order->total_amount }}</td>
-                        <td>{{ $order->payment->method === 1 ? 'Cash' : 'Online' }}</td>
+                        <td>{{ $order->payment->method }}</td>
                         <td>{{ $order->status === 1 ? 'Completed' : 'Cancelled' }}</td>
                         <td>{{ $order->user->name }}</td>
                     </tr>

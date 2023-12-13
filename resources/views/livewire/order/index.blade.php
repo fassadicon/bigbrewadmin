@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     <button wire:click='export'
-        class="px-3 py-1 bg-blue-500 text-white rounded">Export</button>
+        class="px-3 py-1 bg-red-500 text-white rounded ml-8">Export</button>
     <livewire:order.show />
 
     {{-- <a href="{{ route('users.create') }}"
@@ -41,6 +41,51 @@
                                     required="">
                             </div>
                         </div>
+
+                        <div class="flex items-center">
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path
+                                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                    </svg>
+                                </div>
+                                <input id="date_start"
+                                    datepicker
+                                    datepicker-autohide
+                                    datepicker-buttons
+                                    name="start"
+                                    type="text"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Select date start">
+                            </div>
+                            <span class="mx-4 text-gray-500">to</span>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path
+                                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                    </svg>
+                                </div>
+                                <input id="date_end"
+                                    datepicker
+                                    datepicker-autohide
+                                    datepicker-buttons
+                                    name="end"
+                                    type="text"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Select date end">
+                            </div>
+                        </div>
+
                         <div class="flex space-x-3">
                             <div class="flex space-x-3 items-center">
                                 <label class="w-40 text-sm font-medium text-gray-900">Status:</label>
@@ -68,6 +113,8 @@
                                 <th scope="col"
                                     class="px-4 py-3">Status</th>
                                 <th scope="col"
+                                    class="px-4 py-3">Date</th>
+                                <th scope="col"
                                     class="px-4 py-3">Catered By</th>
                                 <th scope="col"
                                     class="px-4 py-3">
@@ -85,14 +132,18 @@
                                             {{ $order->id }}
                                         </th>
                                         <td>
+                                            {{-- @dump($order->orderItems) --}}
                                             @foreach ($order->orderItems as $orderItem)
-                                                <div>{{ $orderItem->product->productDetail->name }} x
-                                                    {{ $orderItem->quantity }}</div>
+                                                <div>
+                                                    {{ $orderItem->product->productDetail->name }} x
+                                                    {{ $orderItem->quantity }}
+                                                </div>
                                             @endforeach
                                         </td>
                                         <td>{{ $order->total_amount }}</td>
-                                        <td>{{ $order->payment->method === 1 ? 'Cash' : 'Online' }}</td>
+                                        <td>{{ $order->payment->method }}</td>
                                         <td>{{ $order->status === 1 ? 'Completed' : 'Cancelled' }}</td>
+                                        <td>{{ $order->created_at }}</td>
                                         <td>{{ $order->user->name }}</td>
                                         {{-- <td>
                                             @include('includes.table.deleted_at-td', [
@@ -113,13 +164,19 @@
                                                         d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                                                 </svg>
                                             </button>
-                                            @unless ($order->trashed())
-                                                <button wire:click='delete({{ $order }})'
-                                                    class="px-3 py-1 bg-orange-500 text-white rounded">Archive</button>
-                                            @else
-                                                <button wire:click='restore({{ $order->id }})'
-                                                    class="px-3 py-1 bg-green-500 text-white rounded">Restore</button>
-                                            @endunless
+                                            <button wire:click.prevent="downloadReceipt({{ $order->id }})"
+                                                class="px-3 py-1 bg-blue-500 text-white rounded">
+                                                Download Receipt
+                                            </button>
+                                            @role('Super Admin')
+                                                @unless ($order->trashed())
+                                                    <button wire:click='delete({{ $order }})'
+                                                        class="px-3 py-1 bg-orange-500 text-white rounded">Archive</button>
+                                                @else
+                                                    <button wire:click='restore({{ $order->id }})'
+                                                        class="px-3 py-1 bg-green-500 text-white rounded">Restore</button>
+                                                @endunless
+                                            @endrole
                                         </td>
                                     </tr>
                                 @empty
@@ -153,3 +210,28 @@
         </div>
     </div>
 </div>
+<script>
+    window.addEventListener("load", function() {
+        const elStart = document.getElementById("date_start");
+        elStart.addEventListener("change", (event) => {
+            @this.set('start', event.target.value);
+        });
+        elStart.addEventListener("click", (event) => {
+            @this.set('start', event.target.value);
+        });
+        elStart.addEventListener("blur", (event) => {
+            @this.set('start', event.target.value);
+        });
+
+        const elEnd = document.getElementById("date_end");
+        elEnd.addEventListener("change", (event) => {
+            @this.set('end', event.target.value);
+        });
+        elEnd.addEventListener("click", (event) => {
+            @this.set('end', event.target.value);
+        });
+        elEnd.addEventListener("blur", (event) => {
+            @this.set('end', event.target.value);
+        });
+    });
+</script>

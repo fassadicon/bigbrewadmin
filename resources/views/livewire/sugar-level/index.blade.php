@@ -11,7 +11,7 @@
     <div class="py-12">
         <form wire:submit="store">
             @csrf
-            <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
+            <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight ml-6">
                 {{ __('Create Sugar Level') }}
             </h3>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
@@ -43,6 +44,10 @@ class Product extends Pivot
             ->withPivot(['id', 'consumption_value'])
             ->withTimestamps()
             ->using(InventoryItemConsumption::class);
+    }
+
+    public function orderItems(): HasMany {
+        return $this->hasMany(OrderItem::class, 'product_id');
     }
 
     public function getActivitylogOptions(): LogOptions

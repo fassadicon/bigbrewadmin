@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use App\Models\ProductCategory;
+use Masmerise\Toaster\Toaster;
 
 class Index extends Component
 {
@@ -14,7 +15,7 @@ class Index extends Component
     public $perPage = 5;
 
     public $search = '';
-    public $status = 'active';
+    public $status = '';
 
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
@@ -43,11 +44,13 @@ class Index extends Component
     public function delete(ProductCategory $category)
     {
         $category->delete();
+        Toaster::warning('Product category archived!');
     }
 
     public function restore(int $id)
     {
         ProductCategory::withTrashed()->where('id', $id)->first()->restore();
+        Toaster::success('Product category restored!');
     }
 
     public function setSortBy($column)
