@@ -34,7 +34,7 @@
         <br>
         <br>
         <p>SALES INVOICE</p>
-        <p>Sold to: {{ $order->name }}</p>
+        <p>Sold to: {{ $order->customer_name }}</p>
         <p>Date: {{ $date }}</p>
         <br><br>
         @foreach ($order->orderItems as $orderItem)
