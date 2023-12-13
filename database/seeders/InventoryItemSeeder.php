@@ -461,6 +461,31 @@ class InventoryItemSeeder extends Seeder
         'created_at' => Carbon::now()->subDays(rand(1, 7))
     ]);
 
+    InventoryItem::create([//1
+        'name' => 'Cream cheese',
+        'measurement' => 'Grams',
+        'remaining_stocks' => '10000',
+        'warning_value' => '200',
+        'unit_price' => 3,
+        'created_at' => Carbon::now()->subDays(rand(1, 7))
+    ]);
+    InventoryItem::create([//1
+        'name' => 'Coffee jelly',
+        'measurement' => 'grams',
+        'remaining_stocks' => '10000',
+        'warning_value' => '200',
+        'unit_price' => 3,
+        'created_at' => Carbon::now()->subDays(rand(1, 7))
+    ]);
+    InventoryItem::create([//1
+        'name' => 'Cheese cake',
+        'measurement' => 'grams',
+        'remaining_stocks' => '10000',
+        'warning_value' => '200',
+        'unit_price' => 3,
+        'created_at' => Carbon::now()->subDays(rand(1, 7))
+    ]);
+
 
 
 
