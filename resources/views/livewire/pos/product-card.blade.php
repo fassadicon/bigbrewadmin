@@ -1,11 +1,16 @@
 <div>
-    <div class="md:flex space-x-3 flex-1 lg:ml-8">
+    <div class="md:flex space-x-3 flex-1 my-4">
         @foreach ($allCategories as $category)
-            <button wire:click="selectCategory({{ $category->id }})"
-                class="px-2 py-2 hover:bg-gray-100 rounded-lg text-gray-700 hover:text-red-500">{{ strtoupper($category->name) }}</button>
+            <button 
+                wire:click="selectCategory({{ $category->id }})"
+                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-amber-700 border border-transparent rounded-lg active:bg-amber-800 hover:bg-amber-600 focus:outline-none focus:shadow-outline-gray focus:border-gray-800">
+                {{ strtoupper($category->name) }}
+            </button>
         @endforeach
     </div>
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 -mx-2">
+    
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 -mx-2"> 
+        {{-- Add this for larger screens: md:grid-cols-3 xl:grid-cols-5 --}}
     @foreach ($productDetails as $productDetail)
         <div class="w-full min-w-max sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 px-2 py-2 mb-4 lg:mb-0 flex">
             <div
@@ -15,7 +20,7 @@
                         alt=""
                         class="h-16 md:h-24 lg:h-32 ml-auto mr-auto object-cover" />
                 </figure>
-                <div class="rounded-lg p-2 bg-amber-800 flex flex-col flex-1">
+                <div class="rounded-lg p-2 bg-zinc-800 flex flex-col flex-1">
                     <div>
                         <h5 class="text-white text-sm md:text-base lg:text-lg font-bold leading-tight">
                             {{ $productDetail->name }}
@@ -58,7 +63,7 @@
         </div>
     @endforeach
 
-    <div x-data="{ showModal: @entangle('showModal') }">
+    {{-- <div x-data="{ showModal: @entangle('showModal') }">
         <div x-show="showModal"
             class="fixed inset-0 overflow-y-auto">
             <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -113,6 +118,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 </div>

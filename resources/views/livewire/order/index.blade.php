@@ -148,39 +148,25 @@
                                             ])
                                         </td> --}}
                                         <td class="px-4 py-3 flex items-center justify-center">
-                                            <button wire:click.prevent="show({{ $order->id }})"
-                                                class="px-3 py-1 bg-blue-500 text-white rounded">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
-                                                    stroke="currentColor"
-                                                    class="w-6 h-6">
-                                                    <path stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                                </svg>
+                                            <button wire:click.prevent="show({{ $order->id }})" class="p-2 m-1 bg-blue-500 text-white rounded">
+                                                <i class="fas fa-eye"></i>
                                             </button>
-                                            <button wire:click.prevent="downloadReceipt({{ $order->id }})"
-                                                class="px-3 py-1 bg-blue-500 text-white rounded">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
-                                                    stroke="currentColor"
-                                                    class="w-6 h-6">
-                                                    Print Receipt
-                                                </svg>
+                                            
+                                            <button wire:click.prevent="downloadReceipt({{ $order->id }})" class="p-2 m-1 bg-green-500 text-white rounded">
+                                                <i class="fas fa-file-download"></i>
                                             </button>
+                                            
                                             @role('Super Admin')
                                                 @unless ($order->trashed())
-                                                    <button wire:click='delete({{ $order }})'
-                                                        class="px-3 py-1 bg-orange-500 text-white rounded">Archive</button>
+                                                    <button wire:click='delete({{ $order }})' class="p-2 m-1 bg-orange-500 text-white rounded">
+                                                        <i class="fas fa-archive"></i> 
+                                                    </button>
                                                 @else
-                                                    <button wire:click='restore({{ $order->id }})'
-                                                        class="px-3 py-1 bg-green-500 text-white rounded">Restore</button>
+                                                    <button wire:click='restore({{ $order->id }})' class="p-2 m-1 bg-green-500 text-white rounded">
+                                                        <i class="fas fa-undo"></i> 
+                                                    </button>
                                                 @endunless
-                                            @endrole
+                                            @endrole                                            
                                         </td>
                                     </tr>
                                 @empty

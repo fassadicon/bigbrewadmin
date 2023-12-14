@@ -216,11 +216,11 @@
                 <div class="mt-6 text-center">
                     <button wire:click='placeOrder'
                         type="button"
-                        class="group inline-flex w-full items-center justify-center rounded-md bg-amber-800 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-amber-50 hover:text-amber-950"
+                        class="group inline-flex w-full h-10 items-center justify-center rounded-md bg-amber-700 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-amber-50 hover:text-amber-950"
                         @disabled(empty($selectedProducts))>
                         Place Order
                         <svg xmlns="http://www.w3.org/2000/svg"
-                            class="group-hover:ml-8 ml-4 h-6 w-6 transition-all"
+                            class="group-hover:ml-8 ml-4 h-5 w-5 transition-all"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
