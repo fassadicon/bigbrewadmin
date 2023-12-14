@@ -19,7 +19,7 @@ class OrderSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (range(1, 50) as $orderCount) {
+        foreach (range(1, 15) as $orderCount) {
             $orderItemsCount = rand(0, 2);
             $totalAmount = 0;
             $orderItems = [];

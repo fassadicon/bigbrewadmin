@@ -405,7 +405,7 @@ class InventoryItemSeeder extends Seeder
         InventoryItem::create([
             'name' => 'vacuum sealed plastic cover medium',
             'measurement' => 'meter',
-            'remaining_stocks' => '200',
+            'remaining_stocks' => '5000',
             'warning_value' => '10',
             'unit_price' => 1,
             'created_at' => Carbon::now()->subDays(rand(1, 7))
