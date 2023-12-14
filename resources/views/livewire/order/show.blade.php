@@ -58,38 +58,12 @@
                                         @else
                                             System generated
                                         @endif
-                                    @endforeach
-                                </td>
-                                <td>
-                                    @foreach ($log->properties as $key => $value)
-                                        @if ($key === 'old')
-                                            @foreach ($value as $key => $data)
-                                                @unless (is_array($data))
-                                                    {{ "$key: $data" }}<br>
-                                                @else
-                                                    @foreach ($value as $key => $data)
-                                                        @unless (is_array($data))
-                                                            {{ "$key: $data" }}<br>
-                                                        @endunless
-                                                    @endforeach
-                                                @endunless
-                                            @endforeach
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <td>{{ $log->created_at->format('M d, Y') }}</td>
-                                <td>
-                                    @if ($log->causer)
-                                        {{ $log->causer->name }}
-                                    @else
-                                        System generated
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         @endif
     </div>

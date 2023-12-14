@@ -10,9 +10,9 @@
             </button>
         @endforeach
     </div>
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 -mx-2">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 -mx-2">
         @foreach ($productDetails as $productDetail)
-            <div class="w-full min-w-max sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 px-2 py-2 mb-4 lg:mb-0 flex">
+            <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 px-2 py-2 mb-4 lg:mb-0 flex">
                 <div
                     class="bg-white rounded-lg p-2 transform hover:translate-y-1 hover:shadow-xl transition duration-300 shadow-xl flex flex-col flex-1">
                     <figure class="mb-2">
