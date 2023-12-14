@@ -381,7 +381,7 @@ class InventoryItemSeeder extends Seeder
         InventoryItem::create([
             'name' => 'water',
             'measurement' => 'ml',
-            'remaining_stocks' => '3786',
+            'remaining_stocks' => '3786000',
             'warning_value' => '100',
             'unit_price' => 5,
             'created_at' => Carbon::now()->subDays(rand(1, 7))
@@ -389,7 +389,7 @@ class InventoryItemSeeder extends Seeder
         InventoryItem::create([
             'name' => 'sugar',
             'measurement' => 'grams',
-            'remaining_stocks' => '50000',
+            'remaining_stocks' => '5000000',
             'warning_value' => '2',
             'unit_price' => 2,
             'created_at' => Carbon::now()->subDays(rand(1, 7))
@@ -397,7 +397,7 @@ class InventoryItemSeeder extends Seeder
         InventoryItem::create([
             'name' => 'coffee creamer',
             'measurement' => 'piece',
-            'remaining_stocks' => '20000',
+            'remaining_stocks' => '2000000',
             'warning_value' => '500',
             'unit_price' => 2,
             'created_at' => Carbon::now()->subDays(rand(1, 7))
@@ -413,7 +413,7 @@ class InventoryItemSeeder extends Seeder
         InventoryItem::create([
         'name' => 'Ice cube',
         'measurement' => 'grams',
-        'remaining_stocks' => '10000',
+        'remaining_stocks' => '10000000',
         'warning_value' => '200',
         'unit_price' => 2,
         'created_at' => Carbon::now()->subDays(rand(1, 7))
