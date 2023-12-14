@@ -13,6 +13,11 @@ class Create extends Component
     public string $email;
     public string $role;
 
+    public function mount()
+    {
+        $this->role = 'Employee';
+    }
+
     public function register()
     {
         $validated = $this->validate([
