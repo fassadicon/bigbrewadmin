@@ -40,6 +40,8 @@
                 <th scope="col"
                     class="px-4 py-3">Log by</th>
                 <th scope="col"
+                    class="px-4 py-3">Remarks</th>
+                <th scope="col"
                     class="px-4 py-3">Date</th>
             </thead>
             {{-- wire:loading.class="invisible" --}}
@@ -49,6 +51,7 @@
                         <td>{{ $inventoryLog->inventoryItem->name }}</td>
                         <td>{{ $inventoryLog->amount }}</td>
                         <td>{{ $inventoryLog->user->name }}</td>
+                        <td>{{ $inventoryLog->remarks }}</td>
                         <td>{{ $inventoryLog->created_at }}</td>
                     </tr>
                 @empty

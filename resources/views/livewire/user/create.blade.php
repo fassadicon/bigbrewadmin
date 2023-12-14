@@ -36,13 +36,14 @@
                 :value="__('Role')" />
             <select wire:model='role'
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                <option value="Employee">Employee</option>
                 <option value="Admin">Admin</option>
                 <option value="Super Admin">Super Admin</option>
             </select>
             <x-input-error :messages="$errors->get('role')"
                 class="mt-2" />
         </div>
-
+        <h1>Temporary: Default password for newly created accounts is 'password'</h1>
         <h1>A random password will be sent to the user's email</h1>
         <div class="flex items-center justify-end mt-4">
             <x-primary-button class="ml-4">

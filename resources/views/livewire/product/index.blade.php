@@ -4,14 +4,14 @@
             {{ __('Products') }}
         </h2>
     </x-slot>
-    @role('Super Admin')
+   @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
         <a href="{{ route('products.create') }}"
             wire:navigate
             type="button"
             class="text-white bg-red-500 hover:bg-red-300 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 ml-8 mb-2 dark:bg-red-500 dark:hover:bg-red-200 focus:outline-none dark:focus:ring-blue-800">
             {{ __('Create Product') }}
         </a>
-    @endrole
+    @endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">

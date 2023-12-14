@@ -79,13 +79,6 @@ class CreateProductForm extends Form
             }
         }
         return redirect()->to('/products');
-        // $attributes = ProductDetail::where('id', $productDetail->id)->with(['category', 'sizes.pivot.inventoryItems'])->first();
-        // activity()
-        //     ->performedOn($productDetail)
-        //     ->useLog('Products')
-        //     ->event('created')
-        //     ->withProperty('attributes', $attributes)
-        //     ->log("$productDetail->name has been created by " . auth()->user()->name);
     }
 
     public function removeSizeAndPriceData($index)
@@ -96,6 +89,7 @@ class CreateProductForm extends Form
         }
 
         unset($this->product[$index]);
+        dd($this->product);
         $this->changeSizeOrInventoryItemData();
     }
 
@@ -104,6 +98,11 @@ class CreateProductForm extends Form
         if ($this->product[count($this->product) - 1]['size_id'] === "") {
             // Trigger modal/toast here
             dd('Please select a size before adding another one.');
+        }
+
+        if ($this->product[count($this->product) - 1]['price'] <= 0) {
+            // Trigger modal/toast here
+            dd('Please put a valid price');
         }
 
         $this->product[] = [

@@ -34,8 +34,8 @@
         <br>
         <br>
         <p>SALES INVOICE</p>
-        <p>Sold to: _____________</p>
-        <p>Date: December 25, 2023 3:00 PM</p>
+        <p>Sold to: {{ $order->customer_name }}</p>
+        <p>Date: {{ $date }}</p>
         <br><br>
         @foreach ($order->orderItems as $orderItem)
             <p>{{ $orderItem->product->productDetail->name }} x {{ $orderItem->quantity }} -

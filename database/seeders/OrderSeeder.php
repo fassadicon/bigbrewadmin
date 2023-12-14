@@ -47,6 +47,7 @@ class OrderSeeder extends Seeder
                 'user_id' => 1,
                 'payment_id' => $payment->id,
                 'total_amount' => $payment->amount,
+                'customer_name' => fake()->name(),
                 'created_at' => Carbon::now()->subDays(rand(1, 7))
             ]);
 

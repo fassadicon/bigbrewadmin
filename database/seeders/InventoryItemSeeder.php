@@ -16,20 +16,13 @@ class InventoryItemSeeder extends Seeder
     public function run(): void
     {
         InventoryItem::create([//1
-            'name' => 'Plastic Cup - Regular',
+            'name' => 'Plastic Cup - Medium',
             'measurement' => 'piece',
             'remaining_stocks' => '10000',
             'warning_value' => '200',
             'unit_price' => 3,
             'created_at' => Carbon::now()->subDays(rand(1, 7))
-        ]);
-        InventoryItem::create([
-            'name' => 'Plastic Cup - Small',
-            'measurement' => 'piece',
-            'remaining_stocks' => '10000',
-            'warning_value' => '200',
-            'unit_price' => 2,
-            'created_at' => Carbon::now()->subDays(rand(1, 7))
+
         ]);
         InventoryItem::create([
             'name' => 'Plastic Cup - Large',
@@ -38,25 +31,19 @@ class InventoryItemSeeder extends Seeder
             'warning_value' => '200',
             'unit_price' => 5,
             'created_at' => Carbon::now()->subDays(rand(1, 7))
+
         ]);
         InventoryItem::create([
-            'name' => 'Plastic Cup - XL',
-            'measurement' => 'piece',
-            'remaining_stocks' => '10000',
-            'warning_value' => '200',
-            'unit_price' => 5,
-            'created_at' => Carbon::now()->subDays(rand(1, 7))
-        ]);
-        InventoryItem::create([
-            'name' => 'Big Straw',
+            'name' => 'Straw',
             'measurement' => 'piece',
             'remaining_stocks' => '20000',
             'warning_value' => '400',
             'unit_price' => 1,
             'created_at' => Carbon::now()->subDays(rand(1, 7))
+
         ]);
         InventoryItem::create([
-            'name' => 'Small Straw',
+            'name' => 'Stirrer Straw',
             'measurement' => 'piece',
             'remaining_stocks' => '20000',
             'warning_value' => '400',
@@ -394,7 +381,7 @@ class InventoryItemSeeder extends Seeder
         InventoryItem::create([
             'name' => 'water',
             'measurement' => 'ml',
-            'remaining_stocks' => '3786',
+            'remaining_stocks' => '3786000',
             'warning_value' => '100',
             'unit_price' => 5,
             'created_at' => Carbon::now()->subDays(rand(1, 7))
@@ -402,7 +389,7 @@ class InventoryItemSeeder extends Seeder
         InventoryItem::create([
             'name' => 'sugar',
             'measurement' => 'grams',
-            'remaining_stocks' => '50000',
+            'remaining_stocks' => '5000000',
             'warning_value' => '2',
             'unit_price' => 2,
             'created_at' => Carbon::now()->subDays(rand(1, 7))
@@ -410,19 +397,97 @@ class InventoryItemSeeder extends Seeder
         InventoryItem::create([
             'name' => 'coffee creamer',
             'measurement' => 'piece',
-            'remaining_stocks' => '20000',
+            'remaining_stocks' => '2000000',
             'warning_value' => '500',
             'unit_price' => 2,
             'created_at' => Carbon::now()->subDays(rand(1, 7))
         ]);
         InventoryItem::create([
-            'name' => 'vacuum sealed plastic cover',
+            'name' => 'vacuum sealed plastic cover medium',
             'measurement' => 'meter',
             'remaining_stocks' => '200',
             'warning_value' => '10',
             'unit_price' => 1,
             'created_at' => Carbon::now()->subDays(rand(1, 7))
         ]);
+        InventoryItem::create([
+        'name' => 'Ice cube',
+        'measurement' => 'grams',
+        'remaining_stocks' => '10000000',
+        'warning_value' => '200',
+        'unit_price' => 2,
+        'created_at' => Carbon::now()->subDays(rand(1, 7))
+
+    ]);
+    InventoryItem::create([
+        'name' => 'coffee cup ',
+        'measurement' => 'piece',
+        'remaining_stocks' => '10000',
+        'warning_value' => '200',
+        'unit_price' => 2,
+        'created_at' => Carbon::now()->subDays(rand(1, 7))
+    ]);
+    InventoryItem::create([
+        'name' => 'coffee lead ',
+        'measurement' => 'piece',
+        'remaining_stocks' => '10000',
+        'warning_value' => '200',
+        'unit_price' => 2,
+        'created_at' => Carbon::now()->subDays(rand(1, 7))
+    ]);
+    InventoryItem::create([
+        'name' => 'vacuum sealed plastic cover large ',
+        'measurement' => 'piece',
+        'remaining_stocks' => '10000',
+        'warning_value' => '200',
+        'unit_price' => 2,
+        'created_at' => Carbon::now()->subDays(rand(1, 7))
+    ]);
+    InventoryItem::create([//1
+        'name' => 'Plastic Cup - Medium Lead',
+        'measurement' => 'piece',
+        'remaining_stocks' => '10000',
+        'warning_value' => '200',
+        'unit_price' => 3,
+        'created_at' => Carbon::now()->subDays(rand(1, 7))
+    ]);
+
+    InventoryItem::create([//1
+        'name' => 'Plastic Cup - Large Lead',
+        'measurement' => 'piece',
+        'remaining_stocks' => '10000',
+        'warning_value' => '200',
+        'unit_price' => 3,
+        'created_at' => Carbon::now()->subDays(rand(1, 7))
+    ]);
+
+    InventoryItem::create([//1
+        'name' => 'Cream cheese',
+        'measurement' => 'Grams',
+        'remaining_stocks' => '10000',
+        'warning_value' => '200',
+        'unit_price' => 3,
+        'created_at' => Carbon::now()->subDays(rand(1, 7))
+    ]);
+    InventoryItem::create([//1
+        'name' => 'Coffee jelly',
+        'measurement' => 'grams',
+        'remaining_stocks' => '10000',
+        'warning_value' => '200',
+        'unit_price' => 3,
+        'created_at' => Carbon::now()->subDays(rand(1, 7))
+    ]);
+    InventoryItem::create([//1
+        'name' => 'Cheese cake',
+        'measurement' => 'grams',
+        'remaining_stocks' => '10000',
+        'warning_value' => '200',
+        'unit_price' => 3,
+        'created_at' => Carbon::now()->subDays(rand(1, 7))
+    ]);
+
+
+
 
 
         $inventoryItems = InventoryItem::all();

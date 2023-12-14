@@ -11,6 +11,7 @@ use Livewire\Attributes\On;
 use App\Models\InventoryLog;
 use App\Models\InventoryItem;
 use App\Models\SizeSugarLevel;
+use Illuminate\Support\Carbon;
 use Masmerise\Toaster\Toaster;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -19,6 +20,7 @@ class OrderSummary extends Component
     public $printReceipt;
     public $selectedProducts = [];
     public $currentTotalAmount = 0;
+    public $name;
     public $payment = [
         'method' => 1,
         'payment_received' => 0,
@@ -96,6 +98,10 @@ class OrderSummary extends Component
         $this->computeCurrentTotalAmount();
     }
 
+    public function updateQuantity() {
+        $this->computeCurrentTotalAmount();
+    }
+
     public function updateChange()
     {
         $this->validate();
@@ -115,7 +121,7 @@ class OrderSummary extends Component
         $totalAmount = 0;
         if (!empty($this->selectedProducts)) {
             foreach ($this->selectedProducts as $selectedProduct) {
-                $totalAmount += $selectedProduct['product']->price * $selectedProduct['quantity'];
+                $totalAmount += floatval($selectedProduct['product']->price) * floatval($selectedProduct['quantity']);
             }
         }
         $this->currentTotalAmount = $totalAmount;
@@ -124,12 +130,17 @@ class OrderSummary extends Component
 
     public function completeOrder()
     {
+        if ($this->payment['payment_received'] < $this->payment['amount']) {
+            Toaster::warning('Payment received is less than total amount!');
+            return;
+        }
+
         $orderItems = [];
         foreach ($this->selectedProducts as $selectedProduct) {
             $orderItems[] = [
                 'product_id' => $selectedProduct['product']->id,
-                'amount' => $selectedProduct['product']->price * $selectedProduct['quantity'],
-                'quantity' => $selectedProduct['quantity'],
+                'amount' => floatval($selectedProduct['product']->price) * floatval($selectedProduct['quantity']),
+                'quantity' => floatval($selectedProduct['quantity']),
                 'sugar_level_id' => $selectedProduct['sugarLevelId']
             ];
         }
@@ -140,7 +151,9 @@ class OrderSummary extends Component
             'user_id' => auth()->id(),
             'payment_id' => $payment->id,
             'total_amount' => $payment->amount,
+            'customer_name' => $this->name
         ]);
+
         foreach ($orderItems as $key => $orderItem) {
             $orderItem['order_id'] = $order->id;
             OrderItem::create($orderItem);
@@ -194,6 +207,7 @@ class OrderSummary extends Component
             $pdf = Pdf::setPaper(array(0, 0, 200, 500))
                 ->loadView('exports.receipt', [
                     'order' => $order,
+                    'date' => Carbon::now()->format('Y-m-d H:i:s')
                 ]);
 
             $page_count = $pdf->get_canvas()->get_page_number();
@@ -201,6 +215,7 @@ class OrderSummary extends Component
             $printPDF =  Pdf::setPaper(array(0, 0, 200, 500 * $page_count))
                 ->loadView('exports.receipt', [
                     'order' => $order,
+                    'date' => Carbon::now()->format('Y-m-d H:i:s')
                 ])
                 ->output();
 
@@ -210,6 +225,7 @@ class OrderSummary extends Component
             );
         }
 
+        $this->name = null;
         Toaster::success('Order completed!');
     }
 

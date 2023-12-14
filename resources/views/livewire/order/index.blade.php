@@ -4,9 +4,11 @@
             {{ __('Orders') }}
         </h2>
     </x-slot>
+    @if(auth()->user()->hasRole('Super Admin'))
     <button wire:click='export'
         class="px-3 py-1 bg-red-500 text-white rounded ml-8">Export</button>
     <livewire:order.show />
+    @endif
 
     {{-- <a href="{{ route('users.create') }}"
         wire:navigate
@@ -106,14 +108,18 @@
                                     class="px-4 py-3">Order #</th>
                                 <th scope="col"
                                     class="px-4 py-3">Items</th>
+                                    @if(auth()->user()->hasRole('Super Admin'))
                                 <th scope="col"
                                     class="px-4 py-3">Total Amount</th>
+                                    @endif
                                 <th scope="col"
                                     class="px-4 py-3">Payment Method</th>
                                 <th scope="col"
                                     class="px-4 py-3">Status</th>
                                 <th scope="col"
                                     class="px-4 py-3">Date</th>
+                                <th scope="col"
+                                    class="px-4 py-3">Customer</th>
                                 <th scope="col"
                                     class="px-4 py-3">Catered By</th>
                                 <th scope="col"
@@ -132,15 +138,21 @@
                                             {{ $order->id }}
                                         </th>
                                         <td>
+                                            {{-- @dump($order->orderItems) --}}
                                             @foreach ($order->orderItems as $orderItem)
-                                                <div>{{ $orderItem->product->productDetail->name }} x
-                                                    {{ $orderItem->quantity }}</div>
+                                                <div>
+                                                    {{ $orderItem->product->productDetail->name }} x
+                                                    {{ $orderItem->quantity }}
+                                                </div>
                                             @endforeach
                                         </td>
+                                        @if(auth()->user()->hasRole('Super Admin'))
                                         <td>{{ $order->total_amount }}</td>
+                                        @endif
                                         <td>{{ $order->payment->method }}</td>
                                         <td>{{ $order->status === 1 ? 'Completed' : 'Cancelled' }}</td>
                                         <td>{{ $order->created_at }}</td>
+                                        <td>{{ $order->customer_name }}</td>
                                         <td>{{ $order->user->name }}</td>
                                         {{-- <td>
                                             @include('includes.table.deleted_at-td', [
@@ -151,12 +163,11 @@
                                             <button wire:click.prevent="show({{ $order->id }})" class="p-2 m-1 bg-blue-500 text-white rounded">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                            
-                                            <button wire:click.prevent="downloadReceipt({{ $order->id }})" class="p-2 m-1 bg-green-500 text-white rounded">
-                                                <i class="fas fa-file-download"></i>
+                                            <button wire:click.prevent="downloadReceipt({{ $order->id }})"
+                                                class="px-3 py-1 bg-blue-500 text-white rounded">
+                                                Download Receipt
                                             </button>
-                                            
-                                            @role('Super Admin')
+                                           @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
                                                 @unless ($order->trashed())
                                                     <button wire:click='delete({{ $order }})' class="p-2 m-1 bg-orange-500 text-white rounded">
                                                         <i class="fas fa-archive"></i> 
@@ -166,7 +177,7 @@
                                                         <i class="fas fa-undo"></i> 
                                                     </button>
                                                 @endunless
-                                            @endrole                                            
+                                            @endif
                                         </td>
                                     </tr>
                                 @empty

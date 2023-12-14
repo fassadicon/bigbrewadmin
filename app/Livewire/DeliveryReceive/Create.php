@@ -8,11 +8,11 @@ use App\Models\InventoryItem;
 use App\Models\PurchaseOrder;
 use App\Models\DeliveryReceive;
 use App\Models\DeliveryReceiveItem;
+use Masmerise\Toaster\Toaster;
 
 class Create extends Component
 {
     public PurchaseOrder $selectedPurchaseOrder;
-    public $purchaseOrders;
     public $deliveryReceiveItems;
     public $inventoryItems;
 
@@ -41,7 +41,6 @@ class Create extends Component
                 'description' => $purchaseOrderItem->description
             ];
         }
-        $this->purchaseOrders = PurchaseOrder::where('status', 1)->get();
         $this->inventoryItems = InventoryItem::all();
     }
 
@@ -111,7 +110,7 @@ class Create extends Component
             InventoryLog::create([
                 'inventory_item_id' => $deliveryReceiveItem->inventoryItem->id,
                 'user_id' => 1,
-                'type' => 'out',
+                'type' => 'in',
                 'amount' => $addedStock,
                 'old_stock' => $remainingStocks,
                 'new_stock' => $newStocks,
@@ -126,6 +125,9 @@ class Create extends Component
                     $deliveryReceiveItem->inventoryItem->name
             ]);
         }
+
+        Toaster::success('Delivery receive created successfully');
+        return redirect()->route('delivery-receives');
     }
 
     // public function selectPurchaseOrder($purchaseOrderId)
@@ -153,6 +155,7 @@ class Create extends Component
 
     public function render()
     {
+        // dd($this->selectedPurchaseOrder->purchaseOrderItems->pluck('inventory_item_id')->toArray());
         return view('livewire.delivery-receive.create');
     }
 }

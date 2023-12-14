@@ -5,8 +5,10 @@ namespace App\Livewire\PurchaseOrder;
 use Livewire\Component;
 use App\Models\Supplier;
 use Livewire\Attributes\On;
+use Masmerise\Toaster\Toast;
 use App\Models\InventoryItem;
 use App\Models\PurchaseOrder;
+use Masmerise\Toaster\Toaster;
 use App\Models\PurchaseOrderItem;
 
 class Create extends Component
@@ -17,11 +19,21 @@ class Create extends Component
     public $selectedInventoryItems = [];
     public $supplier_id;
 
-    public function rules() {
+    public function rules()
+    {
         return [
-            'supplier_id' => 'required',
+            'supplier_id' => 'required|exists:suppliers,id',
             'purchaseOrderItems.*.quantity' => 'required|min:1',
             'purchaseOrderItems.*.inventory_item_id' => 'required|exists:inventory_items,id'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'supplier_id' => 'Supplier',
+            'purchaseOrderItems.*.quantity' => 'Quantity',
+            'purchaseOrderItems.*.inventory_item_id' => 'Inventory Item'
         ];
     }
 
@@ -69,13 +81,22 @@ class Create extends Component
         $inventoryItem = InventoryItem::select('measurement', 'unit_price')
             ->where('id', $value)
             ->first();
-        $this->purchaseOrderItems[$key]['unit_measurement'] = $inventoryItem->measurement;
-        $this->purchaseOrderItems[$key]['unit_price'] = $inventoryItem->unit_price;
-        $this->purchaseOrderItems[$key]['amount'] = floatval($this->purchaseOrderItems[$key]['quantity']) * floatval($inventoryItem->unit_price);
+        if ($inventoryItem) {
+            $this->purchaseOrderItems[$key]['unit_measurement'] = $inventoryItem->measurement;
+            $this->purchaseOrderItems[$key]['unit_price'] = $inventoryItem->unit_price;
+            $this->purchaseOrderItems[$key]['amount'] = floatval($this->purchaseOrderItems[$key]['quantity']) * floatval($inventoryItem->unit_price);
+        } else {
+            $this->purchaseOrderItems[$key]['unit_measurement'] = null;
+            $this->purchaseOrderItems[$key]['unit_price'] = null;
+            $this->purchaseOrderItems[$key]['amount'] = null;
+            $this->purchaseOrderItems[$key]['quantity'] = null;
+        }
     }
 
     public function store()
     {
+        $this->validate();
+
         $totalAmount = 0;
         foreach ($this->purchaseOrderItems as $purchaseOrderItem) {
             $totalAmount += $purchaseOrderItem['amount'];
@@ -92,6 +113,10 @@ class Create extends Component
             $purchaseOrderItem['user_id'] = auth()->id();
             PurchaseOrderItem::create($purchaseOrderItem);
         }
+
+        Toaster::success('Purchase Order created successfully!');
+        return redirect()->route('purchase-orders');
+
     }
 
     #[On('supplier-created')]

@@ -59,7 +59,6 @@ class Create extends Component
         }
 
         $this->form->addSizeAndPriceData();
-        Toaster::success('User created!');
     }
 
     public function removeInventoryItem($index, $key)

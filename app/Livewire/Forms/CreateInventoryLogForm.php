@@ -18,10 +18,11 @@ class CreateInventoryLogForm extends Form
 
     public function rules()
     {
+        // 10758
         return [
             'type' => 'required|numeric',
             'inventory_item_id' => 'required|numeric|exists:inventory_items,id',
-            'amount' => 'required|numeric|gt:0',
+            'amount' => 'required|numeric',
             'supplier_id' => 'required',
             'remarks' => 'nullable',
         ];
@@ -42,7 +43,14 @@ class CreateInventoryLogForm extends Form
     {
         $this->validate();
 
+
         $inventoryItem = InventoryItem::where('id', $this->inventory_item_id)->first();
+
+        if ($this->amount > $inventoryItem->remaining_stocks && ($this->type == 2 || $this->type == 3)) {
+            $this->addError('amount', 'Amount is greater than remaining stocks');
+            return;
+        }
+
         $remainingStock = $inventoryItem->remaining_stocks;
         $newStock = 0;
         if ($this->type == 2 || $this->type == 3) {

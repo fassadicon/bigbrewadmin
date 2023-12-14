@@ -7,14 +7,14 @@
 
     <livewire:supplier.create />
 
-    @role('Super Admin')
+    @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
         <button x-data=""
             x-on:click.prevent="$dispatch('open-modal', 'create-supplier')"
             type="button"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
             Create Supplier
         </button>
-    @endrole
+    @endif
     <button wire:click='generateWastage'
         class="px-3 py-1 bg-red-500 text-white rounded ml-8">Export Wastage</button>
 
