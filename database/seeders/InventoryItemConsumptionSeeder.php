@@ -991,42 +991,42 @@ class InventoryItemConsumptionSeeder extends Seeder
          ->first();
 
          $Pearl->inventoryItems()->attach([
-            43 => ['Consumption_value' => 5]
+            43 => ['consumption_value' => 5]
          ]);
          $Crystal = Product::where('product_id', 44)
          ->where('size_id', 4)
          ->first();
 
          $Crystal->inventoryItems()->attach([
-            44 =>['consumption_id' => 5]
+            44 =>['consumption_value' => 5]
          ]);
          $CreamCheese = Product::where('product_id', 45)
          ->where('size_id', 4)
          ->first();
 
          $CreamCheese->inventoryItems()->attach([
-            56 =>['consumption_id' => 5]
+            56 =>['consumption_value' => 5]
          ]);
          $Coffeejelly = Product::where('product_id', 46)
          ->where('size_id', 4)
          ->first();
 
          $Coffeejelly->inventoryItems()->attach([
-            57 =>['consumption_id' => 5]
+            57 =>['consumption_value' => 5]
          ]);
          $CreamPuff = Product::where('product_id', 47)
          ->where('size_id', 4)
          ->first();
 
          $CreamPuff->inventoryItems()->attach([
-            45 =>['consumption_id' => 5]
+            45 =>['consumption_value' => 5]
          ]);
          $CheeseCake = Product::where('product_id', 48)
          ->where('size_id', 4)
          ->first();
 
          $CheeseCake->inventoryItems()->attach([
-            58 =>['consumption_id' =>5]
+            58 =>['consumption_value' =>5]
          ]);
         // after niyo magawa to lahat, comment niyo yung nasa line 17 to 25, yung Product::all() saka foreach loop
         }

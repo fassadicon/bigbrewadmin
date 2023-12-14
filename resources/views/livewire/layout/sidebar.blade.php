@@ -36,7 +36,7 @@
                 <span class="ml-2 duration-300 ease-in-out"
                     :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Products</span>
             </a>
-            @role('Super Admin')
+           @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
                 <a href="{{ route('product-categories') }}"
                     class="flex items-center h-10 px-3 {{ $activePage == 'product-categories' ? 'text-white bg-amber-800' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
                     wire:navigate>
@@ -44,8 +44,8 @@
                     <span class="ml-2 duration-300 ease-in-out"
                         :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Categories</span>
                 </a>
-            @endrole
-            @role('Super Admin')
+                @endif
+           @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
                 <a href="{{ route('sizes') }}"
                     class="flex items-center h-10 px-3 {{ $activePage == 'sizes' ? 'text-white bg-amber-800' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
                     wire:navigate>
@@ -53,8 +53,8 @@
                     <span class="ml-2 duration-300 ease-in-out"
                         :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Sizes</span>
                 </a>
-            @endrole
-            @role('Super Admin')
+                @endif
+           @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
                 <a href="{{ route('sugar-levels') }}"
                     class="flex items-center h-10 px-3 {{ $activePage == 'sugar-levels' ? 'text-white bg-amber-800' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
                     wire:navigate>
@@ -62,7 +62,7 @@
                     <span class="ml-2 duration-300 ease-in-out"
                         :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Sugar Levels</span>
                 </a>
-            @endrole
+                @endif
             <a href="{{ route('inventory-items') }}"
                 class="flex items-center h-10 px-3 {{ $activePage == 'inventory-items' ? 'text-white bg-amber-800' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
                 wire:navigate>
@@ -91,7 +91,7 @@
                 <span class="ml-2 duration-300 ease-in-out"
                     :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Delivery Receiving</span>
             </a>
-            @role('Super Admin')
+           @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
                 <a href="{{ route('users') }}"
                     class="flex items-center h-10 px-3 {{ $activePage == 'users' ? 'text-white bg-amber-800' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
                     wire:navigate>
@@ -99,7 +99,7 @@
                     <span class="ml-2 duration-300 ease-in-out"
                         :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Users</span>
                 </a>
-            @endrole
+                @endif
 
 
 

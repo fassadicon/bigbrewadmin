@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             SuperAdminSeeder::class,
             AdminSeeder::class,
+            EmployeeSeeder::class,
 
             // Products
             ProductCategorySeeder::class,

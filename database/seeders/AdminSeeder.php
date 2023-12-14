@@ -21,14 +21,6 @@ class AdminSeeder extends Seeder
         ]);
         $admin1->assignRole('Admin');
 
-        $admin2 = User::create([
-            'name' => 'Arcenio Ambayec',
-            'email' => 'arambayec@bigbrew.com',
-            'password' => bcrypt('password'),
-            'created_by' => 1
-        ]);
-        $admin2->assignRole('Admin');
-
         $admin3 = User::create([
             'name' => 'Admin',
             'email' => 'admin@bigbrew.com',

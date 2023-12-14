@@ -10,11 +10,11 @@
     <livewire:inventory-item.edit />
 
     {{-- Table --}}
-    @role('Super Admin')
+    @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
         <button x-data=""
             x-on:click.prevent="$dispatch('open-modal', 'create-inventory-item')"
             class="px-3 py-1 bg-red-500 text-white rounded ml-8">Create</button>
-    @endrole
+    @endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -115,7 +115,7 @@
                                                         d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                                                 </svg>
                                             </button>
-                                            @role('Super Admin')
+                                            @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
                                                 @unless ($inventoryItem->trashed())
                                                     <button wire:click.prevent="edit({{ $inventoryItem }})"
                                                         class="px-3 py-1 bg-green-500 text-white rounded">
@@ -136,7 +136,7 @@
                                                     <button wire:click='restore({{ $inventoryItem->id }})'
                                                         class="px-3 py-1 bg-green-500 text-white rounded">Restore</button>
                                                 @endunless
-                                            @endrole
+                                            @endif
                                         </td>
                                     </tr>
                                 @empty

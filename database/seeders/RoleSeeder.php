@@ -35,5 +35,7 @@ class RoleSeeder extends Seeder
             'create-product',
             'edit-product',
         ]);
+
+        Role::create(['name' => 'Employee']);
     }
 }

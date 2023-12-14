@@ -1,9 +1,11 @@
 <div>
     <h1>Dashboard</h1>
-    <h1>currentSalesToday: {{ $currentSalesToday }}</h1>
-    <h1>pendingPurchaseOrdersAmount: {{ $pendingPurchaseOrdersAmount }}</h1>
-    <h1>purchaseOrdersAmount: {{ $purchaseOrdersAmount }}</h1>
-    <h1>deliveryReceivesAmount : {{ $deliveryReceivesAmount }}</h1>
+    @if(auth()->user()->hasRole('Super Admin'))
+        <h1>currentSalesToday: {{ $currentSalesToday }}</h1>
+        <h1>pendingPurchaseOrdersAmount: {{ $pendingPurchaseOrdersAmount }}</h1>
+        <h1>purchaseOrdersAmount: {{ $purchaseOrdersAmount }}</h1>
+        <h1>deliveryReceivesAmount : {{ $deliveryReceivesAmount }}</h1>
+    @endif
     <h1>Low inventory items:</h1>
     @foreach ($lowInventoryItems as $lowInventoryItem)
         <h2>{{ $lowInventoryItem->name }} {{ $lowInventoryItem->remaining_stocks }}</h2>
