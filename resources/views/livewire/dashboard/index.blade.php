@@ -1,6 +1,6 @@
 <div>
     <h1>Dashboard</h1>
-    @if(auth()->user()->hasRole('Super Admin'))
+    @if (auth()->user()->hasRole('Owner'))
         <h1>currentSalesToday: {{ $currentSalesToday }}</h1>
         <h1>pendingPurchaseOrdersAmount: {{ $pendingPurchaseOrdersAmount }}</h1>
         <h1>purchaseOrdersAmount: {{ $purchaseOrdersAmount }}</h1>
