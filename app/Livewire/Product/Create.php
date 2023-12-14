@@ -54,8 +54,8 @@ class Create extends Component
     public function addSizeAndPrice()
     {
         if (count($this->form->product) >= $this->all_sizes->count()) {
-            // Trigger modal/toast here
-            dd('No more available sizes! Please select the available options.');
+            Toaster::warning('No more available sizes! Please select the available options.');
+            return;
         }
 
         $this->form->addSizeAndPriceData();

@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Models\ProductCategory;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
+use Masmerise\Toaster\Toaster;
 
 class EditProductCategoryForm extends Form
 {
@@ -42,6 +43,8 @@ class EditProductCategoryForm extends Form
             'name' => $this->name,
             'description' => $this->description,
         ]);
+
+        Toaster::success('Product category updated!');
     }
 
 }

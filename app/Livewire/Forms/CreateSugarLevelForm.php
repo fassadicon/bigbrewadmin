@@ -4,9 +4,10 @@ namespace App\Livewire\Forms;
 
 use Livewire\Form;
 use App\Models\Size;
-use App\Models\SizeSugarLevel;
 use App\Models\SugarLevel;
 use Livewire\Attributes\Rule;
+use App\Models\SizeSugarLevel;
+use Masmerise\Toaster\Toaster;
 
 class CreateSugarLevelForm extends Form
 {
@@ -37,14 +38,15 @@ class CreateSugarLevelForm extends Form
         $this->validate();
 
         $size = Size::where('id', $this->size_id)->first();
-        // dd($size->sugarLevels);
         foreach($size->sugarLevels as $sugarLevel) {
             if ($sugarLevel->id == $this->sugar_level_id) {
-                dd('Sugar Level in this size already exists. Are you sure you want to update?');
+                Toaster::warning('Sugar Level in this size already exists. Please edit the existing sugar level instead.');
+                return;
             }
         }
 
         $size->sugarLevels()->attach($this->sugar_level_id, ['consumption_value' => $this->consumption_value]);
 
+        Toaster::success('Sugar level created!');
     }
 }

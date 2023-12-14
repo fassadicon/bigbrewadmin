@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use Livewire\Form;
 use App\Models\Size;
 use Livewire\Attributes\Rule;
+use Masmerise\Toaster\Toaster;
 
 class CreateSizeForm extends Form
 {
@@ -39,5 +40,7 @@ class CreateSizeForm extends Form
             'measurement' => $this->measurement,
             'description' => $this->description
         ]);
+
+        Toaster::success('Size created!');
     }
 }

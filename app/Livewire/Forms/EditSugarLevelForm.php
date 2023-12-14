@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Models\SizeSugarLevel;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
+use Masmerise\Toaster\Toaster;
 
 class EditSugarLevelForm extends Form
 {
@@ -48,5 +49,7 @@ class EditSugarLevelForm extends Form
             'sugar_level_id' => $this->sugar_level_id,
             'consumption_value' => $this->consumption_value,
         ]);
+
+        Toaster::success('Sugar level updated!');
     }
 }
