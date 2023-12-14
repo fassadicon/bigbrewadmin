@@ -121,7 +121,7 @@ class OrderSummary extends Component
         $totalAmount = 0;
         if (!empty($this->selectedProducts)) {
             foreach ($this->selectedProducts as $selectedProduct) {
-                $totalAmount += $selectedProduct['product']->price * $selectedProduct['quantity'];
+                $totalAmount += floatval($selectedProduct['product']->price) * floatval($selectedProduct['quantity']);
             }
         }
         $this->currentTotalAmount = $totalAmount;
@@ -139,8 +139,8 @@ class OrderSummary extends Component
         foreach ($this->selectedProducts as $selectedProduct) {
             $orderItems[] = [
                 'product_id' => $selectedProduct['product']->id,
-                'amount' => $selectedProduct['product']->price * $selectedProduct['quantity'],
-                'quantity' => $selectedProduct['quantity'],
+                'amount' => floatval($selectedProduct['product']->price) * floatval($selectedProduct['quantity']),
+                'quantity' => floatval($selectedProduct['quantity']),
                 'sugar_level_id' => $selectedProduct['sugarLevelId']
             ];
         }
