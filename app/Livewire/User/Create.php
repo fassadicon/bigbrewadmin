@@ -4,6 +4,7 @@ namespace App\Livewire\User;
 
 use App\Models\User;
 use Livewire\Component;
+use Masmerise\Toaster\Toaster;
 use Illuminate\Support\Facades\Hash;
 
 class Create extends Component
@@ -12,7 +13,7 @@ class Create extends Component
     public string $email;
     public string $role;
 
-    public function register(): void
+    public function register()
     {
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -25,6 +26,8 @@ class Create extends Component
         $user = User::create($validated);
 
         $user->assignRole($this->role);
+        Toaster::success('User created');
+        return redirect()->route('users');
 
         // event(new Registered(($user = User::create($validated))));
 
