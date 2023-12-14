@@ -98,7 +98,8 @@ class OrderSummary extends Component
         $this->computeCurrentTotalAmount();
     }
 
-    public function updateQuantity() {
+    public function updateQuantity()
+    {
         $this->computeCurrentTotalAmount();
     }
 
@@ -144,7 +145,6 @@ class OrderSummary extends Component
                 'sugar_level_id' => $selectedProduct['sugarLevelId']
             ];
         }
-
         $payment = Payment::create($this->payment);
 
         $order = Order::create([
@@ -158,22 +158,24 @@ class OrderSummary extends Component
             $orderItem['order_id'] = $order->id;
             OrderItem::create($orderItem);
 
-            $sugarConsumptionValue = SizeSugarLevel::where('id', $orderItem['sugar_level_id'])->pluck('consumption_value')->first();
-            $sugar = InventoryItem::where('name', 'sugar')->first();
-            $remainingStocks = $sugar->remaining_stocks;
-            $newStocks = $remainingStocks - $sugarConsumptionValue;
-            $sugar->update([
-                'remaining_stocks' => $newStocks
-            ]);
-            InventoryLog::create([
-                'inventory_item_id' => $sugar->id,
-                'user_id' => 1,
-                'type' => 'out',
-                'amount' => $sugarConsumptionValue,
-                'old_stock' => $remainingStocks,
-                'new_stock' => $newStocks,
-                'remarks' => 'Order for ' . $this->selectedProducts[$key]['product']->productDetail->name
-            ]);
+            if ($orderItem['sugar_level_id'] != '') {
+                $sugarConsumptionValue = SizeSugarLevel::where('id', $orderItem['sugar_level_id'])->pluck('consumption_value')->first();
+                $sugar = InventoryItem::where('name', 'sugar')->first();
+                $remainingStocks = $sugar->remaining_stocks;
+                $newStocks = $remainingStocks - $sugarConsumptionValue;
+                $sugar->update([
+                    'remaining_stocks' => $newStocks
+                ]);
+                InventoryLog::create([
+                    'inventory_item_id' => $sugar->id,
+                    'user_id' => 1,
+                    'type' => 'out',
+                    'amount' => $sugarConsumptionValue,
+                    'old_stock' => $remainingStocks,
+                    'new_stock' => $newStocks,
+                    'remarks' => 'Order for ' . $this->selectedProducts[$key]['product']->productDetail->name
+                ]);
+            }
         }
 
         $orderItemsCreated = OrderItem::where('order_id', $order->id)->get();

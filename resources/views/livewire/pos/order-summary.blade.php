@@ -160,18 +160,21 @@
                                                         ->orderByDesc('id')
                                                         ->get();
                                                 @endphp
-                                                <select
-                                                    wire:model.live="selectedProducts.{{ $key }}.sugarLevelId"
-                                                    name="sugarLevelId"
-                                                    id="sugarLevelId_{{ $key }}"
-                                                    class="block w-32 p-2 border rounded-md">
-                                                    @foreach ($sizeSugarLevels as $sizeSugarLevel)
-                                                        <option value="{{ $sizeSugarLevel->id }}"
-                                                            @selected($sizeSugarLevel->id == $selectedProduct['sugarLevelId'])>
-                                                            {{ $sizeSugarLevel->sugarlevel->percentage }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                                @if ($sizeSugarLevels->count() > 0)
+                                                    <select
+                                                        wire:model.live="selectedProducts.{{ $key }}.sugarLevelId"
+                                                        name="sugarLevelId"
+                                                        id="sugarLevelId_{{ $key }}"
+                                                        class="block w-32 p-2 border rounded-md">
+                                                        {{-- <option value="">No sugar level available</option> --}}
+                                                        @foreach ($sizeSugarLevels as $sizeSugarLevel)
+                                                            <option value="{{ $sizeSugarLevel->id }}"
+                                                                @selected($sizeSugarLevel->id == $selectedProduct['sugarLevelId'])>
+                                                                {{ $sizeSugarLevel->sugarlevel->percentage }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                @endif
 
                                             </div>
                                         </div>
