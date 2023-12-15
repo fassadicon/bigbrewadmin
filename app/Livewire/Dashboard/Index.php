@@ -55,9 +55,6 @@ class Index extends Component
                 '#f6ad55'
             );
         }
-        // ->addColumn('Food', 100, '#f6ad55')
-        // ->addColumn('Shopping', 200, '#fc8181')
-        // ->addColumn('Travel', 300, '#90cdf4');
 
         return view('livewire.dashboard.index', [
             'columnChartModel' => $columnChartModel,
