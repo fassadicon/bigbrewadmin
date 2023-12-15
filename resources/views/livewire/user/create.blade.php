@@ -1,6 +1,6 @@
 <div>
     <form wire:submit="register">
-        <!-- Name -->
+        @csrf
         <div>
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input wire:model="name" id="name" class="block mt-1 w-full" type="text" name="name" required
@@ -23,7 +23,6 @@
                 <option value="Employee">Employee</option>
                 <option value="Admin">Admin</option>
                 <option value="Super Admin">Super Admin</option>
-                <option value="Super Admin">Owner</option>
             </select>
             <x-input-error :messages="$errors->get('role')" class="mt-2" />
         </div>

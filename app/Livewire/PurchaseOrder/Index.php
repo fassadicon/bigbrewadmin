@@ -13,6 +13,14 @@ class Index extends Component
 {
     use WithPagination;
 
+    public $perPage = 5;
+
+    public $status = '';
+    public $type = '';
+
+    public $sortBy = 'created_at';
+    public $sortDir = 'DESC';
+
     public function cancel($id)
     {
         PurchaseOrder::where('id', $id)->update([
@@ -67,7 +75,20 @@ class Index extends Component
 
     public function render()
     {
-        $purchaseOrders = PurchaseOrder::paginate(10);
+        $purchaseOrders = PurchaseOrder::withTrashed()
+        ->when($this->type !== '', function ($query) {
+            $query->where('status', $this->type);
+        })
+        ->when($this->status !== '', function ($query) {
+            $query->when($this->status === 'active', function ($query) {
+                $query->whereNull('deleted_at');
+            })->when($this->status === 'inactive', function ($query) {
+                $query->whereNotNull('deleted_at');
+            });
+        })
+            ->orderBy($this->sortBy, $this->sortDir)
+            ->paginate($this->perPage);
+
         return view('livewire.purchase-order.index', ['purchaseOrders' => $purchaseOrders]);
     }
 }
