@@ -38,10 +38,23 @@ class Index extends Component
 
         $columnChartModel =
             (new ColumnChartModel())
-            ->setTitle('Expenses by Type')
-            ->addColumn('Food', 100, '#f6ad55')
-            ->addColumn('Shopping', 200, '#fc8181')
-            ->addColumn('Travel', 300, '#90cdf4');
+            ->setTitle('Sales');
+
+        $currentDayOfWeek = Carbon::now()->dayOfWeek;
+        foreach (range(1, 7) as $offset) {
+            // Calculate the day of the week for the current iteration
+            $dayOfWeek = ($currentDayOfWeek + 7 - $offset) % 7 + 1;
+
+            // Get the sales data for the current day of the week
+            $salesData = Order::whereDate('created_at', Carbon::now()->startOfWeek()->addDays($dayOfWeek - 1))->sum('total_amount');
+
+            // Add the column to the chart model
+            $columnChartModel->addColumn(
+                Carbon::now()->startOfWeek()->addDays($dayOfWeek - 1)->format('D'),
+                $salesData,
+                '#f6ad55'
+            );
+        }
 
         return view('livewire.dashboard.index', [
             'columnChartModel' => $columnChartModel,

@@ -4,7 +4,12 @@ namespace App\Livewire\User;
 
 use App\Models\User;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use App\Mail\SetPasswordMail;
+use Masmerise\Toaster\Toaster;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class Index extends Component
 {
@@ -32,19 +37,45 @@ class Index extends Component
     public function delete(User $user)
     {
         $user->delete();
+        Toaster::warning('User archived');
     }
 
     public function restore(int $id)
     {
         User::withTrashed()->where('id', $id)->first()->restore();
+        Toaster::success('User restored');
     }
 
+
+    public function resetPassword(User $user)
+    {
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $randomString = '';
+
+        for ($i = 0; $i < 8; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+
+        $newPassword = Hash::make($randomString);
+
+        $user->update([
+            'password' => $newPassword
+        ]);
+
+        $getUser = User::where('id', $user->id)->first();
+        Mail::to($getUser->email)->send(new SetPasswordMail($getUser, $randomString));
+        Toaster::success('An email has been sent for password reset');
+    }
+
+    #[On('user-changed')]
+    public function refresh() {}
 
     public function render()
     {
         $users = User::withTrashed()
             ->with('roles.permissions')
             ->whereNot('id', [auth()->id()])
+            ->whereNot('id', 1)
             ->search($this->search)
             ->when($this->status !== '', function ($query) {
                 $query->when($this->status === 'active', function ($query) {
@@ -54,9 +85,7 @@ class Index extends Component
                 });
             })
             ->orderBy($this->sortBy, $this->sortDir)
-            // ->get();
             ->paginate($this->perPage);
-        // dd($users);
 
         return view('livewire.user.index', ['users' => $users]);
     }

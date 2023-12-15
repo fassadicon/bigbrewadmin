@@ -8,11 +8,11 @@
         <button x-data=""
             x-on:click.prevent="$dispatch('open-modal', 'create-product-category')"
             type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            class="text-white bg-amber-800 hover:bg-amber-950 focus:ring-4 focus:ring-amber-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
             Create Category
         </button>
     </div>
-    <div class="flex mx-auto mt-6">
+    <div class="flex mx-auto">
         {{-- Create Product Form --}}
         <form wire:submit="save"
             class="w-full">
@@ -50,6 +50,7 @@
                                 <x-input-error :messages="$errors->get('form.category_id')"
                                     class="mt-2" />
                             </div>
+                            
                             <div class="mb-6">
                                 <label for="description"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
@@ -99,8 +100,8 @@
                         <div class="grid md:grid-cols-3 md:gap-6">
                             @foreach ($form->product as $key => $data)
                                 <div class="relative z-0 w-full mb-5 group">
-                                    <label for="size_{{ $key }}"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Size</label>
+                                    <label for="size_{{ $key }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Size</label>
+                                    
                                     <select wire:model="form.product.{{ $key }}.size_id"
                                         wire:change="changeSizeOrInventoryItem()"
                                         id="size_{{ $key }}"
@@ -108,8 +109,9 @@
                                         <option value="">-- Select Size --</option>
                                         @foreach ($all_sizes as $size)
                                             <option value="{{ $size->id }}"
-                                                @if ($selectedSizeIds) @disabled(in_array($size->id, $selectedSizeIds)) @endif>
-                                                {{ ucwords($size->name) }}</option>
+                                                    @if ($selectedSizeIds) @disabled(in_array($size->id, $selectedSizeIds)) @endif>
+                                                {{ ucwords($size->name) }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     @error("form.product.$key.size_id")
@@ -144,6 +146,8 @@
                                             - </button>
                                     @endif
                                 </div>
+                                
+                                
                             @endforeach
                             {{-- @error('prices')
                         {{ $message }}
@@ -169,21 +173,25 @@
                         <div class="p-6 text-gray-900 dark:text-gray-100">
                             @csrf
                             @if (empty($form->product) || $form->product[0]['size_id'] === '')
-                                <p>Please select sizes to list inventory item consumption</p>
+                            <p class="text-gray-500 text-sm font-bold bg-amber-50 p-4 rounded-md">
+                                Please select sizes to list inventory item consumption.
+                            </p>
                             @else
                                 {{-- <pre>
                                 {{ var_dump($form->product) }}
                                 </pre> --}}
                                 @foreach ($form->product as $index => $data)
                                     @unless ($data['size_id'] === '')
-                                        <div class="mb-2">
-                                            <h4 for=""
-                                                class="block text-sm font-medium text-gray-900 dark:text-white">
+                                        <div class="mb-2 flex items-center">
+                                            <h4 for="" class="block text-sm font-medium text-gray-900 dark:text-white mr-4">
                                                 {{ ucwords($all_sizes[$data['size_id'] - 1]->name) }}
                                             </h4>
                                             <button wire:click.prevent="addInventoryItem({{ $index }})"
-                                                class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">+</button>
+                                                    class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
                                         </div>
+                                    
                                         <div class="grid md:grid-cols-12 md:gap-6">
                                             @foreach ($data['inventory_consumption'] as $key => $data)
                                                 <div class="col-span-7 relative z-0 w-full mb-5 group">
@@ -230,8 +238,9 @@
                                                     </label>
                                                     <button
                                                         wire:click.prevent="removeInventoryItem({{ $index }}, {{ $key }})"
-                                                        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                                                        - </button>
+                                                        class="focus:outline-none p-2 mt-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-md text-xs px-3 py-1.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
                                                 </div>
                                             @endforeach
                                         </div>

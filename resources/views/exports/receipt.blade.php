@@ -3,15 +3,20 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible"
-        content="ie=edge">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sales Invoice</title>
 
     <style>
         @page {
             margin: 5px;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            padding: 10px;
+            background-color: #fff;
+            color: #000;
         }
 
         div {
@@ -20,91 +25,57 @@
 
         p {
             margin: 0;
+            line-height: 1.2;
+        }
+
+        h1 {
+            color: #e07a5f;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        h2 {
+            color: #e07a5f;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-size: 1.2em;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        hr {
+            border: 1px dashed #000;
         }
     </style>
 </head>
 
 <body>
     <div>
-        <p>DACBA FOOD AND BERAGE HOUSE</p>
+        <h1>DACBA FOOD AND BEVERAGE HOUSE</h1>
         <p>24 Bayan-Bayanan Avenue, Concepcion Uno, Marikina City</p>
         <p>DEBORAH ANN B. ARQUIZA - Prop.</p>
         <p>Non VAT Reg TIN: 260-829-571-00001</p>
 
-        <br>
-        <br>
-        <p>SALES INVOICE</p>
-        <p>Sold to: _____________</p>
-        <p>Date: December 25, 2023 3:00 PM</p>
-        <br><br>
+        <hr>
+
+        <h2>SALES INVOICE</h2>
+        <p>Sold to: {{ $order->customer_name }}</p>
+        <p>Date: {{ $date }}</p>
+
+        <hr>
+
         @foreach ($order->orderItems as $orderItem)
             <p>{{ $orderItem->product->productDetail->name }} x {{ $orderItem->quantity }} -
                 {{ $orderItem->amount }}</p>
         @endforeach
-        <p>Total amount: {{ $order->total_amount }}</p>
+
+        <hr>
+
+        <h2>Total amount: {{ $order->total_amount }}</h2>
     </div>
-    {{-- <h1>Big Brew Bayan-Bayanan: Sales Report</h1>
-    <p>From: {{ $start_date }}</p>
-    <p>End: {{ $end_date }}</p>
-    <div class="row">
-        <div class="col-6">
-            <h3>Total Cash Payment: {{ $totalCashPayments }}</h3>
-            <h3>Total Online Payments: {{ $totalOnlinePayments }}</h3>
-        </div>
-        <div class="col-6">
-            <h3>Number of Completed Orders: {{ $completedOrders }}</h3>
-            <h3>Number of Cancelled Orders: {{ $cancelledOrders }}</h3>
-        </div>
-        <div class="col-12">
-            <h2>Total Sales: {{ $totalSales }}</h2>
-        </div>
-    </div> --}}
-
-
-    {{-- Table Proper --}}
-    {{-- <div class="overflow-x-auto">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead>
-                <th scope="col"
-                    class="px-4 py-3">Order #</th>
-                <th scope="col"
-                    class="px-4 py-3">Items</th>
-                <th scope="col"
-                    class="px-4 py-3">Total Amount</th>
-                <th scope="col"
-                    class="px-4 py-3">Payment Method</th>
-                <th scope="col"
-                    class="px-4 py-3">Status</th>
-                <th scope="col"
-                    class="px-4 py-3">Catered By</th>
-            </thead>
-            <tbody>
-                @forelse ($orders as $order)
-                    <tr class="border-b dark:border-gray-700">
-                        <th scope="row"
-                            class="px-4 py-3 font-medium whitespace-nowrap text-gray-900">
-                            {{ $order->id }}
-                        </th>
-                        <td>
-                            @foreach ($order->orderItems as $orderItem)
-                                <div>{{ $orderItem->product->productDetail->name }} x
-                                    {{ $orderItem->quantity }}</div>
-                            @endforeach
-                        </td>
-                        <td>{{ $order->total_amount }}</td>
-                        <td>{{ $order->payment->method }}</td>
-                        <td>{{ $order->status === 1 ? 'Completed' : 'Cancelled' }}</td>
-                        <td>{{ $order->user->name }}</td>
-                    </tr>
-                @empty
-                    <tr class="border-b dark:border-gray-700">
-                        <td colspan="6"
-                            class="px-4 py-3 text-center">No results available</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div> --}}
 </body>
 
 </html>

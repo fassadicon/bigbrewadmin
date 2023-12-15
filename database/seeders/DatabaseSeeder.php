@@ -24,8 +24,10 @@ class DatabaseSeeder extends Seeder
             // Roles, Permissions, and Users
             PermissionSeeder::class,
             RoleSeeder::class,
+            OwnerSeeder::class,
             SuperAdminSeeder::class,
             AdminSeeder::class,
+            EmployeeSeeder::class,
 
             // Products
             ProductCategorySeeder::class,

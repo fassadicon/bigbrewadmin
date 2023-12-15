@@ -19,8 +19,8 @@ class Edit extends Component
 
     public function update()
     {
-        // $this->form->update();
-        // $this->dispatch('close', 'edit-product-size');
-        // $this->dispatch('product-size-changed');
+        $this->form->update();
+        $this->dispatch('close', 'edit-user');
+        $this->dispatch('user-changed');
     }
 }

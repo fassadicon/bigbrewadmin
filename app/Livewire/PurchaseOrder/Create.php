@@ -16,7 +16,6 @@ class Create extends Component
     public $suppliers;
     public $inventoryItems;
     public $purchaseOrderItems = [];
-    public $selectedInventoryItems = [];
     public $supplier_id;
 
     public function rules()
@@ -56,7 +55,8 @@ class Create extends Component
     public function addPurchaseOrderItem()
     {
         if ($this->purchaseOrderItems[count($this->purchaseOrderItems) - 1]['inventory_item_id'] === '') {
-            dd('Please fill the PO Item details before adding a new one');
+            Toaster::warning('Please fill the PO Item details before adding a new one');
+            return;
         }
 
         $this->purchaseOrderItems[] =
@@ -68,6 +68,11 @@ class Create extends Component
                 'amount' => 0,
                 'description' => ''
             ];
+    }
+
+    public function removePurchaseOrderItem($key) {
+        unset($this->purchaseOrderItems[$key]);
+        $this->purchaseOrderItems = array_values($this->purchaseOrderItems);
     }
 
     public function updateAmount($key, $value)
@@ -106,6 +111,7 @@ class Create extends Component
             'user_id' => auth()->id(),
             'supplier_id' => $this->supplier_id, // 1 - BigBrew, 2 and others new suppliers
             'total_amount' => $totalAmount,
+            'status' => 1
         ]);
 
         foreach ($this->purchaseOrderItems as $purchaseOrderItem) {

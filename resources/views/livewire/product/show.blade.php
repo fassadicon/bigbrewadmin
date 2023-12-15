@@ -12,14 +12,14 @@
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mx-4">
             {{ __('Back to Products List') }}
         </a>
-        @role('Super Admin')
+       @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
             <a href="{{ route('products.edit', ['productDetail' => $productDetail]) }}"
                 wire:navigate
                 type="button"
                 class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800 ml-6">
                 {{ __('Edit this product') }}
             </a>
-        @endrole
+        @endif
     </div>
 
     <div class="bg-white rounded-lg p-4 flex flex-col flex-1">

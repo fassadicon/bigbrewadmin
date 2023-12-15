@@ -11,21 +11,22 @@ use Livewire\Attributes\On;
 use App\Models\InventoryLog;
 use App\Models\InventoryItem;
 use App\Models\SizeSugarLevel;
+use Illuminate\Support\Carbon;
 use Masmerise\Toaster\Toaster;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderSummary extends Component
 {
-    public $printReceipt;
+    // public $printReceipt;
     public $selectedProducts = [];
     public $currentTotalAmount = 0;
+    public $name;
     public $payment = [
         'method' => 1,
         'payment_received' => 0,
         'amount' => 0,
         'change' => 0,
-        'details' => '',
-        'name' => ''
+        'details' => ''
     ];
 
     protected function rules()
@@ -97,6 +98,11 @@ class OrderSummary extends Component
         $this->computeCurrentTotalAmount();
     }
 
+    public function updateQuantity()
+    {
+        $this->computeCurrentTotalAmount();
+    }
+
     public function updateChange()
     {
         $this->validate();
@@ -116,7 +122,7 @@ class OrderSummary extends Component
         $totalAmount = 0;
         if (!empty($this->selectedProducts)) {
             foreach ($this->selectedProducts as $selectedProduct) {
-                $totalAmount += $selectedProduct['product']->price * $selectedProduct['quantity'];
+                $totalAmount += floatval($selectedProduct['product']->price) * floatval($selectedProduct['quantity']);
             }
         }
         $this->currentTotalAmount = $totalAmount;
@@ -125,43 +131,51 @@ class OrderSummary extends Component
 
     public function completeOrder()
     {
+        if ($this->payment['payment_received'] < $this->payment['amount']) {
+            Toaster::warning('Payment received is less than total amount!');
+            return;
+        }
+
         $orderItems = [];
         foreach ($this->selectedProducts as $selectedProduct) {
             $orderItems[] = [
                 'product_id' => $selectedProduct['product']->id,
-                'amount' => $selectedProduct['product']->price * $selectedProduct['quantity'],
-                'quantity' => $selectedProduct['quantity'],
+                'amount' => floatval($selectedProduct['product']->price) * floatval($selectedProduct['quantity']),
+                'quantity' => floatval($selectedProduct['quantity']),
                 'sugar_level_id' => $selectedProduct['sugarLevelId']
             ];
         }
-
         $payment = Payment::create($this->payment);
 
         $order = Order::create([
             'user_id' => auth()->id(),
             'payment_id' => $payment->id,
             'total_amount' => $payment->amount,
+            'customer_name' => $this->name
         ]);
+
         foreach ($orderItems as $key => $orderItem) {
             $orderItem['order_id'] = $order->id;
             OrderItem::create($orderItem);
 
-            $sugarConsumptionValue = SizeSugarLevel::where('id', $orderItem['sugar_level_id'])->pluck('consumption_value')->first();
-            $sugar = InventoryItem::where('name', 'sugar')->first();
-            $remainingStocks = $sugar->remaining_stocks;
-            $newStocks = $remainingStocks - $sugarConsumptionValue;
-            $sugar->update([
-                'remaining_stocks' => $newStocks
-            ]);
-            InventoryLog::create([
-                'inventory_item_id' => $sugar->id,
-                'user_id' => 1,
-                'type' => 'out',
-                'amount' => $sugarConsumptionValue,
-                'old_stock' => $remainingStocks,
-                'new_stock' => $newStocks,
-                'remarks' => 'Order for ' . $this->selectedProducts[$key]['product']->productDetail->name
-            ]);
+            if ($orderItem['sugar_level_id'] != '') {
+                $sugarConsumptionValue = SizeSugarLevel::where('id', $orderItem['sugar_level_id'])->pluck('consumption_value')->first();
+                $sugar = InventoryItem::where('name', 'sugar')->first();
+                $remainingStocks = $sugar->remaining_stocks;
+                $newStocks = $remainingStocks - $sugarConsumptionValue;
+                $sugar->update([
+                    'remaining_stocks' => $newStocks
+                ]);
+                InventoryLog::create([
+                    'inventory_item_id' => $sugar->id,
+                    'user_id' => 1,
+                    'type' => 'out',
+                    'amount' => $sugarConsumptionValue,
+                    'old_stock' => $remainingStocks,
+                    'new_stock' => $newStocks,
+                    'remarks' => 'Order for ' . $this->selectedProducts[$key]['product']->productDetail->name
+                ]);
+            }
         }
 
         $orderItemsCreated = OrderItem::where('order_id', $order->id)->get();
@@ -191,27 +205,30 @@ class OrderSummary extends Component
 
         $this->selectedProducts = [];
 
-        if ($this->printReceipt) {
-            $pdf = Pdf::setPaper(array(0, 0, 200, 500))
-                ->loadView('exports.receipt', [
-                    'order' => $order,
-                ]);
-
-            $page_count = $pdf->get_canvas()->get_page_number();
-
-            $printPDF =  Pdf::setPaper(array(0, 0, 200, 500 * $page_count))
-                ->loadView('exports.receipt', [
-                    'order' => $order,
-                ])
-                ->output();
-
-            return response()->streamDownload(
-                fn () => print($printPDF),
-                "receipt.pdf"
-            );
-        }
-
+        $this->name = null;
         Toaster::success('Order completed!');
+
+        $pdf = Pdf::setPaper(array(0, 0, 200, 500))
+            ->loadView('exports.receipt', [
+                'order' => $order,
+                'date' => Carbon::now()->format('Y-m-d H:i:s')
+            ]);
+
+        $page_count = $pdf->get_canvas()->get_page_number();
+
+        $printPDF =  Pdf::setPaper(array(0, 0, 200, 500 * $page_count))
+            ->loadView('exports.receipt', [
+                'order' => $order,
+                'date' => Carbon::now()->format('Y-m-d H:i:s')
+            ])
+            ->output();
+
+        return response()->streamDownload(
+            fn () => print($printPDF),
+            "receipt.pdf"
+        );
+
+
     }
 
     // private function downloadReceipt($orderId)

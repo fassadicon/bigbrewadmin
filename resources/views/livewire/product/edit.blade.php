@@ -170,14 +170,14 @@
                             @else
                                 @foreach ($form->product as $index => $data)
                                     @unless ($data['size_id'] === '')
-                                        <div class="mb-2">
-                                            <h4 for=""
-                                                class="block text-sm font-medium text-gray-900 dark:text-white">
+                                        <div class="flex items-center mb-2">
+                                            <h4 for="" class="block text-sm font-medium text-gray-900 dark:text-white">
                                                 {{ ucwords($all_sizes[$data['size_id'] - 1]->name) }}
                                             </h4>
                                             <button wire:click.prevent="addInventoryItem({{ $index }})"
-                                                class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">+</button>
+                                                    class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-md text-xs px-3 py-1.5 ml-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">+</button>
                                         </div>
+                                    
                                         <div class="grid md:grid-cols-12 md:gap-6">
                                             @foreach ($data['inventory_consumption'] as $key => $data)
                                                 <div class="col-span-7 relative z-0 w-full mb-5 group">
@@ -219,14 +219,15 @@
                                                         </span>
                                                     @enderror
                                                 </div>
-                                                <div class="col-span-2 relative z-0 w-full mb-5 group">
+                                                <div class="col-span-2 relative z-0 w-full mb-5 mt-8 group">
                                                     <label for=""
                                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                                     </label>
-                                                    <button
-                                                        wire:click.prevent="removeInventoryItem({{ $index }}, {{ $key }})"
-                                                        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                                                        - </button>
+                                                    <button wire:click.prevent="removeInventoryItem({{ $index }}, {{ $key }})"
+                                                            class="focus:outline-none text-white bg-amber-800 hover:bg-amber-950 focus:ring-4 focus:ring-red-300 font-medium rounded-md text-xs px-3 py-1.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+
                                                 </div>
                                             @endforeach
                                         </div>
