@@ -38,7 +38,8 @@
             <span class="ml-2 duration-300 ease-in-out"
                 :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Products</span>
         </a>
-        @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
+        @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin') ||
+        auth()->user()->hasRole('Owner'))
         <a href="{{ route('product-categories') }}" title="Categories"
             class="flex items-center h-10 px-3 {{ $activePage == 'product-categories' ? 'text-white bg-amber-700' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
             wire:navigate>
@@ -47,7 +48,8 @@
                 :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Categories</span>
         </a>
         @endif
-        @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
+        @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin') ||
+        auth()->user()->hasRole('Owner'))
         <a href="{{ route('sizes') }}" title="Sizes"
             class="flex items-center h-10 px-3 {{ $activePage == 'sizes' ? 'text-white bg-amber-700' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
             wire:navigate>
@@ -56,7 +58,8 @@
                 :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Sizes</span>
         </a>
         @endif
-        @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
+        @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin') ||
+        auth()->user()->hasRole('Owner'))
         <a href="{{ route('sugar-levels') }}" title="Sugar Levels"
             class="flex items-center h-10 px-3 {{ $activePage == 'sugar-levels' ? 'text-white bg-amber-700' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
             wire:navigate>
@@ -93,7 +96,8 @@
             <span class="ml-2 duration-300 ease-in-out"
                 :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Delivery Receiving</span>
         </a>
-        @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
+        @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin') ||
+        auth()->user()->hasRole('Owner'))
         <a href="{{ route('users') }}" title="Users"
             class="flex items-center h-10 px-3 {{ $activePage == 'users' ? 'text-white bg-amber-700' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
             wire:navigate>
