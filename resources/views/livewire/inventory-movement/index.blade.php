@@ -1,4 +1,4 @@
-<div>
+<div class="p-4 max-w-screen">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Inventory Movement') }}
@@ -11,100 +11,97 @@
         <button x-data=""
             x-on:click.prevent="$dispatch('open-modal', 'create-supplier')"
             type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-            Create Supplier
+            class="p-2 m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            <i class="fas fa-plus-circle mr-2"></i>Create Supplier
         </button>
     @endif
-    <button wire:click='generateWastage'
-        class="px-3 py-1 bg-red-500 text-white rounded ml-8">Export Wastage</button>
 
-    <button wire:click='export'
-        class="px-3 py-1 bg-red-500 text-white rounded ml-8">Export</button>
+    <button wire:click='generateWastage' class="p-2 m-1 px-3 py-1 bg-red-500 text-white rounded ml-8">
+        <i class="fas fa-download mr-2"></i>Export Wastage
+    </button>
 
+    <button wire:click='export' class="p-2 m-1 px-3 py-1 bg-red-500 text-white rounded ml-8">
+        <i class="fas fa-download mr-2"></i>Export
+    </button>
+
+    <div class="flex space-x-6">
+    <div class="w-1/2 w-fit">
     <div class="py-12">
-        <form wire:submit="store">
+        <form wire:submit.prevent="store">
             @csrf
             <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight ml-6">
                 {{ __('Add Entry') }}
             </h3>
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"
-                wire:loading.class="invisible">
-                <div class="flex p-6 text-gray-900 dark:text-gray-100">
-                    <div class="flex">
-                        <label for="form_type"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">type</label>
-                        <select wire:model.live="form.type"
-                            id="form_type"
-                            class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg" wire:loading.class="invisible">
+                <div class="p-6 text-gray-900 dark:text-gray-100 space-y-4">
+                    <div class="flex flex-col">
+                        <label for="form_type" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
+                        <select wire:model.live="form.type" id="form_type"
+                            class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                             <option value="">-- Select type --</option>
                             <option value="1">In</option>
                             <option value="2">Out</option>
                             <option value="3">Waste</option>
                         </select>
-                        <x-input-error :messages="$errors->get('form.type')"
-                            class="mt-2" />
+                        <x-input-error :messages="$errors->get('form.type')" class="mt-2" />
                     </div>
-                    <div class="flex">
+        
+                    <div class="flex flex-col">
                         <label for="form_inventory_item"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Inventory Item</label>
-                        <select wire:model.live="form.inventory_item_id"
-                            id="form_inventory_item"
-                            class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                            class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Inventory Item</label>
+                        <select wire:model.live="form.inventory_item_id" id="form_inventory_item"
+                            class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                             <option value=""></option>
                             @foreach ($inventoryItems as $inventoryItem)
                                 <option value="{{ $inventoryItem->id }}">{{ $inventoryItem->name }}</option>
                             @endforeach
                         </select>
-                        <x-input-error :messages="$errors->get('form.inventory_item_id')"
-                            class="mt-2" />
+                        <x-input-error :messages="$errors->get('form.inventory_item_id')" class="mt-2" />
                     </div>
-                    <div class="flex">
-                        <label for="form_amount"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
-                        <input wire:model="form.amount"
-                            type="text"
-                            id="form_amount"
+        
+                    <div class="flex flex-col">
+                        <label for="form_amount" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
+                        <input wire:model="form.amount" type="text" id="form_amount"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <x-input-error :messages="$errors->get('form.amount')"
-                            class="mt-2" />
+                        <x-input-error :messages="$errors->get('form.amount')" class="mt-2" />
                     </div>
-                    <div class="flex">
-                        <label for="form_supplier"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                            Supplier</label>
-                        <select wire:model='form.supplier_id'
-                            name="supplier_id"
-                            id="supplier_id">
+        
+                    <div class="flex flex-col">
+                        <label for="form_supplier" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Supplier</label>
+                        <select wire:model='form.supplier_id' name="supplier_id" id="supplier_id">
                             <option value="">--Select Supplier--</option>
                             @foreach ($suppliers as $supplier)
                                 <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                             @endforeach
                         </select>
-                        <x-input-error :messages="$errors->get('form.supplier_id')"
-                            class="mt-2" />
+                        <x-input-error :messages="$errors->get('form.supplier_id')" class="mt-2" />
                     </div>
-                    <div class="flex">
-                        <label for="form_remarks"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Remarks</label>
-                        <input wire:model="form.remarks"
-                            type="text"
-                            id="form_remarks"
+        
+                    <div class="flex flex-col">
+                        <label for="form_remarks" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Remarks</label>
+                        <input wire:model="form.remarks" type="text" id="form_remarks"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <x-input-error :messages="$errors->get('form.remarks')"
-                            class="mt-2" />
+                        <x-input-error :messages="$errors->get('form.remarks')" class="mt-2" />
                     </div>
+        
                     <div class="flex">
                         <button type="submit"
-                            class="focus:outline-none text-white bg-red-500 hover:bg-red-200 focus:ring-4 focus:ring-red-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Add</button>
+                            class="focus:outline-none text-white bg-red-500 hover:bg-red-200 focus:ring-4 focus:ring-red-200 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Add</button>
                     </div>
                 </div>
             </div>
         </form>
+        
     </div>
+    </div>  
 
     {{-- Table --}}
+    <div class="w-1/2 w-fit">
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight ml-6">
+                {{ __('Inventory Momevemnts') }}
+            </h3>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                     {{-- Search Filters --}}
@@ -302,6 +299,8 @@
             </div>
         </div>
     </div>
+    </div>
+</div>
 
 </div>
 <script>

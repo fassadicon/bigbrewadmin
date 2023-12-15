@@ -1,8 +1,8 @@
 <aside
-    class="fixed h-screen marker:flex flex-col text-gray-900 bg-red-50 transition-all duration-300 ease-in-out shadow-lg"
+    class="fixed h-screen marker:flex flex-col text-gray-900 bg-white transition-all duration-300 ease-in-out shadow-lg"
     :class="isSidebarExpanded ? 'w-64' : 'w-20'">
     <a href="#"
-        class="h-20 flex items-center px-4 bg-red-50 hover:text-gray-800 hover:bg-opacity-50 focus:outline-none focus:text-gray-100 focus:bg-opacity-50 overflow-hidden"
+        class="h-20 flex items-center px-4 bg-white hover:text-gray-800 hover:bg-opacity-50 focus:outline-none focus:text-gray-100 focus:bg-opacity-50 overflow-hidden"
         wire:navigate>
         <span class="ml-2 text-xl font-medium duration-300 ease-in-out"
             :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Big Brew</span>

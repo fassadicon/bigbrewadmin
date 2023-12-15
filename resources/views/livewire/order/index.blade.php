@@ -127,28 +127,26 @@
                                         ])
                                     </td> --}}
                                     <td class="px-4 py-3 flex items-center justify-center">
-                                        <button wire:click.prevent="show({{ $order->id }})"
-                                            class="p-2 m-1 bg-blue-500 text-white rounded">
+                                        <button wire:click.prevent="show({{ $order->id }})" class="p-2 m-1 bg-blue-500 text-white rounded">
                                             <i class="fas fa-eye"></i>
                                         </button>
-                                        <button wire:click.prevent="downloadReceipt({{ $order->id }})"
-                                            class="px-3 py-1 bg-blue-500 text-white rounded">
-                                            Download Receipt
+                                        
+                                        <button wire:click.prevent="downloadReceipt({{ $order->id }})" class="p-2 m-1 bg-blue-500 text-white rounded">
+                                            <i class="fas fa-trash"></i>
                                         </button>
-                                        @if (auth()->user()->hasRole('Super Admin') ||
-                                        auth()->user()->hasRole('Admin'))
-                                        @unless ($order->trashed())
-                                        <button wire:click='delete({{ $order }})'
-                                            class="p-2 m-1 bg-orange-500 text-white rounded">
-                                            <i class="fas fa-archive"></i>
-                                        </button>
-                                        @else
-                                        <button wire:click='restore({{ $order->id }})'
-                                            class="p-2 m-1 bg-green-500 text-white rounded">
-                                            <i class="fas fa-undo"></i>
-                                        </button>
-                                        @endunless
+                                        
+                                        @if (auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
+                                            @unless ($order->trashed())
+                                                <button wire:click='delete({{ $order }})' class="p-2 m-1 bg-orange-500 text-white rounded">
+                                                    <i class="fas fa-archive"></i>
+                                                </button>
+                                            @else
+                                                <button wire:click='restore({{ $order->id }})' class="p-2 m-1 bg-green-500 text-white rounded">
+                                                    <i class="fas fa-undo"></i>
+                                                </button>
+                                            @endunless
                                         @endif
+                                        
                                     </td>
                                 </tr>
                                 @empty

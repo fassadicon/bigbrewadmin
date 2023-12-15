@@ -1,36 +1,36 @@
 <div>
     <div class="md:flex space-x-3 flex-1 lg:ml-8">
         <button wire:click="selectCategory('')"
-            class="px-2 py-2 hover:bg-gray-100 rounded-lg text-gray-700 hover:text-red-500">All</button>
+            class="px-2 py-2 text-sm hover:bg-gray-100 rounded-lg text-gray-700 hover:text-red-500">All</button>
         @foreach ($allCategories as $category)
             <button 
                 wire:click="selectCategory({{ $category->id }})"
-                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-amber-700 border border-transparent rounded-lg active:bg-amber-800 hover:bg-amber-600 focus:outline-none focus:shadow-outline-gray focus:border-gray-800">
+                class="px-3 py-2 text-xs font-medium leading-5 text-white transition-colors duration-150 bg-amber-700 border border-transparent rounded-lg active:bg-amber-800 hover:bg-amber-600 focus:outline-none focus:shadow-outline-gray focus:border-gray-800">
                 {{ strtoupper($category->name) }}
             </button>
         @endforeach
     </div>
+    
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 -mx-2">
         @foreach ($productDetails as $productDetail)
             <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 px-2 py-2 mb-4 lg:mb-0 flex">
-                <div
-                    class="bg-white rounded-lg p-2 transform hover:translate-y-1 hover:shadow-xl transition duration-300 shadow-xl flex flex-col flex-1">
+                <div class="bg-white rounded-lg p-2 transform hover:translate-y-1 hover:shadow-xl transition duration-300 shadow-xl flex flex-col flex-1">
                     <figure class="mb-2">
                         <img src="{{ asset('storage\\' . $productDetail->image_path) }}"
                             alt=""
                             class="h-16 md:h-24 lg:h-32 ml-auto mr-auto object-cover" />
                     </figure>
-                    <div class="rounded-lg p-2 bg-amber-800 flex flex-col flex-1">
+                    <div class="rounded-lg p-2 bg-zinc-800 flex flex-col flex-1">
                         <div>
-                            <h5 class="text-white text-sm md:text-base lg:text-lg font-bold leading-tight">
+                            <h5 class="text-white text-xs md:text-sm lg:text-base font-bold leading-tight">
                                 {{ $productDetail->name }}
                             </h5>
-                            <span
-                                class="text-xs md:text-sm text-gray-100 leading-tight">{{ $productDetail->description }}</span>
+                            <span class="text-xs md:text-sm text-gray-100 leading-tight">
+                                {{ $productDetail->description }}
+                            </span>
                         </div>
                         <div class="flex items-center mt-2">
                             <div class="text-xs md:text-sm text-white font-light">
-
                                 <div class="flex space-x-2">
                                     @foreach ($productDetail->sizes as $size)
                                         @php
@@ -45,11 +45,9 @@
                                                 }
                                             }
                                         @endphp
-                                        {{-- Palagyan conditional styles for warning value and disabled, prio disabled styles if true. Use $warningValue --}}
                                         <button wire:click="addToCart({{ $size->pivot->id }})"
                                             class="rounded-full h-8 w-8 bg-red-50 text-amber-950 hover:bg-amber-50 hover:text-amber-800 hover:shadow-xl focus:outline-none flex ml-auto transition duration-300"
-                                            @disabled($disabled)
-                                            >
+                                            @disabled($disabled)>
                                             <div class="m-auto">
                                                 {{ $size->alias }}
                                             </div>
@@ -63,6 +61,7 @@
                 </div>
             </div>
         @endforeach
+
 
     {{-- <div x-data="{ showModal: @entangle('showModal') }">
         <div x-show="showModal"

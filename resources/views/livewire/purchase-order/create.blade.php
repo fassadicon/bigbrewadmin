@@ -3,7 +3,7 @@
         <button x-data=""
             x-on:click.prevent="$dispatch('open-modal', 'create-supplier')"
             type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            class="text-white bg-amber-800 hover:bg-amber-950 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
             Create Supplier
         </button>
     </div>
@@ -16,7 +16,7 @@
             <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Create Purchase Order') }}
             </h3>
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-lg w-full"
                 wire:loading.class="invisible">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="mb-6">
