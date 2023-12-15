@@ -34,7 +34,7 @@ class SizeSeeder extends Seeder
         ]);
         Size::create([
             'name' => 'fixed',
-            'alias' => null,
+            'alias' => 'F',
             'measurement' => 'fixed',
             'description' => 'Default size for products that has only one size'
         ]);

@@ -17,7 +17,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderSummary extends Component
 {
-    public $printReceipt;
+    // public $printReceipt;
     public $selectedProducts = [];
     public $currentTotalAmount = 0;
     public $name;
@@ -205,30 +205,30 @@ class OrderSummary extends Component
 
         $this->selectedProducts = [];
 
-        if ($this->printReceipt) {
-            $pdf = Pdf::setPaper(array(0, 0, 200, 500))
-                ->loadView('exports.receipt', [
-                    'order' => $order,
-                    'date' => Carbon::now()->format('Y-m-d H:i:s')
-                ]);
-
-            $page_count = $pdf->get_canvas()->get_page_number();
-
-            $printPDF =  Pdf::setPaper(array(0, 0, 200, 500 * $page_count))
-                ->loadView('exports.receipt', [
-                    'order' => $order,
-                    'date' => Carbon::now()->format('Y-m-d H:i:s')
-                ])
-                ->output();
-
-            return response()->streamDownload(
-                fn () => print($printPDF),
-                "receipt.pdf"
-            );
-        }
-
         $this->name = null;
         Toaster::success('Order completed!');
+
+        $pdf = Pdf::setPaper(array(0, 0, 200, 500))
+            ->loadView('exports.receipt', [
+                'order' => $order,
+                'date' => Carbon::now()->format('Y-m-d H:i:s')
+            ]);
+
+        $page_count = $pdf->get_canvas()->get_page_number();
+
+        $printPDF =  Pdf::setPaper(array(0, 0, 200, 500 * $page_count))
+            ->loadView('exports.receipt', [
+                'order' => $order,
+                'date' => Carbon::now()->format('Y-m-d H:i:s')
+            ])
+            ->output();
+
+        return response()->streamDownload(
+            fn () => print($printPDF),
+            "receipt.pdf"
+        );
+
+
     }
 
     // private function downloadReceipt($orderId)
