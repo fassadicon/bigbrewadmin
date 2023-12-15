@@ -53,6 +53,18 @@ class Index extends Component
         Toaster::info('Purchase order returned');
     }
 
+    public function delete(PurchaseOrder $purchaseOrder)
+    {
+        $purchaseOrder->delete();
+        Toaster::warning('Size archived!');
+    }
+
+    public function restore(int $id)
+    {
+        PurchaseOrder::withTrashed()->where('id', $id)->first()->restore();
+        Toaster::success('Size restored!');
+    }
+
     public function render()
     {
         $purchaseOrders = PurchaseOrder::paginate(10);
