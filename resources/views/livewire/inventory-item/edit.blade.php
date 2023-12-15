@@ -2,7 +2,7 @@
     <x-modal name="edit-inventory-item">
         <form wire:submit="update">
             @csrf
-            <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
+            <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight p-4">
                 {{ __('Edit Inventory Item') }}
             </h3>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"

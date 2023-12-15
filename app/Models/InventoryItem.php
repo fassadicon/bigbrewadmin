@@ -25,6 +25,7 @@ class InventoryItem extends Model
         'measurement',
         'remaining_stocks',
         'warning_value',
+        'unit_price'
     ];
 
     public function scopeSearch($query, $value)

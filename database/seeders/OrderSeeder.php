@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\OrderItem;
 use App\Models\InventoryLog;
 use App\Models\InventoryItem;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -18,7 +19,7 @@ class OrderSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (range(1, 50) as $orderCount) {
+        foreach (range(1, 15) as $orderCount) {
             $orderItemsCount = rand(0, 2);
             $totalAmount = 0;
             $orderItems = [];
@@ -46,6 +47,8 @@ class OrderSeeder extends Seeder
                 'user_id' => 1,
                 'payment_id' => $payment->id,
                 'total_amount' => $payment->amount,
+                'customer_name' => fake()->name(),
+                'created_at' => Carbon::now()->subDays(rand(1, 7))
             ]);
 
             foreach ($orderItems as $orderItem) {
@@ -54,8 +57,6 @@ class OrderSeeder extends Seeder
             }
 
             // Inventory Consumption
-            $orderItem = OrderItem::where('order_id', 1)->first();
-            $product = $orderItem->product->inventoryItems;
             $orderItemsCreated = OrderItem::all();
             foreach ($orderItemsCreated as $orderItem) {
                 $productInventoryItems = $orderItem->product->inventoryItems;
@@ -74,7 +75,8 @@ class OrderSeeder extends Seeder
                         'amount' => $consumptionValue,
                         'old_stock' => $remainingStocks,
                         'new_stock' => $newStocks,
-                        'remarks' => 'Order for ' . $orderItem->product->productDetail->name
+                        'remarks' => 'Order for ' . $orderItem->product->productDetail->name,
+                        'created_at' => Carbon::now()->subDays(rand(1, 7))
                     ]);
                 }
             }

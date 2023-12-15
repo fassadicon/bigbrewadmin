@@ -1,70 +1,70 @@
 <x-modal name="show-order">
     <div wire:loading.class="invisible">
         @if ($order)
-            <h1>{{ $order->id }}</h1>
-            {{-- <h1>{{ $size->role }}</h1> --}}
-            <h1>Superadmin</h1>
-            <h1>Products with this size:</h1>
+            <div style="padding: 20px;">
 
-            <div class="">
-                <table>
-                    <thead>
-                        <th>Log</th>
-                        <th>Current</th>
-                        <th>Old</th>
-                        <th>Date</th>
-                        <th>Activity by</th>
-                    </thead>
-                    <tbody>
-                        @foreach ($logs as $log)
-                            <tr>
-                                <td>{{ $log->description }}</td>
-                                <td>
-                                    @foreach ($log->properties as $key => $value)
-                                        @if ($key === 'attributes')
-                                            @foreach ($value as $key => $data)
-                                                @if (is_array($data))
-                                                    @foreach ($data as $orderItem)
-                                                        <div class="bg-slate-300">
-                                                            @foreach ($orderItem as $key => $detail)
-                                                                {{ "$key: $detail\n" }}<br>
+                <h1 style="font-size: 24px; margin-bottom: 10px;">Order ID: {{ $order->id }}</h1>
+                {{-- Uncomment the following line if $size->role is available --}}
+                {{-- <h1>{{ $size->role }}</h1> --}}
+                <h1 style="font-size: 18px; margin-bottom: 20px;">Superadmin</h1>
+
+                <h2 style="font-size: 18px; margin-bottom: 10px;">Products in this Order:</h2>
+
+                <div style="margin-bottom: 20px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <th style="padding: 10px; background-color: #f2f2f2;">Log</th>
+                            <th style="padding: 10px; background-color: #f2f2f2;">Current</th>
+                            <th style="padding: 10px; background-color: #f2f2f2;">Old</th>
+                            <th style="padding: 10px; background-color: #f2f2f2;">Date</th>
+                            <th style="padding: 10px; background-color: #f2f2f2;">Activity by</th>
+                        </thead>
+                        <tbody>
+                            @foreach ($logs as $log)
+                                <tr>
+                                    <td style="padding: 10px;">{{ $log->description }}</td>
+                                    <td style="padding: 10px;">
+                                        @foreach ($log->properties as $key => $value)
+                                            @if ($key === 'attributes')
+                                                @foreach ($value as $key => $data)
+                                                    @if (is_array($data))
+                                                        <div>
+                                                            @foreach ($data as $orderItem)
+                                                                @foreach ($orderItem as $key => $detail)
+                                                                    {{ "$key: $detail\n" }}
+                                                                @endforeach
                                                             @endforeach
                                                         </div>
-                                                    @endforeach
-                                                @else
-                                                    {{ "$key: $data\n" }}<br>
-                                                @endif
-                                            @endforeach
+                                                    @else
+                                                        {{ "$key: $data\n" }}
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    <td style="padding: 10px;">
+                                        @foreach ($log->properties as $key => $value)
+                                            @if ($key === 'old')
+                                                @foreach ($value as $key => $data)
+                                                    {{ "$key: $data\n" }}
+                                                @endforeach
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    <td style="padding: 10px;">{{ $log->created_at->format('M d, Y') }}</td>
+                                    <td style="padding: 10px;">
+                                        @if ($log->causer)
+                                            {{ $log->causer->name }}
+                                        @else
+                                            System generated
                                         @endif
-                                    @endforeach
-                                </td>
-                                <td>
-                                    @foreach ($log->properties as $key => $value)
-                                        @if ($key === 'old')
-                                            @foreach ($value as $key => $data)
-                                                {{ "$key: $data" }}<br>
-                                            @endforeach
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <td>{{ $log->created_at->format('M d, Y') }}</td>
-                                <td>
-                                    @if ($log->causer)
-                                        {{ $log->causer->name }}
-                                    @else
-                                        System generated
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         @endif
-
-
     </div>
-
-
 </x-modal>

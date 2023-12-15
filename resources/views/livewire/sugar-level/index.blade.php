@@ -1,4 +1,4 @@
-<div>
+<div class="flex w-full">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Sugar Levels') }}
@@ -8,10 +8,10 @@
     {{-- <livewire:sugar-level.show /> --}}
     <livewire:sugar-level.edit />
 
-    <div class="py-12">
+    <div class="flex-1/3 h-fit bg-white rounded-lg p-4 hover:shadow-xl shadow-xl m-4">
         <form wire:submit="store">
             @csrf
-            <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
+            <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight ml-6">
                 {{ __('Create Sugar Level') }}
             </h3>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"
@@ -65,7 +65,7 @@
         </form>
     </div>
 
-    <div class="py-12">
+    <div class="flex-2/3 w-full bg-white rounded-lg p-4 hover:shadow-xl shadow-xl m-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
@@ -153,21 +153,14 @@
                                                 </svg>
                                             </button> --}}
                                             {{-- @unless ($sugarLevel->trashed()) --}}
-                                            <button wire:click.prevent="edit({{ $sizeSugarLevel }})"
-                                                class="px-3 py-1 bg-green-500 text-white rounded">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
-                                                    stroke="currentColor"
-                                                    class="w-6 h-6">
-                                                    <path stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                                </svg>
+                                            <button wire:click.prevent="edit({{ $sizeSugarLevel }})" class="p-2 m-1 bg-green-500 text-white rounded">
+                                                <i class="fas fa-edit"></i>
                                             </button>
-                                            <button wire:click='delete({{ $sizeSugarLevel }})'
-                                                class="px-3 py-1 bg-orange-500 text-white rounded">Delete</button>
+                                            
+                                            <button wire:click='delete({{ $sizeSugarLevel }})' class="p-2 m-1 bg-orange-500 text-white rounded">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                            
                                             {{-- @else --}}
                                             {{-- <button wire:click='restore({{ $sizeSugarLevel->id }})'
                                                 class="px-3 py-1 bg-green-500 text-white rounded">Restore</button> --}}

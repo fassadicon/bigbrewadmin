@@ -10,6 +10,7 @@ use App\Models\InventoryItemConsumption;
 use App\Models\ProductCategory;
 use App\Models\ProductSizeInventory;
 use App\Models\SugarLevel;
+use App\Models\Supplier;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,8 +24,10 @@ class DatabaseSeeder extends Seeder
             // Roles, Permissions, and Users
             PermissionSeeder::class,
             RoleSeeder::class,
+            OwnerSeeder::class,
             SuperAdminSeeder::class,
             AdminSeeder::class,
+            EmployeeSeeder::class,
 
             // Products
             ProductCategorySeeder::class,
@@ -34,13 +37,19 @@ class DatabaseSeeder extends Seeder
 
             // Inventory
             // InventoryItemCategorySeeder::class,
+            SupplierSeeder::class,
             InventoryItemSeeder::class,
             InventoryItemConsumptionSeeder::class,
 
             // Orders
             SugarLevelSeeder::class,
             SizeSugarLevelSeeder::class,
-            OrderSeeder::class
+            OrderSeeder::class,
+
+            // Purchase Orders and Delivery Receives
+            PurchaseOrderSeeder::class,
+            DeliveryReceiveSeeder::class
+
         ]);
     }
 }

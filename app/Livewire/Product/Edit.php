@@ -38,7 +38,7 @@ class Edit extends Component
         $this->all_categories = ProductCategory::select('id', 'name')->get();
         $this->all_inventory_items = InventoryItem::select('id', 'name', 'measurement')->get();
 
-        foreach ($productDetail->sizes as $size) {
+        foreach ($productDetail->sizes as $index => $size) {
             $data = [
                 'size_id' => $size->id,
                 'price' => $size->pivot->price
@@ -46,7 +46,7 @@ class Edit extends Component
             $this->selectedSizeIds[] = $size->id;
 
             foreach ($size->pivot->inventoryItems as $key => $inventoryItem) {
-                $this->selectedInventoryItemIds[$key][] = $inventoryItem->id;
+                $this->selectedInventoryItemIds[$index][] = $inventoryItem->id;
                 $data['inventory_consumption'][] = [
                     'inventory_item_id' => $inventoryItem->id,
                     'consumption_value' => $inventoryItem->pivot->consumption_value
@@ -88,7 +88,7 @@ class Edit extends Component
     {
         $products = $this->form->product;
         $this->selectedSizeIds = array_column($products, 'size_id');
-        $this->selectedInventoryItemIds = array_map(function($product) {
+        $this->selectedInventoryItemIds = array_map(function ($product) {
             return array_column($product['inventory_consumption'], 'inventory_item_id');
         }, $products);
         $this->form->changeSizeOrInventoryItemData();
@@ -101,6 +101,10 @@ class Edit extends Component
 
     public function render()
     {
+        // dd([
+        //     'product' => $this->form->product,
+        //     'inventoryItems' => $this->selectedInventoryItemIds
+        // ]);
         return view('livewire.product.edit');
     }
 }

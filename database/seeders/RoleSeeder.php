@@ -13,6 +13,7 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
+        $owner = Role::create(['name' => 'Owner']);
         $superadmin = Role::create(['name' => 'Super Admin']);
         $superadmin->givePermissionTo([
             'view-role',
@@ -35,5 +36,7 @@ class RoleSeeder extends Seeder
             'create-product',
             'edit-product',
         ]);
+
+        Role::create(['name' => 'Employee']);
     }
 }

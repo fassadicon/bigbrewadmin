@@ -5,9 +5,10 @@ namespace App\Livewire\SugarLevel;
 use App\Models\Size;
 use Livewire\Component;
 use App\Models\SugarLevel;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use App\Models\SizeSugarLevel;
-use Livewire\Attributes\On;
+use Masmerise\Toaster\Toaster;
 use App\Livewire\Forms\CreateSugarLevelForm;
 
 class Index extends Component
@@ -44,6 +45,7 @@ class Index extends Component
     public function delete(SizeSugarLevel $sizeSugarLevel)
     {
         $sizeSugarLevel->delete();
+        Toaster::warning('Sugar level deleted!');
     }
 
     #[On('sugar-level-changed')]

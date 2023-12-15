@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use Livewire\Form;
 use App\Models\Product;
 use App\Models\ProductDetail;
+use Masmerise\Toaster\Toaster;
 
 class CreateProductForm extends Form
 {
@@ -78,21 +79,14 @@ class CreateProductForm extends Form
                 ]);
             }
         }
-
-        // $attributes = ProductDetail::where('id', $productDetail->id)->with(['category', 'sizes.pivot.inventoryItems'])->first();
-        // activity()
-        //     ->performedOn($productDetail)
-        //     ->useLog('Products')
-        //     ->event('created')
-        //     ->withProperty('attributes', $attributes)
-        //     ->log("$productDetail->name has been created by " . auth()->user()->name);
+        return redirect()->to('/products');
     }
 
     public function removeSizeAndPriceData($index)
     {
         if (count($this->product) <= 1) {
-            // Trigger modal/toast here
-            dd('Product must have at least one size. For products with only one size, please select "Fixed".');
+            Toaster::warning('Product must have at least one size. For products with only one size, please select "Fixed".');
+            return;
         }
 
         unset($this->product[$index]);
@@ -102,8 +96,13 @@ class CreateProductForm extends Form
     public function addSizeAndPriceData()
     {
         if ($this->product[count($this->product) - 1]['size_id'] === "") {
-            // Trigger modal/toast here
-            dd('Please select a size before adding another one.');
+            Toaster::warning('Please select a size before adding another one.');
+            return;
+        }
+
+        if ($this->product[count($this->product) - 1]['price'] <= 0) {
+            Toaster::warning('Please put a valid price.');
+            return;
         }
 
         $this->product[] = [
@@ -122,12 +121,11 @@ class CreateProductForm extends Form
     {
         $inventoryConsumption = $this->product[$index]['inventory_consumption'];
         if (count($inventoryConsumption) <= 1) {
-            // Trigger modal/toast here
-            dd('This product instance must have at least one inventory item consumption. Please select an item.');
+            Toaster::warning('This product instance must have at least one inventory item consumption. Please select an item.');
+            return;
         }
 
         unset($this->product[$index]['inventory_consumption'][$key]);
-        // $this->product = array_values($this->product[$index]['inventory_consumption']);
         $this->changeSizeOrInventoryItemData();
     }
 
@@ -135,10 +133,9 @@ class CreateProductForm extends Form
     {
         if ($index !== 0) {
             $lastInventoryItem = count($this->product[$index]['inventory_consumption']) - 1;
-            // dd([$lastInventoryItem, $index]);
             if ($this->product[$index]['inventory_consumption'][$lastInventoryItem]['inventory_item_id'] === "") {
-                // Trigger modal/toast here
-                dd('Please select an item before adding another one.');
+                Toaster::warning('Please select an item before adding another one.');
+                return;
             }
         }
         $this->product[$index]['inventory_consumption'][] =
@@ -146,7 +143,6 @@ class CreateProductForm extends Form
                 'inventory_item_id' => '',
                 'consumption_value' => 0.00,
             ];
-        // dump($lastInventoryItem);
     }
 
     public function changeSizeOrInventoryItemData()

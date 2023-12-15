@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use Livewire\Form;
 use App\Models\User;
 use Livewire\Attributes\Rule;
+use Masmerise\Toaster\Toaster;
 
 class EditUserForm extends Form
 {
@@ -12,24 +13,6 @@ class EditUserForm extends Form
     public $name;
     public $email;
     public $role;
-
-    // public function rules()
-    // {
-    //     return [
-    //         'name' => 'required|string|max:255|unique:product_categories,name,' . $this->size->id,
-    //         'measurement' => 'required',
-    //         'description' => 'nullable|string'
-    //     ];
-    // }
-
-    // public function validationAttributes()
-    // {
-    //     return [
-    //         'name' => 'name',
-    //         'measurement' => 'measurement',
-    //         'description' => 'description'
-    //     ];
-    // }
 
     public function loadFields(User $user)
     {
@@ -39,14 +22,29 @@ class EditUserForm extends Form
         $this->role = $user->role;
     }
 
-    // public function update()
-    // {
-    //     $this->validate();
+    public function update()
+    {
+        $this->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class . ',email,' . $this->user->id],
+        ]);
 
-    //     $this->size->update([
-    //         'name' => $this->name,
-    //         'measurement' => $this->measurement,
-    //         'description' => $this->description,
-    //     ]);
-    // }
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $randomString = '';
+
+        for ($i = 0; $i < 8; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        $validated['created_by'] = auth()->id();
+
+        $this->user->update([
+            'name' => $this->name,
+            'email' => $this->email
+        ]);
+
+        $this->user->assignRole($this->role);
+
+        Toaster::success('User updated');
+        return redirect()->route('users');
+    }
 }

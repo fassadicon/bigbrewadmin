@@ -17,7 +17,7 @@ new class extends Component {
 }; ?>
 
 <nav x-data="{ open: false }"
-    class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+    class="fixed h-16 w-screen bg-amber-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -26,11 +26,13 @@ new class extends Component {
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}"
                         wire:navigate>
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+
+                        <img src="{{ asset('storage/img/bigbrew-logo.png') }}"
+                            class="block h-9 w-auto fill-current text-gray-200 dark:text-gray-200" />
                     </a>
                 </div>
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')"
                         :active="request()->routeIs('dashboard')"
                         wire:navigate>
@@ -94,7 +96,7 @@ new class extends Component {
                             {{ __('Users') }}
                         </x-nav-link>
                     </div>
-                @endcan
+                @endcan --}}
             </div>
 
             <!-- Settings Dropdown -->
@@ -103,7 +105,7 @@ new class extends Component {
                     width="48">
                     <x-slot name="trigger">
                         <button
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white dark:text-white bg-amber-800 dark:bg-red-950 hover:text-red-200 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                             <div x-data="{ name: '{{ auth()->user()->name }}' }"
                                 x-text="name"
                                 x-on:profile-updated.window="name = $event.detail.name"></div>

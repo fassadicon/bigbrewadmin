@@ -4,8 +4,12 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\OrderItem;
 use App\Models\ProductDetail;
+use App\Models\PurchaseOrder;
 use Illuminate\Support\Carbon;
+use App\Models\DeliveryReceive;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\PurchaseOrderItem;
+use App\Models\DeliveryReceiveItem;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,8 +27,10 @@ Route::view('/', 'welcome');
 
 Route::middleware(['auth'])->group(function () {
     // Dashboard
-    Route::view('dashboard', 'dashboard')
-        ->name('dashboard');
+    // Route::view('dashboard', 'dashboard')
+    //     ->name('dashboard');
+    Route::get('dashboard', App\Livewire\Dashboard\Index::class)->name('dashboard');
+    Route::get('pos', App\Livewire\Pos\Index::class)->name('pos');
 
     // Product
     Route::prefix('products')->group(function () {
@@ -72,37 +78,51 @@ Route::middleware(['auth'])->group(function () {
     Route::get('sugar-levels', App\Livewire\SugarLevel\Index::class)
         ->name('sugar-levels');
 
+    // Purchase Orders
+    Route::prefix('purchase-orders')->group(function () {
+        Route::get('/', App\Livewire\PurchaseOrder\Index::class)
+            ->name('purchase-orders');
+        Route::get('create', App\Livewire\PurchaseOrder\Create::class)
+            ->name('purchase-orders.create');
+        Route::get('edit/{purchaseOrder}', App\Livewire\PurchaseOrder\Edit::class)
+            ->name('purchase-orders.edit');
+        Route::get('return-order/{purchaseOrder}', App\Livewire\PurchaseOrder\ReturnOrder::class)
+            ->name('purchase-orders.return-order');
+    });
+
+    // Delivery Receives
+    Route::prefix('delivery-receives')->group(function () {
+        Route::get('/', App\Livewire\DeliveryReceive\Index::class)
+            ->name('delivery-receives');
+        Route::get('create/{purchaseOrder}', App\Livewire\DeliveryReceive\Create::class)
+            ->name('delivery-receives.create');
+    });
+
     // Profile
     Route::view('profile', 'profile')
         ->name('profile');
 
     Route::get('test', function () {
-        $orders = Order::withTrashed()
-            ->with('payment', 'orderItems', 'user')
-            ->get();
+        $order = Order::with('orderItems', 'payment')->where('id', 1)->first();
 
-        $totalSales = $orders->where('status', 1)->sum('total_amount');
-        $completedOrders = $orders->where('status', 1)->count();
-        $cancelledOrders = $orders->where('status', 2)->count();
+        $pdf = Pdf::setPaper(array(0, 0, 200, 500))
+            ->loadView('exports.receipt', [
+                'order' => $order,
+            ]);
+        // ->output();
 
-        $totalCashPayments = $orders->where('status', 1)
-            ->where('payment.method', 1)
-            ->sum('total_amount');
-        $totalOnlinePayments = $orders->where('status', 1)
-            ->where('payment.method', 2)
-            ->sum('total_amount');
+        $page_count = $pdf->get_canvas()->get_page_number();
 
-        $pdf = Pdf::loadView('exports.sales', [
-            'orders' => $orders,
-            'totalSales' => $totalSales,
-            'totalCashPayments' => $totalCashPayments,
-            'totalOnlinePayments' => $totalOnlinePayments,
-            'completedOrders' => $completedOrders,
-            'cancelledOrders' => $cancelledOrders,
-            'date' => Carbon::today()->format('F j, Y')
-        ]);
+        $printPDF =  Pdf::setPaper(array(0, 0, 200, 500 * $page_count))
+            ->loadView('exports.receipt', [
+                'order' => $order,
+            ])
+            ->output();
 
-        return $pdf->download('sales.pdf');
+        return response()->streamDownload(
+            fn () => print($printPDF),
+            "receipt.pdf"
+        );
     });
 });
 

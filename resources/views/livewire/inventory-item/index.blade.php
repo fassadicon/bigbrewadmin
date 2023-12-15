@@ -3,9 +3,6 @@
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Inventory Items') }}
         </h2>
-        <button x-data=""
-            x-on:click.prevent="$dispatch('open-modal', 'create-inventory-item')"
-            class="px-3 py-1 bg-green-500 text-white rounded">Create</button>
     </x-slot>
 
     <livewire:inventory-item.create />
@@ -13,6 +10,11 @@
     <livewire:inventory-item.edit />
 
     {{-- Table --}}
+    @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
+        <button x-data=""
+            x-on:click.prevent="$dispatch('open-modal', 'create-inventory-item')"
+            class="px-3 py-1 bg-red-500 text-white rounded ml-8">Create</button>
+    @endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -100,39 +102,24 @@
                                             ])
                                         </td>
                                         <td class="px-4 py-3 flex items-center justify-center">
-                                            <button wire:click.prevent="show({{ $inventoryItem->id }})"
-                                                class="px-3 py-1 bg-blue-500 text-white rounded">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
-                                                    stroke="currentColor"
-                                                    class="w-6 h-6">
-                                                    <path stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                                </svg>
+                                            <button wire:click.prevent="show({{ $inventoryItem->id }})" class="p-2 m-1 bg-blue-500 text-white rounded">
+                                                <i class="fas fa-eye"></i>
                                             </button>
-                                            @unless ($inventoryItem->trashed())
-                                                <button wire:click.prevent="edit({{ $inventoryItem }})"
-                                                    class="px-3 py-1 bg-green-500 text-white rounded">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                        fill="none"
-                                                        viewBox="0 0 24 24"
-                                                        stroke-width="1.5"
-                                                        stroke="currentColor"
-                                                        class="w-6 h-6">
-                                                        <path stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                                    </svg>
-                                                </button>
-                                                <button wire:click='delete({{ $inventoryItem }})'
-                                                    class="px-3 py-1 bg-orange-500 text-white rounded">Archive</button>
-                                            @else
-                                                <button wire:click='restore({{ $inventoryItem->id }})'
-                                                    class="px-3 py-1 bg-green-500 text-white rounded">Restore</button>
-                                            @endunless
+                                        
+                                            @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
+                                                @unless ($inventoryItem->trashed())
+                                                    <button wire:click.prevent="edit({{ $inventoryItem }})" class="p-2 m-1 bg-green-500 text-white rounded">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </button>
+                                                    <button wire:click='delete({{ $inventoryItem }})' class="p-2 m-1 bg-orange-500 text-white rounded">
+                                                        <i class="fas fa-archive"></i>
+                                                    </button>
+                                                @else
+                                                    <button wire:click='restore({{ $inventoryItem->id }})' class="p-2 m-1 bg-green-500 text-white rounded">
+                                                        <i class="fas fa-undo"></i>
+                                                    </button>
+                                                @endunless
+                                            @endif
                                         </td>
                                     </tr>
                                 @empty

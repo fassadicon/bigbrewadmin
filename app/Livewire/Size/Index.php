@@ -6,6 +6,7 @@ use App\Models\Size;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use Masmerise\Toaster\Toaster;
 use Illuminate\Support\Facades\DB;
 use App\Livewire\Forms\CreateSizeForm;
 
@@ -15,7 +16,7 @@ class Index extends Component
     public $perPage = 5;
 
     public $search = '';
-    public $status = 'active';
+    public $status = '';
 
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
@@ -42,11 +43,13 @@ class Index extends Component
     public function delete(Size $size)
     {
         $size->delete();
+        Toaster::warning('Size archived!');
     }
 
     public function restore(int $id)
     {
         Size::withTrashed()->where('id', $id)->first()->restore();
+        Toaster::success('Size restored!');
     }
 
 

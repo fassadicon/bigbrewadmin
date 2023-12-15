@@ -4,12 +4,13 @@ namespace App\Livewire\Product;
 
 use App\Models\Size;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use App\Models\InventoryItem;
 use Livewire\WithFileUploads;
+use Masmerise\Toaster\Toaster;
 use App\Models\ProductCategory;
 use Spatie\Activitylog\Models\Activity;
 use App\Livewire\Forms\CreateProductForm;
-use Livewire\Attributes\On;
 
 class Create extends Component
 {
@@ -53,8 +54,8 @@ class Create extends Component
     public function addSizeAndPrice()
     {
         if (count($this->form->product) >= $this->all_sizes->count()) {
-            // Trigger modal/toast here
-            dd('No more available sizes! Please select the available options.');
+            Toaster::warning('No more available sizes! Please select the available options.');
+            return;
         }
 
         $this->form->addSizeAndPriceData();
