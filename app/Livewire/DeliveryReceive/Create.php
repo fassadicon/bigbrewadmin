@@ -109,7 +109,7 @@ class Create extends Component
 
             InventoryLog::create([
                 'inventory_item_id' => $deliveryReceiveItem->inventoryItem->id,
-                'user_id' => 1,
+                'user_id' => auth()->id(),
                 'type' => 'in',
                 'amount' => $addedStock,
                 'old_stock' => $remainingStocks,

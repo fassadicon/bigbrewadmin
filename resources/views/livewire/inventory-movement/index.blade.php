@@ -179,7 +179,7 @@
                                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                     <thead>
                                         <th scope="col" class="px-4 py-3">Inventory Item</th>
-                                        <th scope="col" class="px-4 py-3">type</th>
+                                        <th scope="col" class="px-4 py-3">Type</th>
                                         <th scope="col" class="px-4 py-3">Amount</th>
                                         <th scope="col" class="px-4 py-3">Old Stock</th>
                                         <th scope="col" class="px-4 py-3">New Stock</th>
@@ -187,7 +187,7 @@
                                         <th scope="col" class="px-4 py-3">Action by</th>
                                         <th scope="col" class="px-4 py-3">Date</th>
                                         <th scope="col" class="px-4 py-3">
-                                            Actions
+                                            Remarks
                                             {{-- <span class="sr-only">Actions</span> --}}
                                         </th>
                                     </thead>
@@ -197,18 +197,20 @@
                                         <tr wire:key="{{ $inventoryLog->id }}" class="border-b dark:border-gray-700">
                                             <th scope="row"
                                                 class="px-4 py-3 font-medium whitespace-nowrap text-gray-900">
-                                                {{ $inventoryLog->inventoryItem->name }}
+                                                {{ $inventoryLog->inventoryItem->name }} ({{
+                                                $inventoryLog->inventoryItem->measurement }})
                                             </th>
                                             <th scope="row"
                                                 class="px-4 py-3 font-medium whitespace-nowrap text-gray-900">
                                                 {{ $inventoryLog->type }}
                                             </th>
-                                            <td>{{ $inventoryLog->amount }}</td>
+                                            <td>{{ $inventoryLog->amount }} </td>
                                             <td>{{ $inventoryLog->old_stock }}</td>
                                             <td>{{ $inventoryLog->new_stock }}</td>
                                             <td>{{ $inventoryLog->supplier->name }}</td>
                                             <td>{{ $inventoryLog->user->name }}</td>
                                             <td>{{ $inventoryLog->created_at }}</td>
+                                            <td>{{ $inventoryLog->remarks }}</td>
 
                                             {{-- <td>
                                                 @include('includes.table.deleted_at-td', [
