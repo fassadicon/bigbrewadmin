@@ -5,6 +5,10 @@ namespace App\Livewire\User;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Mail\SetPasswordMail;
+use Masmerise\Toaster\Toaster;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class Index extends Component
 {
@@ -39,6 +43,26 @@ class Index extends Component
         User::withTrashed()->where('id', $id)->first()->restore();
     }
 
+
+    public function resetPassword(User $user)
+    {
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $randomString = '';
+
+        for ($i = 0; $i < 8; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+
+        $newPassword = Hash::make($randomString);
+
+        $user->update([
+            'password' => $newPassword
+        ]);
+
+        $getUser = User::where('id', $user->id)->first();
+        Mail::to($getUser->email)->send(new SetPasswordMail($getUser, $randomString));
+        Toaster::success('An email has been sent for password reset');
+    }
 
     public function render()
     {

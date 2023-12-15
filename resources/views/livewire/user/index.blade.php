@@ -111,7 +111,7 @@
                                         <button wire:click='restore({{ $user->id }})'
                                             class="px-3 py-1 bg-green-500 text-white rounded">Restore</button>
                                         @endunless
-                                        <button wire:click='reset({{ $user->id }})'
+                                        <button wire:click='resetPassword({{ $user }})'
                                             class="px-3 py-1 bg-yellow-500 text-white rounded">Reset
                                             Password</button>
                                         @endif
