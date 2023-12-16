@@ -4,6 +4,7 @@ namespace App\Livewire\User;
 
 use App\Models\User;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use App\Mail\SetPasswordMail;
 use Masmerise\Toaster\Toaster;
@@ -36,11 +37,13 @@ class Index extends Component
     public function delete(User $user)
     {
         $user->delete();
+        Toaster::warning('User archived');
     }
 
     public function restore(int $id)
     {
         User::withTrashed()->where('id', $id)->first()->restore();
+        Toaster::success('User restored');
     }
 
 
@@ -64,11 +67,15 @@ class Index extends Component
         Toaster::success('An email has been sent for password reset');
     }
 
+    #[On('user-changed')]
+    public function refresh() {}
+
     public function render()
     {
         $users = User::withTrashed()
             ->with('roles.permissions')
             ->whereNot('id', [auth()->id()])
+            ->whereNot('id', 1)
             ->search($this->search)
             ->when($this->status !== '', function ($query) {
                 $query->when($this->status === 'active', function ($query) {
@@ -78,9 +85,7 @@ class Index extends Component
                 });
             })
             ->orderBy($this->sortBy, $this->sortDir)
-            // ->get();
             ->paginate($this->perPage);
-        // dd($users);
 
         return view('livewire.user.index', ['users' => $users]);
     }

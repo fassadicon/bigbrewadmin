@@ -5,99 +5,86 @@
         <h1>{{ $selectedPurchaseOrder->supplier->name }}</h1>
 
         @foreach ($deliveryReceiveItems as $key => $deliveryReceiveItem)
-            <div class="relative z-0 w-full mb-5 group">
-                <label for="inventory_item_id"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Inventory
-                    Item</label>
-                <input wire:model='deliveryReceiveItems.{{ $key }}.inventory_item_id'
-                    type="text"
-                    readonly>
-                @php
-                    $inventoryItemName = \App\Models\InventoryItem::where('id', $deliveryReceiveItem['inventory_item_id'])
-                        ->pluck('name')
-                        ->first();
-                @endphp
-                <p>{{ $inventoryItemName }}</p>
-                @error("deliveryReceiveItems.$key.inventoryItem")
-                    <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
-                        {{ $message }}
-                    </span>
-                @enderror
-            </div>
-            <div class="relative z-0 w-full mb-5 group">
-                <label for="expected_quantity_{{ $key }}"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expected Quantity to be
-                    Received</label>
-                <input wire:model="deliveryReceiveItems.{{ $key }}.expected_quantity"
-                    wire:change='updateAmount({{ $key }},
-                    $event.target.value)'
-                    wire:keyup='updateAmount({{ $key }}, $event.target.value)'
-                    id="quantity_{{ $key }}"
-                    type="text"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    readonly>
-                @error("deliveryReceiveItems.$key.expected_quantity")
-                    <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
-                        {{ $message }}
-                    </span>
-                @enderror
-            </div>
-            <div class="relative z-0 w-full mb-5 group">
-                <label for="quantity_{{ $key }}"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Received</label>
-                <input wire:model="deliveryReceiveItems.{{ $key }}.quantity"
-                    wire:change='updateReceived({{ $key }}, $event.target.value)'
-                    wire:keyup='updateReceived({{ $key }}, $event.target.value)'
-                    id="quantity_{{ $key }}"
-                    type="text"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                @error("deliveryReceiveItems.$key.quantity")
-                    <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
-                        {{ $message }}
-                    </span>
-                @enderror
-            </div>
-            <div class="relative z-0 w-full mb-5 group">
-                <label for="pending_{{ $key }}"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pending</label>
-                <input wire:model="deliveryReceiveItems.{{ $key }}.pending"
-                    id="pending_{{ $key }}"
-                    type="text"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    readonly>
-                @error("deliveryReceiveItems.$key.pending")
-                    <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
-                        {{ $message }}
-                    </span>
-                @enderror
-            </div>
-            <div class="relative z-0 w-full mb-5 group">
-                <label for="amount_{{ $key }}"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
-                <input wire:model.live="deliveryReceiveItems.{{ $key }}.amount"
-                    id="amount_{{ $key }}"
-                    type="text"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    readonly>
-                @error("deliveryReceiveItems.$key.amount")
-                    <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
-                        {{ $message }}
-                    </span>
-                @enderror
-            </div>
-            <div class="relative z-0 w-full mb-5 group">
-                <label for="description_{{ $key }}"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                <input wire:model="deliveryReceiveItems.{{ $key }}.description"
-                    id="description_{{ $key }}"
-                    type="text"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                @error("deliveryReceiveItems.$key.description")
-                    <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
-                        {{ $message }}
-                    </span>
-                @enderror
-            </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <label for="inventory_item_id"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Inventory
+                Item</label>
+            <input wire:model='deliveryReceiveItems.{{ $key }}.inventory_item_id' type="text" readonly hidden>
+            @php
+            $inventoryItemName = \App\Models\InventoryItem::where('id', $deliveryReceiveItem['inventory_item_id'])
+            ->pluck('name')
+            ->first();
+            @endphp
+            <p>{{ $inventoryItemName }}</p>
+            @error("deliveryReceiveItems.$key.inventoryItem")
+            <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
+                {{ $message }}
+            </span>
+            @enderror
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <label for="expected_quantity_{{ $key }}"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expected Quantity to be
+                Received</label>
+            <input wire:model="deliveryReceiveItems.{{ $key }}.expected_quantity" wire:change='updateAmount({{ $key }},
+                    $event.target.value)' wire:keyup='updateAmount({{ $key }}, $event.target.value)'
+                id="quantity_{{ $key }}" type="text"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                readonly>
+            @error("deliveryReceiveItems.$key.expected_quantity")
+            <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
+                {{ $message }}
+            </span>
+            @enderror
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <label for="quantity_{{ $key }}"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Received</label>
+            <input wire:model="deliveryReceiveItems.{{ $key }}.quantity"
+                wire:change='updateReceived({{ $key }}, $event.target.value)'
+                wire:keyup='updateReceived({{ $key }}, $event.target.value)' id="quantity_{{ $key }}" type="text"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            @error("deliveryReceiveItems.$key.quantity")
+            <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
+                {{ $message }}
+            </span>
+            @enderror
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <label for="pending_{{ $key }}"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pending</label>
+            <input wire:model="deliveryReceiveItems.{{ $key }}.pending" id="pending_{{ $key }}" type="text"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                readonly>
+            @error("deliveryReceiveItems.$key.pending")
+            <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
+                {{ $message }}
+            </span>
+            @enderror
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <label for="amount_{{ $key }}"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
+            <input wire:model.live="deliveryReceiveItems.{{ $key }}.amount" id="amount_{{ $key }}" type="text"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                readonly>
+            @error("deliveryReceiveItems.$key.amount")
+            <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
+                {{ $message }}
+            </span>
+            @enderror
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <label for="description_{{ $key }}"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+            <input wire:model="deliveryReceiveItems.{{ $key }}.description" id="description_{{ $key }}" type="text"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            @error("deliveryReceiveItems.$key.description")
+            <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
+                {{ $message }}
+            </span>
+            @enderror
+        </div>
         @endforeach
         <div class="mb-6">
             <button type="submit"
