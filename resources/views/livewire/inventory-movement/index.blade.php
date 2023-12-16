@@ -14,13 +14,11 @@
     </button>
     @endif
 
-    <button wire:click='generateWastage' class="p-2 m-1 px-3 py-1 bg-red-500 text-white rounded ml-8">
+    <button wire:click='generateWastage' class="p-2 m-1 px-3 py-1 bg-amber-800 bg-amber-950 text-white rounded ml-8">
         <i class="fas fa-download mr-2"></i>Export Wastage
     </button>
 
-    <button wire:click='export' class="p-2 m-1 px-3 py-1 bg-red-500 text-white rounded ml-8">
-        <i class="fas fa-download mr-2"></i>Export
-    </button>
+    
 
     <div class="flex space-x-6">
         <div class="w-1/2 w-fit">
@@ -103,9 +101,15 @@
         <div class="w-1/2 w-fit">
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight ml-6">
-                        {{ __('Inventory Momevemnts') }}
-                    </h3>
+                    <div class="flex items-center">
+                        <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight ml-6">
+                            {{ __('Inventory Movements') }}
+                        </h3>
+                        <button wire:click='export' class="p-2 m-1 px-3 py-1 bg-amber-800 hover:bg-amber-950 text-white rounded ml-8">
+                            <i class="fas fa-download mr-2"></i>Export
+                        </button>
+                    </div>
+                    
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                             {{-- Search Filters --}}

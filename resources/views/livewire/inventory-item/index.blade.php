@@ -13,7 +13,7 @@
     @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
         <button x-data=""
             x-on:click.prevent="$dispatch('open-modal', 'create-inventory-item')"
-            class="px-3 py-1 bg-red-500 text-white rounded ml-8">Create</button>
+            class="px-3 py-1 bg-amber-800 hover:bg-amber-950 text-white rounded ml-8">Create</button>
     @endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

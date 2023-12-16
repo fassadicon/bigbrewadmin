@@ -1,7 +1,7 @@
 <div>
     <div class="md:flex space-x-3 flex-1 lg:ml-8">
         <button wire:click="selectCategory('')"
-            class="px-2 py-2 text-sm hover:bg-gray-100 rounded-lg text-gray-700 hover:text-red-500">All</button>
+        class="px-3 py-2 text-xs w-16 font-medium leading-5 text-white transition-colors duration-150 bg-amber-400 border border-transparent rounded-lg active:bg-amber-800 hover:bg-amber-600 focus:outline-none focus:shadow-outline-gray focus:border-gray-800">All</button>
         @foreach ($allCategories as $category)
             <button 
                 wire:click="selectCategory({{ $category->id }})"

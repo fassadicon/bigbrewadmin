@@ -1,45 +1,44 @@
-<x-modal name="show-user">
+<x-modal name="show-user" class="p-6 mx-auto max-w-md bg-white rounded-md shadow-md m-4">
     <div wire:loading.class="invisible">
         @if ($user)
-            <h1>{{ $user->name }}</h1>
-            <h1>{{ $user->email }}</h1>
-            {{-- <h1>{{ $size->role }}</h1> --}}
-            <h1>Superadmin</h1>
-            <h1>Products with this size:</h1>
+            <h1 class="text-2xl font-bold">{{ $user->name }}</h1>
+            <h1 class="text-lg text-gray-600">{{ $user->email }}</h1>
+            <h1 class="text-lg text-green-600">Superadmin</h1>
+            <h1 class="text-lg mt-4">Products with this size:</h1>
 
-            <div class="">
-                <table>
-                    <thead>
-                        <th>Log</th>
-                        <th>Current</th>
-                        <th>Old</th>
-                        <th>Date</th>
-                        <th>Activity by</th>
+            <div class="mt-4">
+                <table class="w-full border-collapse border border-gray-300 m-4">
+                    <thead class="bg-gray-100">
+                        <th class="p-3">Log</th>
+                        <th class="p-3">Current</th>
+                        <th class="p-3">Old</th>
+                        <th class="p-3">Date</th>
+                        <th class="p-3">Activity by</th>
                     </thead>
                     <tbody>
                         @foreach ($logs as $log)
-                            <tr>
-                                <td>{{ $log->description }}</td>
-                                <td>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3">{{ $log->description }}</td>
+                                <td class="p-3">
                                     @foreach ($log->properties as $key => $value)
                                         @if ($key === 'attributes')
                                             @foreach ($value as $key => $data)
-                                                {{ "$key: $data\n" }}<br>
+                                                {{ "$key: $data\n" }}
                                             @endforeach
                                         @endif
                                     @endforeach
                                 </td>
-                                <td>
+                                <td class="p-3">
                                     @foreach ($log->properties as $key => $value)
                                         @if ($key === 'old')
                                             @foreach ($value as $key => $data)
-                                                {{ "$key: $data" }}<br>
+                                                {{ "$key: $data\n" }}
                                             @endforeach
                                         @endif
                                     @endforeach
                                 </td>
-                                <td>{{ $log->created_at->format('M d, Y') }}</td>
-                                <td>
+                                <td class="p-3">{{ $log->created_at->format('M d, Y') }}</td>
+                                <td class="p-3">
                                     @if ($log->causer)
                                         {{ $log->causer->name }}
                                     @else
@@ -50,12 +49,7 @@
                         @endforeach
                     </tbody>
                 </table>
-
             </div>
         @endif
-
-
     </div>
-
-
 </x-modal>
