@@ -18,7 +18,8 @@ class ProductCard extends Component
     public $selectedCategoryId = '';
     public $allCategories;
 
-    public function mount() {
+    public function mount()
+    {
         $this->allCategories = ProductCategory::all();
     }
 
@@ -66,7 +67,14 @@ class ProductCard extends Component
     public function render()
     {
         // dd($this->selectedCategoryId);
-        $productDetails = ProductDetail::with(['category', 'sizes.pivot.inventoryItems'])
+        $productDetails = ProductDetail::with([
+            'category' => function ($query) {
+                $query->withTrashed();
+            },
+            'sizes.pivot.inventoryItems' => function ($query) {
+                $query->withTrashed();
+            }
+        ])
             ->when($this->selectedCategoryId !== '', function ($query) {
                 $query->where('category_id', $this->selectedCategoryId);
             })

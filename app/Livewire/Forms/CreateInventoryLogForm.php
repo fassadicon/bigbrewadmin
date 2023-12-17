@@ -2,10 +2,11 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\InventoryItem;
-use App\Models\InventoryLog;
-use Livewire\Attributes\Rule;
 use Livewire\Form;
+use App\Models\InventoryLog;
+use App\Models\InventoryItem;
+use Livewire\Attributes\Rule;
+use Masmerise\Toaster\Toaster;
 
 class CreateInventoryLogForm extends Form
 {
@@ -43,6 +44,10 @@ class CreateInventoryLogForm extends Form
     {
         $this->validate();
 
+        if ($this->amount < 1) {
+            Toaster::warning('Inventory movement amount must be greater than 0');
+            return;
+        }
 
         $inventoryItem = InventoryItem::where('id', $this->inventory_item_id)->first();
 
