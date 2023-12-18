@@ -15,7 +15,22 @@ class Index extends Component
 {
     public function render()
     {
-        $currentSalesToday = Order::whereDate('created_at', Carbon::today())->sum('total_amount');
+        $today = Carbon::now();
+        $currentSalesToday = Order::whereDate('created_at', $today)->sum('total_amount');
+
+        $startOfWeek = $today->startOfWeek();
+        $endOfWeek = $today->endOfWeek();
+        $currentSalesWeek = Order::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
+
+        $startOfMonth = $today->startOfMonth();
+        $endOfMonth = $today->endOfMonth();
+
+        $currentSalesMonth = Order::whereBetween('created_at', [$startOfMonth, $endOfMonth])->sum('total_amount');
+
+        $currentYear = $today->year;
+        $startOfYear = Carbon::create($currentYear, 1, 1);
+        $endOfYear = Carbon::create($currentYear, 12, 31);
+        $currentSalesYear = Order::whereBetween('created_at', [$startOfYear, $endOfYear])->sum('total_amount');
 
         $inventoryItems = InventoryItem::select('name', 'remaining_stocks', 'warning_value')->get();
 
@@ -59,6 +74,9 @@ class Index extends Component
         return view('livewire.dashboard.index', [
             'columnChartModel' => $columnChartModel,
             'currentSalesToday' => $currentSalesToday,
+            'currentSalesWeek' => $currentSalesWeek,
+            'currentSalesMonth' => $currentSalesMonth,
+            'currentSalesYear' => $currentSalesYear,
             'lowInventoryItems' => $lowInventoryItems,
             'purchaseOrdersAmount' => $purchaseOrdersAmount,
             'pendingPurchaseOrdersAmount' => $pendingPurchaseOrdersAmount,

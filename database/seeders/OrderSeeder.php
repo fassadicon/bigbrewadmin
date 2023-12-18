@@ -19,7 +19,9 @@ class OrderSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (range(1, 15) as $orderCount) {
+        $currentYear = Carbon::now()->year;
+        foreach (range(1, 50) as $orderCount) {
+            $randomDay = Carbon::createFromDate($currentYear, 1, 1)->addDays(mt_rand(0, Carbon::createFromDate($currentYear, 12, 31)->dayOfYear - 1));
             $orderItemsCount = rand(0, 2);
             $totalAmount = 0;
             $orderItems = [];
@@ -28,7 +30,9 @@ class OrderSeeder extends Seeder
                 $orderItem = [
                     'product_id' => $product->id,
                     'amount' => $product->price,
-                    'quantity' => rand(1, 2)
+                    'quantity' => rand(1, 2),
+                    'created_at' => $randomDay,
+                    'updated_at' => $randomDay
                 ];
                 $totalAmount += $product->price * $orderItem['quantity'];
                 array_push($orderItems, $orderItem);
@@ -40,7 +44,9 @@ class OrderSeeder extends Seeder
             $payment = Payment::create([
                 'payment_received' => $paymentReceived,
                 'amount' => $totalAmount,
-                'change' => $paymentReceived - $totalAmount
+                'change' => $paymentReceived - $totalAmount,
+                'created_at' => $randomDay,
+                'updated_at' => $randomDay
             ]);
 
             $order = Order::create([
@@ -48,7 +54,8 @@ class OrderSeeder extends Seeder
                 'payment_id' => $payment->id,
                 'total_amount' => $payment->amount,
                 'customer_name' => fake()->name(),
-                'created_at' => Carbon::now()->subDays(rand(1, 7))
+                'created_at' => $randomDay,
+                'updated_at' => $randomDay
             ]);
 
             foreach ($orderItems as $orderItem) {
@@ -76,7 +83,8 @@ class OrderSeeder extends Seeder
                         'old_stock' => $remainingStocks,
                         'new_stock' => $newStocks,
                         'remarks' => 'Order for ' . $orderItem->product->productDetail->name,
-                        'created_at' => Carbon::now()->subDays(rand(1, 7))
+                        'created_at' => $randomDay,
+                        'updated_at' => $randomDay
                     ]);
                 }
             }
