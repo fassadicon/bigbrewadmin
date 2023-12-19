@@ -12,6 +12,7 @@
         Create Supplier
     </button>
     <livewire:supplier.create />
+    <livewire:supplier.show />
 
 
     {{-- <livewire:size.show />
