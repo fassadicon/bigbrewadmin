@@ -82,6 +82,15 @@
             <span class="ml-2 duration-300 ease-in-out"
                 :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Inventory Movements</span>
         </a>
+        @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Owner'))
+        <a href="{{ route('suppliers') }}" title="Suppliers"
+            class="flex items-center h-10 px-3 {{ $activePage == 'users' ? 'text-white bg-amber-700' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
+            wire:navigate>
+            <i class="fa-solid fa-user flex-shrink-0 w-6"></i>
+            <span class="ml-2 duration-300 ease-in-out"
+                :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Suppliers</span>
+        </a>
+        @endif
         <a href="{{ route('purchase-orders') }}" title="Purchase Orders"
             class="flex items-center h-10 px-3 {{ $activePage == 'purchase-orders' ? 'text-white bg-amber-700' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
             wire:navigate>

@@ -98,6 +98,10 @@ Route::middleware(['auth'])->group(function () {
             ->name('delivery-receives.create');
     });
 
+    // Suppliers
+    Route::get('suppliers', App\Livewire\Supplier\Index::class)
+        ->name('suppliers');
+
     // Profile
     Route::view('profile', 'profile')
         ->name('profile');
