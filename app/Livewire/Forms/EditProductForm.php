@@ -79,6 +79,7 @@ class EditProductForm extends Form
         ]);
 
         Toaster::success('Product updated successfully!');
+        return redirect()->to('/products');
     }
 
     public function removeSizeAndPriceData($index)
