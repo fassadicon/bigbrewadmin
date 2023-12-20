@@ -122,6 +122,10 @@
                                                         Delete
                                                     </button>
                                                 @endif
+                                                <button wire:click='printPO({{ $purchaseOrder->id }})'
+                                                    class="p-2 m-1 px-3 py-1 bg-yellow-500 text-white rounded">
+                                                    Print
+                                                </button>
                                             @else
                                                 <button wire:click='restore({{ $purchaseOrder->id }})'
                                                     class="p-2 m-1 px-3 py-1 bg-green-500 text-white rounded">

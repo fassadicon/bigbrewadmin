@@ -4,7 +4,7 @@
             <div style="padding: 20px;">
 
                 <h1 style="font-size: 24px; margin-bottom: 10px;">{{ $inventoryItem->name }}</h1>
-                <p style="font-size: 16px; margin-bottom: 10px;">{{ $inventoryItem->measurement }}</p>
+                <p style="font-size: 16px; margin-bottom: 10px;">Measurement: {{ $inventoryItem->measurement }}</p>
                 <p style="font-size: 16px; margin-bottom: 20px;">{{ $inventoryItem->description }}</p>
 
                 <h2 style="font-size: 18px; margin-bottom: 10px;">Products with this size:</h2>

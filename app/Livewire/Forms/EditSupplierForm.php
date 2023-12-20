@@ -25,7 +25,6 @@ class EditSupplierForm extends Form
     {
         return [
             'name' => 'name',
-            'measurement' => 'measurement',
             'description' => 'description'
         ];
     }

@@ -8,6 +8,7 @@ use Livewire\WithPagination;
 use App\Models\InventoryItem;
 use App\Models\PurchaseOrder;
 use Masmerise\Toaster\Toaster;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Index extends Component
 {
@@ -73,9 +74,22 @@ class Index extends Component
         Toaster::success('Size restored!');
     }
 
+    public function printPO(int $id) {
+        $po = PurchaseOrder::with('purchaseOrderItems.inventoryItem', 'supplier', 'user')->where('id', $id)->first();
+
+        $pdf = Pdf::loadView('exports.purchase-order', [
+            'purchaseOrder' => $po,
+        ])->output();
+
+        return response()->streamDownload(
+            fn () => print($pdf),
+            "PO-$po->id.pdf"
+        );
+    }
     public function render()
     {
         $purchaseOrders = PurchaseOrder::withTrashed()
+        ->with('purchaseOrderItems.inventoryItem', 'supplier')
         ->when($this->type !== '', function ($query) {
             $query->where('status', $this->type);
         })
