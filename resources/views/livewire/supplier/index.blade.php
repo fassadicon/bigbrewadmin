@@ -13,6 +13,7 @@
     </button>
     <livewire:supplier.create />
     <livewire:supplier.show />
+    <livewire:supplier.edit />
 
 
     {{-- <livewire:size.show />
@@ -71,7 +72,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                     {{-- Search Filters --}}
-                    {{-- <div class="flex items-center justify-between d p-4">
+                    <div class="flex items-center justify-between d p-4">
                         <div class="flex">
                             <div class="relative w-full">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -88,7 +89,7 @@
                                 <input wire:model.live.debounce.300ms='search'
                                     type="text"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 "
-                                    placeholder="Search name, measurement, or description"
+                                    placeholder="Search name or description"
                                     required="">
                             </div>
                         </div>
@@ -103,7 +104,7 @@
                                 </select>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                     {{-- Table Proper --}}
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">

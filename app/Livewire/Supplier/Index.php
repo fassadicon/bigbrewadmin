@@ -5,10 +5,20 @@ namespace App\Livewire\Supplier;
 use Livewire\Component;
 use App\Models\Supplier;
 use Livewire\Attributes\On;
+use Livewire\WithPagination;
 use Masmerise\Toaster\Toaster;
 
 class Index extends Component
 {
+    use WithPagination;
+    public $perPage = 5;
+
+    public $search = '';
+    public $status = '';
+
+    public $sortBy = 'created_at';
+    public $sortDir = 'DESC';
+
     #[On('supplier-created')]
     public function refresh()
     {
@@ -22,7 +32,7 @@ class Index extends Component
 
     public function edit(Supplier $supplier)
     {
-        $this->dispatch('editing-supplier', size: $supplier);
+        $this->dispatch('editing-supplier', supplier: $supplier);
         $this->dispatch('open-modal', 'edit-supplier');
     }
 
@@ -40,7 +50,17 @@ class Index extends Component
 
     public function render()
     {
-        $suppliers = Supplier::paginate(5);
+        $suppliers = Supplier::withTrashed()
+            ->search($this->search)
+            ->when($this->status !== '', function ($query) {
+                $query->when($this->status === 'active', function ($query) {
+                    $query->whereNull('deleted_at');
+                })->when($this->status === 'inactive', function ($query) {
+                    $query->whereNotNull('deleted_at');
+                });
+            })
+            ->orderBy($this->sortBy, $this->sortDir)
+            ->paginate($this->perPage);
         return view('livewire.supplier.index', ['suppliers' => $suppliers]);
     }
 }

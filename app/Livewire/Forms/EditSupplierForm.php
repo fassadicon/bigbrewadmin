@@ -46,6 +46,6 @@ class EditSupplierForm extends Form
             'description' => $this->description,
         ]);
 
-        Toaster::success('Size updated!');
+        Toaster::success('Supplier updated!');
     }
 }

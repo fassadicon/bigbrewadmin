@@ -24,6 +24,12 @@ class Supplier extends Model
         return $this->hasMany(InventoryLog::class);
     }
 
+    public function scopeSearch($query, $value)
+    {
+        $query->where('name', 'like', "%{$value}%")
+            ->orWhere('description', 'like', "%{$value}%");
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

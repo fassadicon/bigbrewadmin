@@ -21,6 +21,6 @@ class Edit extends Component
     {
         $this->form->update();
         $this->dispatch('close', 'edit-supplier');
-        $this->dispatch('supplier-changed');
+        $this->dispatch('supplier-created');
     }
 }
