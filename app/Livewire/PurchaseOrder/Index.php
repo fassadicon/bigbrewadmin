@@ -22,6 +22,9 @@ class Index extends Component
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
 
+    public $remarks = '';
+    public $selectedPOToReturn;
+
     public function cancel($id)
     {
         PurchaseOrder::where('id', $id)->update([
@@ -30,9 +33,9 @@ class Index extends Component
         Toaster::warning('Purchase Order cancelled');
     }
 
-    public function return($id)
+    public function return()
     {
-        $purchaseOrder =  PurchaseOrder::with('purchaseOrderItems')->where('id', $id)->first();
+        $purchaseOrder =  PurchaseOrder::with('purchaseOrderItems')->where('id', $this->selectedPOToReturn)->first();
 
         foreach ($purchaseOrder->purchaseOrderItems as $purchaseOrderItem) {
 
@@ -56,10 +59,15 @@ class Index extends Component
         }
 
         $purchaseOrder->update([
-            'status' => 4
+            'status' => 4,
+            'remarks' => $this->remarks
         ]);
 
+        $this->selectedPOToReturn = '';
+        $this->remarks = '';
+
         Toaster::info('Purchase order returned');
+        return redirect()->route('purchase-orders');
     }
 
     public function delete(PurchaseOrder $purchaseOrder)
@@ -86,6 +94,13 @@ class Index extends Component
             "PO-$po->id.pdf"
         );
     }
+
+    public function remarksForReturnPO($id) {
+        $this->remarks = '';
+        $this->selectedPOToReturn = $id;
+        $this->dispatch('open-modal', 'void-purchase-order');
+    }
+
     public function render()
     {
         $purchaseOrders = PurchaseOrder::withTrashed()
