@@ -12,7 +12,7 @@ class Index extends Component
     {
         $purchaseOrders = PurchaseOrder::with('purchaseOrderItems')->where('status', 1)->paginate(5);
         $deliveryReceives = DeliveryReceive::with('purchaseOrder', 'deliveryReceiveItems')
-        ->paginate(10);
+        ->paginate(5);
         return view('livewire.delivery-receive.index', [
             'deliveryReceives' => $deliveryReceives,
             'purchaseOrders' => $purchaseOrders

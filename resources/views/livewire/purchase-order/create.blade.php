@@ -14,8 +14,7 @@
             <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Create Purchase Order') }}
             </h3>
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-lg w-full"
-                wire:loading.class="invisible">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-lg w-full">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="mb-6">
                         <label for="supplier_id"

@@ -151,7 +151,6 @@
                                 <th scope="col" class="px-4 py-3">Items</th>
                                 <th scope="col" class="px-4 py-3">Created by</th>
                                 <th scope="col" class="px-4 py-3">Total Amount</th>
-                                <th scope="col" class="px-4 py-3">Status</th>
                                 <th scope="col" class="px-4 py-3">Remarks</th>
                                 <th scope="col" class="px-4 py-3">Date</th>
                                 <th scope="col" class="px-4 py-3">
@@ -175,9 +174,8 @@
                                     </td>
                                     <td>{{ $deliveryReceive->user->name }}</td>
                                     <td>{{ $deliveryReceive->total_amount }}</td>
-                                    <td>{{ $deliveryReceive->status }}</td>
                                     <td>{{ $deliveryReceive->remarks }}</td>
-                                    <td>{{ $deliveryReceive->created_at }}</td>
+                                    <td>{{ $deliveryReceive->created_at->format('M d, Y') }}</td>
                                     <td class="px-4 py-3 flex items-center justify-center">
                                         {{-- <button wire:click.prevent="show({{ $inventoryItem->id }})"
                                             class="px-3 py-1 bg-blue-500 text-white rounded">
