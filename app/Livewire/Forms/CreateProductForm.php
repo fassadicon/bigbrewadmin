@@ -79,6 +79,8 @@ class CreateProductForm extends Form
                 ]);
             }
         }
+
+        Toaster::success('Product created successfully!');
         return redirect()->to('/products');
     }
 

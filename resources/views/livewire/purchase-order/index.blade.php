@@ -5,6 +5,17 @@
         class="text-white bg-amber-800 hover:bg-amber-950 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 ml-8 mb-2 dark:bg-red-500 dark:hover:bg-red-200 focus:outline-none dark:focus:ring-blue-800">
         {{ __('Create Purchase Order') }}
     </a>
+
+    <x-modal name='void-purchase-order'>
+        <h1>Reason for returning:</h1>
+        <textarea wire:model='remarks'
+            name=""
+            id=""
+            cols="30"
+            rows="10"></textarea>
+        <button type="button" wire:click='return'>Complete Return</button>
+    </x-modal>
+
     {{-- Table --}}
     <div class="pb-12 pt-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -93,7 +104,7 @@
                                         </button> --}}
                                             @unless ($purchaseOrder->trashed())
                                                 @if ($purchaseOrder->status == 'Completed')
-                                                    <button wire:click='return({{ $purchaseOrder->id }})'
+                                                    <button wire:click='remarksForReturnPO({{ $purchaseOrder->id }})'
                                                         class="p-2 m-1 px-3 py-1 bg-green-500 text-white rounded">
                                                         Return
                                                     </button>
@@ -122,6 +133,10 @@
                                                         Delete
                                                     </button>
                                                 @endif
+                                                <button wire:click='printPO({{ $purchaseOrder->id }})'
+                                                    class="p-2 m-1 px-3 py-1 bg-yellow-500 text-white rounded">
+                                                    Print
+                                                </button>
                                             @else
                                                 <button wire:click='restore({{ $purchaseOrder->id }})'
                                                     class="p-2 m-1 px-3 py-1 bg-green-500 text-white rounded">

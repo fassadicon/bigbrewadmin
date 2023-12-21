@@ -6,10 +6,17 @@
                 <h1 style="font-size: 24px; margin-bottom: 10px;">Order ID: {{ $order->id }}</h1>
                 {{-- Uncomment the following line if $size->role is available --}}
                 {{-- <h1>{{ $size->role }}</h1> --}}
-                <h1 style="font-size: 18px; margin-bottom: 20px;">Superadmin</h1>
+                <h1 style="font-size: 18px; margin-bottom: 20px;">Catered by: {{ $order->user->name }}</h1>
+                <h1 style="font-size: 18px; margin-bottom: 20px;">Remarks: {{ $order->remarks }}</h1>
 
                 <h2 style="font-size: 18px; margin-bottom: 10px;">Products in this Order:</h2>
+                <ul>
+                    @foreach ($order->orderItems as $orderItem)
+                        <li>{{ $orderItem->product->productDetail->name }} {{ $orderItem->product->size->name }} x {{ $orderItem->quantity }} - PHP {{ $orderItem->amount }}</li>
+                    @endforeach
+                </ul>
 
+                <h2 style="font-size: 18px; margin-bottom: 10px;">Total amount: PHP {{ $order->total_amount }}</h2>
                 <div style="margin-bottom: 20px;">
                     <table style="width: 100%; border-collapse: collapse;">
                         <thead>

@@ -20,6 +20,8 @@ class Index extends Component
     public $start;
     public $end;
 
+    public $remarks = '';
+    public $selectedOrderToVoid;
 
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
@@ -115,6 +117,24 @@ class Index extends Component
             "receipt.pdf"
         );
     }
+
+    public function remarksForVoidOrder($orderId) {
+        $this->remarks = '';
+        $this->selectedOrderToVoid = $orderId;
+        $this->dispatch('open-modal', 'void-order');
+    }
+
+    public function voidOrder() {
+        Order::where('id', $this->selectedOrderToVoid)->update([
+            'status' => 2,
+            'remarks' => $this->remarks
+        ]);
+        Toaster::warning('Order voided!');
+        $this->selectedOrderToVoid = '';
+        $this->remarks = '';
+        $this->dispatch('close', 'void-order');
+    }
+
     public function render()
     {
         // dd($this->status);

@@ -1,24 +1,21 @@
-<x-modal name="show-inventory-item">
+<x-modal name="show-supplier">
     <div wire:loading.class="invisible">
-        @if ($inventoryItem)
+        @if ($supplier)
             <div style="padding: 20px;">
 
-                <h1 style="font-size: 24px; margin-bottom: 10px;">{{ $inventoryItem->name }}</h1>
-                <p style="font-size: 16px; margin-bottom: 10px;">Measurement: {{ $inventoryItem->measurement }}</p>
-                <p style="font-size: 16px; margin-bottom: 20px;">{{ $inventoryItem->description }}</p>
+                <h1 style="font-size: 24px; margin-bottom: 10px;">{{ $supplier->name }}</h1>
+                <p style="font-size: 16px; margin-bottom: 10px;">{{ $supplier->measurement }}</p>
+                <p style="font-size: 16px; margin-bottom: 20px;">{{ $supplier->description }}</p>
 
-                <h2 style="font-size: 18px; margin-bottom: 10px;">Products with this size:</h2>
+                {{-- <h2 style="font-size: 18px; margin-bottom: 10px;">Inventory Items from this supplier:</h2>
 
                 <ul style="list-style-type: none; padding: 0; margin: 0;">
-                    @forelse ($products as $product)
-                        <li style="font-size: 14px; margin-bottom: 5px;">
-                            {{ $product->productDetail->category->name }} - {{ $product->productDetail->name }} -
-                            {{ $product->size->name }}
-                        </li>
+                    @forelse ($supplier->inventoryLogs as $inventoryLog)
+                        <li style="font-size: 14px; margin-bottom: 5px;">{{ $inventoryLog->inventoryItem->name }}</li>
                     @empty
                         <li style="font-size: 14px; margin-bottom: 5px;">None</li>
                     @endforelse
-                </ul>
+                </ul> --}}
 
                 <div style="margin-top: 20px;">
 

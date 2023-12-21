@@ -11,16 +11,21 @@
                         <div class="flex">
                             <div class="relative w-full">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                        fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <svg aria-hidden="true"
+                                        class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                        fill="currentColor"
+                                        viewbox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"
                                             d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                                             clip-rule="evenodd" />
                                     </svg>
                                 </div>
-                                <input wire:model.live.debounce.300ms='search' type="text"
+                                <input wire:model.live.debounce.300ms='search'
+                                    type="text"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 "
-                                    placeholder="Search name, measurement, or description" required="">
+                                    placeholder="Search name, measurement, or description"
+                                    required="">
                             </div>
                         </div>
                         <div class="flex space-x-3">
@@ -39,13 +44,20 @@
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead>
-                                <th scope="col" class="px-4 py-3">Id</th>
-                                <th scope="col" class="px-4 py-3">Items</th>
-                                <th scope="col" class="px-4 py-3">Supplier</th>
-                                <th scope="col" class="px-4 py-3">Created by</th>
-                                <th scope="col" class="px-4 py-3">Total Amount</th>
-                                <th scope="col" class="px-4 py-3">Remarks</th>
-                                <th scope="col" class="px-4 py-3">
+                                <th scope="col"
+                                    class="px-4 py-3">Id</th>
+                                <th scope="col"
+                                    class="px-4 py-3">Items</th>
+                                <th scope="col"
+                                    class="px-4 py-3">Supplier</th>
+                                <th scope="col"
+                                    class="px-4 py-3">Created by</th>
+                                <th scope="col"
+                                    class="px-4 py-3">Total Amount</th>
+                                <th scope="col"
+                                    class="px-4 py-3">Remarks</th>
+                                <th scope="col"
+                                    class="px-4 py-3">
                                     Actions
                                     {{-- <span class="sr-only">Actions</span> --}}
                                 </th>
@@ -53,33 +65,37 @@
                             {{-- wire:loading.class="invisible" --}}
                             <tbody>
                                 @forelse ($purchaseOrders as $purchaseOrder)
-                                <tr wire:key="{{ $purchaseOrder->id }}" class="border-b dark:border-gray-700">
-                                    <th scope="row" class="px-4 py-3 font-medium whitespace-nowrap text-gray-900">
-                                        {{ $purchaseOrder->id }}
-                                    </th>
-                                    <td>
-                                        @foreach ($purchaseOrder->purchaseOrderItems as $item)
-                                        {{ $item->inventoryItem->name }} ({{ $item->quantity }}
-                                        {{ $item->unit_measurement }})
-                                        PHP {{ $item->amount }}<br>
-                                        @endforeach
-                                    </td>
-                                    <td>{{ $purchaseOrder->supplier->name }}</td>
-                                    <td>{{ $purchaseOrder->user->name }}</td>
-                                    <td>{{ $purchaseOrder->total_amount }}</td>
-                                    <td>{{ $purchaseOrder->remarks }}</td>
-                                    <td>{{ $purchaseOrder->description }}</td>
-                                    <td class="px-4 py-3 flex items-center justify-center">
-                                        <a href="{{ route('delivery-receives.create', ['purchaseOrder' => $purchaseOrder]) }}"
-                                            wire:navigate class="px-3 py-1 bg-green-500 text-white rounded">
-                                            Receive
-                                        </a>
-                                    </td>
-                                </tr>
+                                    <tr wire:key="{{ $purchaseOrder->id }}"
+                                        class="border-b dark:border-gray-700">
+                                        <th scope="row"
+                                            class="px-4 py-3 font-medium whitespace-nowrap text-gray-900">
+                                            {{ $purchaseOrder->id }}
+                                        </th>
+                                        <td>
+                                            @foreach ($purchaseOrder->purchaseOrderItems as $item)
+                                                {{ $item->inventoryItem->name }} ({{ $item->quantity }}
+                                                {{ $item->unit_measurement }})
+                                                PHP {{ $item->amount }}<br>
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $purchaseOrder->supplier->name }}</td>
+                                        <td>{{ $purchaseOrder->user->name }}</td>
+                                        <td>{{ $purchaseOrder->total_amount }}</td>
+                                        <td>{{ $purchaseOrder->remarks }}</td>
+                                        <td>{{ $purchaseOrder->description }}</td>
+                                        <td class="px-4 py-3 flex items-center justify-center">
+                                            <a href="{{ route('delivery-receives.create', ['purchaseOrder' => $purchaseOrder]) }}"
+                                                wire:navigate
+                                                class="px-3 py-1 bg-green-500 text-white rounded">
+                                                Receive
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @empty
-                                <tr class="border-b dark:border-gray-700">
-                                    <td colspan="6" class="px-4 py-3 text-center">No results available</td>
-                                </tr>
+                                    <tr class="border-b dark:border-gray-700">
+                                        <td colspan="6"
+                                            class="px-4 py-3 text-center">No results available</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>
@@ -118,16 +134,21 @@
                         <div class="flex">
                             <div class="relative w-full">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                        fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <svg aria-hidden="true"
+                                        class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                        fill="currentColor"
+                                        viewbox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"
                                             d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                                             clip-rule="evenodd" />
                                     </svg>
                                 </div>
-                                <input wire:model.live.debounce.300ms='search' type="text"
+                                <input wire:model.live.debounce.300ms='search'
+                                    type="text"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 "
-                                    placeholder="Search name, measurement, or description" required="">
+                                    placeholder="Search name, measurement, or description"
+                                    required="">
                             </div>
                         </div>
                         <div class="flex space-x-3">
@@ -146,15 +167,22 @@
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead>
-                                <th scope="col" class="px-4 py-3">Id</th>
-                                <th scope="col" class="px-4 py-3">Purchase Order Id</th>
-                                <th scope="col" class="px-4 py-3">Items</th>
-                                <th scope="col" class="px-4 py-3">Created by</th>
-                                <th scope="col" class="px-4 py-3">Total Amount</th>
-                                <th scope="col" class="px-4 py-3">Status</th>
-                                <th scope="col" class="px-4 py-3">Remarks</th>
-                                <th scope="col" class="px-4 py-3">Date</th>
-                                <th scope="col" class="px-4 py-3">
+                                <th scope="col"
+                                    class="px-4 py-3">Id</th>
+                                <th scope="col"
+                                    class="px-4 py-3">Purchase Order Id</th>
+                                <th scope="col"
+                                    class="px-4 py-3">Items</th>
+                                <th scope="col"
+                                    class="px-4 py-3">Created by</th>
+                                <th scope="col"
+                                    class="px-4 py-3">Total Amount</th>
+                                <th scope="col"
+                                    class="px-4 py-3">Remarks</th>
+                                <th scope="col"
+                                    class="px-4 py-3">Date</th>
+                                <th scope="col"
+                                    class="px-4 py-3">
                                     Actions
                                     {{-- <span class="sr-only">Actions</span> --}}
                                 </th>
@@ -162,24 +190,29 @@
                             {{-- wire:loading.class="invisible" --}}
                             <tbody>
                                 @forelse ($deliveryReceives as $deliveryReceive)
-                                <tr wire:key="{{ $deliveryReceive->id }}" class="border-b dark:border-gray-700">
-                                    <th scope="row" class="px-4 py-3 font-medium whitespace-nowrap text-gray-900">
-                                        {{ $deliveryReceive->id }}
-                                    </th>
-                                    <td>{{ $deliveryReceive->purchaseOrder->id }}</td>
-                                    <td>
-                                        @foreach($deliveryReceive->deliveryReceiveItems as $item)
-                                        {{ $item->inventoryItem->name }} ({{ $item->quantity }} {{
-                                        $item->unit_measurement }}) - PHP {{ $item->amount }}<br>
-                                        @endforeach
-                                    </td>
-                                    <td>{{ $deliveryReceive->user->name }}</td>
-                                    <td>{{ $deliveryReceive->total_amount }}</td>
-                                    <td>{{ $deliveryReceive->status }}</td>
-                                    <td>{{ $deliveryReceive->remarks }}</td>
-                                    <td>{{ $deliveryReceive->created_at }}</td>
-                                    <td class="px-4 py-3 flex items-center justify-center">
-                                        {{-- <button wire:click.prevent="show({{ $inventoryItem->id }})"
+                                    <tr wire:key="{{ $deliveryReceive->id }}"
+                                        class="border-b dark:border-gray-700">
+                                        <th scope="row"
+                                            class="px-4 py-3 font-medium whitespace-nowrap text-gray-900">
+                                            {{ $deliveryReceive->id }}
+                                        </th>
+                                        <td>{{ $deliveryReceive->purchaseOrder->id }}</td>
+                                        <td>
+                                            @foreach ($deliveryReceive->deliveryReceiveItems as $item)
+                                                {{ $item->inventoryItem->name }} ({{ $item->quantity }}
+                                                {{ $item->unit_measurement }}) - PHP {{ $item->amount }}<br>
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $deliveryReceive->user->name }}</td>
+                                        <td>{{ $deliveryReceive->total_amount }}</td>
+                                        <td>{{ $deliveryReceive->remarks }}</td>
+                                        <td>{{ $deliveryReceive->created_at->format('M d, Y') }}</td>
+                                        <td class="px-4 py-3 flex items-center justify-center">
+                                            <button wire:click='printDR({{ $deliveryReceive->id }})'
+                                                class="p-2 m-1 px-3 py-1 bg-yellow-500 text-white rounded">
+                                                Print
+                                            </button>
+                                            {{-- <button wire:click.prevent="show({{ $inventoryItem->id }})"
                                             class="px-3 py-1 bg-blue-500 text-white rounded">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -187,7 +220,7 @@
                                                     d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                                             </svg>
                                         </button> --}}
-                                        {{-- @unless ($deliveryReceive->trashed())
+                                            {{-- @unless ($deliveryReceive->trashed())
                                         <a href="{{ route('purchase-orders.edit', ['purchaseOrder' => $purchaseOrder]) }}"
                                             wire:navigate class="px-3 py-1 bg-green-500 text-white rounded">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -202,12 +235,13 @@
                                         <button wire:click='restore({{ $deliveryReceive->id }})'
                                             class="px-3 py-1 bg-green-500 text-white rounded">Restore</button>
                                         @endunless --}}
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
                                 @empty
-                                <tr class="border-b dark:border-gray-700">
-                                    <td colspan="6" class="px-4 py-3 text-center">No results available</td>
-                                </tr>
+                                    <tr class="border-b dark:border-gray-700">
+                                        <td colspan="6"
+                                            class="px-4 py-3 text-center">No results available</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>

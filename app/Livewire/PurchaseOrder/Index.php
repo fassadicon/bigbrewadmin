@@ -8,6 +8,7 @@ use Livewire\WithPagination;
 use App\Models\InventoryItem;
 use App\Models\PurchaseOrder;
 use Masmerise\Toaster\Toaster;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Index extends Component
 {
@@ -21,6 +22,9 @@ class Index extends Component
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
 
+    public $remarks = '';
+    public $selectedPOToReturn;
+
     public function cancel($id)
     {
         PurchaseOrder::where('id', $id)->update([
@@ -29,9 +33,9 @@ class Index extends Component
         Toaster::warning('Purchase Order cancelled');
     }
 
-    public function return($id)
+    public function return()
     {
-        $purchaseOrder =  PurchaseOrder::with('purchaseOrderItems')->where('id', $id)->first();
+        $purchaseOrder =  PurchaseOrder::with('purchaseOrderItems')->where('id', $this->selectedPOToReturn)->first();
 
         foreach ($purchaseOrder->purchaseOrderItems as $purchaseOrderItem) {
 
@@ -55,10 +59,15 @@ class Index extends Component
         }
 
         $purchaseOrder->update([
-            'status' => 4
+            'status' => 4,
+            'remarks' => $this->remarks
         ]);
 
+        $this->selectedPOToReturn = '';
+        $this->remarks = '';
+
         Toaster::info('Purchase order returned');
+        return redirect()->route('purchase-orders');
     }
 
     public function delete(PurchaseOrder $purchaseOrder)
@@ -73,9 +82,29 @@ class Index extends Component
         Toaster::success('Size restored!');
     }
 
+    public function printPO(int $id) {
+        $po = PurchaseOrder::with('purchaseOrderItems.inventoryItem', 'supplier', 'user')->where('id', $id)->first();
+
+        $pdf = Pdf::loadView('exports.purchase-order', [
+            'purchaseOrder' => $po,
+        ])->output();
+
+        return response()->streamDownload(
+            fn () => print($pdf),
+            "PO-$po->id.pdf"
+        );
+    }
+
+    public function remarksForReturnPO($id) {
+        $this->remarks = '';
+        $this->selectedPOToReturn = $id;
+        $this->dispatch('open-modal', 'void-purchase-order');
+    }
+
     public function render()
     {
         $purchaseOrders = PurchaseOrder::withTrashed()
+        ->with('purchaseOrderItems.inventoryItem', 'supplier')
         ->when($this->type !== '', function ($query) {
             $query->where('status', $this->type);
         })
