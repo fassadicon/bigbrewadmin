@@ -62,20 +62,10 @@ class User extends Authenticatable
         return $this->hasManyThrough(Order::class, OrderItem::class);
     }
 
-    // public function AdminLogs(): HasMany
-    // {
-    //     return $this->hasMany(AdminLogs::class);
-    // }
-
     public function InventoryLogs(): HasMany
     {
         return $this->hasMany(InventoryLog::class);
     }
-
-    // public function OrderLogs(): HasMany
-    // {
-    //     return $this->hasMany(OrderLog::class);
-    // }
 
     public function scopeSearch($query, $value)
     {
