@@ -223,7 +223,7 @@ class OrderSummary extends Component
             ])
             ->output();
 
-        return response()->redirectTo('pos')->streamDownload(
+        return response()->streamDownload(
             fn () => print($printPDF),
             "receipt.pdf"
         );
