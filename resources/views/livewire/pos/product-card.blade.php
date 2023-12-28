@@ -43,7 +43,9 @@
                                                 if ($inventoryItem->remaining_stocks <= 0 || $inventoryItem->trashed()) {
                                                     $disabled = true;
                                                 }
-                                        } @endphp <button wire:click="addToCart({{ $size->pivot->id }})"
+                                            }
+                                        @endphp
+                                        <button wire:click="addToCart({{ $size->pivot->id }})"
                                             class="rounded-full h-8 w-8 bg-red-50 text-amber-950 hover:bg-amber-50 hover:text-amber-800 hover:shadow-xl focus:outline-none flex ml-auto transition duration-300"
                                             @disabled($disabled)>
                                             <div class="m-auto">
@@ -56,14 +58,16 @@
                             </div>
                         </div>
                         @if ($disabled || $warningValue)
-                        <div class="flex items-center mt-2">
-                            @if ($disabled)
-                                Inventory item/s needed in this product have insufficient stocks OR are archived. Please restock immediately.
-                            @endif
-                            @if($warningValue && !$disabled)
-                                Inventory item/s needed in this product reached its warning value. Please restock immediately.
-                            @endif
-                        </div>
+                            <div class="flex items-center mt-2">
+                                @if ($disabled)
+                                    Inventory item/s needed in this product have insufficient stocks OR are archived.
+                                    Please restock immediately.
+                                @endif
+                                @if ($warningValue && !$disabled)
+                                    Inventory item/s needed in this product reached its warning value. Please restock
+                                    immediately.
+                                @endif
+                            </div>
                         @endif
                     </div>
                 </div>
