@@ -21,7 +21,7 @@ class OrderSeeder extends Seeder
     {
         $currentYear = Carbon::now()->year;
         foreach (range(1, 50) as $orderCount) {
-            $randomDay = Carbon::now()->addDays(mt_rand(0, Carbon::createFromDate($currentYear, 12, 31)->dayOfYear - 1));
+            $randomDay = Carbon::now()->addDays(rand(-3, 3));
             $orderItemsCount = rand(0, 2);
             $totalAmount = 0;
             $orderItems = [];
