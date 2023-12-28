@@ -18,7 +18,7 @@
                     </div>
                     <div class="mb-6">
                         <label for="payment.method"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Remarks</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Payment Method</label>
                         <select wire:model.live='payment.method' name="" id="method">
                             <option value="1" selected>Cash</option>
                             <option value="2">GCash</option>
