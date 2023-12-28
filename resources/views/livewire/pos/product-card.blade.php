@@ -25,9 +25,9 @@
                             <h5 class="text-white text-xxs md:text-xs lg:text-sm font-bold leading-tight">
                                 {{ $productDetail->name }}
                             </h5>
-                            <span class="text-xxs md:text-xs text-gray-100 leading-tight">
+                            {{-- <span class="text-xxs md:text-xs text-gray-100 leading-tight">
                                 {{ $productDetail->description }}
-                            </span>
+                            </span> --}}
                         </div>
                         <div class="flex items-center mt-2">
                             <div class="text-xxs md:text-xs text-white font-light">
