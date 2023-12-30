@@ -113,7 +113,7 @@
 
                             <a href="{{ route('products.show', ['productDetailId' => $productDetail->id]) }}"
                                 wire:navigate class="p-2 mx-1 bg-blue-500 text-white rounded">
-                                <i class="fas fa-edit"></i>
+                                <i class="fa-solid fa-eye"></i>
                             </a>
 
                             @if(auth()->user()->hasRole('Owner') || auth()->user()->hasRole('Admin'))
