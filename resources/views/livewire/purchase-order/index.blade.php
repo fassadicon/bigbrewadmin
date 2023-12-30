@@ -6,15 +6,7 @@
         {{ __('Create Purchase Order') }}
     </a>
 
-    <x-modal name='void-purchase-order'>
-        <h1>Reason for returning:</h1>
-        <textarea wire:model='remarks'
-            name=""
-            id=""
-            cols="30"
-            rows="10"></textarea>
-        <button type="button" wire:click='return'>Complete Return</button>
-    </x-modal>
+    <livewire:purchase-order.void-purchase-order />
 
     {{-- Table --}}
     <div class="pb-12 pt-3">
@@ -125,11 +117,11 @@
                                                         </svg>
                                                     </a>
                                                     <button wire:click='cancel({{ $purchaseOrder->id }})'
-                                                        class="p-2 m-1 px-3 py-1 bg-green-500 text-white rounded">
+                                                        class="p-2 m-1 px-3 py-1 bg-orange-500 text-white rounded">
                                                         Cancel
                                                     </button>
                                                     <button wire:click='delete({{ $purchaseOrder }})'
-                                                        class="p-2 m-1 px-3 py-1 bg-orange-500 text-white rounded">
+                                                        class="p-2 m-1 px-3 py-1 bg-red-500 text-white rounded">
                                                         Delete
                                                     </button>
                                                 @endif

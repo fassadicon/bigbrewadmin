@@ -3,6 +3,7 @@
 namespace App\Livewire\PurchaseOrder;
 
 use Livewire\Component;
+use Livewire\Attributes\On;
 use App\Models\InventoryLog;
 use Livewire\WithPagination;
 use App\Models\InventoryItem;
@@ -22,52 +23,12 @@ class Index extends Component
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
 
-    public $remarks = '';
-    public $selectedPOToReturn;
-
     public function cancel($id)
     {
         PurchaseOrder::where('id', $id)->update([
             'status' => 3
         ]);
         Toaster::warning('Purchase Order cancelled');
-    }
-
-    public function return()
-    {
-        $purchaseOrder =  PurchaseOrder::with('purchaseOrderItems')->where('id', $this->selectedPOToReturn)->first();
-
-        foreach ($purchaseOrder->purchaseOrderItems as $purchaseOrderItem) {
-
-            $inventoryItem = $purchaseOrderItem->inventoryItem;
-            $currentStock = $inventoryItem->remaining_stocks;
-            $returnStock = $purchaseOrderItem->quantity;
-            $newStock = $currentStock - $returnStock;
-            $inventoryItem->update([
-                'remaining_stocks' => $newStock
-            ]);
-
-            InventoryLog::create([
-                'inventory_item_id' => $inventoryItem->id,
-                'user_id' => auth()->id(),
-                'type' => 'out',
-                'amount' => $returnStock,
-                'old_stock' => $currentStock,
-                'new_stock' => $newStock,
-                'remarks' => "Return " . "$inventoryItem->name ($purchaseOrderItem->quantity $purchaseOrderItem->unit_measurement) - PHP $purchaseOrderItem->amount" . "from PO #" . $purchaseOrder->id
-            ]);
-        }
-
-        $purchaseOrder->update([
-            'status' => 4,
-            'remarks' => $this->remarks
-        ]);
-
-        $this->selectedPOToReturn = '';
-        $this->remarks = '';
-
-        Toaster::info('Purchase order returned');
-        return redirect()->route('purchase-orders');
     }
 
     public function delete(PurchaseOrder $purchaseOrder)
@@ -82,7 +43,8 @@ class Index extends Component
         Toaster::success('Size restored!');
     }
 
-    public function printPO(int $id) {
+    public function printPO(int $id)
+    {
         $po = PurchaseOrder::with('purchaseOrderItems.inventoryItem', 'supplier', 'user')->where('id', $id)->first();
 
         $pdf = Pdf::loadView('exports.purchase-order', [
@@ -95,26 +57,31 @@ class Index extends Component
         );
     }
 
-    public function remarksForReturnPO($id) {
-        $this->remarks = '';
-        $this->selectedPOToReturn = $id;
-        $this->dispatch('open-modal', 'void-purchase-order');
+    public function remarksForReturnPO($id)
+    {
+        $this->dispatch('returning-purchase-order', id: $id);
+        $this->dispatch('open-modal', 'return-purchase-order');
+    }
+
+    #[On('purchase-order-returned')]
+    public function refresh()
+    {
     }
 
     public function render()
     {
         $purchaseOrders = PurchaseOrder::withTrashed()
-        ->with('purchaseOrderItems.inventoryItem', 'supplier')
-        ->when($this->type !== '', function ($query) {
-            $query->where('status', $this->type);
-        })
-        ->when($this->status !== '', function ($query) {
-            $query->when($this->status === 'active', function ($query) {
-                $query->whereNull('deleted_at');
-            })->when($this->status === 'inactive', function ($query) {
-                $query->whereNotNull('deleted_at');
-            });
-        })
+            ->with('purchaseOrderItems.inventoryItem', 'supplier')
+            ->when($this->type !== '', function ($query) {
+                $query->where('status', $this->type);
+            })
+            ->when($this->status !== '', function ($query) {
+                $query->when($this->status === 'active', function ($query) {
+                    $query->whereNull('deleted_at');
+                })->when($this->status === 'inactive', function ($query) {
+                    $query->whereNotNull('deleted_at');
+                });
+            })
             ->orderBy($this->sortBy, $this->sortDir)
             ->paginate($this->perPage);
 
