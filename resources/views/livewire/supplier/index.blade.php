@@ -5,12 +5,7 @@
         </h2>
 
     </x-slot>
-    <button x-data=""
-        x-on:click.prevent="$dispatch('open-modal', 'create-supplier')"
-        type="button"
-        class="text-white bg-amber-800 hover:bg-amber-950 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-        Create Supplier
-    </button>
+
     <livewire:supplier.create />
     <livewire:supplier.show />
     <livewire:supplier.edit />
@@ -68,6 +63,12 @@
     </div> --}}
 
     <div class="flex-2/3 w-full bg-white rounded-lg p-4 hover:shadow-xl shadow-xl m-4">
+        <button x-data=""
+            x-on:click.prevent="$dispatch('open-modal', 'create-supplier')"
+            type="button"
+            class="text-white bg-amber-800 hover:bg-amber-950 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            Create Supplier
+        </button>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
@@ -137,19 +138,23 @@
                                             ])
                                         </td>
                                         <td class="px-4 py-3 flex items-center justify-center">
-                                            <button wire:click.prevent="show({{ $supplier->id }})" class="p-2 m-1 bg-blue-500 text-white rounded">
+                                            <button wire:click.prevent="show({{ $supplier->id }})"
+                                                class="p-2 m-1 bg-blue-500 text-white rounded">
                                                 <i class="fa-solid fa-eye"></i>
                                             </button>
 
                                             @unless ($supplier->trashed())
-                                                <button wire:click.prevent="edit({{ $supplier }})" class="p-2 m-1 bg-green-500 text-white rounded">
+                                                <button wire:click.prevent="edit({{ $supplier }})"
+                                                    class="p-2 m-1 bg-green-500 text-white rounded">
                                                     <i class="fa-solid fa-edit"></i>
                                                 </button>
-                                                <button wire:click='delete({{ $supplier }})' class="p-2 m-1 bg-orange-500 text-white rounded">
+                                                <button wire:click='delete({{ $supplier }})'
+                                                    class="p-2 m-1 bg-orange-500 text-white rounded">
                                                     <i class="fa-solid fa-archive"></i>
                                                 </button>
                                             @else
-                                                <button wire:click='restore({{ $supplier->id }})' class="p-2 m-1 bg-green-500 text-white rounded">
+                                                <button wire:click='restore({{ $supplier->id }})'
+                                                    class="p-2 m-1 bg-green-500 text-white rounded">
                                                     <i class="fa-solid fa-undo"></i>
                                                 </button>
                                             @endunless

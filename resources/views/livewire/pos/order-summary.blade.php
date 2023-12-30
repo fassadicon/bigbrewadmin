@@ -89,14 +89,14 @@
                                 <!-- Product Information Container -->
                                 <div class="flex-1">
                                     <p class="text-sm font-semibold text-gray-900">
-                                        {{ $selectedProduct['product']->productDetail->name }}
+                                        {{ ucwords($selectedProduct['product']->productDetail->name) }} -   {{ $selectedProduct['product']->size->alias }}
                                     </p>
-                                    <p class="text-xs text-gray-400">
+                                    {{-- <p class="text-xs text-gray-400">
                                         {{ $selectedProduct['product']->productDetail->description }}
-                                    </p>
-                                    <p class="text-xs font-semibold text-gray-400">Size:
+                                    </p> --}}
+                                    {{-- <p class="text-xs font-semibold text-gray-400">Size:
                                         {{ $selectedProduct['product']->size->name }}
-                                    </p>
+                                    </p> --}}
                                     <p class="text-xs font-semibold text-gray-400">
                                         ₱{{ $selectedProduct['product']->price }}
                                     </p>

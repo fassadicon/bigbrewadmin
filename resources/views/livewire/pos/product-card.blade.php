@@ -23,7 +23,7 @@
                     <div class="rounded-lg p-2 bg-zinc-800 flex flex-col flex-1">
                         <div>
                             <h5 class="text-white text-xxs md:text-xs lg:text-sm font-bold leading-tight">
-                                {{ $productDetail->name }}
+                                {{ ucwords($productDetail->name) }}
                             </h5>
                             {{-- <span class="text-xxs md:text-xs text-gray-100 leading-tight">
                                 {{ $productDetail->description }}
@@ -60,12 +60,16 @@
                         @if ($disabled || $warningValue)
                             <div class="flex items-center mt-2">
                                 @if ($disabled)
-                                    Inventory item/s needed in this product have insufficient stocks OR are archived.
-                                    Please restock immediately.
+                                    <div
+                                        class="px-3 py-2 text-xs font-medium leading-5 text-white transition-colors duration-150 bg-red-700 border border-transparent rounded-lg active:bg-red-800 hover:bg-red-600 focus:outline-none focus:shadow-outline-gray focus:border-gray-800">
+                                        OUT OF STOCK
+                                    </div>
                                 @endif
                                 @if ($warningValue && !$disabled)
-                                    Inventory item/s needed in this product reached its warning value. Please restock
-                                    immediately.
+                                    <div
+                                        class="px-3 py-2 text-xs font-medium leading-5 text-white transition-colors duration-150 bg-amber-700 border border-transparent rounded-lg active:bg-amber-800 hover:bg-amber-600 focus:outline-none focus:shadow-outline-gray focus:border-gray-800">
+                                        WARNING
+                                    </div>
                                 @endif
                             </div>
                         @endif

@@ -4,6 +4,7 @@ namespace App\Livewire\Order;
 
 use App\Models\Order;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Illuminate\Support\Carbon;
 use Masmerise\Toaster\Toaster;
@@ -19,9 +20,6 @@ class Index extends Component
     public $status = '';
     public $start;
     public $end;
-
-    public $remarks = '';
-    public $selectedOrderToVoid;
 
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
@@ -118,21 +116,15 @@ class Index extends Component
         );
     }
 
-    public function remarksForVoidOrder($orderId) {
-        $this->remarks = '';
-        $this->selectedOrderToVoid = $orderId;
+    public function remarksForVoidOrder($orderId)
+    {
+        $this->dispatch('voiding-order', id: $orderId);
         $this->dispatch('open-modal', 'void-order');
     }
 
-    public function voidOrder() {
-        Order::where('id', $this->selectedOrderToVoid)->update([
-            'status' => 2,
-            'remarks' => $this->remarks
-        ]);
-        Toaster::warning('Order voided!');
-        $this->selectedOrderToVoid = '';
-        $this->remarks = '';
-        $this->dispatch('close', 'void-order');
+    #[On('order-voided')]
+    public function refresh()
+    {
     }
 
     public function render()
