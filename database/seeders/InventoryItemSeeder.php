@@ -117,7 +117,7 @@ class InventoryItemSeeder extends Seeder
         InventoryItem::create([
             'name' => 'cookies & cream powder',
             'measurement' => 'grams',
-            'remaining_stocks' => '10000',
+            'remaining_stocks' => '100000',
             'warning_value' => '5',
             'unit_price' => 9,
             'created_at' => Carbon::now()->subDays(rand(1, 7))

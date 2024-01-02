@@ -201,7 +201,7 @@ class ProductDetailSeeder extends Seeder
             'category_id' => 4,
             'name' => 'Kape matcha',
             'description' => 'test',
-            'image_path' => 'products/MACHA.jpg'
+            'image_path' => 'products/MATCHA.jpg'
         ]);
         ProductDetail::create([
             'category_id' => 4,

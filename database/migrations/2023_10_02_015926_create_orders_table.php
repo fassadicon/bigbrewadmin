@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('customer_name')->nullable();
             $table->decimal('total_amount', 10, 2);
             $table->smallInteger('status')->default(1); // 1 - Completed, 2 - Cancelled
+            $table->string('remarks')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -4,6 +4,7 @@ namespace App\Livewire\Order;
 
 use App\Models\Order;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Illuminate\Support\Carbon;
 use Masmerise\Toaster\Toaster;
@@ -19,7 +20,6 @@ class Index extends Component
     public $status = '';
     public $start;
     public $end;
-
 
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
@@ -115,6 +115,18 @@ class Index extends Component
             "receipt.pdf"
         );
     }
+
+    public function remarksForVoidOrder($orderId)
+    {
+        $this->dispatch('voiding-order', id: $orderId);
+        $this->dispatch('open-modal', 'void-order');
+    }
+
+    #[On('order-voided')]
+    public function refresh()
+    {
+    }
+
     public function render()
     {
         // dd($this->status);

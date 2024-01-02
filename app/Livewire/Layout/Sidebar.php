@@ -55,7 +55,10 @@ class Sidebar extends Component
                 break;
             case 'purchase-orders':
                 $this->activePage = 'purchase-orders';
-                break;   
+                break;
+            case 'suppliers':
+                $this->activePage = 'suppliers';
+                break;     
             case 'delivery-receives':
                 $this->activePage = 'delivery-receives';
                 break;  
