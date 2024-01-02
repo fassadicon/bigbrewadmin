@@ -10,7 +10,7 @@
 
     @if (auth()->user()->hasRole('Owner'))
     <a href="{{ route('users.create') }}" wire:navigate type="button"
-        class="text-white bg-red-500 hover:bg-red-200 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ml-8 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+        class="text-white bg-amber-800 hover:bg-amber-950 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ml-8 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
         {{ __('Create User') }}
     </a>
     @endif
@@ -88,33 +88,34 @@
                                     </td>
                                     <td class="px-4 py-3 flex items-center justify-center">
                                         <button wire:click.prevent="show({{ $user->id }})"
-                                            class="px-3 py-1 bg-blue-500 text-white rounded">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                            </svg>
+                                            class="p-2 m-1 px-3 py-1 bg-blue-500 text-white rounded">
+                                            <i class="fas fa-eye"></i>
                                         </button>
+                                        
                                         @if (auth()->user()->hasRole('Owner'))
-                                        @unless ($user->trashed())
-                                        <button wire:click.prevent="edit({{ $user }})"
-                                            class="px-3 py-1 bg-green-500 text-white rounded">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                            </svg>
-                                        </button>
-                                        <button wire:click='delete({{ $user }})'
-                                            class="px-3 py-1 bg-orange-500 text-white rounded">Archive</button>
-                                        @else
-                                        <button wire:click='restore({{ $user->id }})'
-                                            class="px-3 py-1 bg-green-500 text-white rounded">Restore</button>
-                                        @endunless
-                                        <button wire:click='resetPassword({{ $user }})'
-                                            class="px-3 py-1 bg-yellow-500 text-white rounded">Reset
-                                            Password</button>
+                                            @unless ($user->trashed())
+                                                <button wire:click.prevent="edit({{ $user }})"
+                                                    class="p-2 m-1 px-3 py-1 bg-green-500 text-white rounded">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                        
+                                                <button wire:click='delete({{ $user }})'
+                                                    class="p-2 m-1 px-3 py-1 bg-orange-500 text-white rounded">
+                                                    <i class="fas fa-archive"></i>
+                                                </button>
+                                            @else
+                                                <button wire:click='restore({{ $user->id }})'
+                                                    class="p-2 m-1 px-3 py-1 bg-green-500 text-white rounded">
+                                                    <i class="fas fa-undo"></i>
+                                                </button>
+                                            @endunless
+                                        
+                                            <button wire:click='resetPassword({{ $user }})'
+                                                class="p-2 m-1 px-3 py-1 bg-yellow-500 text-white rounded">
+                                                <i class="fas fa-key"></i>
+                                            </button>
                                         @endif
+                                        
                                     </td>
                                 </tr>
                                 @empty
