@@ -129,6 +129,14 @@ class ConfirmOrder extends Component
 
         $this->name = null;
 
+        $this->payment = [
+            'method' => 1,
+            'payment_received' => 0,
+            'amount' => 0,
+            'change' => 0,
+            'details' => ''
+        ];
+
         $pdf = Pdf::setPaper(array(0, 0, 200, 500))
             ->loadView('exports.receipt', [
                 'order' => $order,
@@ -140,13 +148,14 @@ class ConfirmOrder extends Component
         $printPDF =  Pdf::setPaper(array(0, 0, 200, 500 * $page_count))
             ->loadView('exports.receipt', [
                 'order' => $order,
-                'date' => Carbon::now()->format('Y-m-d H:i:s')
+                'date' => Carbon::now()->format('M d, Y')
             ])
             ->output();
 
         Toaster::success('Order completed!');
 
         $this->dispatch('close', 'confirm-order');
+        $this->dispatch('order-finished');
 
         return response()->streamDownload(
             fn () => print($printPDF),

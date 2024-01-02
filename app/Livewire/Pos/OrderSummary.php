@@ -105,6 +105,10 @@ class OrderSummary extends Component
         $this->dispatch('open-modal', 'confirm-order');
     }
 
+    #[On('order-finished')]
+    public function clearSelectedProducts() {
+        $this->selectedProducts = [];
+    }
     public function render()
     {
         $total = $this->computeCurrentTotalAmount();

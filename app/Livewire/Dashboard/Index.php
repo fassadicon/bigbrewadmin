@@ -64,6 +64,7 @@ class Index extends Component
         }
         $wasteItemsCount = count(array_unique($wasteItems));
 
+        // Chart
         $columnChartModel =
             (new ColumnChartModel())
             ->setTitle('Sales');

@@ -20,8 +20,10 @@ class OrderSeeder extends Seeder
     public function run(): void
     {
         $currentYear = Carbon::now()->year;
-        foreach (range(1, 25) as $orderCount) {
-            $randomDay = Carbon::now()->addDays(rand(-6, 0));
+        $oneYearAgo = Carbon::now()->subYear();
+
+        foreach (range(1, 50) as $orderCount) {
+            $randomDay = Carbon::createFromTimestamp(rand($oneYearAgo->timestamp, Carbon::now()->timestamp));
             $orderItemsCount = rand(0, 2);
             $totalAmount = 0;
             $orderItems = [];
