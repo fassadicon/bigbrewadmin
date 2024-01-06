@@ -19,7 +19,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="mb-6">
                         <label for="size_id"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Size<span class="text-red-500"> * </span></label>
                         <select wire:model="form.size_id"
                             id="size_id"
                             class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
@@ -33,7 +33,7 @@
                     </div>
                     <div class="mb-6">
                         <label for="sugar_level_id"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Measurement</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sugar Level<span class="text-red-500"> * </span></label>
                         <select wire:model="form.sugar_level_id"
                             id="sugar_level_id"
                             class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
@@ -48,7 +48,7 @@
                     <div class="mb-6">
                         <label for="consumption_value"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Consumption
-                            Value</label>
+                            Value<span class="text-red-500"> * </span></label>
                         <input wire:model="form.consumption_value"
                             type="text"
                             id="consumption_value"
@@ -156,11 +156,11 @@
                                             <button wire:click.prevent="edit({{ $sizeSugarLevel }})" class="p-2 m-1 bg-green-500 text-white rounded">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            
+
                                             <button wire:click='delete({{ $sizeSugarLevel }})' class="p-2 m-1 bg-orange-500 text-white rounded">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
-                                            
+
                                             {{-- @else --}}
                                             {{-- <button wire:click='restore({{ $sizeSugarLevel->id }})'
                                                 class="px-3 py-1 bg-green-500 text-white rounded">Restore</button> --}}
@@ -178,7 +178,7 @@
                     </div>
 
                     <div class="py-4 px-3">
-                        <div class="flex ">
+                        <div class="flex justify-between">
                             <div class="flex space-x-4 items-center mb-3">
                                 <label class="w-32 text-sm font-medium text-gray-900">Show</label>
                                 <select wire:model.live='perPage'

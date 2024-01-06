@@ -15,6 +15,7 @@ class EditInventoryItemForm extends Form
     public $measurement;
     public $description;
     public $warning_value;
+    public $unit_price;
 
     public function loadFields(InventoryItem $inventoryItem)
     {
@@ -23,6 +24,7 @@ class EditInventoryItemForm extends Form
         $this->measurement = $inventoryItem->measurement;
         $this->description = $inventoryItem->description;
         $this->warning_value = $inventoryItem->warning_value;
+        $this->unit_price = $inventoryItem->unit_price;
     }
 
     public function rules()
@@ -32,6 +34,7 @@ class EditInventoryItemForm extends Form
             'measurement' => 'required|string',
             'description' => 'nullable|string',
             'warning_value' => 'required|numeric',
+            'unit_price' => 'numeric|min:0'
         ];
     }
 
@@ -42,6 +45,7 @@ class EditInventoryItemForm extends Form
             'description' => 'description',
             'measurement' => 'description',
             'warning_value' => 'warning value',
+            'unit_price' => 'price'
         ];
     }
 
@@ -54,6 +58,7 @@ class EditInventoryItemForm extends Form
             'description' => $this->description,
             'measurement' => $this->measurement,
             'warning_value' => $this->warning_value,
+            'unit_price' => $this->unit_price
         ]);
     }
 }

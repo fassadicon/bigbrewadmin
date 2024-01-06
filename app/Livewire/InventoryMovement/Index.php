@@ -38,6 +38,14 @@ class Index extends Component
         $this->suppliers = Supplier::select('id', 'name')->get();
     }
 
+    public function changeStartDate($value) {
+        $this->start = $value;
+    }
+
+    public function changeEndDate($value) {
+        $this->end = $value;
+    }
+
     public function store()
     {
         $this->form->store();

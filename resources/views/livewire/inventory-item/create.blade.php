@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="mb-6">
                         <label for="name"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name<span class="text-red-500"> * </span></label>
                         <input wire:model="createForm.name"
                             type="text"
                             id="name"
@@ -21,7 +21,7 @@
                     </div>
                     <div class="mb-6">
                         <label for="measurement"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Measurement</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Measurement<span class="text-red-500"> * </span></label>
                         <input wire:model="createForm.measurement"
                             type="text"
                             id="measurement"
@@ -32,7 +32,7 @@
                     <div class="mb-6">
                         <label for="remaining_stocks"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Initial Stock
-                            Value</label>
+                            Value<span class="text-red-500"> * </span></label>
                         <input wire:model="createForm.remaining_stocks"
                             type="text"
                             id="remaining_stocks"
@@ -42,7 +42,7 @@
                     </div>
                     <div class="mb-6 flex space-x-4">
                         <div class="w-1/2">
-                            <label for="initial_supplier" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Initial Supplier</label>
+                            <label for="initial_supplier" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Initial Supplier<span class="text-red-500"> * </span></label>
                             <select wire:model="createForm.initial_supplier" name="supplier_id" id="supplier_id" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-800 focus:border-amber-800 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option value="">-- Please select supplier --</option>
                                 @foreach ($suppliers as $supplier)
@@ -58,10 +58,10 @@
                             </button>
                         </div>
                     </div>
-    
+
                     <div class="mb-6">
                         <label for="warning_value"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Warning Value</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Warning Value<span class="text-red-500"> * </span></label>
                         <input wire:model="createForm.warning_value"
                             type="text"
                             id="warning_value"
@@ -71,7 +71,7 @@
                     </div>
                     <div class="mb-6">
                         <label for="unit_price"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price<span class="text-red-500"> * </span></label>
                         <input wire:model="createForm.unit_price"
                             type="text"
                             id="unit_price"

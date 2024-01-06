@@ -189,7 +189,7 @@ class ProductDetailSeeder extends Seeder
             'category_id' => 4,
             'name' => 'Kape vanilla',
             'description' => 'test',
-            'image_path' => 'products/KAPE VANILLA.jpg'
+            'image_path' => 'products/KAPEVANILLA.jpg'
         ]);
         ProductDetail::create([
             'category_id' => 4,

@@ -87,7 +87,7 @@
                                             <a href="{{ route('delivery-receives.create', ['purchaseOrder' => $purchaseOrder]) }}"
                                                 wire:navigate
                                                 class="px-3 py-1 bg-green-500 text-white rounded">
-                                                Receive
+                                                <i class="fa-solid fa-arrow-down"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -102,7 +102,7 @@
                     </div>
 
                     <div class="py-4 px-3">
-                        <div class="flex ">
+                        <div class="flex justify-between">
                             <div class="flex space-x-4 items-center mb-3">
                                 <label class="w-32 text-sm font-medium text-gray-900">Show</label>
                                 <select wire:model.live='perPage'
@@ -210,7 +210,7 @@
                                         <td class="px-4 py-3 flex items-center justify-center">
                                             <button wire:click='printDR({{ $deliveryReceive->id }})'
                                                 class="p-2 m-1 px-3 py-1 bg-yellow-500 text-white rounded">
-                                                Print
+                                                <i class="fa-solid fa-print"></i>
                                             </button>
                                             {{-- <button wire:click.prevent="show({{ $inventoryItem->id }})"
                                             class="px-3 py-1 bg-blue-500 text-white rounded">
@@ -248,7 +248,7 @@
                     </div>
 
                     <div class="py-4 px-3">
-                        <div class="flex ">
+                        <div class="flex justify-between">
                             <div class="flex space-x-4 items-center mb-3">
                                 <label class="w-32 text-sm font-medium text-gray-900">Show</label>
                                 <select wire:model.live='perPage'

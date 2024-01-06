@@ -84,21 +84,24 @@ class ConfirmOrder extends Component
 
             if ($orderItem['sugar_level_id'] != '') {
                 $sugarConsumptionValue = SizeSugarLevel::where('id', $orderItem['sugar_level_id'])->pluck('consumption_value')->first();
-                $sugar = InventoryItem::where('name', 'sugar')->first();
-                $remainingStocks = $sugar->remaining_stocks;
-                $newStocks = $remainingStocks - $sugarConsumptionValue;
-                $sugar->update([
-                    'remaining_stocks' => $newStocks
-                ]);
-                InventoryLog::create([
-                    'inventory_item_id' => $sugar->id,
-                    'user_id' => 1,
-                    'type' => 'out',
-                    'amount' => $sugarConsumptionValue,
-                    'old_stock' => $remainingStocks,
-                    'new_stock' => $newStocks,
-                    'remarks' => 'Order for ' . $this->selectedProducts[$key]['product']['product_detail']['name']
-                ]);
+                // dd($sugarConsumptionValue);
+                if ($sugarConsumptionValue != floatval(0)) {
+                    $sugar = InventoryItem::where('name', 'sugar')->first();
+                    $remainingStocks = $sugar->remaining_stocks;
+                    $newStocks = $remainingStocks - $sugarConsumptionValue;
+                    $sugar->update([
+                        'remaining_stocks' => $newStocks
+                    ]);
+                    InventoryLog::create([
+                        'inventory_item_id' => $sugar->id,
+                        'user_id' => 1,
+                        'type' => 'out',
+                        'amount' => $sugarConsumptionValue,
+                        'old_stock' => $remainingStocks,
+                        'new_stock' => $newStocks,
+                        'remarks' => 'Order for ' . $this->selectedProducts[$key]['product']['product_detail']['name']
+                    ]);
+                }
             }
         }
 

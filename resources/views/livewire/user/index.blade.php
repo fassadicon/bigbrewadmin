@@ -91,14 +91,14 @@
                                             class="p-2 m-1 px-3 py-1 bg-blue-500 text-white rounded">
                                             <i class="fas fa-eye"></i>
                                         </button>
-                                        
+
                                         @if (auth()->user()->hasRole('Owner'))
                                             @unless ($user->trashed())
                                                 <button wire:click.prevent="edit({{ $user }})"
                                                     class="p-2 m-1 px-3 py-1 bg-green-500 text-white rounded">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
-                                        
+
                                                 <button wire:click='delete({{ $user }})'
                                                     class="p-2 m-1 px-3 py-1 bg-orange-500 text-white rounded">
                                                     <i class="fas fa-archive"></i>
@@ -109,13 +109,13 @@
                                                     <i class="fas fa-undo"></i>
                                                 </button>
                                             @endunless
-                                        
+
                                             <button wire:click='resetPassword({{ $user }})'
                                                 class="p-2 m-1 px-3 py-1 bg-yellow-500 text-white rounded">
                                                 <i class="fas fa-key"></i>
                                             </button>
                                         @endif
-                                        
+
                                     </td>
                                 </tr>
                                 @empty
@@ -128,7 +128,7 @@
                     </div>
 
                     <div class="py-4 px-3">
-                        <div class="flex ">
+                        <div class="flex justify-between">
                             <div class="flex space-x-4 items-center mb-3">
                                 <label class="w-32 text-sm font-medium text-gray-900">Show</label>
                                 <select wire:model.live='perPage'

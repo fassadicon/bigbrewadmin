@@ -55,6 +55,11 @@ class OrderSummary extends Component
 
     public function removeItem($index)
     {
+        if (count($this->selectedProducts) <= 0 || !$this->selectedProducts[$index]) {
+            Toaster::warning('Product already removed!');
+            return;
+        }
+
         Toaster::warning($this->selectedProducts[$index]['product']->productDetail->name . ' removed from order');
         unset($this->selectedProducts[$index]);
         $this->selectedProducts = array_values($this->selectedProducts);

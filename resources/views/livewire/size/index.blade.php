@@ -19,7 +19,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="mb-6">
                         <label for="name"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name<span class="text-red-500"> * </span></label>
                         <input wire:model="form.name"
                             type="text"
                             id="name"
@@ -28,8 +28,18 @@
                             class="mt-2" />
                     </div>
                     <div class="mb-6">
+                        <label for="alias"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alias<span class="text-red-500"> * </span></label>
+                        <input wire:model="form.alias"
+                            type="text"
+                            id="alias"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <x-input-error :messages="$errors->get('form.alias')"
+                            class="mt-2" />
+                    </div>
+                    <div class="mb-6">
                         <label for="measurement"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Measurement</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Measurement<span class="text-red-500"> * </span></label>
                         <input wire:model="form.measurement"
                             type="text"
                             id="measurement"
@@ -136,7 +146,7 @@
                                             <button wire:click.prevent="show({{ $size->id }})" class="p-2 m-1 bg-blue-500 text-white rounded">
                                                 <i class="fa-solid fa-eye"></i>
                                             </button>
-                                            
+
                                             @unless ($size->trashed())
                                                 <button wire:click.prevent="edit({{ $size }})" class="p-2 m-1 bg-green-500 text-white rounded">
                                                     <i class="fa-solid fa-edit"></i>
@@ -149,7 +159,7 @@
                                                     <i class="fa-solid fa-undo"></i>
                                                 </button>
                                             @endunless
-                                                       
+
                                         </td>
                                     </tr>
                                 @empty
@@ -163,7 +173,7 @@
                     </div>
 
                     <div class="py-4 px-3">
-                        <div class="flex ">
+                        <div class="flex justify-between">
                             <div class="flex space-x-4 items-center mb-3">
                                 <label class="w-32 text-sm font-medium text-gray-900">Show</label>
                                 <select wire:model.live='perPage'

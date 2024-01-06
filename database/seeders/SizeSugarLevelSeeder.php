@@ -14,13 +14,46 @@ class SizeSugarLevelSeeder extends Seeder
      */
     public function run(): void
     {
-        $sizes = Size::whereNot('id', 4)->get();
-        $sugarLevels = SugarLevel::all();
+        // Sizes
+        $small = Size::where('id', 1)->first();
+        $medio = Size::where('id', 2)->first();
+        $grande = Size::where('id', 3)->first();
 
-        foreach ($sizes as $size) {
+        // Sugar Levels
+        $_0 = SugarLevel::where('id', 1)->pluck('id')->first();
+        $_25 = SugarLevel::where('id', 2)->pluck('id')->first();
+        $_50 = SugarLevel::where('id', 3)->pluck('id')->first();
+        $_75 = SugarLevel::where('id', 4)->pluck('id')->first();
+        $_100 = SugarLevel::where('id', 5)->pluck('id')->first();
+
+        $small->sugarLevels()->sync([
+            $_0 => ['consumption_value' => 0],
+            $_25 => ['consumption_value' => 10],
+            $_50 => ['consumption_value' => 20],
+            $_75 => ['consumption_value' => 30],
+            $_100 => ['consumption_value' => 40],
+        ]);
+
+        $medio->sugarLevels()->sync([
+            $_0 => ['consumption_value' => 0],
+            $_25 => ['consumption_value' => 20],
+            $_50 => ['consumption_value' => 30],
+            $_75 => ['consumption_value' => 40],
+            $_100 => ['consumption_value' => 50],
+        ]);
+
+        $grande->sugarLevels()->sync([
+            $_0 => ['consumption_value' => 0],
+            $_25 => ['consumption_value' => 30],
+            $_50 => ['consumption_value' => 40],
+            $_75 => ['consumption_value' => 50],
+            $_100 => ['consumption_value' => 60],
+        ]);
+
+      /*   foreach ($sizes as $size) {
             foreach ($sugarLevels as $sugarLevel) {
                 $size->sugarLevels()->attach($sugarLevel->id, ['consumption_value' => $sugarLevel->id]);
             }
-        }
+        } */
     }
 }

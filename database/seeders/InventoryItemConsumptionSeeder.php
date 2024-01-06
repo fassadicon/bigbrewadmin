@@ -14,18 +14,6 @@ class InventoryItemConsumptionSeeder extends Seeder
      */
     public function run(): void
     {
-        // comment here
-        // $products = Product::all();
-
-        // foreach ($products as $product) {
-        //     foreach(range(1, 2) as $inventoryItemAttached) {
-        //         $product->inventoryItems()->attach([
-        //             rand(1, 51) => ['consumption_value' => 1]
-        //         ]);
-        //     }
-        // }
-        // until here
-
         // Example
         // Get the product with the specific size
          $okinawaMedio = Product::where('product_id', 1) // product_details 1 - okinawa
@@ -38,7 +26,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             5 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $okinawaGrande = Product::where('product_id', 1)
@@ -50,7 +38,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             5 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $wintermelonMedio = Product::where('product_id', 2) // product_details 1 - okinawa
@@ -63,7 +51,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             6 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $wintermelonGrande = Product::where('product_id', 2)
@@ -75,7 +63,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             6 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $RedVelvetMedio = Product::where('product_id', 3) // product_details 1 - okinawa
@@ -88,7 +76,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             7 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $RedVelvetGrande = Product::where('product_id', 3)
@@ -100,7 +88,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             7 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $MatchaMedio = Product::where('product_id', 4) // product_details 1 - okinawa
@@ -113,7 +101,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             8 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $MatchaGrande = Product::where('product_id', 4)
@@ -125,7 +113,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             8 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $DoubleDutchMedio = Product::where('product_id', 5) // product_details 1 - okinawa
@@ -138,7 +126,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             9 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $DoubleDutchGrande = Product::where('product_id', 5)
@@ -150,7 +138,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             9 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $CheesecakeMedio = Product::where('product_id', 6) // product_details 1 - okinawa
@@ -163,7 +151,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             10 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $CheesecakeGrande = Product::where('product_id', 6)
@@ -175,10 +163,10 @@ class InventoryItemConsumptionSeeder extends Seeder
             10 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
-         $DarkChocoMedio = Product::where('product_id', 8) // product_details 1 - okinawa
+         $DarkChocoMedio = Product::where('product_id', 7) // product_details 1 - okinawa
          ->where('size_id', 2) // 2 - medio
          ->first();
 
@@ -188,10 +176,10 @@ class InventoryItemConsumptionSeeder extends Seeder
             11 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
-         $DarkChocoGrande = Product::where('product_id', 8)
+         $DarkChocoGrande = Product::where('product_id', 7)
          ->where('size_id', 3)
          ->first();
 
@@ -200,7 +188,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             11 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $SaltedCaramelMedio = Product::where('product_id', 9) // product_details 1 - okinawa
@@ -213,7 +201,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             12 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $SaltedCaramelGrande = Product::where('product_id', 9)
@@ -225,7 +213,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             12 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $CookiesnCreamMedio = Product::where('product_id', 10) // product_details 1 - okinawa
@@ -238,7 +226,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             13 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $CookiesnCreamGrande = Product::where('product_id', 10)
@@ -250,7 +238,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             13 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $TaroMedio = Product::where('product_id', 11) // product_details 1 - okinawa
@@ -263,7 +251,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             14 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $TaroGrande = Product::where('product_id', 11)
@@ -275,7 +263,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             14 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $StrawberryMedio = Product::where('product_id', 12) // product_details 1 - okinawa
@@ -288,7 +276,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             15 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $StrawberryGrande = Product::where('product_id', 12)
@@ -300,7 +288,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             15 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $KiwiMedio = Product::where('product_id', 13) // product_details 1 - okinawa
@@ -313,7 +301,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             16 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $KiwiGrande = Product::where('product_id', 13)
@@ -325,7 +313,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             16 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $LycheMedio = Product::where('product_id', 14) // product_details 1 - okinawa
@@ -338,7 +326,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             17 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $LycheGrande = Product::where('product_id', 14)
@@ -350,7 +338,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             17 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $GreenAppleMedio = Product::where('product_id', 15) // product_details 1 - okinawa
@@ -363,7 +351,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             18 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $GreenAppleGrande = Product::where('product_id', 15)
@@ -375,7 +363,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             18 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $LemonMedio = Product::where('product_id', 16) // product_details 1 - okinawa
@@ -388,7 +376,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             19 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $LemonGrande = Product::where('product_id', 16)
@@ -400,7 +388,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             19 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $HoneyPeachMedio = Product::where('product_id', 17) // product_details 1 - okinawa
@@ -413,7 +401,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             20 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $HoneyPeachGrande = Product::where('product_id', 17)
@@ -425,7 +413,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             20 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $MangoMedio = Product::where('product_id', 18) // product_details 1 - okinawa
@@ -438,7 +426,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             21 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $MangoGrande = Product::where('product_id', 18)
@@ -450,7 +438,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             21 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $BlueberryMedio = Product::where('product_id', 19) // product_details 1 - okinawa
@@ -463,7 +451,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             22 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $BlueberryGrande = Product::where('product_id', 19)
@@ -475,7 +463,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             22 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $HotBruskoCoffeeSmall = Product::where('product_id', 21)
@@ -488,7 +476,7 @@ class InventoryItemConsumptionSeeder extends Seeder
            4 => ['consumption_value' => 1],
            52 => ['consumption_value' => 1],
            46 => ['consumption_value' => 355],
-           47 => ['consumption_value' => 25],
+        //    47 => ['consumption_value' => 25],
          ]);
          $HotChocoCoffeeSmall = Product::where('product_id', 22)
          ->where('size_id', 1)
@@ -500,7 +488,7 @@ class InventoryItemConsumptionSeeder extends Seeder
            4 => ['consumption_value' => 1],
            52 => ['consumption_value' => 1],
            46 => ['consumption_value' => 355],
-           47 => ['consumption_value' => 25],
+        //    47 => ['consumption_value' => 25],
          ]);
          $HotMocaCoffeeSmall = Product::where('product_id', 23)
          ->where('size_id', 1)
@@ -513,7 +501,7 @@ class InventoryItemConsumptionSeeder extends Seeder
            4 => ['consumption_value' => 1],
            52 => ['consumption_value' => 1],
            46 => ['consumption_value' => 355],
-           47 => ['consumption_value' => 25],
+        //    47 => ['consumption_value' => 25],
          ]);
          $HotMatchaCoffeeSmall = Product::where('product_id', 24)
          ->where('size_id', 1)
@@ -526,7 +514,7 @@ class InventoryItemConsumptionSeeder extends Seeder
            4 => ['consumption_value' => 1],
            52 => ['consumption_value' => 1],
            46 => ['consumption_value' => 355],
-           47 => ['consumption_value' => 25],
+        //    47 => ['consumption_value' => 25],
          ]);
          $HotKaramelCoffeeSmall = Product::where('product_id', 25)
          ->where('size_id', 1)
@@ -539,7 +527,7 @@ class InventoryItemConsumptionSeeder extends Seeder
            4 => ['consumption_value' => 1],
            52 => ['consumption_value' => 1],
            46 => ['consumption_value' => 355],
-           47 => ['consumption_value' => 25],
+        //    47 => ['consumption_value' => 25],
          ]);
          $KapeBruskoMedio = Product::where('product_id', 26) // product_details 1 - okinawa
          ->where('size_id', 2) // 2 - medio
@@ -551,7 +539,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             28 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $KapeBruskoGrande = Product::where('product_id', 26)
@@ -563,7 +551,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             28 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $KapeMacchMedio = Product::where('product_id', 27) // product_details 1 - okinawa
@@ -576,7 +564,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             29 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
             48 => ['consumption_value' => 15]
          ]);
@@ -589,7 +577,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             29 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
             48 => ['consumption_value' => 20],
          ]);
@@ -603,7 +591,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             30 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
             48 => ['consumption_value' => 15]
          ]);
@@ -616,7 +604,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             30 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
             48 => ['consumption_value' => 20],
          ]);
@@ -630,7 +618,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             31 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
             48 => ['consumption_value' => 15]
          ]);
@@ -643,7 +631,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             31 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
             48 => ['consumption_value' => 20],
          ]);
@@ -657,7 +645,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             32 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
             48 => ['consumption_value' => 15]
          ]);
@@ -670,7 +658,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             32 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
             48 => ['consumption_value' => 20],
          ]);
@@ -684,7 +672,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             33 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
             48 => ['consumption_value' => 15]
          ]);
@@ -697,7 +685,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             33 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
             48 => ['consumption_value' => 20],
          ]);
@@ -711,7 +699,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             34 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
             48 => ['consumption_value' => 15]
          ]);
@@ -724,7 +712,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             34 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
             48 => ['consumption_value' => 20],
          ]);
@@ -738,7 +726,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             34 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
             48 => ['consumption_value' => 15]
          ]);
@@ -751,7 +739,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             34 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
             48 => ['consumption_value' => 20],
          ]);
@@ -765,7 +753,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             35 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
             48 => ['consumption_value' => 15]
          ]);
@@ -778,7 +766,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             35 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
             48 => ['consumption_value' => 20],
          ]);
@@ -792,7 +780,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             36 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
             48 => ['consumption_value' => 15]
          ]);
@@ -805,7 +793,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             36 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
             48 => ['consumption_value' => 20],
          ]);
@@ -819,7 +807,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             37 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
             48 => ['consumption_value' => 15]
          ]);
@@ -832,7 +820,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             37 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
             48 => ['consumption_value' => 20],
          ]);
@@ -846,7 +834,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             13 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $CookiesNCreamGrande = Product::where('product_id', 37)
@@ -858,7 +846,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             13 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $CheesecakeCreamMedio = Product::where('product_id', 38) // product_details 1 - okinawa
@@ -871,7 +859,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             38 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $CheesecakeCreamGrande = Product::where('product_id', 38)
@@ -883,7 +871,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             38 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $TaroCreamMedio = Product::where('product_id', 39) // product_details 1 - okinawa
@@ -896,7 +884,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             39 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $TaroCreamGrande = Product::where('product_id', 39)
@@ -908,7 +896,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             39 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $MatchaCreamMedio = Product::where('product_id', 40) // product_details 1 - okinawa
@@ -921,7 +909,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             40 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $MatchaCreamGrande = Product::where('product_id', 40)
@@ -933,7 +921,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             40 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $ChocolateCreamMedio = Product::where('product_id', 41) // product_details 1 - okinawa
@@ -946,7 +934,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             41 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $ChocolateCreamGrande = Product::where('product_id', 41)
@@ -958,7 +946,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             41 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $StrawberryCreamMedio = Product::where('product_id', 42) // product_details 1 - okinawa
@@ -971,7 +959,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             42 => ['consumption_value' => 20], // 7 - ayun yugn okinawa powder, 2 grams imbento lang
             46 => ['consumption_value' => 473],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 34],
+            // 47 => ['consumption_value' => 34],
             50 => ['consumption_value' => 6],
          ]);
          $StrawberryCreamGrande = Product::where('product_id', 42)
@@ -983,7 +971,7 @@ class InventoryItemConsumptionSeeder extends Seeder
             42 => ['consumption_value' => 30],
             46 => ['consumption_value' => 651],
             3 => ['consumption_value' => 1],
-            47 => ['consumption_value' => 46],
+            // 47 => ['consumption_value' => 46],
             50 => ['consumption_value' => 8],
          ]);
          $Pearl = Product::where('product_id', 43)
