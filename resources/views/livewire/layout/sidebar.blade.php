@@ -1,12 +1,7 @@
 <aside
     class="fixed h-screen marker:flex flex-col text-gray-900 bg-white transition-all duration-300 ease-in-out shadow-lg"
     :class="isSidebarExpanded ? 'w-64' : 'w-20'">
-    <a href="#"
-        class="h-20 flex items-center px-4 bg-white hover:text-gray-800 hover:bg-opacity-50 focus:outline-none focus:text-gray-100 focus:bg-opacity-50 overflow-hidden"
-        wire:navigate>
-        <span class="ml-2 text-xl font-medium duration-300 ease-in-out"
-            :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Big Brew</span>
-    </a>
+    <div class="h-16"></div>
     <nav class="p-4 space-y-2 font-medium">
         <a href="{{ route('dashboard') }}" title="Dashboard"
             class="flex items-center h-10 px-3 {{ $activePage == 'dashboard' ? 'text-white bg-amber-700' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
