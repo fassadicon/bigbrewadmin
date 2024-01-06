@@ -25,7 +25,7 @@
 
 
 
-    <div class="flex space-x-6">
+    <div class="flex space-x-3">
         <div class="w-1/2 w-fit">
             <div class="py-12">
                 <form wire:submit.prevent="store">
@@ -235,7 +235,7 @@
                                                 <td>{{ $inventoryLog->new_stock }}</td>
                                                 <td>{{ $inventoryLog->supplier->name }}</td>
                                                 <td>{{ $inventoryLog->user->name }}</td>
-                                                <td>{{ $inventoryLog->created_at }}</td>
+                                                <td>{{ $inventoryLog->created_at->format('M d, Y') }}</td>
                                                 <td>{{ $inventoryLog->remarks }}</td>
 
                                                 {{-- <td>
