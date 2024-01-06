@@ -24,6 +24,14 @@ class Index extends Component
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
 
+    public function changeStartDate($value) {
+        $this->start = $value;
+    }
+
+    public function changeEndDate($value) {
+        $this->end = $value;
+    }
+
     public function show(int $id)
     {
         $this->dispatch('showing-order', id: $id);

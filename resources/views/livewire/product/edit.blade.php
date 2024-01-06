@@ -21,7 +21,7 @@
                             @csrf
                             <div class="mb-6">
                                 <label for="name"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name<span class="text-red-500"> * </span></label>
                                 <input wire:model="form.name"
                                     type="text"
                                     id="name"
@@ -31,7 +31,7 @@
                             </div>
                             <div class="mb-6">
                                 <label for="category_id"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category<span class="text-red-500"> * </span></label>
                                 <select wire:model="form.category_id"
                                     id="category_id"
                                     class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
@@ -104,7 +104,7 @@
                             @foreach ($form->product as $key => $data)
                                 <div class="relative z-0 w-full mb-5 group">
                                     <label for="size_{{ $key }}"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Size</label>
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Size<span class="text-red-500"> * </span></label>
                                     <select wire:model="form.product.{{ $key }}.size_id"
                                         wire:change="changeSizeOrInventoryItem()"
                                         id="size_{{ $key }}"
@@ -124,7 +124,7 @@
                                 </div>
                                 <div class="relative z-0 w-full mb-5 group">
                                     <label for="price_{{ $key }}"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price<span class="text-red-500"> * </span></label>
                                     <input wire:model="form.product.{{ $key }}.price"
                                         id="price_{{ $key }}"
                                         type="text"
@@ -177,13 +177,13 @@
                                             <button wire:click.prevent="addInventoryItem({{ $index }})"
                                                     class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-md text-xs px-3 py-1.5 ml-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">+</button>
                                         </div>
-                                    
+
                                         <div class="grid md:grid-cols-12 md:gap-6">
                                             @foreach ($data['inventory_consumption'] as $key => $data)
                                                 <div class="col-span-7 relative z-0 w-full mb-5 group">
                                                     <label for="inventory_item_{{ $index }}_{{ $key }}"
                                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Inventory
-                                                        Item</label>
+                                                        Item<span class="text-red-500"> * </span></label>
 
                                                     <select
                                                         wire:model="form.product.{{ $index }}.inventory_consumption.{{ $key }}.inventory_item_id"
@@ -207,7 +207,7 @@
                                                 <div class="col-span-3 relative z-0 w-full mb-5 group">
                                                     <label for=""
                                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Consumption
+                                                        Consumption<span class="text-red-500"> * </span>
                                                     </label>
                                                     <input
                                                         wire:model="form.product.{{ $index }}.inventory_consumption.{{ $key }}.consumption_value"

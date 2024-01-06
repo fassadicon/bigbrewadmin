@@ -32,7 +32,7 @@
                     wire:keyup='updateAmount({{ $key }}, $event.target.value)'
                     id="quantity_{{ $key }}"
                     type="text"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border border-transparent focus:border-transparent focus:ring-0 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500"
                     readonly>
                 @error("deliveryReceiveItems.$key.expected_quantity")
                     <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
@@ -42,7 +42,8 @@
             </div>
             <div class="relative z-0 w-full mb-5 group">
                 <label for="quantity_{{ $key }}"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Received</label>
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Received<span
+                        class="text-red-500"> * </span></label>
                 {{--  wire:change='updateReceived({{ $key }}, $event.target.value)' --}}
                 <input wire:model="deliveryReceiveItems.{{ $key }}.quantity"
                     wire:keyup='updateReceived({{ $key }}, $event.target.value)'
@@ -61,7 +62,7 @@
                 <input wire:model="deliveryReceiveItems.{{ $key }}.pending"
                     id="pending_{{ $key }}"
                     type="text"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border border-transparent focus:border-transparent focus:ring-0 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500"
                     readonly>
                 @error("deliveryReceiveItems.$key.pending")
                     <span class="text-sm text-red-600 dark:text-red-400 space-y-1">
@@ -75,7 +76,7 @@
                 <input wire:model.live="deliveryReceiveItems.{{ $key }}.amount"
                     id="amount_{{ $key }}"
                     type="text"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border border-transparent focus:border-transparent focus:ring-0 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 "
                     readonly>
                 @error("deliveryReceiveItems.$key.amount")
                     <span class="text-sm text-red-600 dark:text-red-400 space-y-1">

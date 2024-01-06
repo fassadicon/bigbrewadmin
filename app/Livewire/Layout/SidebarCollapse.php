@@ -11,7 +11,9 @@ class SidebarCollapse extends Component
 
     public function mount()
     {
-        $this->currentRoute = strtoupper($this->getCurrentRoute());
+        $currentRoute = str_replace('.', ' / ', Route::currentRouteName());
+        $currentRoute = str_replace('-', ' ', $currentRoute);
+        $this->currentRoute = strtoupper($currentRoute);
     }
 
     public function render()

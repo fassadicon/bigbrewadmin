@@ -26,6 +26,7 @@ class Index extends Component
     public function store()
     {
         $this->form->store();
+        $this->form->reset();
     }
 
     public function show(int $id)

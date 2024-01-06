@@ -6,6 +6,7 @@
     </x-slot>
 
     <livewire:order.void-order />
+    <livewire:order.show />
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -14,8 +15,9 @@
                     @if (auth()->user()->hasRole('Owner'))
                         <button wire:click='export'
                             class="p-2 bg-amber-800 hover:bg-amber-950 text-white rounded ml-8 mt-8">Export</button>
-                        <livewire:order.show />
                     @endif
+                    {{-- <input wire:model='start' />
+                    <input wire:model='end' /> --}}
                     {{-- Search Filters --}}
                     <div class="flex items-center justify-between d p-4">
                         <div class="flex">
@@ -40,8 +42,7 @@
                         </div>
 
                         <div class="flex items-center">
-                            <div class="relative">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            {{-- <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -50,19 +51,20 @@
                                         <path
                                             d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                                     </svg>
-                                </div>
-                                <input id="date_start"
-                                    datepicker
-                                    datepicker-autohide
-                                    datepicker-buttons
-                                    name="start"
-                                    type="text"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Select date start">
-                            </div>
+                                </div> --}}
+                            <input wire:model='start'
+                                {{-- id="date_start" --}}
+                                {{-- datepicker --}}
+                                {{-- datepicker-autohide --}}
+                                {{-- datepicker-buttons --}}
+                                wire:change='changeStartDate($event.target.value)'
+                                name="start"
+                                type="date"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Select date start">
                             <span class="mx-4 text-gray-500">to</span>
                             <div class="relative">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                {{-- <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -71,13 +73,15 @@
                                         <path
                                             d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                                     </svg>
-                                </div>
-                                <input id="date_end"
-                                    datepicker
-                                    datepicker-autohide
-                                    datepicker-buttons
+                                </div> --}}
+                                <input wire:model='end'
+                                    {{-- id="date_end" --}}
+                                    {{-- datepicker --}}
+                                    {{-- datepicker-autohide --}}
+                                    {{-- datepicker-buttons --}}
+                                    wire:change='changeEndDate($event.target.value)'
                                     name="end"
-                                    type="text"
+                                    type="date"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Select date end">
                             </div>
@@ -163,7 +167,7 @@
 
                                             <button wire:click.prevent="downloadReceipt({{ $order->id }})"
                                                 class="p-2 m-1 bg-blue-500 text-white rounded">
-                                                <i class="fas fa-trash"></i>
+                                                <i class="fas fa-receipt"></i>
                                             </button>
                                             @if (auth()->user()->hasRole('Owner') ||
                                                     auth()->user()->hasRole('Admin') ||
@@ -172,7 +176,7 @@
                                                     <button
                                                         wire:click.prevent="remarksForVoidOrder({{ $order->id }})"
                                                         class="p-2 m-1 bg-red-500 text-white rounded">
-                                                        Void
+                                                        <i class="fa-solid fa-ban"></i>
                                                     </button>
                                                 @endif
                                             @endif
@@ -205,7 +209,7 @@
                     </div>
 
                     <div class="py-4 px-3">
-                        <div class="flex ">
+                        <div class="flex justify-between">
                             <div class="flex space-x-4 items-center mb-3">
                                 <label class="w-32 text-sm font-medium text-gray-900">Show</label>
                                 <select wire:model.live='perPage'
@@ -226,27 +230,27 @@
     </div>
 </div>
 <script>
-    window.addEventListener("load", function() {
-        const elStart = document.getElementById("date_start");
-        elStart.addEventListener("change", (event) => {
-            @this.set('start', event.target.value);
-        });
-        elStart.addEventListener("click", (event) => {
-            @this.set('start', event.target.value);
-        });
-        elStart.addEventListener("blur", (event) => {
-            @this.set('start', event.target.value);
-        });
+    // window.addEventListener("load", function() {
+    //     const elStart = document.getElementById("date_start");
+    //     elStart.addEventListener("change", (event) => {
+    //         @this.set('start', event.target.value);
+    //     });
+    //     elStart.addEventListener("click", (event) => {
+    //         @this.set('start', event.target.value);
+    //     });
+    //     elStart.addEventListener("blur", (event) => {
+    //         @this.set('start', event.target.value);
+    //     });
 
-        const elEnd = document.getElementById("date_end");
-        elEnd.addEventListener("change", (event) => {
-            @this.set('end', event.target.value);
-        });
-        elEnd.addEventListener("click", (event) => {
-            @this.set('end', event.target.value);
-        });
-        elEnd.addEventListener("blur", (event) => {
-            @this.set('end', event.target.value);
-        });
-    });
+    //     const elEnd = document.getElementById("date_end");
+    //     elEnd.addEventListener("change", (event) => {
+    //         @this.set('end', event.target.value);
+    //     });
+    //     elEnd.addEventListener("click", (event) => {
+    //         @this.set('end', event.target.value);
+    //     });
+    //     elEnd.addEventListener("blur", (event) => {
+    //         @this.set('end', event.target.value);
+    //     });
+    // });
 </script>
