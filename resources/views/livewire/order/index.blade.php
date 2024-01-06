@@ -167,7 +167,7 @@
 
                                             <button wire:click.prevent="downloadReceipt({{ $order->id }})"
                                                 class="p-2 m-1 bg-blue-500 text-white rounded">
-                                                <i class="fas fa-trash"></i>
+                                                <i class="fas fa-receipt"></i>
                                             </button>
                                             @if (auth()->user()->hasRole('Owner') ||
                                                     auth()->user()->hasRole('Admin') ||
@@ -176,7 +176,7 @@
                                                     <button
                                                         wire:click.prevent="remarksForVoidOrder({{ $order->id }})"
                                                         class="p-2 m-1 bg-red-500 text-white rounded">
-                                                        Void
+                                                        <i class="fa-solid fa-ban"></i>
                                                     </button>
                                                 @endif
                                             @endif

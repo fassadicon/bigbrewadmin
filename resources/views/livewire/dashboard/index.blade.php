@@ -4,13 +4,13 @@
     @if (auth()->user()->hasRole('Owner'))
         <div class="bg-white rounded-lg shadow-md p-6">
             <h2 class="text-lg mb-4">Sales Summary:</h2>
-            <p>Current Sales Today: {{ $currentSalesToday }}</p>
-            <p>Current Sales this Week: {{ $currentSalesWeek }}</p>
-            <p>Current Sales this Month: {{ $currentSalesMonth }}</p>
-            <p>Current Sales this Year: {{ $currentSalesYear }}</p>
-            <p>Pending Purchase Orders Amount: {{ $pendingPurchaseOrdersAmount }}</p>
-            <p>Purchase Orders Amount: {{ $purchaseOrdersAmount }}</p>
-            <p>Delivery Receives Amount: {{ $deliveryReceivesAmount }}</p>
+            <p>Current Sales Today: ₱ {{ $currentSalesToday }}</p>
+            <p>Current Sales this Week: ₱ {{ $currentSalesWeek }}</p>
+            <p>Current Sales this Month: ₱ {{ $currentSalesMonth }}</p>
+            <p>Current Sales this Year: ₱ {{ $currentSalesYear }}</p>
+            <p>Pending Purchase Orders Amount: ₱ {{ $pendingPurchaseOrdersAmount }}</p>
+            <p>Purchase Orders Amount: ₱ {{ $purchaseOrdersAmount }}</p>
+            <p>Delivery Receives Amount: ₱ {{ $deliveryReceivesAmount }}</p>
         </div>
     @endif
 
@@ -42,7 +42,7 @@
                 {{ $mostOrderedProduct->order_items_count }}</p>
         @endforeach
     </div>
-    
+
 
 
     <div class="bg-white rounded-lg shadow-md p-6">

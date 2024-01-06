@@ -9,7 +9,7 @@
                 <div class="mb-6">
                     <label for="supplier_id"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Supplier</label>
-                    <select wire:model='supplier_id' name="supplier_id" id="supplier_id">
+                    <select wire:model='supplier_id' name="supplier_id" id="supplier_id" class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                         <option value="">-- Please select supplier --</option>
                         @foreach ($suppliers as $supplier)
                         <option value="{{ $supplier->id }}" @selected($supplier_id==$supplier->id)>
@@ -27,7 +27,8 @@
                             Item</label>
                         <select wire:model='purchaseOrderItems.{{ $key }}.inventory_item_id'
                             wire:change='inventoryItemSelected({{ $key }}, $event.target.value)'
-                            name="inventory_item_id" id="inventory_item_id_{{ $key }}">
+                            name="inventory_item_id" id="inventory_item_id_{{ $key }}"
+                            class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                             <option value="" selected>-- Please select an Inventory Item --</option>
                             @foreach ($inventoryItems as $inventoryItem)
                             <option value="{{ $inventoryItem->id }}"
@@ -91,7 +92,7 @@
                     @endforeach
                     <div class="mb-6">
                         <button wire:click='addPurchaseOrderItem' type="button"
-                            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Add
+                            class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add
                             PO Item</button>
                     </div>
                 </div>

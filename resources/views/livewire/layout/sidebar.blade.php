@@ -19,7 +19,7 @@
         <a href="{{ route('pos') }}" title="POS"
             class="flex items-center h-10 px-3 {{ $activePage == 'pos' ? 'text-white bg-amber-700' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
             wire:navigate>
-            <i class="fa-solid fa-house flex-shrink-0 w-6"></i>
+            <i class="fa-solid fa-cash-register flex-shrink-0 w-6"></i>
             <span class="ml-2 duration-300 ease-in-out"
                 :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">POS</span>
         </a>

@@ -44,7 +44,7 @@ class Index extends Component
 
         $purchaseOrders = PurchaseOrder::get();
         $pendingPurchaseOrdersAmount = $purchaseOrders->where('status', 'Pending')->sum('total_amount');
-        $purchaseOrdersAmount = $purchaseOrders->sum('total_amount');
+        $purchaseOrdersAmount = number_format($purchaseOrders->sum('total_amount'), 2, '.', '');
 
         $deliveryReceivesAmount = DeliveryReceive::sum('total_amount');
 

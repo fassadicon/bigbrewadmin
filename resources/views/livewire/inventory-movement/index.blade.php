@@ -82,7 +82,8 @@
                                     class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Supplier</label>
                                 <select wire:model='form.supplier_id'
                                     name="supplier_id"
-                                    id="supplier_id">
+                                    id="supplier_id"
+                                    class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                     <option value="">--Select Supplier--</option>
                                     @foreach ($suppliers as $supplier)
                                         <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
