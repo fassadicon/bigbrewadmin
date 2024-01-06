@@ -47,7 +47,6 @@ class Index extends Component
         $purchaseOrdersAmount = $purchaseOrders->sum('total_amount');
 
         $deliveryReceivesAmount = DeliveryReceive::sum('total_amount');
-        $POminusDR = $purchaseOrdersAmount - $deliveryReceivesAmount;
 
         $mostOrderedProducts = Product::withCount('orderItems')
             ->orderByDesc('order_items_count')
@@ -93,7 +92,6 @@ class Index extends Component
             'purchaseOrdersAmount' => $purchaseOrdersAmount,
             'pendingPurchaseOrdersAmount' => $pendingPurchaseOrdersAmount,
             'deliveryReceivesAmount' => $deliveryReceivesAmount,
-            'POminusDR' => $POminusDR,
             'mostOrderedProducts' => $mostOrderedProducts,
             'wasteItemsCount' => $wasteItemsCount,
             'totalAmountWastage' => $totalAmountWastage,

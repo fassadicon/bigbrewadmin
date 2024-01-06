@@ -11,7 +11,6 @@
             <p>Pending Purchase Orders Amount: {{ $pendingPurchaseOrdersAmount }}</p>
             <p>Purchase Orders Amount: {{ $purchaseOrdersAmount }}</p>
             <p>Delivery Receives Amount: {{ $deliveryReceivesAmount }}</p>
-            <p>PO - DR: {{ $POminusDR }}</p>
         </div>
     @endif
 
