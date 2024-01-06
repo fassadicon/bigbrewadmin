@@ -18,7 +18,7 @@
                     <figure class="mb-2">
                         <img src="{{ asset('storage\\' . $productDetail->image_path) }}"
                             alt=""
-                            class="h-16 md:h-24 lg:h-32 ml-auto mr-auto object-cover" />
+                            class="h-16 w-full md:h-24 lg:h-32 ml-auto mr-auto object-cover" />
                     </figure>
                     <div class="rounded-lg p-2 bg-zinc-800 flex flex-col flex-1">
                         <div>
