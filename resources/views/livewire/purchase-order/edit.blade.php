@@ -8,7 +8,7 @@
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 <div class="mb-6">
                     <label for="supplier_id"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Supplier</label>
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Supplier<span class="text-red-500"> * </span></label>
                     <select wire:model='supplier_id' name="supplier_id" id="supplier_id" class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                         <option value="">-- Please select supplier --</option>
                         @foreach ($suppliers as $supplier)
@@ -24,7 +24,7 @@
                     <div class="relative z-0 w-full mb-5 group">
                         <label for="inventory_item_id"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Inventory
-                            Item</label>
+                            Item<span class="text-red-500"> * </span></label>
                         <select wire:model='purchaseOrderItems.{{ $key }}.inventory_item_id'
                             wire:change='inventoryItemSelected({{ $key }}, $event.target.value)'
                             name="inventory_item_id" id="inventory_item_id_{{ $key }}"
@@ -46,7 +46,7 @@
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
                         <label for="quantity_{{ $key }}"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity<span class="text-red-500"> * </span></label>
                         <input wire:model="purchaseOrderItems.{{ $key }}.quantity"
                             wire:change='updateAmount({{ $key }}, $event.target.value)'
                             wire:keyup='updateAmount({{ $key }}, $event.target.value)' id="quantity_{{ $key }}"

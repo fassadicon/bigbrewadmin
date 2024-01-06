@@ -10,7 +10,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="mb-6">
                         <label for="name"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name<span class="text-red-500"> * </span></label>
                         <input wire:model="editForm.name"
                             type="text"
                             id="name"
@@ -20,7 +20,7 @@
                     </div>
                     <div class="mb-6">
                         <label for="measurement"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Measurement</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Measurement<span class="text-red-500"> * </span></label>
                         <input wire:model="editForm.measurement"
                             type="text"
                             id="measurement"
@@ -30,7 +30,7 @@
                     </div>
                     <div class="mb-6">
                         <label for="warning_value"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Warning Value</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Warning Value<span class="text-red-500"> * </span></label>
                         <input wire:model="editForm.warning_value"
                             type="text"
                             id="warning_value"

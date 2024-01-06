@@ -37,7 +37,7 @@
                         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-4">
                             <div class="flex flex-col">
                                 <label for="form_type"
-                                    class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
+                                    class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Type<span class="text-red-500"> * </span></label>
                                 <select wire:model.live="form.type"
                                     id="form_type"
                                     class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
@@ -53,7 +53,7 @@
                             <div class="flex flex-col">
                                 <label for="form_inventory_item"
                                     class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Inventory
-                                    Item</label>
+                                    Item<span class="text-red-500"> * </span></label>
                                 <select wire:model.live="form.inventory_item_id"
                                     id="form_inventory_item"
                                     class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
@@ -68,7 +68,7 @@
 
                             <div class="flex flex-col">
                                 <label for="form_amount"
-                                    class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
+                                    class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity<span class="text-red-500"> * </span></label>
                                 <input wire:model="form.amount"
                                     type="text"
                                     id="form_amount"
@@ -79,7 +79,7 @@
 
                             <div class="flex flex-col">
                                 <label for="form_supplier"
-                                    class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Supplier</label>
+                                    class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Supplier<span class="text-red-500"> * </span></label>
                                 <select wire:model='form.supplier_id'
                                     name="supplier_id"
                                     id="supplier_id"

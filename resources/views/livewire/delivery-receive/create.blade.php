@@ -42,7 +42,7 @@
             </div>
             <div class="relative z-0 w-full mb-5 group">
                 <label for="quantity_{{ $key }}"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Received</label>
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Received<span class="text-red-500"> * </span></label>
                 {{--  wire:change='updateReceived({{ $key }}, $event.target.value)' --}}
                 <input wire:model="deliveryReceiveItems.{{ $key }}.quantity"
                     wire:keyup='updateReceived({{ $key }}, $event.target.value)'

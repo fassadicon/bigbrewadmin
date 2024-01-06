@@ -7,7 +7,7 @@
 
     <livewire:product-category.edit />
     <livewire:product-category.show />
-    <div class="flex w-full"> 
+    <div class="flex w-full">
     <div class="flex-1/3 h-fit bg-white rounded-lg p-4 hover:shadow-xl shadow-xl m-4">
         <form wire:submit="store">
             @csrf
@@ -19,7 +19,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="mb-6">
                         <label for="name"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name<span class="text-red-500"> * </span></label>
                         <input wire:model="form.name"
                             type="text"
                             id="name"
@@ -127,7 +127,7 @@
                                             <td class="px-4 py-3 flex items-center justify-center">
                                                 <button wire:click.prevent="showCategory({{ $category->id }})" class="p-2 m-1 bg-blue-500 text-white rounded">
                                                     <i class="fas fa-eye"></i>
-                                                </button>                 
+                                                </button>
                                                 @unless ($category->trashed())
                                                     <button wire:click.prevent="editCategory({{ $category }})" class="p-2 m-1 bg-green-500 text-white rounded">
                                                         <i class="fas fa-edit"></i>
@@ -140,7 +140,7 @@
                                                         <i class="fas fa-undo"></i>
                                                     </button>
                                                 @endunless
-                                                
+
                                             </td>
                                         </tr>
                                     @endforeach
