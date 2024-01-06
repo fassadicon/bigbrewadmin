@@ -53,7 +53,7 @@
         <a href="{{ route('sizes') }}" title="Sizes"
             class="flex items-center h-10 px-3 {{ $activePage == 'sizes' ? 'text-white bg-amber-700' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
             wire:navigate>
-            <i class="fa-solid fa-chart-simple"></i>
+            <i class="fa-solid fa-chart-simple w-6"></i>
             <span class="ml-2 duration-300 ease-in-out"
                 :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Sizes</span>
         </a>
@@ -78,7 +78,7 @@
         <a href="{{ route('inventory-movements') }}" title="Inventory Movements"
             class="flex items-center h-10 px-3 {{ $activePage == 'inventory-movements' ? 'text-white bg-amber-700' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
             wire:navigate>
-            <i class="fa-solid fa-arrow-down-up-across-line"></i>
+            <i class="fa-solid fa-arrow-down-up-across-line w-6"></i>
             <span class="ml-2 duration-300 ease-in-out"
                 :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Inventory Movements</span>
         </a>

@@ -10,6 +10,7 @@ use Masmerise\Toaster\Toaster;
 class CreateSizeForm extends Form
 {
     public $name;
+    public $alias;
     public $measurement;
     public $description;
 
@@ -17,6 +18,7 @@ class CreateSizeForm extends Form
     {
         return [
             'name' => 'required|string|max:255|unique:sizes,name',
+            'alias' => 'required|string|max:255|unique:sizes,alias',
             'measurement' => 'required',
             'description' => 'nullable|string'
         ];
@@ -26,6 +28,7 @@ class CreateSizeForm extends Form
     {
         return [
             'name' => 'name',
+            'alias' => 'alias',
             'measurement' => 'measurement',
             'description' => 'description'
         ];
@@ -37,6 +40,7 @@ class CreateSizeForm extends Form
 
         Size::create([
             'name' => $this->name,
+            'alias' => $this->alias,
             'measurement' => $this->measurement,
             'description' => $this->description
         ]);

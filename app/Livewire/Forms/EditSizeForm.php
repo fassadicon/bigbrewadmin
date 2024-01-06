@@ -11,6 +11,7 @@ class EditSizeForm extends Form
 {
     public Size $size;
     public $name;
+    public $alias;
     public $measurement;
     public $description;
 
@@ -18,6 +19,7 @@ class EditSizeForm extends Form
     {
         return [
             'name' => 'required|string|max:255|unique:sizes,name,' . $this->size->id,
+            'alias' => 'required|string|max:255|unique:sizes,alias,' . $this->size->id,
             'measurement' => 'required',
             'description' => 'nullable|string'
         ];
@@ -27,6 +29,7 @@ class EditSizeForm extends Form
     {
         return [
             'name' => 'name',
+            'alias' => 'alias',
             'measurement' => 'measurement',
             'description' => 'description'
         ];
@@ -36,9 +39,9 @@ class EditSizeForm extends Form
     {
         $this->size = $size;
         $this->name = $size->name;
+        $this->alias = $size->alias;
         $this->description = $size->description;
         $this->measurement = $size->measurement;
-        $this->size = $size;
     }
 
     public function update()
@@ -47,6 +50,7 @@ class EditSizeForm extends Form
 
         $this->size->update([
             'name' => $this->name,
+            'alias' => $this->alias,
             'measurement' => $this->measurement,
             'description' => $this->description,
         ]);
