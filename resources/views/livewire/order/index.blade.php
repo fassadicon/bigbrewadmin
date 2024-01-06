@@ -209,7 +209,7 @@
                     </div>
 
                     <div class="py-4 px-3">
-                        <div class="flex ">
+                        <div class="flex justify-between">
                             <div class="flex space-x-4 items-center mb-3">
                                 <label class="w-32 text-sm font-medium text-gray-900">Show</label>
                                 <select wire:model.live='perPage'

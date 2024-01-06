@@ -138,19 +138,22 @@
     </div>
 
     <div wire:loading.class="invisible" class="py-4 px-3">
-        <div class="flex ">
-            <div class="flex space-x-4 items-center mb-3">
+        <div class="flex justify-between">
+            <div class="flex space-x-4 items-center">
                 <label class="w-32 text-sm font-medium text-gray-900">Show</label>
                 <select wire:model.live='perPage'
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
                 </select>
             </div>
-            {{ $productDetails->links() }}
+            <div class="flex justify-end">
+                <div id="product_pagination">
+                    {{ $productDetails->links() }}
+                </div>
+            </div>
         </div>
-
     </div>
 </div>
