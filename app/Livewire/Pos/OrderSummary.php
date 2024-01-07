@@ -68,7 +68,7 @@ class OrderSummary extends Component
     public function addQuantity($key)
     {
         $currentQuantity = $this->selectedProducts[$key]['quantity'];
-        $this->selectedProducts[$key]['quantity'] = $currentQuantity + 1;
+        $this->selectedProducts[$key]['quantity'] = intval($currentQuantity) + 1;
         $this->computeCurrentTotalAmount();
     }
 

@@ -35,7 +35,7 @@ class ProductCard extends Component
         // dd($product);
         foreach ($product->inventoryItems as $inventoryItem) {
             if ($inventoryItem->remaining_stocks <= $inventoryItem->warning_value) {
-                Toaster::warning("Product successfully added. However, {$inventoryItem->name} has {$inventoryItem->remaining_stocks} stocks left and reached its warning level. Please refill the inventory.");
+                Toaster::warning("{$inventoryItem->name} has {$inventoryItem->remaining_stocks} stocks left and reached its warning level. Please refill the inventory.");
             }
             if ($inventoryItem->remaining_stocks <= 0) {
                 Toaster::danger("{$inventoryItem->name} has {$inventoryItem->remaining_stocks} stocks left and cannot proceed ordering. Please refill the inventory immediately.");

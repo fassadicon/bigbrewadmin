@@ -65,7 +65,9 @@
                                 <div class="flex space-x-2">
                                     @foreach ($productDetail->sizes as $size)
                                         <button wire:click="addToCart({{ $size->pivot->id }})"
-                                            class="rounded-full h-8 w-8 bg-red-50 text-amber-950 hover:bg-amber-50 hover:text-amber-800 hover:shadow-xl focus:outline-none flex ml-auto transition duration-300"
+                                            class="rounded-full h-8 w-8
+                                            {{ $disabled ? "bg-gray-500 text-gray-950 hover:bg-gray-50 hover:text-gray-800 " : "bg-red-100 text-amber-950 hover:bg-amber-50 hover:text-amber-800 " }}
+                                             hover:shadow-xl focus:outline-none flex ml-auto transition duration-300"
                                             @disabled($disabled)>
                                             <div class="m-auto">
                                                 {{ $size->alias }}
