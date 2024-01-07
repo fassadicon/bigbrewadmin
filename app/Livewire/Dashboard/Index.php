@@ -33,7 +33,7 @@ class Index extends Component
         $endOfYear = Carbon::create($currentYear, 12, 31);
         $currentSalesYear = Order::whereBetween('created_at', [$startOfYear, $endOfYear])->sum('total_amount');
 
-        $inventoryItems = InventoryItem::select('name', 'remaining_stocks', 'warning_value')->get();
+        $inventoryItems = InventoryItem::select('name', 'remaining_stocks', 'warning_value', 'measurement')->get();
 
         $lowInventoryItems = [];
         foreach ($inventoryItems as $inventoryItem) {
@@ -50,7 +50,7 @@ class Index extends Component
 
         $mostOrderedProducts = Product::withCount('orderItems')
             ->orderByDesc('order_items_count')
-            ->limit(5)
+            ->limit(10)
             ->get();
 
         $inventoryLogs = InventoryLog::with('inventoryItem')
@@ -63,7 +63,36 @@ class Index extends Component
         }
         $wasteItemsCount = count(array_unique($wasteItems));
 
+        // Fastest Moving Items
+        $inventoryItems = [];
+        foreach ($mostOrderedProducts as $mostOrderedProduct) {
+            foreach($mostOrderedProduct->inventoryItems as $inventoryItem) {
+                $inventoryItems[] = $inventoryItem->name;
+            }
+        }
+        $fastestMovingItems = array_count_values($inventoryItems);
+
+        arsort($fastestMovingItems);
+
+        $fastestMovingItems = array_map(function($item) {
+            if ($item > 1) {
+                return $item;
+            }
+        }, $fastestMovingItems);
+
+        $fastestMovingItems = array_filter($fastestMovingItems);
+
         // Chart
+        $colors = [
+            '#774936',
+            '#edc4b3',
+            '#8a5a44',
+            '#e6b8a2',
+            '#9d6b53',
+            '#deab90',
+            '#b07d62',
+        ];
+
         $columnChartModel =
             (new ColumnChartModel())
             ->setTitle('Sales');
@@ -76,7 +105,7 @@ class Index extends Component
             $columnChartModel->addColumn(
                 $dayOfWeek->format('D'),
                 $salesData,
-                '#f6ad55'
+                $colors[$offset-1]
             );
 
             $dayOfWeek->addDay();
@@ -95,6 +124,7 @@ class Index extends Component
             'mostOrderedProducts' => $mostOrderedProducts,
             'wasteItemsCount' => $wasteItemsCount,
             'totalAmountWastage' => $totalAmountWastage,
+            'fastestMovingItems' => $fastestMovingItems
         ]);
     }
 }
