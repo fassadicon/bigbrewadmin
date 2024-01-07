@@ -22,8 +22,12 @@
     <div class="mx-auto w-96 md:mt-2">
         <div class="rounded-3xl bg-white shadow-lg">
             <div class="px-2 py-6">
+                <div class="text-center">
+                    <p class="text-m text-blue-900 font-bold">CART</p>
+                </div>
+
                 <div class="flow-root">
-                    <ul class="-my-8">
+                    <ul class="-my-2">
                         <div class="flex flex-col items-center space-y-2 pt-2">
                             @foreach ($selectedProducts as $key => $selectedProduct)
                                 <li class="flex items-stretch space-x-4 py-1 text-left border-b border-gray-300 mt-0">
