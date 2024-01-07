@@ -10,7 +10,7 @@
         </div>
         <span class="sr-only">Loading...</span>
     </div>
-    <div class="mx-auto w-96 md:mt-12">
+    <div class="mx-auto w-96 md:mt-2">
         <div class="rounded-3xl bg-white shadow-lg">
             <div class="px-4 py-6 sm:px-8 sm:py-10">
                 <div class="flow-root">

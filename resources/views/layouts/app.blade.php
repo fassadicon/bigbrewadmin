@@ -57,14 +57,14 @@
                     {{ $slot }}
                 </div>
             </div>
-    </div>
+
 
         </main>
-    </div>
 
-
-
-
+        {{-- Footer --}}
+        <div class="fixed bottom-0 w-full z-50 bg-amber-800 shadow-md text-white text-center text-xs p-1">
+            Big Brew Bayan Bayanan POS and Inventory System &copy; 2024
+        </div>
     </div>
     <x-toaster-hub />
     @livewireChartsScripts
