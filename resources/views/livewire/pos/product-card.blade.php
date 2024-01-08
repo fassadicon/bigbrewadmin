@@ -64,11 +64,24 @@
                             <div class="text-xxs md:text-xs text-white font-light">
                                 <div class="flex space-x-2">
                                     @foreach ($productDetail->sizes as $size)
+                                        @php
+                                            $disabledSize = false;
+                                            $warningSize = false;
+                                            foreach ($size->pivot->inventoryItems as $inventoryItem) {
+                                                if ($inventoryItem->remaining_stocks <= $inventoryItem->warning_value) {
+                                                    $warningSize = true;
+                                                }
+                                                if ($inventoryItem->remaining_stocks <= 0 || $inventoryItem->trashed()) {
+                                                    $disabledSize = true;
+                                                }
+                                            }
+                                        @endphp
                                         <button wire:click="addToCart({{ $size->pivot->id }})"
                                             class="rounded-full h-8 w-8
-                                            {{ $disabled ? "bg-gray-500 text-gray-950 hover:bg-gray-50 hover:text-gray-800 " : "bg-red-100 text-amber-950 hover:bg-amber-50 hover:text-amber-800 " }}
+                                            {{ $disabledSize ? 'bg-gray-500 text-gray-950 hover:bg-gray-50 hover:text-gray-800 ' : 'bg-red-100 text-amber-950 hover:bg-amber-50 hover:text-amber-800 ' }}
+                                            {{ $warningValue && !$disabled ? 'bg-yellow-500 text-gray-950 hover:bg-gray-50 hover:text-gray-800 ' : 'bg-red-100 text-yellow-950 hover:bg-amber-50 hover:text-amber-800 ' }}
                                              hover:shadow-xl focus:outline-none flex ml-auto transition duration-300"
-                                            @disabled($disabled)>
+                                            @disabled($disabledSize)>
                                             <div class="m-auto">
                                                 {{ $size->alias }}
                                             </div>

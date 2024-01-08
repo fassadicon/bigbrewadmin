@@ -19,7 +19,7 @@
         </div>
         <span class="sr-only">Loading...</span>
     </div>
-    <div class="mx-auto w-96 md:mt-2">
+    <div class="sticky top-16 mx-auto w-96 md:mt-2">
         <div class="rounded-3xl bg-white shadow-lg">
             <div class="px-2 py-6">
                 <div class="text-center">
@@ -191,6 +191,8 @@
                     </button>
 
                 </div>
+
+                <button wire:click='checkInventory'>CHECK INVENTORY</button>
             </div>
         </div>
     </div>

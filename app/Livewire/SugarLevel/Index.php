@@ -57,7 +57,7 @@ class Index extends Component
     {
         $sizeSugarLevels = SizeSugarLevel::with('size', 'sugarLevel')
         ->latest()
-        ->paginate(5);
+        ->paginate($this->perPage);
         return view('livewire.sugar-level.index', ['sizeSugarLevels' => $sizeSugarLevels]);
     }
 }
