@@ -1,8 +1,7 @@
 <div class="px-4">
     <form wire:submit="update">
         @csrf
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"
-            wire:loading.class="invisible">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="flex flex-wrap p-6 text-gray-900 dark:text-gray-100">
                 <div class="w-3/12 mb-6">
                     <label for="supplier_id"
@@ -25,7 +24,7 @@
                 </div>
                 <div class="w-full flex flex-wrap">
                     @foreach ($purchaseOrderItems as $key => $purchaseOrderItem)
-                        <div class="relative z-0 w-4/12 mb-5 group">
+                        <div class="relative z-0 w-4/12 mb-5 group mx-1">
                             <label for="inventory_item_id"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Inventory
                                 Item<span class="text-red-500"> * </span></label>
@@ -50,7 +49,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="relative z-0 w-1/12 mb-5 group">
+                        <div class="relative z-0 w-1/12 mb-5 group mx-1">
                             <label for="quantity_{{ $key }}"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity<span
                                     class="text-red-500"> * </span></label>
@@ -66,7 +65,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="relative z-0 w-2/12 mb-5 group">
+                        <div class="relative z-0 w-2/12 mb-5 group mx-1">
                             <label for="amount_{{ $key }}"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
                             <input wire:model.live="purchaseOrderItems.{{ $key }}.amount"
@@ -80,7 +79,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="relative z-0 w-4/12 mb-5 group">
+                        <div class="relative z-0 w-4/12 mb-5 group mx-1">
                             <label for="description_{{ $key }}"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
                             <input wire:model="purchaseOrderItems.{{ $key }}.description"
