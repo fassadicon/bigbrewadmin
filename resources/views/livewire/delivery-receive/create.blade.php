@@ -1,10 +1,10 @@
-<div>
+<div class="mx-auto px-4">
     <form wire:submit="store">
         @csrf
         <h1>Purchase Order ID: {{ $selectedPurchaseOrder->id }}</h1>
         <h1>Supplier: {{ $selectedPurchaseOrder->supplier->name }}</h1>
-
-        @foreach ($deliveryReceiveItems as $key => $deliveryReceiveItem)
+        <div class="flex flex-wrap p-6 bg-white dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-lg w-full">
+             @foreach ($deliveryReceiveItems as $key => $deliveryReceiveItem)
             <div class="relative z-0 w-full mb-5 group">
                 <input wire:model='deliveryReceiveItems.{{ $key }}.inventory_item_id'
                     type="text"
@@ -22,10 +22,9 @@
                     </span>
                 @enderror
             </div>
-            <div class="relative z-0 w-full mb-5 group">
+            <div class="relative z-0 w-2/12 mb-5 group mx-1">
                 <label for="expected_quantity_{{ $key }}"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expected Quantity to be
-                    Received</label>
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expected Quantity</label>
                 {{-- wire:change='updateAmount({{ $key }},
                     $event.target.value)' --}}
                 <input wire:model="deliveryReceiveItems.{{ $key }}.expected_quantity"
@@ -40,7 +39,7 @@
                     </span>
                 @enderror
             </div>
-            <div class="relative z-0 w-full mb-5 group">
+            <div class="relative z-0 w-2/12 mb-5 group mx-1">
                 <label for="quantity_{{ $key }}"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Received<span
                         class="text-red-500"> * </span></label>
@@ -56,7 +55,7 @@
                     </span>
                 @enderror
             </div>
-            <div class="relative z-0 w-full mb-5 group">
+            <div class="relative z-0 w-2/12 mb-5 group mx-1">
                 <label for="pending_{{ $key }}"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pending</label>
                 <input wire:model="deliveryReceiveItems.{{ $key }}.pending"
@@ -70,7 +69,7 @@
                     </span>
                 @enderror
             </div>
-            <div class="relative z-0 w-full mb-5 group">
+            <div class="relative z-0 w-2/12 mb-5 group mx-1">
                 <label for="amount_{{ $key }}"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
                 <input wire:model.live="deliveryReceiveItems.{{ $key }}.amount"
@@ -84,7 +83,7 @@
                     </span>
                 @enderror
             </div>
-            <div class="relative z-0 w-full mb-5 group">
+            <div class="relative z-0 w-3/12 mb-5 group mx-1">
                 <label for="description_{{ $key }}"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
                 <input wire:model="deliveryReceiveItems.{{ $key }}.description"
@@ -103,6 +102,8 @@
                 class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Create
                 Order Receive</button>
         </div>
+        </div>
+
 
     </form>
 </div>
