@@ -38,7 +38,7 @@ class ProductCard extends Component
                 Toaster::warning("{$inventoryItem->name} has {$inventoryItem->remaining_stocks} stocks left and reached its warning level. Please refill the inventory.");
             }
             if ($inventoryItem->remaining_stocks <= 0) {
-                Toaster::danger("{$inventoryItem->name} has {$inventoryItem->remaining_stocks} stocks left and cannot proceed ordering. Please refill the inventory immediately.");
+                Toaster::warning("{$inventoryItem->name} has {$inventoryItem->remaining_stocks} stocks left and cannot proceed ordering. Please refill the inventory immediately.");
             }
         }
 
