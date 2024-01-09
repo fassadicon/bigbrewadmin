@@ -48,10 +48,10 @@
         </div>
         @foreach ($mostOrderedProducts as $mostOrderedProduct)
             <div class="flex items-center mb-1">
-                <img src="{{ asset('storage\\' . $mostOrderedProduct->productDetail->image_path) }}"
+                <img src="{{ asset('storage\\' . $mostOrderedProduct['product']->productDetail->image_path) }}"
                     class="h-8 w-8 rounded-full mr-2">
-                <p class="text-sm">{{ ucwords($mostOrderedProduct->productDetail->name) }} -
-                    {{ $mostOrderedProduct->order_items_count }}</p>
+                <p class="text-sm">{{ ucwords($mostOrderedProduct['product']->productDetail->name) }} {{ $mostOrderedProduct['product']->size->alias }} -
+                    {{ $mostOrderedProduct->total_quantity }}</p>
             </div>
         @endforeach
     </div>

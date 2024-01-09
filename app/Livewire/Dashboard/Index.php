@@ -6,10 +6,13 @@ use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Product;
 use Livewire\Component;
+use App\Models\OrderItem;
 use App\Models\InventoryLog;
 use App\Models\InventoryItem;
 use App\Models\PurchaseOrder;
 use App\Models\DeliveryReceive;
+use App\Models\ProductDetail;
+use Illuminate\Support\Facades\DB;
 use Asantibanez\LivewireCharts\Models\ColumnChartModel;
 
 class Index extends Component
@@ -48,10 +51,15 @@ class Index extends Component
 
         $deliveryReceivesAmount = DeliveryReceive::sum('total_amount');
 
-        $mostOrderedProducts = Product::withCount('orderItems')
-            ->orderByDesc('order_items_count')
+        $mostOrderedProducts = OrderItem::groupBy('product_id')
+            ->select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+            ->orderByDesc('total_quantity')
             ->limit(10)
             ->get();
+
+        foreach ($mostOrderedProducts as $mostOrderedProduct) {
+            $mostOrderedProduct['product'] = Product::with('productDetail', 'size', 'inventoryItems')->where('id', $mostOrderedProduct['product_id'])->first();
+        }
 
         $inventoryLogs = InventoryLog::with('inventoryItem')
             ->where('type', 3)
@@ -66,7 +74,7 @@ class Index extends Component
         // Fastest Moving Items
         $inventoryItems = [];
         foreach ($mostOrderedProducts as $mostOrderedProduct) {
-            foreach($mostOrderedProduct->inventoryItems as $inventoryItem) {
+            foreach ($mostOrderedProduct['product']->inventoryItems as $inventoryItem) {
                 $inventoryItems[] = $inventoryItem->name;
             }
         }
@@ -74,7 +82,7 @@ class Index extends Component
 
         arsort($fastestMovingItems);
 
-        $fastestMovingItems = array_map(function($item) {
+        $fastestMovingItems = array_map(function ($item) {
             if ($item > 1) {
                 return $item;
             }
@@ -105,7 +113,7 @@ class Index extends Component
             $columnChartModel->addColumn(
                 $dayOfWeek->format('D'),
                 $salesData,
-                $colors[$offset-1]
+                $colors[$offset - 1]
             );
 
             $dayOfWeek->addDay();
