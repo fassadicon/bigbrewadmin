@@ -165,8 +165,7 @@
 
                 <div class="flex-none mt-8 flex items-center justify-between">
                     <p class="text-sm font-medium text-gray-900">Total</p>
-                    <span class="text-xs font-normal text-gray-400">PHP</span>
-                    {{ number_format($currentTotalAmount, 2) }}
+                    PHP {{ number_format($currentTotalAmount, 2) }}
                     {{-- <input wire:model='currentTotalAmount' type="text" class="text-2xl font-semibold text-gray-900"
                         disabled readonly> --}}
                 </div>
