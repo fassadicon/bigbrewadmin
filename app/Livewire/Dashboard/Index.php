@@ -21,7 +21,7 @@ class Index extends Component
 
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
-        $currentSalesWeek = Order::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
+        $currentSalesWeek = Order::where('status', 1)->whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
 
         $startOfMonth = Carbon::now()->startOfMonth();
         $endOfMonth = Carbon::now()->endOfMonth();

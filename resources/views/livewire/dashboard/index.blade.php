@@ -88,11 +88,13 @@
     </div>
 
     <!-- Livewire Column Chart Card -->
+    @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Owner') )
     <div class="bg-white rounded-lg shadow-md px-4 pt-6">
         <div class="bg-orange-300 text-center rounded-lg font-bold mt-2>
             <h2 class="text-lg mb-4">SALES</h2>
         </div>
         <livewire:livewire-column-chart :column-chart-model="$columnChartModel" />
     </div>
+    @endif
 
 </div>
