@@ -190,8 +190,6 @@
                     </button>
 
                 </div>
-
-                <button wire:click='checkInventory'>CHECK INVENTORY</button>
             </div>
         </div>
     </div>

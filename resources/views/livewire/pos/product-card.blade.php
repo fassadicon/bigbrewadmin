@@ -39,7 +39,7 @@
                         @endforeach
                         <div class="flex">
                             <h5 class="text-white text-xxs md:text-xs lg:text-sm font-bold leading-tight">
-                                @if ($disabled || $warningValue)
+                                {{-- @if ($disabled || $warningValue)
                                     <div class="flex items-center">
                                         {{ ucwords($productDetail->name) }}
                                         @if ($disabled)
@@ -57,7 +57,8 @@
                                     </div>
                                 @else
                                     {{ ucwords($productDetail->name) }}
-                                @endif
+                                @endif --}}
+                                {{ ucwords($productDetail->name) }}
                             </h5>
                         </div>
                         <div class="flex items-center mt-2">
