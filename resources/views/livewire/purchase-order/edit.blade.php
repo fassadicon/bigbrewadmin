@@ -1,13 +1,9 @@
-<div>
+<div class="px-4">
     <form wire:submit="update">
         @csrf
-        <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Edit Purchase Order') }}
-        </h3>
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"
-            wire:loading.class="invisible">
-            <div class="p-6 text-gray-900 dark:text-gray-100">
-                <div class="mb-6">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="flex flex-wrap p-6 text-gray-900 dark:text-gray-100">
+                <div class="w-3/12 mb-6">
                     <label for="supplier_id"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Supplier<span
                             class="text-red-500"> * </span></label>
@@ -26,9 +22,9 @@
                     <x-input-error :messages="$errors->get('supplier_id')"
                         class="mt-2" />
                 </div>
-                <div>
+                <div class="w-full flex flex-wrap">
                     @foreach ($purchaseOrderItems as $key => $purchaseOrderItem)
-                        <div class="relative z-0 w-full mb-5 group">
+                        <div class="relative z-0 w-4/12 mb-5 group mx-1">
                             <label for="inventory_item_id"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Inventory
                                 Item<span class="text-red-500"> * </span></label>
@@ -53,7 +49,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="relative z-0 w-full mb-5 group">
+                        <div class="relative z-0 w-1/12 mb-5 group mx-1">
                             <label for="quantity_{{ $key }}"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity<span
                                     class="text-red-500"> * </span></label>
@@ -69,7 +65,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="relative z-0 w-full mb-5 group">
+                        <div class="relative z-0 w-2/12 mb-5 group mx-1">
                             <label for="amount_{{ $key }}"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
                             <input wire:model.live="purchaseOrderItems.{{ $key }}.amount"
@@ -83,7 +79,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="relative z-0 w-full mb-5 group">
+                        <div class="relative z-0 w-4/12 mb-5 group mx-1">
                             <label for="description_{{ $key }}"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
                             <input wire:model="purchaseOrderItems.{{ $key }}.description"
@@ -100,21 +96,19 @@
                             @if (count($purchaseOrderItems) > 1)
                                 <button wire:click='removePurchaseOrderItem({{ $key }})'
                                     type="button"
-                                    class="bg-red-500">
-                                    Remove
+                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">-
                                 </button>
                             @endif
                         </div>
                     @endforeach
-                    <div class="mb-6">
+                    <div class="w-10/12">
                         <button wire:click='addPurchaseOrderItem'
                             type="button"
-                            class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add
-                            PO Item</button>
+                            class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">+</button>
                     </div>
                 </div>
 
-                <div class="mb-6">
+                <div class="mt-6">
                     <button type="submit"
                         class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Update</button>
                 </div>

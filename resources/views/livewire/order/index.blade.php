@@ -8,14 +8,11 @@
     <livewire:order.void-order />
     <livewire:order.show />
 
-    <div class="py-12">
+    <div class="py-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-                    @if (auth()->user()->hasRole('Owner'))
-                        <button wire:click='export'
-                            class="p-2 bg-amber-800 hover:bg-amber-950 text-white rounded ml-8 mt-8">Export</button>
-                    @endif
+
                     {{-- <input wire:model='start' />
                     <input wire:model='end' /> --}}
                     {{-- Search Filters --}}
@@ -97,6 +94,13 @@
                                     <option value="2">Cancelled</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="flex space-x-3">
+                            @if (auth()->user()->hasRole('Owner'))
+                                <button wire:click='export'
+                                    title="export"
+                                    class="p-2 bg-green-800 hover:bg-green-950 text-white rounded"><i class="fa-solid fa-file-excel mr-2"></i>Export</button>
+                            @endif
                         </div>
                     </div>
                     {{-- Table Proper --}}

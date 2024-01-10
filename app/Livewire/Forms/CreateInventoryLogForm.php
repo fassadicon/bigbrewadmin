@@ -77,6 +77,7 @@ class CreateInventoryLogForm extends Form
             'remarks' => $this->remarks
         ]);
 
+        Toaster::success('Inventory log created successfully');
 
         $this->reset();
     }

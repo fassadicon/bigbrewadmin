@@ -13,6 +13,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\InventoryMovementExport;
 use App\Livewire\Forms\CreateInventoryLogForm;
+use Masmerise\Toaster\Toaster;
 
 class Index extends Component
 {
@@ -70,6 +71,7 @@ class Index extends Component
 
     public function export()
     {
+        Toaster::info('Exporting. Please wait.');
         return Excel::download(new InventoryMovementExport(
             $this->search,
             $this->type,
@@ -82,6 +84,7 @@ class Index extends Component
 
     public function generateWastage()
     {
+        Toaster::info('Exporting. Please wait.');
         $inventoryLogs = InventoryLog::with('inventoryItem', 'user')
         ->search($this->search)
         ->where('type', 3)
