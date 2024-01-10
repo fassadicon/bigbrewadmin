@@ -12,9 +12,9 @@
     {{-- Table --}}
     @if(auth()->user()->hasRole('Owner') || auth()->user()->hasRole('Admin'))
     <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-inventory-item')"
-        class="px-3 py-1 bg-amber-800 hover:bg-amber-950 text-white rounded ml-8">Create</button>
+        class="text-white bg-green-800 hover:bg-green-950 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 ml-4 mb-2 dark:bg-green-500 dark:hover:bg-green-200 focus:outline-none dark:focus:ring-green-800">Create Inventory Item</button>
     @endif
-    <div class="py-12">
+    <div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">

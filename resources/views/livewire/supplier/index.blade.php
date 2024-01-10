@@ -66,7 +66,7 @@
         <button x-data=""
             x-on:click.prevent="$dispatch('open-modal', 'create-supplier')"
             type="button"
-            class="text-white bg-amber-800 hover:bg-amber-950 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            class="text-white bg-blue-800 hover:bg-blue-950 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
             Create Supplier
         </button>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

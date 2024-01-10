@@ -19,10 +19,22 @@ class OrderSummary extends Component
 {
     public $selectedProducts = [];
     public $currentTotalAmount = 0;
+    public $currentInventoryConsumption = [];
 
     #[On('productAdded')]
     public function productAdded($productId)
     {
+        $product = Product::with('productDetail', 'size')->where('id', $productId)->first();
+
+        if (!$product) {
+            Toaster::warning('Product not found!');
+            return;
+        }
+
+        if ($this->checkInventoryOutcome($product)) {
+            return;
+        };
+
         $newProductInCart = false;
         foreach ($this->selectedProducts as $key => $selectedProduct) {
             if ($selectedProduct['product']->id == $productId) {
@@ -32,7 +44,6 @@ class OrderSummary extends Component
         }
 
         if (!$newProductInCart) {
-            $product = Product::with('productDetail', 'size')->where('id', $productId)->first();
             $defaultSugarLevelId = SizeSugarLevel::where('size_id', $product->size->id)
                 ->orderByDesc('id')
                 ->pluck('id')
@@ -48,6 +59,58 @@ class OrderSummary extends Component
         }
     }
 
+    public function checkInventoryOutcome(Product $product)
+    {
+        foreach ($product->inventoryItems as $item) {
+            $consumptionValue = $item->pivot->consumption_value;
+            $oldCurrentInventoryConsumption = $this->currentInventoryConsumption;
+
+            if (array_key_exists($item->name, $this->currentInventoryConsumption)) {
+                $this->currentInventoryConsumption[$item->name] -= $consumptionValue;
+            } else {
+                $remainingStocks = $item->remaining_stocks;
+                $newStocks = $remainingStocks - $consumptionValue;
+                $this->currentInventoryConsumption[$item->name] = $newStocks;
+            }
+
+            if ($this->currentInventoryConsumption[$item->name] < 0) {
+                Toaster::error($product->productDetail->name . ' cannot be added. ' . $item->name . ' is out of stock. Please add stocks and/or revise your current order.');
+                $this->currentInventoryConsumption = $oldCurrentInventoryConsumption;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function removeCartProductInventoryConsumption(Product $product)
+    {
+        foreach ($product->inventoryItems as $item) {
+            $consumptionValue = $item->pivot->consumption_value;
+
+            if (array_key_exists($item->name, $this->currentInventoryConsumption)) {
+                $this->currentInventoryConsumption[$item->name] += $consumptionValue;
+            } else {
+                $remainingStocks = $item->remaining_stocks;
+                $newStocks = $remainingStocks + $consumptionValue;
+                $this->currentInventoryConsumption[$item->name] = $newStocks;
+            }
+
+            // if ($this->currentInventoryConsumption[$item->name] < 0) {
+            //     Toaster::error($product->productDetail->name . ' cannot be added.' . $item->name . ' is out of stock. Please add stocks and/or revise your current order.');
+            //     $this->currentInventoryConsumption = $oldCurrentInventoryConsumption;
+            //     return true;
+            // }
+        }
+
+        // return false;
+    }
+
+    public function checkInventory()
+    {
+        dd($this->currentInventoryConsumption);
+    }
+
     public function editSugarLevel($key, $sugarLevelId)
     {
         $this->selectedProducts[$key]['sugarLevelId'] = $sugarLevelId;
@@ -61,20 +124,29 @@ class OrderSummary extends Component
         }
 
         Toaster::warning($this->selectedProducts[$index]['product']->productDetail->name . ' removed from order');
+        $this->removeCartProductInventoryConsumption($this->selectedProducts[$index]['product']);
         unset($this->selectedProducts[$index]);
         $this->selectedProducts = array_values($this->selectedProducts);
+
     }
 
     public function addQuantity($key)
     {
+        if ($this->checkInventoryOutcome($this->selectedProducts[$key]['product'])) {
+            return;
+        };
+
         $currentQuantity = $this->selectedProducts[$key]['quantity'];
-        $this->selectedProducts[$key]['quantity'] = $currentQuantity + 1;
+        $this->selectedProducts[$key]['quantity'] = intval($currentQuantity) + 1;
         $this->computeCurrentTotalAmount();
     }
 
     public function subtractQuantity($key)
     {
         $currentQuantity = $this->selectedProducts[$key]['quantity'];
+
+        $this->removeCartProductInventoryConsumption($this->selectedProducts[$key]['product']);
+
         if ($currentQuantity <= 1) {
             Toaster::warning($this->selectedProducts[$key]['product']->productDetail->name . ' removed from order');
             unset($this->selectedProducts[$key]);
@@ -111,7 +183,8 @@ class OrderSummary extends Component
     }
 
     #[On('order-finished')]
-    public function clearSelectedProducts() {
+    public function clearSelectedProducts()
+    {
         $this->selectedProducts = [];
     }
     public function render()

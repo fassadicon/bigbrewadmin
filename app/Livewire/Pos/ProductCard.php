@@ -8,6 +8,7 @@ use App\Models\SugarLevel;
 
 use App\Models\ProductDetail;
 use App\Models\ProductCategory;
+use Masmerise\Toaster\Toaster;
 
 class ProductCard extends Component
 {
@@ -31,30 +32,19 @@ class ProductCard extends Component
     public function addToCart($productId)
     {
         $product = Product::with('inventoryItems')->where('id', $productId)->first();
-
+        // dd($product);
         foreach ($product->inventoryItems as $inventoryItem) {
             if ($inventoryItem->remaining_stocks <= $inventoryItem->warning_value) {
-                $this->showModal = true;
-                $this->modalMessage = "Product successfully added. However, {$inventoryItem->name} has {$inventoryItem->remaining_stocks} stocks left and reached its warning level. Please refill the inventory.";
-                return;
+                Toaster::warning("{$inventoryItem->name} has {$inventoryItem->remaining_stocks} stocks left and reached its warning level. Please refill the inventory.");
             }
             if ($inventoryItem->remaining_stocks <= 0) {
-                $this->showModal = true;
-                $this->modalMessage = "{$inventoryItem->name} has {$inventoryItem->remaining_stocks} stocks left and cannot proceed ordering. Please refill the inventory immediately.";
-                return;
+                Toaster::warning("{$inventoryItem->name} has {$inventoryItem->remaining_stocks} stocks left and cannot proceed ordering. Please refill the inventory immediately.");
             }
         }
-
-        // if (in_array($productId, $this->selectedProducts)) {
-        //     $this->showModal = true;
-        //     $this->modalMessage = 'Product Already in Cart';
-        //     return;
-        // }
 
         $this->selectedProducts[] = $productId;
         $this->dispatch('productAdded', $productId);
 
-        // Reset the modal state after processing
         $this->resetModal();
     }
 
