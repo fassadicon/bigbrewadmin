@@ -107,6 +107,14 @@ class InventoryItemSeeder extends Seeder
             'created_at' => Carbon::now()->subDays(rand(1, 7))
         ]);
         InventoryItem::create([
+            'name' => 'choco powder',
+            'measurement' => 'grams',
+            'remaining_stocks' => '10000',
+            'warning_value' => '5',
+            'unit_price' => 9,
+            'created_at' => Carbon::now()->subDays(rand(1, 7))
+        ]);
+        InventoryItem::create([
             'name' => 'salted caramel powder',
             'measurement' => 'grams',
             'remaining_stocks' => '10000',
