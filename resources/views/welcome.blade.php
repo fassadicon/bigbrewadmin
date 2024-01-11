@@ -6,7 +6,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Adminbigbrew</title>
 
     <!-- Fonts -->
     <link rel="preconnect"
@@ -32,7 +32,7 @@
             <livewire:welcome.navigation />
              @endif
             </header>
-      
+
             <main>
               <div id="hero" class="pt-5 lg:flex items-center">
                 <div class="px-5 sm:px-10 md:px-10 md:flex lg:block lg:w-1/2 lg:max-w-3xl lg:mr-8 lg:px-20">
@@ -44,7 +44,7 @@
                         BigBrew serves coffee, tea, and snacks that are "big" in taste but "bit" in price.
                     </p>
                   </div>
-      
+
                   <div class="flex-1">
                   </div>
                 </div>
@@ -53,14 +53,14 @@
                   <img class="rounded-lg" src="{{ asset('storage/img/bigbrew-landing-img.png') }}" />
                 </div>
               </div>
-      
-            
-      
-              
-      
-      
+
+
+
+
+
+
             </main>
-      
+
             <footer class="px-5 sm:px-10 md:px-20 py-8">
               <div class="flex flex-col items-center lg:flex-row-reverse justify-between">
                 <div class="">
@@ -72,7 +72,7 @@
                   <img src="{{ asset('storage/img/bigbrew-tp-logo.png') }}" class="w-32">
                 </div>
                 <div class="mt-4 text-xs font-bold text-gray-500">
-                  &copy; 2023 BIGBREW | All Rights Reserved 
+                  &copy; 2023 BIGBREW | All Rights Reserved
                 </div>
               </div>
             </footer>
