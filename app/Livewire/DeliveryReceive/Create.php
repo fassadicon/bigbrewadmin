@@ -62,6 +62,8 @@ class Create extends Component
 
     public function store()
     {
+        $this->validate();
+
         $deliveryReceiveItemsCreated = [];
         $totalAmount = 0;
         // $incomplete = false;
