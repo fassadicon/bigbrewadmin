@@ -18,7 +18,9 @@ class Create extends Component
 
     public function rules()
     {
-        return ['deliveryReceiveItems.*.quantity' => 'required'];
+        return [
+            'deliveryReceiveItems.*.quantity' => 'required|min:1',
+        ];
     }
 
     public function mount(PurchaseOrder $purchaseOrder)
@@ -47,7 +49,7 @@ class Create extends Component
     public function updateReceived($key, $value)
     {
         foreach ($this->deliveryReceiveItems as $deliveryReceiveItem) {
-            if ($deliveryReceiveItem['quantity'] < $deliveryReceiveItem['expected_quantity']) {
+            if ($deliveryReceiveItem['quantity'] < $deliveryReceiveItem['expected_quantity'] || $deliveryReceiveItem['quantity'] < 1) {
                 Toaster::warning('Incorrect receive count!');
                 return;
             }
@@ -65,7 +67,7 @@ class Create extends Component
         // $incomplete = false;
 
         foreach ($this->deliveryReceiveItems as $deliveryReceiveItem) {
-            if ($deliveryReceiveItem['quantity'] != $deliveryReceiveItem['expected_quantity']) {
+            if (floatval($deliveryReceiveItem['quantity']) != floatval($deliveryReceiveItem['expected_quantity'])) {
                 Toaster::warning('Incorrect receive count!');
                 return;
             }
