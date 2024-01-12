@@ -46,6 +46,13 @@ class Create extends Component
 
     public function updateReceived($key, $value)
     {
+        foreach ($this->deliveryReceiveItems as $deliveryReceiveItem) {
+            if ($deliveryReceiveItem['quantity'] < $deliveryReceiveItem['expected_quantity']) {
+                Toaster::warning('Incorrect receive count!');
+                return;
+            }
+        }
+
         $pending = floatval($this->deliveryReceiveItems[$key]['expected_quantity']) - floatval($value);
         $this->deliveryReceiveItems[$key]['pending'] = $pending;
         $this->deliveryReceiveItems[$key]['quantity'] = $value;
