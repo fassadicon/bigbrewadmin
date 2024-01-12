@@ -1,4 +1,4 @@
-@props(['name', 'show' => false, 'maxWidth' => '2xl'])
+@props(['name', 'show' => true, 'maxWidth' => '2xl'])
 
 @php
     $maxWidth = [
@@ -11,7 +11,7 @@
 @endphp
 
 <div x-data="{
-    show: @js($show == undefined ? true : false),
+    show: @js($show),
     focusables() {
         // All focusable element types...
         let selector = 'a, button, input:not([type=\'hidden\']), textarea, select, details, [tabindex]:not([tabindex=\'-1\'])'
