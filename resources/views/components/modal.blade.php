@@ -1,4 +1,4 @@
-@props(['name', 'show' => true, 'maxWidth' => '2xl'])
+@props(['name', 'show' => false, 'maxWidth' => '2xl'])
 
 @php
     $maxWidth = [
@@ -8,7 +8,6 @@
         'xl' => 'sm:max-w-xl',
         '2xl' => 'sm:max-w-2xl',
     ][$maxWidth];
-    $show = $show ? true : false;
 @endphp
 
 <div x-data="{
