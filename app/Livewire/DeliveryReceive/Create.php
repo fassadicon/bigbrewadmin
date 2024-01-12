@@ -63,7 +63,7 @@ class Create extends Component
     public function store()
     {
         $this->validate();
-        dd($this->deliveryReceiveItems);
+
         $deliveryReceiveItemsCreated = [];
         $totalAmount = 0;
         // $incomplete = false;
@@ -100,12 +100,6 @@ class Create extends Component
             $deliveryReceiveItem['delivery_receive_id'] = $deliveryReceive->id;
             DeliveryReceiveItem::create($deliveryReceiveItem);
         }
-
-        // foreach ($this->selectedPurchaseOrder->purchaseOrderItems as $key => $purchaseOrderItem) {
-        //     $purchaseOrderItem->update([
-        //         'status' => $deliveryReceiveItemsCreated[$key]['status']
-        //     ]);
-        // }
 
         $this->selectedPurchaseOrder->update([
             'status' => 2
