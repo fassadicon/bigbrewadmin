@@ -179,7 +179,7 @@ class OrderSummary extends Component
     {
         $this->computeCurrentTotalAmount();
         $this->dispatch('placing-order', selectedProducts: $this->selectedProducts, currentTotalAmount: $this->currentTotalAmount);
-        $this->dispatch('open-modal', 'confirm-order');
+        $this->dispatch('open-modal', 'confirm-order', show: true);
     }
 
     #[On('order-finished')]
