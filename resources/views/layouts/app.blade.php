@@ -20,17 +20,21 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"
         rel="stylesheet" />
 
+    {{-- AlpineJS --}}
+    <script defer
+        src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     {{-- Fontawesome --}}
     <script src="https://kit.fontawesome.com/3266042309.js"
         crossorigin="anonymous"></script>
 
     {{-- SweetAlert --}}
-    <link rel="stylesheet"
+    {{-- <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 </head>
 
 <body class="font-sans antialiased">

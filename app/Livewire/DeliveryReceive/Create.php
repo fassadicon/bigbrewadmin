@@ -58,8 +58,8 @@ class Create extends Component
         // $incomplete = false;
 
         foreach ($this->deliveryReceiveItems as $deliveryReceiveItem) {
-            if ($deliveryReceiveItem['quantity'] < $deliveryReceiveItem['expected_quantity']) {
-                Toaster::warning('Incomplete receive count!');
+            if ($deliveryReceiveItem['quantity'] != $deliveryReceiveItem['expected_quantity']) {
+                Toaster::warning('Incorrect receive count!');
                 return;
             }
         }
