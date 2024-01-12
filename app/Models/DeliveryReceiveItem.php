@@ -30,7 +30,7 @@ class DeliveryReceiveItem extends Model
     }
 
     public function inventoryItem() : BelongsTo {
-        return $this->belongsTo(inventoryItem::class);
+        return $this->belongsTo(InventoryItem::class);
     }
 
     public function purchaseOrderItem() : BelongsTo {

@@ -29,7 +29,7 @@ class PurchaseOrderItem extends Model
     }
 
     public function inventoryItem() : BelongsTo {
-        return $this->belongsTo(inventoryItem::class);
+        return $this->belongsTo(InventoryItem::class);
     }
 
     public function deliveryReceiveItems() : HasMany {

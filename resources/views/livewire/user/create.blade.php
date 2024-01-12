@@ -1,4 +1,4 @@
-<div>
+<div class="p-4 mx-auto">
     <form wire:submit="register">
         @csrf
         <div>
