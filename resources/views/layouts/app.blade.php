@@ -21,8 +21,8 @@
         rel="stylesheet" />
 
     {{-- AlpineJS --}}
-    {{-- <script defer
-        src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
+    <script defer
+        src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     {{-- Fontawesome --}}
     <script src="https://kit.fontawesome.com/3266042309.js"
