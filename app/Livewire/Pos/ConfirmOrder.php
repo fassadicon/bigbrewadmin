@@ -31,7 +31,8 @@ class ConfirmOrder extends Component
     protected function rules()
     {
         $rules = [
-            'payment.payment_received' => 'required|numeric|min:' . $this->currentTotalAmount
+            'payment.payment_received' => 'required|numeric|min:' . $this->currentTotalAmount,
+            'name' => 'alpha'
         ];
         return $rules;
     }
