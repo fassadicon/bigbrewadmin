@@ -99,7 +99,7 @@
                             @if (auth()->user()->hasRole('Owner'))
                                 <button wire:click='export'
                                     title="export"
-                                    class="p-2 bg-green-800 hover:bg-green-950 text-white rounded"><i class="fa-solid fa-file-excel mr-2"></i>Export</button>
+                                    class="p-2 bg-green-800 hover:bg-green-950 text-white rounded"><i class="fa-regular fa-file-pdf mr-2"></i></i>Export</button>
                             @endif
                         </div>
                     </div>
