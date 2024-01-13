@@ -30,7 +30,7 @@
                     <ul class="-my-2">
                         <div class="flex flex-col items-center space-y-2 pt-2">
                             @foreach ($selectedProducts as $key => $selectedProduct)
-                                <li class="flex items-stretch space-x-4 py-1 text-left border-b border-gray-300 mt-0">
+                                <li class="flex items-stretch space-x-4 py-1 w-full text-left border-b border-gray-300 mt-0">
 
                                     <!-- Product Information Container -->
                                     <div class="flex-none">
@@ -102,22 +102,23 @@
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            <button wire:click="removeItem({{ $loop->index }})"
-                                                type="button"
-                                                class="flex rounded p-2 text-center text-red-500 transition-all duration-200 ease-in-out focus:shadow hover:text-red-900">
-                                                <svg class="h-5 w-5"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    stroke="currentColor">
-                                                    <path stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M6 18L18 6M6 6l12 12"
-                                                        class=""></path>
-                                                </svg>
-                                            </button>
+
                                         @endif
+                                        <button wire:click="removeItem({{ $loop->index }})"
+                                            type="button"
+                                            class="flex rounded p-2 text-center text-red-500 transition-all duration-200 ease-in-out focus:shadow hover:text-red-900">
+                                            <svg class="h-5 w-5"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor">
+                                                <path stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12"
+                                                    class=""></path>
+                                            </svg>
+                                        </button>
                                     </div>
 
                                     <!-- Remove Item Container -->
