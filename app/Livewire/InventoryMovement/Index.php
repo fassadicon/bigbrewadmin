@@ -35,7 +35,7 @@ class Index extends Component
 
     public function mount()
     {
-        $this->inventoryItems = InventoryItem::select('id', 'name')->get();
+        $this->inventoryItems = InventoryItem::select('id', 'name', 'warning_value', 'remaining_stocks')->get();
         $this->suppliers = Supplier::select('id', 'name')->get();
     }
 
@@ -125,6 +125,15 @@ class Index extends Component
 
     public function render()
     {
+        foreach ($this->inventoryItems as $inventoryItem) {
+            if ($inventoryItem->warning_value >= $inventoryItem->remaining_stocks) {
+                Toaster::warning('Warning! ' . $inventoryItem->name . ' is running low on stocks!');
+            }
+            if ($inventoryItem->remaining_stocks <= 0) {
+                Toaster::error('Error! ' . $inventoryItem->name . ' is out of stocks!');
+            }
+        }
+
         if ($this->start == "") {
             $this->start = null;
         }

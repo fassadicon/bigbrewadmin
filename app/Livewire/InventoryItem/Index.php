@@ -19,6 +19,13 @@ class Index extends Component
     public $sortBy = 'created_at';
     public $sortDir = 'DESC';
 
+    public $allInventoryItems;
+
+    public function mount()
+    {
+        $this->allInventoryItems = InventoryItem::select('name', 'warning_value', 'remaining_stocks')->get();
+    }
+
     public function show(int $id)
     {
         $this->dispatch('showing-inventory-item', id: $id);
@@ -61,6 +68,15 @@ class Index extends Component
 
     public function render()
     {
+        foreach ($this->allInventoryItems as $inventoryItem) {
+            if ($inventoryItem->warning_value >= $inventoryItem->remaining_stocks) {
+                Toaster::warning('Warning! ' . $inventoryItem->name . ' is running low on stocks!');
+            }
+            if ($inventoryItem->remaining_stocks <= 0) {
+                Toaster::error('Error! ' . $inventoryItem->name . ' is out of stocks!');
+            }
+        }
+
         $inventoryItems = InventoryItem::withTrashed()
             ->search($this->search)
             ->when($this->status !== '', function ($query) {
