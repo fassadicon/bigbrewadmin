@@ -1,60 +1,73 @@
 <div class="flex w-full">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Sizes') }}
+            {{ __('Discounts') }}
         </h2>
     </x-slot>
 
-    <livewire:size.show />
-    <livewire:size.edit />
+    <livewire:discount.show />
+    <livewire:discount.edit />
 
     <div class="flex-1/3 h-fit bg-white rounded-lg p-2 hover:shadow-xl shadow-xl ml-4">
         <form wire:submit="store">
             @csrf
-            <h3 class="font-semibold text-m text-gray-800 dark:text-gray-200 leading-tight text-center">
-                {{ __('Create Product Size') }}
-            </h3>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-2 text-gray-900 dark:text-gray-100">
-                    <div class="mb-6">
+                    <div class="mb-2">
                         <label for="name"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name<span class="text-red-500"> * </span></label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name<span
+                                class="text-red-500"> * </span></label>
                         <input wire:model="form.name"
                             type="text"
                             id="name"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <x-input-error :messages="$errors->get('form.name')"
-                            class="mt-2" />
+                            class="mt-1" />
                     </div>
-                    <div class="mb-6">
-                        <label for="alias"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alias<span class="text-red-500"> * </span></label>
-                        <input wire:model="form.alias"
+                    <div class="mb-2">
+                        <label for="type"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type<span
+                                class="text-red-500"> * </span></label>
+                        <select wire:model="form.type"
+                            id="type"
+                            class="bg-dark border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                            <option value="">-- Select Type --</option>
+                            <option value="1">Fixed</option>
+                            <option value="2">Percentage</option>
+                        </select>
+                        <x-input-error :messages="$errors->get('form.type')"
+                            class="mt-1" />
+                    </div>
+                    <div class="mb-2">
+                        <label for="value"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Value<span
+                                class="text-red-500"> * </span></label>
+                        <input wire:model="form.value"
                             type="text"
-                            id="alias"
+                            id="value"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <x-input-error :messages="$errors->get('form.alias')"
-                            class="mt-2" />
+                        <x-input-error :messages="$errors->get('form.value')"
+                            class="mt-1" />
                     </div>
-                    <div class="mb-6">
-                        <label for="measurement"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Measurement<span class="text-red-500"> * </span></label>
-                        <input wire:model="form.measurement"
-                            type="text"
-                            id="measurement"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <x-input-error :messages="$errors->get('form.measurement')"
-                            class="mt-2" />
-                    </div>
-                    <div class="mb-6">
-                        <label for="description"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                        <input wire:model="form.description"
-                            type="text"
-                            id="description"
+                    <div class="mb-2">
+                        <label for="start_date"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date</label>
+                        <input wire:model="form.start_date"
+                            type="date"
+                            id="start_date"
                             class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <x-input-error :messages="$errors->get('form.description')"
-                            class="mt-2" />
+                        <x-input-error :messages="$errors->get('form.start_date')"
+                            class="mt-1" />
+                    </div>
+                    <div class="mb-2">
+                        <label for="end_date"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date</label>
+                        <input wire:model="form.end_date"
+                            type="date"
+                            id="end_date"
+                            class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <x-input-error :messages="$errors->get('form.end_date')"
+                            class="mt-1" />
                     </div>
                     <div>
                         <button type="submit"
@@ -66,7 +79,7 @@
     </div>
 
     <div class="flex-2/3 w-full bg-white rounded-lg p-4 hover:shadow-xl shadow-xl mx-4">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-4 lg:px-4">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                     {{-- Search Filters --}}
@@ -111,12 +124,16 @@
                                     'displayName' => 'name',
                                     'columnName' => 'name',
                                 ])
-                                @include('includes.table.sortable-th', [
-                                    'displayName' => 'measurement',
-                                    'columnName' => 'measurement',
-                                ])
                                 <th scope="col"
-                                    class="px-4 py-3">Description</th>
+                                    class="px-4 py-3">Type</th>
+                                <th scope="col"
+                                    class="px-4 py-3">Value</th>
+                                <th scope="col"
+                                    class="px-4 py-3">Activity</th>
+                                <th scope="col"
+                                    class="px-4 py-3">Start</th>
+                                <th scope="col"
+                                    class="px-4 py-3">End</th>
                                 <th scope="col"
                                     class="px-4 py-3">Status</th>
                                 <th scope="col"
@@ -127,34 +144,55 @@
                             </thead>
                             {{-- wire:loading.class="invisible" --}}
                             <tbody>
-                                @forelse ($sizes as $size)
-                                    <tr wire:key="{{ $size->id }}"
+                                @forelse ($discounts as $discount)
+                                    <tr wire:key="{{ $discount->id }}"
                                         class="border-b dark:border-gray-700">
                                         <th scope="row"
                                             class="px-4 py-3 font-medium whitespace-nowrap text-gray-900">
-                                            {{ ucwords($size->name) }}
+                                            {{ ucwords($discount->name) }}
                                         </th>
-                                        <td>{{ $size->measurement }}</td>
-                                        <td>{{ $size->description }}</td>
+                                        <td>{{ $discount->type == 1 ? 'Fixed' : 'Percentage' }}</td>
+                                        <td>{{ $discount->value }}</td>
+                                        @php
+                                            $statusName;
+                                            if ($discount->status == 1) {
+                                                $statusName = 'Ongoing';
+                                            } elseif ($discount->status == 3) {
+                                                $statusName = 'Scheduled';
+                                            } elseif ($discount->status == 2) {
+                                                $statusName = 'Expired';
+                                            } else {
+                                                $statusName = 'Invalid';
+                                            }
+                                        @endphp
+                                        <td>{{ $statusName }}</td>
+                                        <td>{{ $discount->start_date != null ? \Carbon\Carbon::parse($discount->start_date)->format('M d, Y') : 'N/A' }}
+                                        </td>
+                                        <td>{{ $discount->end_date != null ? \Carbon\Carbon::parse($discount->end_date)->format('M d, Y') : 'N/A' }}
+                                        </td>
                                         <td>
                                             @include('includes.table.deleted_at-td', [
-                                                'deleted_at' => $size->deleted_at,
+                                                'deleted_at' => $discount->deleted_at,
                                             ])
                                         </td>
                                         <td class="px-4 py-3 flex items-center justify-center">
-                                            <button wire:click.prevent="show({{ $size->id }})" class="p-2 m-1 bg-blue-500 text-white rounded">
+                                            <button wire:click.prevent="show({{ $discount->id }})"
+                                                class="p-2 m-1 bg-blue-500 text-white rounded">
                                                 <i class="fa-solid fa-eye"></i>
                                             </button>
 
-                                            @unless ($size->trashed())
-                                                <button wire:click.prevent="edit({{ $size }})" class="p-2 m-1 bg-green-500 text-white rounded">
+                                            @unless ($discount->trashed())
+                                                <button wire:click.prevent="edit({{ $discount }})"
+                                                    class="p-2 m-1 bg-green-500 text-white rounded">
                                                     <i class="fa-solid fa-edit"></i>
                                                 </button>
-                                                <button wire:click='delete({{ $size }})' class="p-2 m-1 bg-orange-500 text-white rounded">
+                                                <button wire:click='delete({{ $discount }})'
+                                                    class="p-2 m-1 bg-orange-500 text-white rounded">
                                                     <i class="fa-solid fa-archive"></i>
                                                 </button>
                                             @else
-                                                <button wire:click='restore({{ $size->id }})' class="p-2 m-1 bg-green-500 text-white rounded">
+                                                <button wire:click='restore({{ $discount->id }})'
+                                                    class="p-2 m-1 bg-green-500 text-white rounded">
                                                     <i class="fa-solid fa-undo"></i>
                                                 </button>
                                             @endunless
@@ -171,7 +209,7 @@
                         </table>
                     </div>
 
-                    <div class="py-4 px-3">
+                    <div class="pt-4 px-3">
                         <div class="flex justify-between">
                             <div class="flex space-x-4 items-center mb-3">
                                 <label class="w-32 text-sm font-medium text-gray-900">Show</label>
@@ -183,7 +221,7 @@
                                     <option value="50">50</option>
                                 </select>
                             </div>
-                            {{ $sizes->links() }}
+                            {{ $discounts->links() }}
                         </div>
 
                     </div>

@@ -68,6 +68,10 @@ Route::middleware(['auth'])->group(function () {
             ->name('users.create');
     });
 
+    // Discounts
+    Route::get('discounts', App\Livewire\Discount\Index::class)
+        ->name('discounts');
+
     // Orders
     Route::prefix('orders')->group(function () {
         Route::get('/', App\Livewire\Order\Index::class)

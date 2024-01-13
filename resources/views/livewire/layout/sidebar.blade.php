@@ -2,7 +2,7 @@
     class="fixed h-screen marker:flex flex-col text-gray-900 bg-white transition-all duration-300 ease-in-out shadow-lg"
     :class="isSidebarExpanded ? 'w-64' : 'w-20'">
     <div class="h-16"></div>
-    <nav class="p-4 space-y-2 font-medium">
+    <nav class="p-4 space-y-1 font-medium">
         <a href="{{ route('dashboard') }}" title="Dashboard"
             class="flex items-center h-10 px-3 {{ $activePage == 'dashboard' ? 'text-white bg-amber-700' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
             wire:navigate>
@@ -26,6 +26,16 @@
             <span class="ml-2 duration-300 ease-in-out"
                 :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Orders</span>
         </a>
+        @if(auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin') ||
+        auth()->user()->hasRole('Owner'))
+        <a href="{{ route('discounts') }}" title="Discounts"
+            class="flex items-center h-10 px-3 {{ $activePage == 'discounts' ? 'text-white bg-amber-700' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
+            wire:navigate>
+            <i class="fa-solid fa-tag w-6"></i>
+            <span class="ml-2 duration-300 ease-in-out"
+                :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'">Discounts</span>
+        </a>
+        @endif
         <a href="{{ route('products') }}" title="Products"
             class="flex items-center h-10 px-3 {{ $activePage == 'products' ? 'text-white bg-amber-700' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
             wire:navigate>

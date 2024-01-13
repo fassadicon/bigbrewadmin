@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
             // Orders
             SugarLevelSeeder::class,
             SizeSugarLevelSeeder::class,
+            DiscountSeeder::class,
             OrderSeeder::class,
 
             // Purchase Orders and Delivery Receives
