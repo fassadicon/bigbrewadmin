@@ -15,8 +15,8 @@ class EditDiscountForm extends Form
     public $name;
     public $type;
     public $value;
-    public $start_date;
     public $end_date;
+    public $start_date;
 
     public function rules()
     {
@@ -30,8 +30,7 @@ class EditDiscountForm extends Form
                 Rule::in($types)
             ],
             'value' => 'required|numeric|min:1',
-            'start_date' => 'nullable|date|after:yesterday',
-            'end_date' => 'nullable|date|after_or_equal:start_date'
+            'end_date' => 'nullable|date|after:today'
         ];
     }
 
@@ -52,24 +51,23 @@ class EditDiscountForm extends Form
         $this->name = $discount->name;
         $this->type = $discount->type;
         $this->value = $discount->value;
-        $this->start_date = $discount->start_date;
         $this->end_date = $discount->end_date;
+        $this->start_date = $discount->start_date;
     }
 
     public function update()
     {
         $this->validate();
 
-        $status = 3;
-        if (Carbon::parse($this->start_date)->eq(Carbon::today())) {
-            $status = 1;
+        $status = 1;
+        if (Carbon::parse($this->end_date)->gt(Carbon::today())) {
+            $status = 3;
         }
 
         $this->discount->update([
             'name' => $this->name,
             'type' => $this->type,
             'value' => $this->value,
-            'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'status' => $status,
         ]);
