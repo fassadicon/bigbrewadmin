@@ -150,7 +150,7 @@ class ConfirmOrder extends Component
 
         $printPDF =  Pdf::setPaper(array(0, 0, 200, 500 * $page_count))
             ->loadView('exports.receipt', [
-                'order' => $order,
+                'order' => $order->load('payment', 'orderItems', 'orderItems.product', 'orderItems.product.productDetail', 'user'),
                 'date' => Carbon::now()->format('M d, Y')
             ])
             ->output();

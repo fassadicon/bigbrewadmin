@@ -58,12 +58,15 @@
         <p>24 Bayan-Bayanan Avenue, Concepcion Uno, Marikina City</p>
         <p>DEBORAH ANN B. ARQUIZA - Prop.</p>
         <p>Non VAT Reg TIN: 260-829-571-00001</p>
+        <p>Contact Number: 0945829023</p>
 
         <hr>
 
         <h2>SALES INVOICE</h2>
         <p>Sold to: {{ $order->customer_name }}</p>
-        <p>Date: {{ $date }}</p>
+        <p>Cashier: {{ $order->user->name }}</p>
+        <p>Order Date: {{ $order->created_at->format('M d, Y') }}</p>
+        <p>Print Date: {{ $date }}</p>
 
         <hr>
 
@@ -73,7 +76,8 @@
         @endforeach
 
         <hr>
-
+        <p>Payment Received: {{ $order->payment->payment_received }}</p>
+        <p>Change: {{ $order->payment->change }}</p>
         <h2>Total amount: {{ $order->total_amount }}</h2>
     </div>
 </body>
