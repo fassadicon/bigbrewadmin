@@ -4,9 +4,19 @@
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"
             wire:loading.class='disabled'>
             <div class="p-6 text-gray-900 dark:text-gray-100">
-                <div class="mb-6">
-                    <label for="payment.amount"
+                <div class="mb-2">
+                    <label for="currentTotalAmount"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total Amount</label>
+                    <input wire:model="currentTotalAmount"
+                        type="text"
+                        id="currentTotalAmount"
+                        class="bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 selection:dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 border-transparent focus:border-transparent focus:ring-0"
+                        readonly
+                        disabled>
+                </div>
+                <div class="mb-2">
+                    <label for="payment.amount"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Final Amount</label>
                     <input wire:model="payment.amount"
                         type="text"
                         id="total_amount"
@@ -15,7 +25,7 @@
                     <x-input-error :messages="$errors->get('payment.amount')"
                         class="mt-2" />
                 </div>
-                <div class="mb-6">
+                <div class="mb-2">
                     <label for="payment.method"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Payment Method
@@ -32,7 +42,7 @@
                     <x-input-error :messages="$errors->get('payment.method')"
                         class="mt-2" />
                 </div>
-                <div class="mb-6">
+                <div class="mb-2">
                     <label for="payment.payment_received"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Payment
                         Received<span class="text-red-500"> * </span></label>
@@ -45,7 +55,7 @@
                     <x-input-error :messages="$errors->get('payment.payment_received')"
                         class="mt-2" />
                 </div>
-                <div class="mb-6">
+                <div class="mb-2">
                     <label for="payment.change"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Change</label>
                     <input wire:model.live="payment.change"
@@ -56,7 +66,7 @@
                     <x-input-error :messages="$errors->get('payment.change')"
                         class="mt-2" />
                 </div>
-                <div class="mb-6">
+                <div class="mb-2">
                     <label for="name"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                     <input wire:model="name"
@@ -67,7 +77,7 @@
                         class="mt-2" />
                 </div>
                 @if ($payment['method'] == 2)
-                    <div class="mb-6">
+                    <div class="mb-2">
                         <label for="payment.details"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Details/Reference
                             Number (if any)</label>
@@ -79,7 +89,7 @@
                             class="mt-2" />
                     </div>
                 @endif
-                <div class="mb-6">
+                <div class="mb-4">
                     <label for="discount_id"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Discount

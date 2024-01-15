@@ -7,7 +7,23 @@
                 {{-- Uncomment the following line if $size->role is available --}}
                 {{-- <h1>{{ $size->role }}</h1> --}}
                 <h1 style="font-size: 18px; margin-bottom: 20px;">Catered by: {{ $order->user->name }}</h1>
-                <h1 style="font-size: 18px; margin-bottom: 20px;">
+                <h1 style="font-size: 18px; margin-bottom: 20px;">Remarks: {{ $order->remarks }}</h1>
+
+                @php
+                    $totalAmount = 0;
+                @endphp
+                <h2 style="font-size: 18px; margin-bottom: 10px;">Products in this Order:</h2>
+                <ul>
+                    @foreach ($order->orderItems as $orderItem)
+                        <li>{{ $orderItem->product->productDetail->name }} {{ $orderItem->product->size->name }} x
+                            {{ $orderItem->quantity }} - PHP {{ $orderItem->amount }}</li>
+                        @php
+                            $totalAmount += $orderItem->amount;
+                        @endphp
+                    @endforeach
+                </ul>
+                <h2 style="font-size: 18px; margin-bottom: 10px; margin-top: 20px;">Total amount: PHP {{ $totalAmount }}</h2>
+                <h2 style="font-size: 18px; margin-bottom: 10px;">
                     Discount:
                     @if ($order->discount_id != null)
                         {{ $order->discount->name }}
@@ -15,18 +31,9 @@
                     @else
                         N/A
                     @endif
-                </h1>
-                <h1 style="font-size: 18px; margin-bottom: 20px;">Remarks: {{ $order->remarks }}</h1>
+                </h2>
 
-                <h2 style="font-size: 18px; margin-bottom: 10px;">Products in this Order:</h2>
-                <ul>
-                    @foreach ($order->orderItems as $orderItem)
-                        <li>{{ $orderItem->product->productDetail->name }} {{ $orderItem->product->size->name }} x
-                            {{ $orderItem->quantity }} - PHP {{ $orderItem->amount }}</li>
-                    @endforeach
-                </ul>
-
-                <h2 style="font-size: 18px; margin-bottom: 10px;">Total amount: PHP {{ $order->total_amount }}</h2>
+                <h2 style="font-size: 18px; margin-bottom: 10px;">Final amount: PHP {{ $order->total_amount }}</h2>
                 <div style="margin-bottom: 20px;">
                     <table style="width: 100%; border-collapse: collapse;">
                         <thead>
