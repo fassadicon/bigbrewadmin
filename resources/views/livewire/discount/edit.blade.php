@@ -46,11 +46,16 @@
                 </div>
                 <div class="mb-2">
                     <label for="start_date"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date<span class="text-red-500 font-xs"> (Changing is prohibited to prevent discrepancies)</span></label>
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date
+                        @if ($form->start_date != null && $form->end_date != null)
+                            <span class="text-red-500 font-xs"> (Changing is prohibited to prevent discrepancies)</span>
+                        @endif
+                    </label>
                     <input wire:model="form.start_date"
                         type="date"
                         id="start_date"
-                        class="block w-full p-4 text-gray-900 border border-red-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:red-blue-500 dark:bg-gray-700 dark:border-red-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-red-500" disabled>
+                        class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500""
+                        @disabled($form->start_date != null && $form->end_date != null)>
                     <x-input-error :messages="$errors->get('form.start_date')"
                         class="mt-1" />
                 </div>

@@ -5,6 +5,7 @@ namespace App\Livewire\Pos;
 use App\Models\Order;
 use App\Models\Payment;
 use Livewire\Component;
+use App\Models\Discount;
 use App\Models\OrderItem;
 use Livewire\Attributes\On;
 use App\Models\InventoryLog;
@@ -19,6 +20,7 @@ class ConfirmOrder extends Component
     public $name;
     public $selectedProducts = [];
     public $currentTotalAmount;
+    public $discounts;
 
     public $payment = [
         'method' => 1,
@@ -35,6 +37,10 @@ class ConfirmOrder extends Component
             'name' => 'alpha'
         ];
         return $rules;
+    }
+
+    public function mount() {
+        $this->discounts = Discount::active()->get();
     }
 
     #[On('placing-order')]

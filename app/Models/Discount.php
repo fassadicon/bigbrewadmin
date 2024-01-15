@@ -38,6 +38,7 @@ class Discount extends Model
     // Functions
     public function ongoing()
     {
+        // return $this->where('status', 1);
         return $this->where('status', 1);
     }
 

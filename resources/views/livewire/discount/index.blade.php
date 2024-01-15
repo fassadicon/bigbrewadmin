@@ -131,9 +131,9 @@
                                 <th scope="col"
                                     class="px-4 py-3">Activity</th>
                                 <th scope="col"
-                                    class="px-4 py-3">Start</th>
+                                    class="px-4 py-3">Start on</th>
                                 <th scope="col"
-                                    class="px-4 py-3">End</th>
+                                    class="px-4 py-3">End before</th>
                                 <th scope="col"
                                     class="px-4 py-3">Status</th>
                                 <th scope="col"

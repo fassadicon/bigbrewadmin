@@ -60,14 +60,21 @@ class EditDiscountForm extends Form
         $this->validate();
 
         $status = 1;
-        if (Carbon::parse($this->end_date)->gt(Carbon::today())) {
+        if (Carbon::parse($this->start_date)->gt(Carbon::today())) {
             $status = 3;
         }
+
+        if (Carbon::parse($this->end_date)->lt(Carbon::today())) {
+            $status = 2;
+        }
+
+
 
         $this->discount->update([
             'name' => $this->name,
             'type' => $this->type,
             'value' => $this->value,
+            'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'status' => $status,
         ]);

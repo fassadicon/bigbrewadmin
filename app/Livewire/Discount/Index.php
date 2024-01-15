@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Discount;
 
+use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\Discount;
 use Livewire\Attributes\On;
@@ -59,6 +60,16 @@ class Index extends Component
 
     public function render()
     {
+        $all_discounts = Discount::all();
+
+        foreach ($all_discounts as $discount) {
+            if ($discount->end_date !== null) {
+                if (Carbon::parse($discount->end_date)->lt(Carbon::today())) {
+                    $discount->update(['status' => 2]);
+                }
+            }
+        }
+
         $discounts = Discount::withTrashed()
             ->search($this->search)
             ->when($this->status !== '', function ($query) {
