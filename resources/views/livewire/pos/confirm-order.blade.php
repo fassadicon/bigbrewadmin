@@ -79,6 +79,27 @@
                             class="mt-2" />
                     </div>
                 @endif
+                <div class="mb-6">
+                    <label for="discount_id"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Discount
+                    </label>
+                    <select wire:model.live='discount_id'
+                        wire:change='updateDiscount'
+                        name="discount_id"
+                        id="method"
+                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-800 focus:border-amber-800 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>No Discount</option>
+                        @foreach ($discounts as $discount)
+                            <option value="{{ $discount->id }}">
+                                {{ $discount->name }}
+                                (-{{ $discount->type === 2 ? intval($discount->value) . '%' : '₱' . intval($discount->value) }})
+                            </option>
+                        @endforeach
+                    </select>
+                    <x-input-error :messages="$errors->get('discount_id')"
+                        class="mt-2" />
+                </div>
                 <div>
                     <button type="submit"
                         wire:loading.attr="disabled"

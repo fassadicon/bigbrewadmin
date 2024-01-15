@@ -21,6 +21,7 @@ class ConfirmOrder extends Component
     public $selectedProducts = [];
     public $currentTotalAmount;
     public $discounts;
+    public $discount_id;
 
     public $payment = [
         'method' => 1,
@@ -33,14 +34,15 @@ class ConfirmOrder extends Component
     protected function rules()
     {
         $rules = [
-            'payment.payment_received' => 'required|numeric|min:' . $this->currentTotalAmount,
-            'name' => 'alpha'
+            'payment.payment_received' => 'required|numeric|min:' . $this->payment['amount'],
+            'name' => 'nullable|alpha'
         ];
         return $rules;
     }
 
-    public function mount() {
-        $this->discounts = Discount::active()->get();
+    public function mount()
+    {
+        $this->discounts = Discount::where('status', 1)->get();
     }
 
     #[On('placing-order')]
@@ -55,13 +57,24 @@ class ConfirmOrder extends Component
     {
         $this->validate();
 
-        $this->payment['change'] = floatval($this->payment['payment_received']) - $this->currentTotalAmount;
+        $this->payment['change'] = ceil(floatval($this->payment['payment_received']) - $this->payment['amount']);
     }
 
+    public function updateDiscount()
+    {
+        $discount = Discount::where('id', $this->discount_id)->first();
+        if ($discount->type == 2) {
+            $this->payment['amount'] = $this->currentTotalAmount - ($this->currentTotalAmount * ($discount->value / 100));
+        } else {
+            $this->payment['amount'] = $this->currentTotalAmount - $discount->value;
+        }
+        $this->payment['amount'] = round($this->payment['amount']);
+
+        $this->updateChange();
+    }
 
     public function completeOrder()
     {
-        // dd($this->selectedProducts);
         if ($this->payment['payment_received'] < $this->payment['amount']) {
             Toaster::warning('Payment received is less than total amount!');
             return;
@@ -82,7 +95,8 @@ class ConfirmOrder extends Component
             'user_id' => auth()->id(),
             'payment_id' => $payment->id,
             'total_amount' => $payment->amount,
-            'customer_name' => $this->name
+            'customer_name' => $this->name,
+            'discount_id' => $this->discount_id ?? null
         ]);
 
         foreach ($orderItems as $key => $orderItem) {
@@ -139,6 +153,8 @@ class ConfirmOrder extends Component
 
         $this->name = null;
 
+        $this->discount_id = null;
+
         $this->payment = [
             'method' => 1,
             'payment_received' => 0,
@@ -171,5 +187,15 @@ class ConfirmOrder extends Component
             fn () => print($printPDF),
             "receipt.pdf"
         );
+
+        $all_discounts = Discount::all();
+
+        foreach ($all_discounts as $discount) {
+            if ($discount->end_date !== null) {
+                if (Carbon::parse($discount->end_date)->lt(Carbon::today())) {
+                    $discount->update(['status' => 2]);
+                }
+            }
+        }
     }
 }

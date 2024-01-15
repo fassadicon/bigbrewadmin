@@ -70,13 +70,32 @@
 
         <hr>
 
+        @php
+            $totalAmount = 0;
+        @endphp
         @foreach ($order->orderItems as $orderItem)
             <p>{{ $orderItem->product->productDetail->name }} x {{ $orderItem->quantity }} -
                 {{ $orderItem->amount }}</p>
+            @php
+                $totalAmount += $orderItem->amount;
+            @endphp
         @endforeach
 
         <hr>
+        <p>Subtotal: {{ $totalAmount }}</p>
         <p>Payment Received: {{ $order->payment->payment_received }}</p>
+        @php
+            $discountUsed = 'None';
+            if ($order->discount_id != null) {
+                $discountUsed = $order->discount->name . ' ';
+                if (($order->discount->type === 2)) {
+                    $discountUsed .= ' - less ' . intval($order->discount->value) . '%';
+                } else {
+                    $discountUsed .= ' - less PHP ' . intval($order->discount->value) ;
+                }
+            }
+        @endphp
+        <p>Discount Used: {{ $discountUsed }}</p>
         <p>Change: {{ $order->payment->change }}</p>
         <h2>Total amount: {{ $order->total_amount }}</h2>
     </div>
