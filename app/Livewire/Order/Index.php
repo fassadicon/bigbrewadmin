@@ -91,6 +91,8 @@ class Index extends Component
             'cancelledOrders' => $cancelledOrders,
             'start_date' => Carbon::parse($this->start)->format('F j, Y'),
             'end_date' => Carbon::parse($this->end)->format('F j, Y'),
+            'printedAt' => Carbon::now()->format('F j, Y g:i A'),
+            'printedBy' => auth()->user()->name
         ])->output();
 
         return response()->streamDownload(

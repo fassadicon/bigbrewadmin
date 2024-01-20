@@ -40,7 +40,7 @@ class Sidebar extends Component
                 break;
             case 'product-categories':
                 $this->activePage = 'product-categories';
-                break;   
+                break;
             case 'sizes':
                 $this->activePage = 'sizes';
                 break;
@@ -58,13 +58,16 @@ class Sidebar extends Component
                 break;
             case 'suppliers':
                 $this->activePage = 'suppliers';
-                break;     
+                break;
             case 'delivery-receives':
                 $this->activePage = 'delivery-receives';
-                break;  
+                break;
             case 'users':
                 $this->activePage = 'users';
-                break;  
+                break;
+            case 'discounts':
+                $this->activePage = 'discounts';
+                break;
             // Add more cases for other routes
         }
     }

@@ -20,5 +20,13 @@ class OwnerSeeder extends Seeder
             'created_by' => 1
         ]);
         $owner->assignRole('Owner');
+
+        $owner2= User::create([
+            'name' => 'MJ Pava',
+            'email' => 'MJ@bigbrew.com',
+            'password' => bcrypt('password'),
+            'created_by' => 1
+        ]);
+        $owner2->assignRole('Owner');
     }
 }

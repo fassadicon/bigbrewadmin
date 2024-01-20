@@ -34,7 +34,7 @@
                 auth()->user()->hasRole('Owner'))
             <a href="{{ route('discounts') }}"
                 title="Discounts"
-                class="flex items-center h-10 px-3 hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25 rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
+                class="flex items-center h-10 px-3 {{ $activePage == 'discounts' ? 'text-white bg-amber-700' : 'hover:bg-amber-800 hover:text-amber-950 hover:bg-opacity-25' }} rounded-lg transition-colors duration-150 ease-in-out focus:outline-none focus:shadow-outline"
                 wire:navigate>
                 <i class="fa-solid fa-tag w-6"></i>
                 <span class="ml-2 duration-300 ease-in-out"

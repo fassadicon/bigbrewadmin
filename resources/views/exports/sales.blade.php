@@ -19,23 +19,43 @@
         td {
             border: 1px solid black;
         }
+
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        h3 {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
     </style>
 </head>
 
 <body>
     <h1>Big Brew Bayan-Bayanan: Sales Report</h1>
-    <p>From: {{ $start_date }}</p>
-    <p>End: {{ $end_date }}</p>
     <div class="row">
-        <div class="col-6">
+        <div>
+            <p>From: {{ $start_date }}</p>
+            <p>End: {{ $end_date }}</p>
+        </div>
+        <div>
+            <p>Printed at: {{ $printedAt }}</p>
+            <p>Printed by: {{ $printedBy }}</p>
+        </div>
+        <div>
             <h3>Total Cash Payment: {{ $totalCashPayments }}</h3>
             <h3>Total Online Payments: {{ $totalOnlinePayments }}</h3>
         </div>
-        <div class="col-6">
+        <div>
             <h3>Number of Completed Orders: {{ $completedOrders }}</h3>
             <h3>Number of Cancelled Orders: {{ $cancelledOrders }}</h3>
         </div>
-        <div class="col-12">
+        <div>
             <h2>Total Sales: {{ $totalSales }}</h2>
         </div>
     </div>
@@ -52,7 +72,7 @@
                 <th scope="col"
                     class="px-4 py-3">Total Amount</th>
                 <th scope="col"
-                    class="px-4 py-3">Payment Method</th>
+                    class="px-4 py-3">Method</th>
                 <th scope="col"
                     class="px-4 py-3">Status</th>
                 <th scope="col"
@@ -68,7 +88,7 @@
                         </th>
                         <td>
                             @foreach ($order->orderItems as $orderItem)
-                                <div>{{ $orderItem->product->productDetail->name }} x
+                                <div>{{ ucwords($orderItem->product->productDetail->name) }} x
                                     {{ $orderItem->quantity }}</div>
                             @endforeach
                         </td>
