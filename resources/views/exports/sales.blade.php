@@ -40,14 +40,6 @@
     <h1>Big Brew Bayan-Bayanan: Sales Report</h1>
     <div class="row">
         <div>
-            <p>From: {{ $start_date }}</p>
-            <p>End: {{ $end_date }}</p>
-        </div>
-        <div>
-            <p>Printed at: {{ $printedAt }}</p>
-            <p>Printed by: {{ $printedBy }}</p>
-        </div>
-        <div>
             <h3>Total Cash Payment: {{ $totalCashPayments }}</h3>
             <h3>Total Online Payments: {{ $totalOnlinePayments }}</h3>
         </div>
@@ -105,6 +97,17 @@
                 @endforelse
             </tbody>
         </table>
+    </div>
+
+    <div class="row" style="margin-top: 10px">
+        <div>
+            <p>From: {{ $start_date }}</p>
+            <p>End: {{ $end_date }}</p>
+        </div>
+        <div>
+            <p>Printed at: {{ $printedAt }}</p>
+            <p>Printed by: {{ $printedBy }}</p>
+        </div>
     </div>
 </body>
 
